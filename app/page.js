@@ -20,13 +20,16 @@ function useReveal() {
   }, []);
 }
 
+import { ALL_PRODUCTS } from '@/components/productsData';
+
 /* ── DATA ─────────────────────────────────── */
-const products = [
-  { id: 'mango-avakaya', name: 'Raw Mango Avakaya', tag: 'Bestseller', tagCls: 'badge-bestseller', price: '₹199', weight: '250g', emoji: '🥭', img: '/images/product_mango.png',  accent: '#C4603A', desc: 'The crown jewel of Andhra pickles — bold, fiery, sun-kissed' },
-  { id: 'gongura',       name: 'Gongura Pickle',    tag: 'Most Loved', tagCls: 'badge-most-loved', price: '₹179', weight: '250g', emoji: '🌿', img: '/images/product_gongura.png', accent: '#2D5A27', desc: 'Tangy sorrel leaves in sesame oil — unmistakably Andhra' },
-  { id: 'green-chili',   name: 'Green Chili Pickle', tag: 'Spicy 🌶️🌶️🌶️', tagCls: 'badge-spicy',      price: '₹159', weight: '250g', emoji: '🌶️', img: '/images/product_chili.png',  accent: '#16a34a', desc: 'Whole tender chilies in aromatic spiced sesame oil' },
-  { id: 'lemon',         name: 'Lemon Pickle',       tag: 'New',        tagCls: 'badge-new',        price: '₹149', weight: '250g', emoji: '🍋', img: null,                           accent: '#d97706', desc: 'Preserved lemons with turmeric and Kashmiri chili' },
-];
+// Pick 4 featured products from our main catalog
+const products = ALL_PRODUCTS.slice(0, 4).map(p => ({
+  ...p,
+  tag: p.badge,
+  tagCls: p.badgeClass,
+  accent: '#C4603A' // default accent color
+}));
 
 const ingredients = [
   { name: 'Raw Green Mangoes',       source: 'Andhra Orchards',   emoji: '🥭', bg: 'rgba(74,124,64,0.12)'  },
@@ -265,25 +268,12 @@ export default function HomePage() {
                     <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700, color: 'var(--rich-brown)', marginBottom: '0.5rem' }}>{p.name}</h3>
                     <p className="body-md" style={{ color: 'var(--aged-wood)', marginBottom: '1.25rem' }}>{p.desc}</p>
 
-                    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                      <div><span className="price">{p.price}</span><span className="price-unit">/ {p.weight}</span></div>
-                      <div style={{ display: 'flex', gap: '0.3rem' }}>
-                        {['250g', '500g', '1kg'].map(sz => (
-                          <button key={sz} style={{
-                            fontFamily: 'Lato, sans-serif', fontSize: '0.7rem', fontWeight: 700,
-                            padding: '0.25rem 0.45rem', borderRadius: '4px',
-                            border: sz === '250g' ? '1.5px solid var(--terracotta)' : '1.5px solid rgba(139,94,60,0.18)',
-                            background: sz === '250g' ? 'rgba(196,96,58,0.08)' : 'transparent',
-                            color: sz === '250g' ? 'var(--terracotta)' : 'var(--aged-wood)',
-                            cursor: 'pointer',
-                          }}>{sz}</button>
-                        ))}
-                      </div>
+                    {/* Display weight requirement instead of price/cart */}
+                    <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid rgba(139,94,60,0.1)' }}>
+                      <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', fontWeight: 700, color: 'var(--terracotta)' }}>
+                        Weight: min 250g - 2kg
+                      </p>
                     </div>
-
-                    <button id={`add-to-cart-${p.id}`} className="btn btn-terra" style={{ width: '100%', justifyContent: 'center', padding: '0.82rem' }}>
-                      <ShoppingCart size={16} /> Add to Cart
-                    </button>
                   </div>
                 </div>
               ))}
