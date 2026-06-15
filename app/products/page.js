@@ -21,35 +21,24 @@ import { ALL_PRODUCTS } from '@/components/productsData';
 
 const CATEGORIES = [
   FILTER_ALL,
-  '16 - Prepared Foods',
-  '15 - Ready-to-eat savouries',
-  '12 - Salts, spices, soups',
-  '18 - Indian Sweets & Snacks',
-  '01 - Dairy analogues',
-  '04 - Fruits, veg, nuts',
-  '14 - Beverages'
+  'Prepared Foods',
+  'Ready-to-eat savouries',
+  'Salts, spices, soups',
+  'Indian Sweets & Snacks'
 ];
 
 const SORT_OPTIONS = [SORT_FEATURED, SORT_TOP_RATED]; // Removed price sort options since price is removed
 
-const SPICE_LEVELS = [
-  { level: 0, label: 'All', emoji: '' },
-  { level: 1, label: 'Mild', emoji: '🌶️' },
-  { level: 2, label: 'Medium', emoji: '🌶️🌶️' },
-  { level: 3, label: 'Hot', emoji: '🌶️🌶️🌶️' },
-  { level: 4, label: 'Very Hot', emoji: '🌶️🌶️🌶️🌶️' },
-  { level: 5, label: 'Extreme', emoji: '🌶️🌶️🌶️🌶️🌶️' },
-];
+
 
 /**
  * Filter and sort logic moved to a helper function.
  * This separates business logic from UI rendering.
  */
-function getFilteredAndSortedProducts(products, category, spiceFilter, sortBy) {
+function getFilteredAndSortedProducts(products, category, sortBy) {
   let filtered = products.filter((p) => {
     const matchesCategory = category === FILTER_ALL || p.category === category;
-    const matchesSpice = spiceFilter === 0 || p.spice >= spiceFilter;
-    return matchesCategory && matchesSpice;
+    return matchesCategory;
   });
 
   if (sortBy === SORT_TOP_RATED) {
@@ -68,7 +57,7 @@ function ProductCard({ product, index }) {
   return (
     <div
       id={`product-${product.id}`}
-      className="reveal"
+      className="product-card-reveal"
       style={{
         background: 'var(--ivory)',
         borderRadius: '24px',
@@ -76,7 +65,7 @@ function ProductCard({ product, index }) {
         border: '1px solid rgba(139,94,60,0.08)',
         boxShadow: '0 20px 40px rgba(61,31,10,0.03)',
         transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease',
-        animationDelay: `${index * 0.05}s`,
+        animationDelay: `${Math.min(index, 8) * 0.06}s`,
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -136,9 +125,7 @@ function ProductCard({ product, index }) {
           </div>
         )}
 
-        <div style={{ position: 'absolute', bottom: '1rem', right: '1.5rem', fontSize: '1rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}>
-          {'🌶️'.repeat(product.spice)}
-        </div>
+
       </div>
 
       {/* Product Details Area */}
@@ -193,7 +180,7 @@ function ProductCard({ product, index }) {
 /**
  * Sidebar for category and spice filtering.
  */
-function FilterSidebar({ activeCategory, setActiveCategory, spiceFilter, setSpiceFilter }) {
+function FilterSidebar({ activeCategory, setActiveCategory }) {
   return (
     <aside style={{ width: '300px', flexShrink: 0 }} className="sidebar-hide-mobile">
       <div style={{ position: 'sticky', top: '100px' }}>
@@ -240,48 +227,7 @@ function FilterSidebar({ activeCategory, setActiveCategory, spiceFilter, setSpic
           })}
         </div>
 
-        {/* Spice Level Section */}
-        <h3
-          style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: '1.4rem',
-            fontWeight: 900,
-            color: 'var(--rich-brown)',
-            margin: '3rem 0 1.5rem',
-            paddingBottom: '1rem',
-            borderBottom: '2px solid rgba(139,94,60,0.1)',
-          }}
-        >
-          Spice Level
-        </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {SPICE_LEVELS.map((opt) => {
-            const isActive = spiceFilter === opt.level;
-            return (
-              <button
-                key={opt.level}
-                onClick={() => setSpiceFilter(opt.level)}
-                style={{
-                  textAlign: 'left',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  fontFamily: 'Lato, sans-serif',
-                  fontSize: '0.85rem',
-                  fontWeight: isActive ? 900 : 700,
-                  padding: '0.8rem 1rem',
-                  borderRadius: '12px',
-                  border: 'none',
-                  background: isActive ? 'rgba(196,96,58,0.1)' : 'transparent',
-                  color: isActive ? 'var(--terracotta)' : 'var(--aged-wood)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <span>{opt.label}</span> <span>{opt.emoji}</span>
-              </button>
-            );
-          })}
-        </div>
+
       </div>
     </aside>
   );
@@ -304,10 +250,10 @@ function EmptyState({ onClearFilters }) {
     >
       <div style={{ fontSize: '5rem', marginBottom: '1.5rem', opacity: 0.5 }}>🫙</div>
       <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.5rem', fontWeight: 900, color: 'var(--rich-brown)', marginBottom: '1rem' }}>
-        No Pickles Found
+        No foods found under this category
       </h3>
       <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.15rem', color: 'var(--aged-wood)', marginBottom: '2.5rem' }}>
-        Our pantry doesn't have anything matching those specific filters right now.
+        Our pantry doesn't have any foods under this category right now.
       </p>
       <button
         onClick={onClearFilters}
@@ -335,10 +281,14 @@ function EmptyState({ onClearFilters }) {
 
 export default function ProductsPage() {
   const [activeCategory, setActiveCategory] = useState(FILTER_ALL);
-  const [spiceFilter, setSpiceFilter] = useState(0);
   const [sortBy, setSortBy] = useState(SORT_FEATURED);
 
-  // Setup intersection observer for scroll animations
+  // Memoize filtered products for performance
+  const filteredProducts = useMemo(() => {
+    return getFilteredAndSortedProducts(ALL_PRODUCTS, activeCategory, sortBy);
+  }, [activeCategory, sortBy]);
+
+  // Setup reveal animation for non-product page elements (runs once)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -348,21 +298,14 @@ export default function ProductsPage() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
-
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  // Memoize filtered products for performance
-  const filteredProducts = useMemo(() => {
-    return getFilteredAndSortedProducts(ALL_PRODUCTS, activeCategory, spiceFilter, sortBy);
-  }, [activeCategory, spiceFilter, sortBy]);
-
   const handleClearFilters = () => {
     setActiveCategory(FILTER_ALL);
-    setSpiceFilter(0);
   };
 
   return (
@@ -376,6 +319,7 @@ export default function ProductsPage() {
             position: 'relative',
             overflow: 'hidden',
             minHeight: '60vh',
+            paddingTop: '80px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -443,8 +387,6 @@ export default function ProductsPage() {
             <FilterSidebar 
               activeCategory={activeCategory} 
               setActiveCategory={setActiveCategory} 
-              spiceFilter={spiceFilter} 
-              setSpiceFilter={setSpiceFilter} 
             />
 
             {/* ── Main Products Grid ── */}

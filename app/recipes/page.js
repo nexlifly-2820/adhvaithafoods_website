@@ -3,15 +3,93 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import InteractiveMixer from '@/components/InteractiveMixer';
 
+// One recipe per product category
 const recipes = [
-  { id: 'avakaya-rice', name: 'Avakaya Rice', time: '10 min', level: 'Easy', serves: 2, img: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop', color: '#C4603A', pickle: 'Mango Avakaya', desc: 'Hot rice tossed with mango pickle, sesame seeds, and a drizzle of ghee. The simplest and most satisfying Andhra meal.', ingredients: ['2 cups cooked rice (hot)', '3 tbsp Avdaitha Mango Avakaya', '2 tbsp sesame seeds (roasted)', '1 tbsp ghee', 'Fresh curry leaves'], method: 'Mix hot rice with pickle and ghee while the rice is still steaming. Top with roasted sesame and curry leaves. Serve immediately.' },
-  { id: 'gongura-chicken', name: 'Gongura Chicken', time: '45 min', level: 'Medium', serves: 4, img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800&auto=format&fit=crop', color: '#2D5A27', pickle: 'Gongura Pickle', desc: 'A classic Andhra chicken curry made with our gongura sorrel pickle for tangy depth. Bold, fiery, and unforgettable.', ingredients: ['500g chicken pieces', '4 tbsp Avdaitha Gongura Pickle', '2 onions, sliced', '4 garlic cloves', 'Oil, salt, spices to taste'], method: 'Fry onions until golden. Add chicken and sear. Add gongura pickle and a splash of water. Cook on low heat 30 min. Serve with roti.' },
-  { id: 'pickle-paratha', name: 'Pickle Paratha', time: '25 min', level: 'Easy', serves: 3, img: 'https://images.unsplash.com/photo-1606859191214-25806e8e2423?q=80&w=800&auto=format&fit=crop', color: '#8B5E3C', pickle: 'Any Pickle', desc: 'Flaky whole wheat flatbreads stuffed with spiced pickle filling. A perfect breakfast or snack that pairs any pickle beautifully.', ingredients: ['2 cups whole wheat flour', '2 tbsp Avdaitha pickle of choice', '¼ cup mashed potato (optional)', 'Ghee for cooking', 'Salt to taste'], method: 'Knead dough, divide into balls. Flatten, place pickle filling in center, seal, roll out gently. Cook on tawa with ghee until golden spots appear.' },
-  { id: 'chili-dal', name: 'Chili Pickle Dal', time: '30 min', level: 'Easy', serves: 3, img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop', color: '#C4603A', pickle: 'Green Chili', desc: 'Classic yellow dal elevated with a spoonful of our green chili pickle. Simple weekday comfort food at its best.', ingredients: ['1 cup toor dal (cooked)', '2 tbsp Avdaitha Green Chili Pickle', 'Turmeric, mustard seeds, curry leaves', 'Ghee for tempering', 'Salt to taste'], method: 'Prepare tempering with mustard seeds, curry leaves in ghee. Add dal and pickle. Simmer 10 minutes. Serve with steamed rice.' },
-  { id: 'lemon-rasam', name: 'Lemon Pickle Rasam', time: '20 min', level: 'Easy', serves: 4, img: 'https://images.unsplash.com/photo-1548943487-a2e4e43b4859?q=80&w=800&auto=format&fit=crop', color: '#E8A820', pickle: 'Lemon Pickle', desc: 'A deeply warming South Indian soup-broth made richer with a tablespoon of our lemon pickle. Perfect for cold evenings.', ingredients: ['2 cups tamarind water', '1 tbsp Avdaitha Lemon Pickle', 'Tomatoes, pepper, cumin', 'Hing (asafoetida)', 'Fresh coriander'], method: 'Boil tamarind water with tomatoes and spices. Add lemon pickle, simmer 10 min. Finish with hing tempering and fresh coriander.' },
-  { id: 'mango-curd-rice', name: 'Avakaya Curd Rice', time: '15 min', level: 'Easy', serves: 2, img: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?q=80&w=800&auto=format&fit=crop', color: '#2D5A27', pickle: 'Mango Avakaya', desc: 'Creamy curd rice with a spoonful of spicy mango pickle on top. The ultimate South Indian comfort food combination.', ingredients: ['2 cups cooked rice', '1 cup thick curd (yogurt)', '2 tbsp Avdaitha Mango Avakaya', 'Grated ginger', 'Pomegranate seeds (optional)'], method: 'Mix cooled rice with curd and ginger. Season with salt. Serve chilled with a generous spoonful of Avakaya on top.' },
+  {
+    id: 'allam-velluli-pickle-recipe',
+    name: 'Allam Velluli Pickle Rice',
+    category: 'Prepared Foods',
+    time: '10 min',
+    level: 'Easy',
+    serves: 2,
+    img: '/images/products/Allam_Velluli_Pickle_(ginger_garlic_pickle).jpeg',
+    color: '#C4603A',
+    pickle: 'Allam Velluli Pickle',
+    desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee. The simplest and most satisfying Andhra meal — ready in minutes.',
+    ingredients: [
+      '2 cups cooked rice (hot)',
+      '3 tbsp Avdaitha Allam Velluli Pickle',
+      '2 tbsp sesame seeds (roasted)',
+      '1 tbsp ghee',
+      'Fresh curry leaves',
+    ],
+    method:
+      'Mix hot rice with pickle and ghee while the rice is still steaming. Top with roasted sesame and curry leaves. Serve immediately with a side of papad.',
+  },
+  {
+    id: 'crispy-allu-chips',
+    name: 'Crispy Allu Chips',
+    category: 'Ready-to-eat Savouries',
+    time: '20 min',
+    level: 'Medium',
+    serves: 4,
+    img: '/images/products/Allu_Chips_(thinly_sliced_Indian_potato_chips).jpeg',
+    color: '#E8A820',
+    pickle: 'Allu Chips',
+    desc: 'Make perfectly crispy, golden potato chips at home with this simple traditional method. Perfectly seasoned for a delightful crunch.',
+    ingredients: [
+      '4 large starchy potatoes',
+      'Neutral cooking oil for deep frying',
+      '1 tsp salt',
+      '½ tsp red chili powder or black pepper',
+      'Cold water for soaking',
+    ],
+    method:
+      'Peel and slice potatoes thinly. Soak in cold water for 10 minutes to remove starch. Pat completely dry with a towel. Deep fry in batches in hot oil over medium heat until golden and crispy. Drain excess oil and immediately toss with salt and spices while hot.',
+  },
+  {
+    id: 'daniya-powder-rasam',
+    name: 'Daniya Powder Rasam',
+    category: 'Salts, spices, soups',
+    time: '20 min',
+    level: 'Easy',
+    serves: 4,
+    img: '/images/products/daniya-powder.jpg',
+    color: '#2D5A27',
+    pickle: 'Daniya Powder',
+    desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder. The perfect soothing soup for any day, paired beautifully with hot rice.',
+    ingredients: [
+      '1 lemon-sized tamarind (soaked and extracted)',
+      '1 chopped tomato',
+      '2 tbsp Avdaitha Daniya Powder',
+      '1 tsp mustard seeds, 1 tsp cumin seeds',
+      'Curry leaves, coriander, and ghee for tempering',
+    ],
+    method:
+      'Boil tamarind extract with tomato, turmeric, and salt until raw smell leaves. Add water to adjust consistency, then stir in Daniya Powder and simmer for 5 minutes. Temper mustard seeds, cumin, and curry leaves in ghee and pour over the rasam. Garnish with coriander.',
+  },
+  {
+    id: 'millets-kheer',
+    name: 'Millets Laddu Kheer',
+    category: 'Indian Sweets & Snacks',
+    time: '15 min',
+    level: 'Easy',
+    serves: 4,
+    img: '/images/products/millets-laddu.jpg',
+    color: '#8B5E3C',
+    pickle: 'Millets Laddu',
+    desc: 'A comforting, creamy kheer made by crumbling Millets Laddu into warm milk. A creative, no-sugar-needed dessert ready in 15 minutes — wholesome and deeply satisfying.',
+    ingredients: [
+      '2 Avdaitha Millets Laddu',
+      '2 cups full-fat milk (warm)',
+      'A pinch of cardamom powder',
+      'Chopped pistachios & almonds to garnish',
+      'A few strands of saffron (optional)',
+    ],
+    method:
+      'Crumble the Millets Laddu into warm milk and stir until dissolved. Add cardamom and saffron. Simmer on low heat for 5 minutes, stirring gently. Pour into bowls and garnish with chopped dry fruits. Serve warm or chilled.',
+  },
 ];
 
 export default function RecipesPage() {
@@ -38,37 +116,46 @@ export default function RecipesPage() {
         }}>
           {/* Background Image */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-             <img src="https://images.unsplash.com/photo-1556910103-1c02745a8726?q=80&w=2000&auto=format&fit=crop" alt="Cookbook background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+             <img src="https://images.unsplash.com/photo-1556910103-1c02745a8726?q=80&w=2000&auto=format&fit=crop" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,10,3,0.8), rgba(26,10,3,0.95))' }} />
           </div>
 
           <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px' }} className="reveal">
-            <span style={{ 
-              fontFamily: 'Dancing Script, cursive', fontSize: '2rem', color: 'var(--turmeric)', 
-              display: 'block', marginBottom: '1rem' 
-            }}>
-              In Grandmother's Cookbook
-            </span>
+
             <h1 style={{ 
               fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3.5rem, 8vw, 6rem)', 
               fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1 
             }}>
               Cook With<br />
-              <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Our Pickles</em>
+              <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Our Products</em>
             </h1>
             <p style={{ 
               fontFamily: 'Lato, sans-serif', fontSize: '1.25rem', color: 'rgba(250,240,220,0.8)', 
               lineHeight: 1.8 
             }}>
-              Traditional Andhra recipes that showcase the magic of a good pickle. Transform everyday meals into extraordinary feasts.
+              One signature recipe from each of our product categories — transforming everyday meals into extraordinary feasts.
             </p>
           </div>
         </section>
 
-        {/* Interactive Recipe Mixer Section */}
-        <section style={{ padding: '6rem 2rem', background: 'var(--cream)', position: 'relative', zIndex: 2, marginTop: '-3rem' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-             <InteractiveMixer />
+        {/* Category Badge Legend */}
+        <section style={{ padding: '3rem 2rem 0', background: 'var(--cream)' }}>
+          <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+            {[
+              { label: 'Prepared Foods', color: '#C4603A' },
+              { label: 'Ready-to-eat Savouries', color: '#E8A820' },
+              { label: 'Salts, Spices & Soups', color: '#2D5A27' },
+              { label: 'Indian Sweets & Snacks', color: '#8B5E3C' },
+            ].map(cat => (
+              <span key={cat.label} style={{
+                fontFamily: 'Lato, sans-serif', fontSize: '0.8rem', fontWeight: 900,
+                color: cat.color, background: `${cat.color}15`,
+                padding: '0.5rem 1.25rem', borderRadius: '8px',
+                border: `1px solid ${cat.color}30`, letterSpacing: '0.05em',
+              }}>
+                {cat.label}
+              </span>
+            ))}
           </div>
         </section>
 
@@ -107,13 +194,23 @@ export default function RecipesPage() {
                       onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
                     />
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,10,3,0.6), transparent)', pointerEvents: 'none' }} />
+                    {/* Category Badge */}
+                    <div style={{
+                      position: 'absolute', top: '1.5rem', left: '1.5rem',
+                      background: recipe.color, color: '#fff',
+                      fontFamily: 'Lato, sans-serif', fontSize: '0.7rem', fontWeight: 900,
+                      letterSpacing: '0.15em', textTransform: 'uppercase',
+                      padding: '0.4rem 0.9rem', borderRadius: '4px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                    }}>{recipe.category}</div>
                     <div style={{
                       position: 'absolute', bottom: '1.5rem', left: '1.5rem',
-                      background: recipe.color, color: '#fff',
+                      background: 'rgba(26,10,3,0.7)', color: '#fff',
                       fontFamily: 'Lato, sans-serif', fontSize: '0.75rem', fontWeight: 900,
-                      letterSpacing: '0.15em', textTransform: 'uppercase',
+                      letterSpacing: '0.12em', textTransform: 'uppercase',
                       padding: '0.5rem 1rem', borderRadius: '4px',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                      backdropFilter: 'blur(4px)',
                     }}>Featuring: {recipe.pickle}</div>
                   </div>
 
@@ -178,13 +275,13 @@ export default function RecipesPage() {
         <section style={{ background: 'var(--terracotta)', padding: '8rem 2rem', textAlign: 'center' }}>
           <div style={{ maxWidth: '700px', margin: '0 auto' }} className="reveal">
             <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1.2 }}>
-              Ready to Cook?<br /><em style={{ color: 'var(--turmeric)', fontStyle: 'italic' }}>Get Your Pickles First!</em>
+              Ready to Cook?<br /><em style={{ color: 'var(--turmeric)', fontStyle: 'italic' }}>Get Your Products First!</em>
             </h2>
             <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.25rem', color: 'rgba(250,240,220,0.9)', marginBottom: '3rem', lineHeight: 1.7 }}>
-              Stock up your pantry with our authentic artisan pickles and start creating these magical dishes in your own kitchen.
+              Stock up your pantry with our authentic artisan products and start creating these magical dishes in your own kitchen.
             </p>
             <Link href="/products" className="btn btn-outline-cream" style={{ fontSize: '1rem', padding: '1.25rem 3.5rem', border: '2px solid var(--ivory)', background: 'var(--ivory)', color: 'var(--terracotta)' }}>
-              Shop All Pickles →
+              Shop All Products →
             </Link>
           </div>
         </section>

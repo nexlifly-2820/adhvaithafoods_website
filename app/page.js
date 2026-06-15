@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import PickleSommelier from '@/components/PickleSommelier';
 import { ShoppingCart, ArrowRight, ChevronRight } from 'lucide-react';
 
 /* ── Scroll-reveal hook ───────────────────── */
@@ -49,19 +48,34 @@ const testimonials = [
 const trustBadges = ['🌿 100% Natural', '🚫 No Preservatives', '👵 Family Recipe Since 1970', '🏺 Traditional Method', '📦 Pan India Delivery', '☀️ Sun-Dried Always', '🪨 Stone-Ground Spices', '🫙 Glass Jars Only'];
 
 const recipes = [
-  { id: 'avakaya-rice',    name: 'Avakaya Rice',    time: '10 min', emoji: '🍚', color: '#C4603A', desc: 'Mango pickle tossed through hot rice with sesame and ghee' },
-  { id: 'gongura-chicken', name: 'Gongura Chicken', time: '45 min', emoji: '🍗', color: '#2D5A27', desc: 'Tangy sorrel chicken curry — a true Andhra classic' },
-  { id: 'pickle-paratha',  name: 'Pickle Paratha',  time: '25 min', emoji: '🫓', color: '#8B5E3C', desc: 'Crisp flatbread stuffed with spiced pickle filling' },
+  { id: 'allam-velluli-pickle-recipe',    name: 'Allam Velluli Pickle Rice',    time: '10 min', emoji: '🍚', color: '#C4603A', desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee.' },
+  { id: 'crispy-allu-chips', name: 'Crispy Allu Chips', time: '20 min', emoji: '🥔', color: '#E8A820', desc: 'Make perfectly crispy, golden potato chips at home with this simple traditional method.' },
+  { id: 'daniya-powder-rasam',  name: 'Daniya Powder Rasam',  time: '20 min', emoji: '🥣', color: '#2D5A27', desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder.' },
+  { id: 'millets-kheer', name: 'Millets Laddu Kheer', time: '15 min', emoji: '🍨', color: '#8B5E3C', desc: 'Comforting, creamy kheer made by crumbling Millets Laddu into warm milk.' },
 ];
 
 /* ═══════════════════════════════════════════════════
    HOMEPAGE
 ═══════════════════════════════════════════════════ */
+const HERO_IMAGES = [
+  '/images/hero-1-pickle.jpg',
+  '/images/hero-2-powder.jpg',
+  '/images/hero-3-laddu.jpg',
+];
+
 export default function HomePage() {
   useReveal();
   const [activeProduct, setActiveProduct] = useState(0);
   const [heroScale, setHeroScale] = useState(1);
   const [heroOpacity, setHeroOpacity] = useState(1);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,11 +120,19 @@ export default function HomePage() {
           }}>
             {/* The beautiful background video/image that will be revealed */}
             <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-              <img
-                src="https://images.unsplash.com/photo-1615486171448-4ffdc9481977?q=80&w=2000&auto=format&fit=crop"
-                alt="Spices background"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+              {HERO_IMAGES.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`Hero ${i + 1}`}
+                  style={{
+                    position: 'absolute', inset: 0,
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    opacity: currentHeroIndex === i ? 1 : 0,
+                    transition: 'opacity 1.5s ease-in-out'
+                  }}
+                />
+              ))}
               <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)' }} />
             </div>
             
@@ -122,23 +144,26 @@ export default function HomePage() {
               pointerEvents: 'none',
               transition: 'background 0.1s'
             }}>
-               <h1 style={{
-                 fontFamily: 'Playfair Display, serif',
-                 fontSize: '18vw', fontWeight: 900,
-                 color: '#000',
-                 WebkitTextStroke: '2px rgba(255,255,255,0.1)',
-                 // The magic mask
-                 background: `url('https://images.unsplash.com/photo-1615486171448-4ffdc9481977?q=80&w=2000&auto=format&fit=crop') center/cover`,
-                 WebkitBackgroundClip: 'text',
-                 WebkitTextFillColor: 'transparent',
-                 transform: `scale(${heroScale})`,
-                 transformOrigin: '50% 50%',
-                 transition: 'transform 0.1s cubic-bezier(0.1, 0.5, 0.9, 0.5)',
-                 whiteSpace: 'nowrap',
-                 opacity: heroOpacity > 0 ? 1 : 0
-               }}>
-                 AVDAITHA
-               </h1>
+              {HERO_IMAGES.map((src, i) => (
+                <h1 key={`mask-${src}`} style={{
+                  position: 'absolute',
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '18vw', fontWeight: 900,
+                  color: '#000',
+                  WebkitTextStroke: '2px rgba(255,255,255,0.1)',
+                  // The magic mask
+                  background: `url('${src}') center/cover`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  transform: `scale(${heroScale})`,
+                  transformOrigin: '50% 50%',
+                  transition: 'transform 0.1s cubic-bezier(0.1, 0.5, 0.9, 0.5), opacity 1.5s ease-in-out',
+                  whiteSpace: 'nowrap',
+                  opacity: currentHeroIndex === i && heroOpacity > 0 ? 1 : 0
+                }}>
+                  AVDAITHA
+                </h1>
+              ))}
             </div>
 
             {/* Scroll Indicator */}
@@ -157,55 +182,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ OFFICIAL FSSAI CATEGORIES SHOWCASE ═════════════════════════ */}
-        <section style={{ background: '#f8f5f0', padding: '6rem 2rem', position: 'relative', zIndex: 3 }}>
-          <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '4rem' }} className="reveal">
-              <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--forest-green)' }}>Official Range</span>
-              <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 900, color: 'var(--rich-brown)', marginTop: '0.5rem' }}>Our Certified Categories</h2>
-            </div>
-            
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-              gap: '1.5rem' 
-            }}>
-              {[
-                { title: 'Prepared Foods', num: '16' },
-                { title: 'Ready-to-eat savouries', num: '15' },
-                { title: 'Salts, spices, soups & sauces', num: '12' },
-                { title: 'Indian Sweets & Snacks', num: '18' },
-                { title: 'Dairy products and analogues', num: '01' },
-                { title: 'Fruits, vegetables, nuts & seeds', num: '04' },
-                { title: 'Beverages (excluding dairy)', num: '14' },
-              ].map((cat, i) => (
-                <div key={i} className="reveal magnetic" style={{
-                  background: '#fff', borderRadius: '16px', padding: '2rem',
-                  border: '1px solid rgba(139,94,60,0.1)',
-                  boxShadow: '0 10px 30px rgba(61,31,10,0.02)',
-                  display: 'flex', alignItems: 'center', gap: '1.5rem',
-                  transition: 'all 0.3s ease',
-                  animationDelay: `${i * 0.1}s`
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  <div style={{ 
-                    width: '50px', height: '50px', borderRadius: '50%', 
-                    background: 'rgba(196,96,58,0.1)', color: 'var(--terracotta)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 900
-                  }}>
-                    {cat.num}
-                  </div>
-                  <h3 style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', fontWeight: 700, color: 'var(--rich-brown)', lineHeight: 1.4 }}>
-                    {cat.title}
-                  </h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
 
         {/* ══ MARQUEE TRUST BAR ══════════════════════ */}
         <div style={{
@@ -227,12 +204,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ══ INTERACTIVE TASTE FINDER ══════════════ */}
-        <section id="taste-finder" className="section-pad-xl" style={{ background: 'var(--cream)', padding: '6rem 2rem' }}>
-          <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1400px', margin: '0 auto' }}>
-             <PickleSommelier />
-          </div>
-        </section>
+
 
         {/* ══ PRODUCTS ═══════════════════════════════ */}
         <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
@@ -531,7 +503,7 @@ export default function HomePage() {
                 { 
                   step: '02', title: 'PREPARING', subtitle: 'The rhythmic stone grinding',
                   text: 'We never use pre-mixed powders. Every morning, our spices are stone-ground in small batches to release their natural essential oils. The rhythmic sound of the mortar and pestle is the heartbeat of our kitchen, ensuring unparalleled aroma.',
-                  img: 'https://images.unsplash.com/photo-1606850780554-b55ea44f45ce?q=80&w=1200&auto=format&fit=crop'
+                  img: '/images/Washing_Prep.png'
                 },
                 { 
                   step: '03', title: 'SUN DRYING', subtitle: 'Patience under the sun',
@@ -541,7 +513,7 @@ export default function HomePage() {
                 { 
                   step: '04', title: 'JARRING', subtitle: 'Sealed with love',
                   text: 'The final masterpiece is hand-packed into sterilized glass jars, preserving the purity and integrity of the pickle. Each jar is sealed tightly, holding within it three generations of culinary heritage, ready to be delivered to your table.',
-                  img: 'https://images.unsplash.com/photo-1589255474136-22a00cb0b230?q=80&w=1200&auto=format&fit=crop'
+                  img: '/images/Hand-packing.png'
                 },
               ].map((item, i) => {
                 const isEven = i % 2 === 0;
@@ -710,25 +682,28 @@ export default function HomePage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.75rem' }}>
               {recipes.map((r, i) => (
-                <Link key={r.id} href="/recipes" id={`recipe-${r.id}`} style={{ textDecoration: 'none' }}>
+                <Link key={r.id} href="/recipes" id={`recipe-${r.id}`} style={{ textDecoration: 'none', display: 'flex' }}>
                   <div className="reveal" style={{
                     borderRadius: '16px', background: '#fff',
                     border: '1px solid rgba(139,94,60,0.1)',
                     overflow: 'hidden', cursor: 'pointer',
                     transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease',
                     animationDelay: `${i * 0.12}s`,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
                   }}
                     onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 20px 48px rgba(61,31,10,0.13)'; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                   >
-                    <div style={{ height: '180px', background: `linear-gradient(135deg, ${r.color}20, ${r.color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem', position: 'relative' }}>
+                    <div style={{ height: '180px', flexShrink: 0, background: `linear-gradient(135deg, ${r.color}20, ${r.color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem', position: 'relative' }}>
                       {r.emoji}
                       <div style={{ position: 'absolute', bottom: '10px', right: '12px', fontFamily: 'Lato, sans-serif', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.08em', color: r.color, background: 'rgba(255,255,255,0.9)', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>⏱ {r.time}</div>
                     </div>
-                    <div style={{ padding: '1.5rem 1.75rem' }}>
+                    <div style={{ padding: '1.5rem 1.75rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                       <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700, color: 'var(--rich-brown)', marginBottom: '0.4rem' }}>{r.name}</h3>
-                      <p className="body-md" style={{ color: 'var(--aged-wood)', marginBottom: '1rem' }}>{r.desc}</p>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Lato, sans-serif', fontWeight: 900, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: r.color }}>
+                      <p className="body-md" style={{ color: 'var(--aged-wood)', marginBottom: '1.5rem', flexGrow: 1 }}>{r.desc}</p>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Lato, sans-serif', fontWeight: 900, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--terracotta)' }}>
                         View Recipe <ChevronRight size={14} />
                       </div>
                     </div>
@@ -739,31 +714,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ NEWSLETTER ═════════════════════════════ */}
-        <section id="newsletter" style={{ background: 'var(--rich-brown)', padding: '6rem 2rem', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', top: '-6rem', right: '-6rem', width: '450px', height: '450px', borderRadius: '50%', background: 'rgba(196,96,58,0.06)', pointerEvents: 'none' }} />
-          <div className="container-sm reveal" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            <span className="eyebrow" style={{ color: 'var(--turmeric)' }}>The Pickle Newsletter</span>
-            <h2 className="display-md" style={{ color: 'var(--ivory)', marginBottom: '0.75rem', marginTop: '0.4rem' }}>
-              Get Recipes &amp; <em style={{ color: 'var(--turmeric)', fontStyle: 'italic' }}>Exclusive Offers</em>
-            </h2>
-            <p className="body-xl" style={{ color: 'rgba(250,240,220,0.6)', marginBottom: '2.25rem' }}>
-              Join 10,000+ pickle lovers. Seasonal recipes, new launch alerts, and members-only discounts.
-            </p>
-            <form id="newsletter-form" onSubmit={e => e.preventDefault()} style={{ display: 'flex', gap: '0.75rem', maxWidth: '500px', margin: '0 auto 1rem' }} className="newsletter-form">
-              <input
-                id="newsletter-email"
-                type="email" required placeholder="Enter your email address"
-                className="premium-input"
-                style={{ flex: 1, background: 'rgba(250,240,220,0.07)', border: '1.5px solid rgba(250,240,220,0.18)', color: 'var(--ivory)', borderRadius: '4px' }}
-                onFocus={e => e.target.style.borderColor = 'var(--turmeric)'}
-                onBlur={e => e.target.style.borderColor = 'rgba(250,240,220,0.18)'}
-              />
-              <button id="newsletter-btn" type="submit" className="btn btn-terra" style={{ flexShrink: 0 }}>Subscribe</button>
-            </form>
-            <p className="body-sm" style={{ color: 'rgba(250,240,220,0.3)' }}>No spam. Only pickle love. Unsubscribe anytime.</p>
-          </div>
-        </section>
+
       </main>
 
       <Footer />
@@ -777,9 +728,7 @@ export default function HomePage() {
           .heritage-text-card { transform: none !important; margin: 0 1rem; }
           .process-flow-row { flexDirection: column !important; gap: 4rem !important; }
         }
-        @media (max-width: 480px) {
-          .newsletter-form { flex-direction: column !important; }
-        }
+
       `}</style>
     </>
   );
