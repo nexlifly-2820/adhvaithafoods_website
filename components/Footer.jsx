@@ -22,9 +22,9 @@ const YoutubeIcon = () => (
 );
 
 export default function Footer() {
-  const quickLinks = ['Home', 'Products', 'Our Story', 'Process', 'Recipes', 'Blog', 'Contact'];
-  const quickHrefs = ['/', '/products', '/our-story', '/how-we-make-it', '/recipes', '/blog', '/contact'];
-  const pickles = ['Mango Avakaya', 'Gongura', 'Lemon', 'Green Chili', 'Garlic', 'Mixed Veg', 'Tomato', 'Tamarind'];
+  const quickLinks = ['Home', 'Products', 'Our Story', 'Process', 'Recipes', 'Contact', 'Terms & Conditions', 'Privacy Policy'];
+  const quickHrefs = ['/', '/products', '/our-story', '/how-we-make-it', '/recipes', '/contact', '/terms-and-conditions', '/privacy-policy'];
+  const categories = ['Prepared Foods', 'Ready-to-eat Savouries', 'Salts, Spices & Soups', 'Indian Sweets & Snacks'];
 
   return (
     <footer style={{ background: 'var(--rich-brown)', color: 'var(--ivory)', position: 'relative' }}>
@@ -142,17 +142,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Our Pickles */}
+          {/* Column 3: Our Categories */}
           <div>
             <h4 style={{
               fontFamily: 'var(--font-lato, sans-serif)',
               fontSize: '0.75rem', fontWeight: 700,
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: 'var(--turmeric)', marginBottom: '1.25rem',
-            }}>Our Pickles</h4>
+            }}>Our Categories</h4>
             <ul style={{ listStyle: 'none' }}>
-              {pickles.map(pickle => (
-                <li key={pickle} style={{ marginBottom: '0.5rem' }}>
+              {categories.map(cat => (
+                <li key={cat} style={{ marginBottom: '0.5rem' }}>
                   <Link
                     href="/products"
                     style={{
@@ -166,7 +166,7 @@ export default function Footer() {
                     onMouseEnter={e => e.currentTarget.style.color = 'var(--turmeric)'}
                     onMouseLeave={e => e.currentTarget.style.color = 'rgba(250,240,220,0.75)'}
                   >
-                    🫙 {pickle}
+                    🏷️ {cat}
                   </Link>
                 </li>
               ))}
@@ -224,13 +224,13 @@ export default function Footer() {
           }}>FSSAI Registered Food Categories</h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {[
-              '16 - Prepared Foods', 
-              '15 - Ready-to-eat savouries', 
-              '12 - Salts, spices, soups, sauces, salads', 
-              '18 - Indian Sweets and Snacks & Savouries', 
-              '01 - Dairy products and analogues', 
-              '04 - Fruits and vegetables, seaweeds, nuts and seeds', 
-              '14 - Beverages, excluding dairy'
+              'Prepared Foods', 
+              'Ready-to-eat Savouries', 
+              'Salts, Spices, Soups & Sauces', 
+              'Indian Sweets and Snacks & Savouries', 
+              'Dairy Products and Analogues', 
+              'Fruits and Vegetables, Seaweeds, Nuts and Seeds', 
+              'Beverages, excluding Dairy'
             ].map((cat, i) => (
               <span key={i} style={{
                 background: 'rgba(250,240,220,0.05)',

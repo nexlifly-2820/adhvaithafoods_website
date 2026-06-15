@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 /**
@@ -25,6 +26,7 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -128,16 +130,19 @@ export default function Navbar() {
 
             {/* Desktop Navigation Links */}
             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }} className="desk-nav">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="nav-link"
-                  style={{ color: isScrolled ? 'var(--rich-brown)' : 'rgba(250,240,220,0.85)' }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`nav-link ${isActive ? 'active' : ''}`}
+                    style={{ color: isScrolled ? 'var(--rich-brown)' : 'rgba(250,240,220,0.85)' }}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Mobile Menu Toggle Button */}

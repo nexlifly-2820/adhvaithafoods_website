@@ -2,7 +2,7 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-0",
     "name": "Aamchur Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 104,
     "spice": 3,
@@ -15,7 +15,7 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-1",
     "name": "All Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 422,
     "spice": 4,
@@ -28,7 +28,7 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-2",
     "name": "All Snacks",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 125,
     "spice": 4,
@@ -41,7 +41,7 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-3",
     "name": "Allam Avakaya",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 227,
     "spice": 3,
@@ -54,7 +54,7 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-4",
     "name": "Allam Velluli Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 538,
     "spice": 4,
@@ -67,20 +67,20 @@ export const ALL_PRODUCTS = [
   {
     "id": "prod-5",
     "name": "Allam Velluli Pickle",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
-    "reviews": 157,
+    "reviews": 415,
     "spice": 4,
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allam-velluli-pickle.jpg",
+    "img": "/images/products/Allam_Velluli_Pickle_(ginger_garlic_pickle).jpeg",
     "desc": "Premium Allam Velluli Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
     "id": "prod-6",
     "name": "Allam Velluli Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 260,
     "spice": 4,
@@ -92,34 +92,8 @@ export const ALL_PRODUCTS = [
   },
   {
     "id": "prod-7",
-    "name": "Allam Velluli Pickle",
-    "category": "All",
-    "rating": 5,
-    "reviews": 415,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/Allam_Velluli_Pickle_(ginger_garlic_pickle).jpeg",
-    "desc": "Premium Allam Velluli Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
-  },
-  {
-    "id": "prod-8",
     "name": "Allu Chips",
-    "category": "All",
-    "rating": 5,
-    "reviews": 238,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/allu-chips.jpg",
-    "desc": "Premium Allu Chips. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-9",
-    "name": "Allu Chips",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 268,
     "spice": 3,
@@ -130,22 +104,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Allu Chips. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-10",
+    "id": "prod-8",
     "name": "Bellam Avakaya",
-    "category": "All",
-    "rating": 5,
-    "reviews": 407,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/bellam-avakaya.jpg",
-    "desc": "Premium Bellam Avakaya. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
-  },
-  {
-    "id": "prod-11",
-    "name": "Bellam Avakaya",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 423,
     "spice": 2,
@@ -156,9 +117,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Bellam Avakaya. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
-    "id": "prod-12",
+    "id": "prod-9",
     "name": "Biryani Masala",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 265,
     "spice": 4,
@@ -169,22 +130,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Biryani Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-13",
+    "id": "prod-10",
     "name": "Bundhi",
-    "category": "All",
-    "rating": 5,
-    "reviews": 419,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/bundhi.jpg",
-    "desc": "Premium Bundhi. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-14",
-    "name": "Bundhi",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 208,
     "spice": 4,
@@ -195,22 +143,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Bundhi. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-15",
+    "id": "prod-11",
     "name": "Chakinalu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 333,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/chakinalu.jpg",
-    "desc": "Premium Chakinalu. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-16",
-    "name": "Chakinalu",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 361,
     "spice": 4,
@@ -221,9 +156,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Chakinalu. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-17",
+    "id": "prod-12",
     "name": "Chakodi",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 138,
     "spice": 2,
@@ -234,9 +169,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Chakodi. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-18",
+    "id": "prod-13",
     "name": "Chicken Masala",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 155,
     "spice": 2,
@@ -247,9 +182,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Chicken Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-19",
+    "id": "prod-14",
     "name": "Chicken Masala Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 492,
     "spice": 2,
@@ -260,22 +195,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Chicken Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-20",
+    "id": "prod-15",
     "name": "Daniya Powder",
-    "category": "All",
-    "rating": 5,
-    "reviews": 288,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/daniya-powder.jpg",
-    "desc": "Premium Daniya Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
-  },
-  {
-    "id": "prod-21",
-    "name": "Daniya Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 241,
     "spice": 3,
@@ -286,22 +208,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Daniya Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-22",
+    "id": "prod-16",
     "name": "Dry Fruits Laddu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 174,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/dry-fruits-laddu.jpg",
-    "desc": "Premium Dry Fruits Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-23",
-    "name": "Dry Fruits Laddu",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 357,
     "spice": 2,
@@ -312,9 +221,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Dry Fruits Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-24",
+    "id": "prod-17",
     "name": "Garam Masala",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 575,
     "spice": 4,
@@ -325,9 +234,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Garam Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-25",
+    "id": "prod-18",
     "name": "Garam Masala Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 188,
     "spice": 4,
@@ -338,22 +247,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Garam Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-26",
+    "id": "prod-19",
     "name": "Gondh Laddu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 297,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/gondh-laddu.jpg",
-    "desc": "Premium Gondh Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-27",
-    "name": "Gondh Laddu",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 312,
     "spice": 3,
@@ -364,22 +260,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Gondh Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-28",
+    "id": "prod-20",
     "name": "Haldi Powder",
-    "category": "All",
-    "rating": 5,
-    "reviews": 230,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/haldi-powder.jpg",
-    "desc": "Premium Haldi Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
-  },
-  {
-    "id": "prod-29",
-    "name": "Haldi Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 516,
     "spice": 3,
@@ -390,22 +273,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Haldi Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-30",
+    "id": "prod-21",
     "name": "Karam Janthukalu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 450,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/karam-janthukalu.jpg",
-    "desc": "Premium Karam Janthukalu. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
-  },
-  {
-    "id": "prod-31",
-    "name": "Karam Janthukalu",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 559,
     "spice": 3,
@@ -416,9 +286,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Karam Janthukalu. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-32",
+    "id": "prod-22",
     "name": "Karvepaku Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 265,
     "spice": 2,
@@ -429,9 +299,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Karvepaku Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-33",
+    "id": "prod-23",
     "name": "Karvepaku Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 251,
     "spice": 4,
@@ -442,22 +312,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Karvepaku Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-34",
+    "id": "prod-24",
     "name": "Khara Mixture",
-    "category": "All",
-    "rating": 5,
-    "reviews": 285,
-    "spice": 3,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/khara-mixture.jpg",
-    "desc": "Premium Khara Mixture. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-35",
-    "name": "Khara Mixture",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 296,
     "spice": 4,
@@ -468,22 +325,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Khara Mixture. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-36",
+    "id": "prod-25",
     "name": "Kova Gulam Jamun",
-    "category": "All",
-    "rating": 5,
-    "reviews": 412,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/kova-gulam-jamun.jpg",
-    "desc": "Premium Kova Gulam Jamun. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-37",
-    "name": "Kova Gulam Jamun",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 292,
     "spice": 2,
@@ -494,9 +338,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Kova Gulam Jamun. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-38",
+    "id": "prod-26",
     "name": "Makha Chips",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 383,
     "spice": 4,
@@ -507,9 +351,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Makha Chips. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-39",
+    "id": "prod-27",
     "name": "Mango Pickle",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 502,
     "spice": 4,
@@ -520,9 +364,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Mango Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
-    "id": "prod-40",
+    "id": "prod-28",
     "name": "Masala Murmura",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 442,
     "spice": 4,
@@ -533,22 +377,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Masala Murmura. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-41",
+    "id": "prod-29",
     "name": "Menthi Podi",
-    "category": "All",
-    "rating": 5,
-    "reviews": 335,
-    "spice": 3,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/menthi-podi.jpg",
-    "desc": "Premium Menthi Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
-  },
-  {
-    "id": "prod-42",
-    "name": "Menthi Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 150,
     "spice": 4,
@@ -559,22 +390,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Menthi Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-43",
+    "id": "prod-30",
     "name": "Millets Laddu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 116,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/millets-laddu.jpg",
-    "desc": "Premium Millets Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-44",
-    "name": "Millets Laddu",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 236,
     "spice": 3,
@@ -585,9 +403,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Millets Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-45",
+    "id": "prod-31",
     "name": "Mirchi Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 481,
     "spice": 3,
@@ -598,9 +416,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Mirchi Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-46",
+    "id": "prod-32",
     "name": "Munagaku Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 184,
     "spice": 4,
@@ -611,9 +429,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Munagaku Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-47",
+    "id": "prod-33",
     "name": "Munagaku Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 517,
     "spice": 4,
@@ -624,9 +442,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Munagaku Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-48",
+    "id": "prod-34",
     "name": "Munagaku Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 205,
     "spice": 4,
@@ -637,9 +455,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Munagaku Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-49",
+    "id": "prod-35",
     "name": "Muthyala Chudwa",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 410,
     "spice": 2,
@@ -650,9 +468,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Muthyala Chudwa. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-50",
+    "id": "prod-36",
     "name": "Mutton Masala",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 413,
     "spice": 4,
@@ -663,9 +481,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Mutton Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-51",
+    "id": "prod-37",
     "name": "Mutton Masala Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 189,
     "spice": 3,
@@ -676,22 +494,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Mutton Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-52",
+    "id": "prod-38",
     "name": "Nuvvula Papad",
-    "category": "All",
-    "rating": 5,
-    "reviews": 312,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/nuvvula-papad.jpg",
-    "desc": "Premium Nuvvula Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-53",
-    "name": "Nuvvula Papad",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 263,
     "spice": 4,
@@ -702,22 +507,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Nuvvula Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-54",
+    "id": "prod-39",
     "name": "Onion Whills",
-    "category": "All",
-    "rating": 5,
-    "reviews": 496,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/onion-whills.jpg",
-    "desc": "Premium Onion Whills. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-55",
-    "name": "Onion Whills",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 536,
     "spice": 4,
@@ -728,22 +520,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Onion Whills. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-56",
+    "id": "prod-40",
     "name": "Palli Patti",
-    "category": "All",
-    "rating": 5,
-    "reviews": 353,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/palli-patti.jpg",
-    "desc": "Premium Palli Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-57",
-    "name": "Palli Patti",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 465,
     "spice": 2,
@@ -754,9 +533,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Palli Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-58",
+    "id": "prod-41",
     "name": "Pandu Mirchi",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 356,
     "spice": 4,
@@ -767,9 +546,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Pandu Mirchi. Premium quality traditional Andhra delicacy made with authentic ingredients and time-honored recipes."
   },
   {
-    "id": "prod-59",
+    "id": "prod-42",
     "name": "Putnala Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 143,
     "spice": 4,
@@ -780,9 +559,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Putnala Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-60",
+    "id": "prod-43",
     "name": "Putnala Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 266,
     "spice": 2,
@@ -793,22 +572,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Putnala Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-61",
+    "id": "prod-44",
     "name": "Rice Papad",
-    "category": "All",
-    "rating": 5,
-    "reviews": 382,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/rice-papad.jpg",
-    "desc": "Premium Rice Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-62",
-    "name": "Rice Papad",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 443,
     "spice": 3,
@@ -819,9 +585,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Rice Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-63",
+    "id": "prod-45",
     "name": "Sambhar Masala",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 555,
     "spice": 2,
@@ -832,9 +598,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Sambhar Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-64",
+    "id": "prod-46",
     "name": "Sambhar Masala Powder",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 413,
     "spice": 2,
@@ -845,9 +611,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Sambhar Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-65",
+    "id": "prod-47",
     "name": "Special Idli Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 598,
     "spice": 4,
@@ -858,9 +624,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Special Idli Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-66",
+    "id": "prod-48",
     "name": "Special Kura Karam",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 310,
     "spice": 3,
@@ -871,9 +637,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Special Kura Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-67",
+    "id": "prod-49",
     "name": "Special Idli Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 135,
     "spice": 4,
@@ -884,9 +650,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Special Idli Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-68",
+    "id": "prod-50",
     "name": "Special Kura Karam Podi",
-    "category": "All",
+    "category": "Salts, spices, soups",
     "rating": 5,
     "reviews": 376,
     "spice": 4,
@@ -897,22 +663,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Special Kura Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
-    "id": "prod-69",
+    "id": "prod-51",
     "name": "Sunnunda Laddu",
-    "category": "All",
-    "rating": 5,
-    "reviews": 246,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/sunnunda-laddu.jpg",
-    "desc": "Premium Sunnunda Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-70",
-    "name": "Sunnunda Laddu",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 379,
     "spice": 4,
@@ -923,22 +676,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Sunnunda Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-71",
+    "id": "prod-52",
     "name": "Sweet Chekki",
-    "category": "All",
-    "rating": 5,
-    "reviews": 103,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/sweet-chekki.jpg",
-    "desc": "Premium Sweet Chekki. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-72",
-    "name": "Sweet Chekki",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 269,
     "spice": 4,
@@ -949,22 +689,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Sweet Chekki. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-73",
+    "id": "prod-53",
     "name": "Thill Patti",
-    "category": "All",
-    "rating": 5,
-    "reviews": 184,
-    "spice": 4,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/thill-patti.jpg",
-    "desc": "Premium Thill Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
-  },
-  {
-    "id": "prod-74",
-    "name": "Thill Patti",
-    "category": "All",
+    "category": "Indian Sweets & Snacks",
     "rating": 5,
     "reviews": 333,
     "spice": 3,
@@ -975,22 +702,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Thill Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
-    "id": "prod-75",
+    "id": "prod-54",
     "name": "Tomato Chilli Papad",
-    "category": "All",
-    "rating": 5,
-    "reviews": 583,
-    "spice": 3,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/tomato-chilli-papad.jpg",
-    "desc": "Premium Tomato Chilli Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
-  },
-  {
-    "id": "prod-76",
-    "name": "Tomato Chilli Papad",
-    "category": "All",
+    "category": "Ready-to-eat savouries",
     "rating": 5,
     "reviews": 542,
     "spice": 3,
@@ -1001,22 +715,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Tomato Chilli Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
-    "id": "prod-77",
+    "id": "prod-55",
     "name": "Uppava",
-    "category": "All",
-    "rating": 5,
-    "reviews": 512,
-    "spice": 2,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/uppava.jpg",
-    "desc": "Premium Uppava. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
-  },
-  {
-    "id": "prod-78",
-    "name": "Uppava",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 516,
     "spice": 2,
@@ -1027,22 +728,9 @@ export const ALL_PRODUCTS = [
     "desc": "Premium Uppava. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
-    "id": "prod-79",
+    "id": "prod-56",
     "name": "Usiri Pickle",
-    "category": "All",
-    "rating": 5,
-    "reviews": 366,
-    "spice": 3,
-    "badge": null,
-    "badgeClass": "",
-    "emoji": "🏺",
-    "img": "/images/products/usiri-pickle.jpg",
-    "desc": "Premium Usiri Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
-  },
-  {
-    "id": "prod-80",
-    "name": "Usiri Pickle",
-    "category": "All",
+    "category": "Prepared Foods",
     "rating": 5,
     "reviews": 226,
     "spice": 4,

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
@@ -20,7 +20,7 @@ const timeline = [
     title: 'The Second Generation',
     person: 'Mother Sarada & Aunties',
     desc: 'Ammayya\'s daughters learned every secret. The exact ratio of fenugreek to mustard. How many days the mango should sun-dry. They began selling at the local market, expanding to Hyderabad. The recipes were written down for the first time — in a worn notebook.',
-    img: 'https://images.unsplash.com/photo-1606850780554-b55ea44f45ce?q=80&w=800&auto=format&fit=crop',
+    img: '/images/Second_Generation.png',
     color: '#2D5A27',
     id: 'timeline-1995',
   },
@@ -37,8 +37,8 @@ const timeline = [
     year: '2024',
     title: 'A Global Family',
     person: 'You & Us',
-    desc: 'Today, we ship across the world, ensuring that no matter where you are, you can taste the authentic, uncompromised flavor of a true Andhra home.',
-    img: 'https://images.unsplash.com/photo-1589255474136-22a00cb0b230?q=80&w=800&auto=format&fit=crop',
+    desc: 'Today, we ship across the country, ensuring that no matter where you are, you can taste the authentic, uncompromised flavor of a true Andhra home.',
+    img: '/images/Global_Family.png',
     color: '#8B5E3C',
     id: 'timeline-2024',
   }
@@ -53,6 +53,9 @@ const values = [
 
 export default function OurStoryPage() {
   const horizontalRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef(0);
+  const scrollStartLeft = useRef(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -64,35 +67,32 @@ export default function OurStoryPage() {
     return () => observer.disconnect();
   }, []);
 
-  // Convert vertical wheel to horizontal scroll inside the timeline
-  const handleWheel = (e) => {
-    if (horizontalRef.current) {
-      const container = horizontalRef.current;
-      const atLeft = container.scrollLeft === 0;
-      const atRight = container.scrollLeft >= (container.scrollWidth - container.clientWidth - 1);
-      
-      // If we are scrolling down and not at the right edge, scroll right and prevent default
-      if (e.deltaY > 0 && !atRight) {
-        container.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }
-      // If we are scrolling up and not at the left edge, scroll left and prevent default
-      else if (e.deltaY < 0 && !atLeft) {
-        container.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }
-    }
+  const handleMouseDown = (e) => {
+    const container = horizontalRef.current;
+    if (!container) return;
+    setIsDragging(true);
+    dragStartX.current = e.clientX;
+    scrollStartLeft.current = container.scrollLeft;
+    container.style.cursor = 'grabbing';
+    container.style.userSelect = 'none';
   };
 
-  useEffect(() => {
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const container = horizontalRef.current;
+    if (!container) return;
+    const dx = e.clientX - dragStartX.current;
+    container.scrollLeft = scrollStartLeft.current - dx;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
     const container = horizontalRef.current;
     if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
+      container.style.cursor = 'grab';
+      container.style.userSelect = '';
     }
-    return () => {
-      if (container) container.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
+  };
 
   return (
     <>
@@ -103,7 +103,7 @@ export default function OurStoryPage() {
         <section id="story-hero" style={{
           position: 'relative', minHeight: '80vh',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          overflow: 'hidden',
+          overflow: 'hidden', paddingTop: '70px'
         }}>
           <Image
             src="/images/grandmother_kitchen.png"
@@ -118,7 +118,7 @@ export default function OurStoryPage() {
           }} />
           <div className="reveal" style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '2rem 1.5rem', maxWidth: '800px' }}>
             <div style={{
-              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.4em', textTransform: 'uppercase', 
+              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.4em', textTransform: 'uppercase',
               color: 'var(--turmeric)', marginBottom: '1.5rem'
             }}>Our Heritage</div>
             <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
@@ -142,10 +142,14 @@ export default function OurStoryPage() {
             <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', color: 'var(--aged-wood)', marginTop: '1rem' }}>Scroll or drag horizontally to explore</p>
           </div>
 
-          <div 
+          <div
             ref={horizontalRef}
-            style={{ 
-              display: 'flex', gap: '3rem', padding: '0 5vw 4rem 5vw', 
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            style={{
+              display: 'flex', gap: '3rem', padding: '0 5vw 4rem 5vw',
               overflowX: 'auto', scrollBehavior: 'smooth', scrollSnapType: 'x mandatory',
               msOverflowStyle: 'none', scrollbarWidth: 'none',
               cursor: 'grab'
@@ -159,20 +163,20 @@ export default function OurStoryPage() {
                 display: 'flex', flexDirection: 'column',
                 animationDelay: `${i * 0.1}s`
               }} className="reveal">
-                
+
                 {/* Connecting Line */}
                 <div style={{ position: 'absolute', top: '150px', left: '0', right: '-3rem', height: '2px', background: 'rgba(139,94,60,0.1)', zIndex: 0 }} />
 
                 {/* Cinematic Image Card */}
-                <div style={{ 
+                <div style={{
                   height: '300px', width: '100%', position: 'relative', borderRadius: '24px', overflow: 'hidden',
                   boxShadow: '0 20px 40px rgba(61,31,10,0.1)', zIndex: 1, marginBottom: '2.5rem'
                 }}>
                   <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${item.color}88, transparent)` }} />
-                  
+
                   {/* Floating Year */}
-                  <div style={{ 
+                  <div style={{
                     position: 'absolute', bottom: '-15px', right: '2rem',
                     fontFamily: 'Playfair Display, serif', fontSize: '5rem', fontWeight: 900,
                     color: 'var(--ivory)', lineHeight: 1, opacity: 0.9, textShadow: '0 10px 20px rgba(0,0,0,0.3)'
@@ -200,10 +204,10 @@ export default function OurStoryPage() {
               <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--forest-green)' }}>What We Stand For</span>
               <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 900, color: 'var(--rich-brown)', marginTop: '0.5rem' }}>Our Values &amp; Promise</h2>
             </div>
-            
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2.5rem' }}>
               {values.map((v, i) => (
-                <div key={v.title} className="reveal magnetic" style={{ 
+                <div key={v.title} className="reveal magnetic" style={{
                   background: '#fff', borderRadius: '24px', padding: '3rem 2rem', textAlign: 'center',
                   border: '1px solid rgba(139,94,60,0.05)', boxShadow: '0 10px 30px rgba(61,31,10,0.03)',
                   transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease',

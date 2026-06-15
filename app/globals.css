@@ -380,7 +380,7 @@ a {
   transition: width 0.3s ease, left 0.3s ease;
   border-radius: 2px;
 }
-.nav-link:hover::after { width: 100%; left: 0; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; left: 0; }
 
 /* ════════════════════════════════════════
    PRICE & STARS
@@ -427,6 +427,16 @@ a {
     transform 0.75s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Product cards use CSS animation so they always appear instantly on filter change */
+.product-card-reveal {
+  opacity: 0;
+  animation: productFadeIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes productFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 .reveal-left {
   opacity: 0;
