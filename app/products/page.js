@@ -17,7 +17,7 @@ const SORT_FEATURED = 'Featured';
 const SORT_TOP_RATED = 'Top Rated';
 const DISPLAY_WEIGHT = 'min 250g - 2kg';
 
-import { ALL_PRODUCTS } from '@/components/productsData';
+import { ALL_PRODUCTS as FALLBACK_PRODUCTS } from '@/components/productsData';
 
 const CATEGORIES = [
   FILTER_ALL,
@@ -132,11 +132,11 @@ function ProductCard({ product, index }) {
       <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
           <span style={{ color: 'var(--turmeric)', fontSize: '1rem', letterSpacing: '2px' }}>
-            {'★'.repeat(product.rating)}
-            {'☆'.repeat(5 - product.rating)}
+            {'★'.repeat(product.rating || 5)}
+            {'☆'.repeat(5 - (product.rating || 5))}
           </span>
           <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.8rem', fontWeight: 700, color: 'var(--aged-wood)' }}>
-            ({product.reviews.toLocaleString()} Reviews)
+            ({(product.reviews || 0).toLocaleString()} Reviews)
           </span>
         </div>
 
@@ -282,11 +282,44 @@ function EmptyState({ onClearFilters }) {
 export default function ProductsPage() {
   const [activeCategory, setActiveCategory] = useState(FILTER_ALL);
   const [sortBy, setSortBy] = useState(SORT_FEATURED);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        // Use a dynamic API URL from environment variables, fallback to localhost for development
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${baseUrl}/dashboard/website/api/get-website-products`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const json = await res.json();
+        if (json.success && json.data && json.data.length > 0) {
+          const mappedProducts = json.data.map(p => ({
+            ...p,
+            name: p.productName || p.name || 'Unnamed Product',
+            desc: p.productDescription || p.desc || '',
+            img: (p.images && p.images.length > 0) ? p.images[0] : (p.img || 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&q=80'),
+            rating: p.rating || 5,
+            reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
+          }));
+          setProducts(mappedProducts);
+        } else {
+          setProducts(FALLBACK_PRODUCTS);
+        }
+      } catch (error) {
+        console.error('Error fetching products, falling back to local data:', error);
+        setProducts(FALLBACK_PRODUCTS);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchProducts();
+  }, []);
 
   // Memoize filtered products for performance
   const filteredProducts = useMemo(() => {
-    return getFilteredAndSortedProducts(ALL_PRODUCTS, activeCategory, sortBy);
-  }, [activeCategory, sortBy]);
+    return getFilteredAndSortedProducts(products, activeCategory, sortBy);
+  }, [products, activeCategory, sortBy]);
 
   // Setup reveal animation for non-product page elements (runs once)
   useEffect(() => {
@@ -437,7 +470,13 @@ export default function ProductsPage() {
                   <ProductCard key={p.id} product={p} index={i} />
                 ))}
 
-                {filteredProducts.length === 0 && <EmptyState onClearFilters={handleClearFilters} />}
+                {isLoading ? (
+                  <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', fontFamily: 'Lato, sans-serif', color: 'var(--aged-wood)' }}>
+                    Loading artisanal products...
+                  </div>
+                ) : filteredProducts.length === 0 ? (
+                  <EmptyState onClearFilters={handleClearFilters} />
+                ) : null}
               </div>
             </div>
           </div>

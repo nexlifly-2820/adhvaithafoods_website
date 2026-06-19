@@ -1,11 +1,11 @@
 'use client';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 // One recipe per product category
-const recipes = [
+const FALLBACK_RECIPES = [
   {
     id: 'allam-velluli-pickle-recipe',
     name: 'Allam Velluli Pickle Rice',
@@ -93,7 +93,46 @@ const recipes = [
 ];
 
 export default function RecipesPage() {
+  const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${baseUrl}/dashboard/website/api/get-website-recipes`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const json = await res.json();
+        if (json.success && json.data && json.data.length > 0) {
+          const mappedRecipes = json.data.map(r => ({
+            ...r,
+            name: r.recipeName || r.name || 'Unnamed Recipe',
+            desc: r.recipeDescription || r.desc || '',
+            img: (r.images && r.images.length > 0) ? r.images[0] : (r.img || '/images/placeholder.jpg'),
+            time: (r.makingTime && r.makingTime.value) ? `${r.makingTime.value} ${r.makingTime.unit || 'min'}` : (r.time || '15 min'),
+            level: r.difficulty || r.level || 'Easy',
+            serves: r.serves || 4,
+            color: r.color || '#C4603A',
+            pickle: r.pickle || 'Avdaitha Foods',
+            ingredients: r.ingredients || [],
+            method: r.makingProcess || r.method || ''
+          }));
+          setRecipes(mappedRecipes);
+        } else {
+          setRecipes(FALLBACK_RECIPES);
+        }
+      } catch (error) {
+        console.error('Error fetching recipes, falling back to local data:', error);
+        setRecipes(FALLBACK_RECIPES);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchRecipes();
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -101,7 +140,7 @@ export default function RecipesPage() {
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
@@ -167,7 +206,11 @@ export default function RecipesPage() {
               gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
               gap: '4rem',
             }}>
-              {recipes.map((recipe, index) => (
+              {isLoading ? (
+                <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', fontFamily: 'Lato, sans-serif', color: 'var(--aged-wood)' }}>
+                  Loading recipes...
+                </div>
+              ) : recipes.map((recipe, index) => (
                 <div key={recipe.id} id={`recipe-${recipe.id}`} className="reveal" style={{
                   background: 'var(--ivory)', borderRadius: '24px',
                   border: '1px solid rgba(139,94,60,0.1)',
@@ -238,7 +281,7 @@ export default function RecipesPage() {
                           Ingredients
                         </h4>
                         <ul style={{ paddingLeft: '0', listStyle: 'none' }}>
-                          {recipe.ingredients.map((ing, i) => (
+                          {recipe.ingredients && recipe.ingredients.map((ing, i) => (
                             <li key={i} style={{
                               fontFamily: 'Lato, sans-serif', fontSize: '0.95rem',
                               color: 'var(--rich-brown)', padding: '0.4rem 0',
