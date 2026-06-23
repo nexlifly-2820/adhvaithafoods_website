@@ -57,7 +57,7 @@ const recipes = [
 /* ═══════════════════════════════════════════════════
    HOMEPAGE
 ═══════════════════════════════════════════════════ */
-const HERO_IMAGES = [
+const FALLBACK_HERO_IMAGES = [
   '/images/hero-1-pickle.jpg',
   '/images/hero-2-powder.jpg',
   '/images/hero-3-laddu.jpg',
@@ -65,40 +65,43 @@ const HERO_IMAGES = [
 
 export default function HomePage() {
   useReveal();
-  const [activeProduct, setActiveProduct] = useState(0);
-  const [heroScale, setHeroScale] = useState(1);
-  const [heroOpacity, setHeroOpacity] = useState(1);
+  const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    const fetchGallery = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || ''; // If empty, defaults to relative path which is fine for client-side fetch in Next.js
+        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-gallery` : '/dashboard/website/api/get-website-gallery';
+        
+        const res = await fetch(fetchUrl);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data && json.data.images && json.data.images.length > 0) {
+            setHeroImages(json.data.images);
+          } else {
+            // Keep default FALLBACK_HERO_IMAGES
+            setHeroImages(FALLBACK_HERO_IMAGES);
+          }
+        } else {
+           // Keep default FALLBACK_HERO_IMAGES
+           setHeroImages(FALLBACK_HERO_IMAGES);
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery images:', err);
+        // Keep default FALLBACK_HERO_IMAGES on error
+        setHeroImages(FALLBACK_HERO_IMAGES);
+      }
+    };
+    fetchGallery();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      // Start scaling up after scrolling 50px
-      if (scrollY < 50) {
-        setHeroScale(1);
-        setHeroOpacity(1);
-      } else if (scrollY < 800) {
-        // Scale exponentially
-        const scale = 1 + Math.pow((scrollY - 50) / 100, 2);
-        setHeroScale(Math.min(scale, 100)); // cap scale
-        // Fade out the black mask when scaled very large
-        const opacity = 1 - Math.pow((scrollY - 400) / 400, 2);
-        setHeroOpacity(Math.max(0, Math.min(1, opacity)));
-      } else {
-        setHeroScale(100);
-        setHeroOpacity(0);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const interval = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   return (
     <>
@@ -106,80 +109,38 @@ export default function HomePage() {
       <main>
 
         {/* ══ HERO ══════════════════════════════════════ */}
-        {/* ══ "ULTIMATE CLIENT-WOW" HERO ══════════════════════════════════════ */}
+        {/* ══ "SIMPLE AUTO SCROLL" HERO ══════════════════════════════════════ */}
         <section id="hero-section" style={{
           position: 'relative',
-          height: '200vh', // Extra height to allow scroll
+          height: '100vh',
+          width: '100%',
+          overflow: 'hidden',
           background: '#0a0502',
           marginTop: '-80px' // Pull up behind navbar
         }}>
+          {/* Image Slider Container */}
           <div style={{
-            position: 'sticky', top: 0,
-            height: '100vh', width: '100%',
-            overflow: 'hidden',
+            display: 'flex',
+            width: `${heroImages.length * 100}%`,
+            height: '100%',
+            transform: `translateX(-${currentHeroIndex * (100 / heroImages.length)}%)`,
+            transition: 'transform 1s cubic-bezier(0.645, 0.045, 0.355, 1)'
           }}>
-            {/* The beautiful background video/image that will be revealed */}
-            <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-              {HERO_IMAGES.map((src, i) => (
+            {heroImages.map((src, i) => (
+              <div key={src} style={{ width: `${100 / heroImages.length}%`, height: '100%', position: 'relative' }}>
                 <img
-                  key={src}
                   src={src}
                   alt={`Hero ${i + 1}`}
                   style={{
-                    position: 'absolute', inset: 0,
-                    width: '100%', height: '100%', objectFit: 'cover',
-                    opacity: currentHeroIndex === i ? 1 : 0,
-                    transition: 'opacity 1.5s ease-in-out'
+                    width: '100%', height: '100%', objectFit: 'cover'
                   }}
                 />
-              ))}
-              <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)' }} />
-            </div>
-            
-            {/* The Text Mask Layer */}
-            <div style={{
-              position: 'absolute', inset: 0, zIndex: 1,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: heroOpacity < 1 ? `rgba(10,5,2,${heroOpacity})` : '#0a0502',
-              pointerEvents: 'none',
-              transition: 'background 0.1s'
-            }}>
-              {HERO_IMAGES.map((src, i) => (
-                <h1 key={`mask-${src}`} style={{
-                  position: 'absolute',
-                  fontFamily: 'Playfair Display, serif',
-                  fontSize: '18vw', fontWeight: 900,
-                  color: '#000',
-                  WebkitTextStroke: '2px rgba(255,255,255,0.1)',
-                  // The magic mask
-                  background: `url('${src}') center/cover`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  transform: `scale(${heroScale})`,
-                  transformOrigin: '50% 50%',
-                  transition: 'transform 0.1s cubic-bezier(0.1, 0.5, 0.9, 0.5), opacity 1.5s ease-in-out',
-                  whiteSpace: 'nowrap',
-                  opacity: currentHeroIndex === i && heroOpacity > 0 ? 1 : 0
-                }}>
-                  AVDAITHA
-                </h1>
-              ))}
-            </div>
-
-            {/* Scroll Indicator */}
-            {heroScale < 2 && (
-              <div style={{ 
-                position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', 
-                zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
-                opacity: 1 - ((heroScale - 1) * 2)
-              }}>
-                <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.2em', color: '#fff', textTransform: 'uppercase' }}>Scroll To Enter</span>
-                <div style={{ width: '1px', height: '60px', background: 'rgba(255,255,255,0.2)', position: 'relative', overflow: 'hidden' }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: '#fff', animation: 'scrollDown 2s infinite' }} />
-                </div>
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
               </div>
-            )}
+            ))}
           </div>
+          
+
         </section>
 
 
