@@ -92,13 +92,6 @@ export default function HowWeMakeItPage() {
             </p>
           </div>
           
-          {/* Scroll Indicator */}
-          <div style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.7rem', fontWeight: 900, letterSpacing: '0.2em', color: 'var(--turmeric)', textTransform: 'uppercase' }}>Scroll</span>
-            <div style={{ width: '2px', height: '60px', background: 'rgba(255,255,255,0.1)', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'var(--turmeric)', animation: 'scrollDown 2s infinite' }} />
-            </div>
-          </div>
         </section>
 
         {/* ULTRA-ADVANCED STICKY STACKING SECTION */}

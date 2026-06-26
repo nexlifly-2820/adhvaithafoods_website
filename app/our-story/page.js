@@ -1,250 +1,309 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const timeline = [
-  {
-    year: '1970',
-    title: 'The Beginning',
-    person: 'Grandmother Avdaitha Ammayya',
-    desc: 'In a small kitchen in Guntur, Andhra Pradesh, Ammayya began making pickles with mangoes from her brother\'s orchard. Stone-ground spices, sun-drying on the terrace, cold-pressed sesame oil — every step by hand. Neighbors and relatives begged for jars.',
-    img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop',
-    color: '#C4603A',
-    id: 'timeline-1970',
-  },
-  {
-    year: '1995',
-    title: 'The Second Generation',
-    person: 'Mother Sarada & Aunties',
-    desc: 'Ammayya\'s daughters learned every secret. The exact ratio of fenugreek to mustard. How many days the mango should sun-dry. They began selling at the local market, expanding to Hyderabad. The recipes were written down for the first time — in a worn notebook.',
-    img: '/images/Second_Generation.png',
-    color: '#2D5A27',
-    id: 'timeline-1995',
-  },
-  {
-    year: '2015',
-    title: 'Avdaitha Foods Is Born',
-    person: 'The Third Generation',
-    desc: 'We brought grandmother\'s recipes online. Same stone-ground spices. Same sun-drying method. Same love in every jar — now delivered to 50,000+ families across India. The worn notebook sits on our kitchen shelf as a constant reminder of where we started.',
-    img: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?q=80&w=800&auto=format&fit=crop',
-    color: '#E8A820',
-    id: 'timeline-2015',
-  },
-  {
-    year: '2024',
-    title: 'A Global Family',
-    person: 'You & Us',
-    desc: 'Today, we ship across the country, ensuring that no matter where you are, you can taste the authentic, uncompromised flavor of a true Andhra home.',
-    img: '/images/Global_Family.png',
-    color: '#8B5E3C',
-    id: 'timeline-2024',
-  }
-];
-
-const values = [
-  { title: 'Pure Ingredients', desc: 'We source raw mangoes directly from Andhra orchards, use cold-pressed sesame oil, and grind spices fresh each morning.', emoji: '🌿' },
-  { title: 'No Compromises', desc: 'No artificial colors, no preservatives, no synthetic flavors. We refuse to take shortcuts on quality.', emoji: '🚫' },
-  { title: 'Traditional Methods', desc: 'Stone-grinding, sun-drying, hand-packing. The old methods produce the best flavor — we will never change this.', emoji: '🏺' },
-  { title: 'Grandmother\'s Love', desc: 'Every jar is made with the same care and attention that Ammayya gave. Quality is an act of love here.', emoji: '❤️' },
-];
-
 export default function OurStoryPage() {
-  const horizontalRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef(0);
-  const scrollStartLeft = useRef(0);
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const handleMouseDown = (e) => {
-    const container = horizontalRef.current;
-    if (!container) return;
-    setIsDragging(true);
-    dragStartX.current = e.clientX;
-    scrollStartLeft.current = container.scrollLeft;
-    container.style.cursor = 'grabbing';
-    container.style.userSelect = 'none';
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const container = horizontalRef.current;
-    if (!container) return;
-    const dx = e.clientX - dragStartX.current;
-    container.scrollLeft = scrollStartLeft.current - dx;
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    const container = horizontalRef.current;
-    if (container) {
-      container.style.cursor = 'grab';
-      container.style.userSelect = '';
-    }
+  const FlatIllustration = ({ src, alt, width, height, top, left, right, bottom }) => {
+    const isAbsolute = top !== undefined || left !== undefined || right !== undefined || bottom !== undefined;
+    return (
+      <div
+        style={{
+          position: isAbsolute ? 'absolute' : 'relative',
+          top, left, right, bottom,
+          width: '100%',
+          maxWidth: `${width}px`,
+          height: isAbsolute ? `${height}px` : 'auto',
+          aspectRatio: isAbsolute ? 'auto' : '1 / 1',
+          zIndex: 5,
+          mixBlendMode: 'multiply',
+          filter: 'contrast(1.2) brightness(1.1)',
+          flexShrink: 0,
+          margin: '0 auto'
+        }}
+      >
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        </div>
+      </div>
+    );
   };
 
   return (
-    <>
-      <Navbar />
-      <main>
+    <div style={{ backgroundColor: '#FDF1E0', overflowX: 'hidden', fontFamily: 'var(--font-montserrat), sans-serif' }}>
 
-        {/* Cinematic Hero */}
-        <section id="story-hero" style={{
-          position: 'relative', minHeight: '80vh',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          overflow: 'hidden', paddingTop: '70px'
+      {/* 1. Navbar */}
+      <div style={{ position: 'relative', zIndex: 50 }}>
+        <Navbar />
+      </div>
+
+      <main ref={containerRef} style={{ position: 'relative', paddingBottom: '0' }}>
+
+        {/* 2. Green "Ocean" Section (KEEPING IT Traditional) */}
+        <section style={{
+          position: 'relative',
+          backgroundColor: '#1C4B36',
+          paddingTop: '220px', // Enough to fully clear the 120px navbar
+          paddingBottom: '250px', // Massive padding to keep text safely above the slanted bottom shape
+          paddingLeft: '5vw',
+          paddingRight: '5vw',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          gap: '2rem',
+          alignItems: 'center',
+          overflow: 'hidden'
         }}>
-          <Image
-            src="/images/grandmother_kitchen.png"
-            alt="Grandmother in traditional Indian kitchen"
-            fill
-            style={{ objectFit: 'cover', objectPosition: 'center top' }}
-            priority
-          />
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(to bottom, rgba(26,15,5,0.7) 0%, rgba(26,15,5,0.95) 100%)',
-          }} />
-          <div className="reveal" style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '2rem 1.5rem', maxWidth: '800px' }}>
-            <div style={{
-              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.4em', textTransform: 'uppercase',
-              color: 'var(--turmeric)', marginBottom: '1.5rem'
-            }}>Our Heritage</div>
-            <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
-              Three Generations of<br />
-              <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Pickle Making</em>
-            </h1>
-            <p style={{
-              fontFamily: 'Lato, sans-serif', fontSize: '1.25rem', color: 'rgba(250,240,220,0.8)',
-              margin: '0 auto', lineHeight: 1.8
-            }}>
-              From a small kitchen in Guntur to your doorstep — a story of tradition, love, and the best pickles you'll ever taste.
-            </p>
-          </div>
-        </section>
 
-        {/* Horizontal Scrolling Timeline */}
-        <section style={{ background: 'var(--cream)', padding: '6rem 0', overflow: 'hidden', position: 'relative' }}>
-          <div style={{ textAlign: 'center', marginBottom: '4rem', padding: '0 2rem' }} className="reveal">
-            <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--forest-green)' }}>Our Journey</span>
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 900, color: 'var(--rich-brown)', marginTop: '0.5rem' }}>The Story Behind Every Jar</h2>
-            <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', color: 'var(--aged-wood)', marginTop: '1rem' }}>Scroll or drag horizontally to explore</p>
-          </div>
-
-          <div
-            ref={horizontalRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            style={{
-              display: 'flex', gap: '3rem', padding: '0 5vw 4rem 5vw',
-              overflowX: 'auto', scrollBehavior: 'smooth', scrollSnapType: 'x mandatory',
-              msOverflowStyle: 'none', scrollbarWidth: 'none',
-              cursor: 'grab'
-            }}
-            className="horizontal-scroll-container"
-          >
-            {timeline.map((item, i) => (
-              <div key={item.id} style={{
-                flexShrink: 0, width: '80vw', maxWidth: '600px',
-                scrollSnapAlign: 'center', position: 'relative',
-                display: 'flex', flexDirection: 'column',
-                animationDelay: `${i * 0.1}s`
-              }} className="reveal">
-
-                {/* Connecting Line */}
-                <div style={{ position: 'absolute', top: '150px', left: '0', right: '-3rem', height: '2px', background: 'rgba(139,94,60,0.1)', zIndex: 0 }} />
-
-                {/* Cinematic Image Card */}
-                <div style={{
-                  height: '300px', width: '100%', position: 'relative', borderRadius: '24px', overflow: 'hidden',
-                  boxShadow: '0 20px 40px rgba(61,31,10,0.1)', zIndex: 1, marginBottom: '2.5rem'
-                }}>
-                  <img src={item.img} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${item.color}88, transparent)` }} />
-
-                  {/* Floating Year */}
-                  <div style={{
-                    position: 'absolute', bottom: '-15px', right: '2rem',
-                    fontFamily: 'Playfair Display, serif', fontSize: '5rem', fontWeight: 900,
-                    color: 'var(--ivory)', lineHeight: 1, opacity: 0.9, textShadow: '0 10px 20px rgba(0,0,0,0.3)'
-                  }}>
-                    {item.year}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div style={{ padding: '0 1rem' }}>
-                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2rem', fontWeight: 900, color: 'var(--rich-brown)', marginBottom: '0.5rem' }}>{item.title}</h3>
-                  <div style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.15em', textTransform: 'uppercase', color: item.color, marginBottom: '1.5rem' }}>{item.person}</div>
-                  <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.15rem', color: 'var(--aged-wood)', lineHeight: 1.7 }}>{item.desc}</p>
-                </div>
-
+          {/* Left Side: Keeping It Traditional */}
+          <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center' }}>
+            <div style={{ transform: 'rotate(-4deg)', display: 'inline-block' }}>
+              <h1 style={{
+                fontFamily: 'var(--font-montserrat), sans-serif',
+                fontSize: 'clamp(4rem, 10vw, 10rem)',
+                fontWeight: 900,
+                color: '#D92D20',
+                lineHeight: 1,
+                margin: 0,
+                letterSpacing: 'normal',
+                WebkitTextStroke: '2px #FDF1E0',
+                textShadow: '-4px 4px 0px #FDF1E0'
+              }}>
+                KEEPING<br />IT
+              </h1>
+              <div style={{
+                fontFamily: 'var(--font-yellowtail), cursive',
+                fontSize: 'clamp(4rem, 8vw, 8rem)',
+                color: '#FDF1E0',
+                marginTop: '-3rem',
+                marginLeft: '4rem',
+                transform: 'rotate(-5deg)',
+                WebkitTextStroke: '2px #1C4B36',
+                textShadow: '3px 3px 0 #1C4B36, 0px 10px 20px rgba(0,0,0,0.5)'
+              }}>
+                Traditional
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Right Side: So you can get... */}
+          <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-montserrat), sans-serif',
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: 800,
+              color: '#FDF1E0',
+              lineHeight: 1.2,
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
+            }}>
+              SO YOU CAN GET<br />TRUE ANDHRA<br />WITH US
+            </h2>
+          </div>
+
+          {/* Map Coastline Shape Divider */}
+          <div style={{
+            position: 'absolute',
+            bottom: '-200px',
+            right: '-5%',
+            width: '110%',
+            height: '300px',
+            backgroundColor: '#FDF1E0',
+            borderTopLeftRadius: '120px',
+            borderTopRightRadius: '30px',
+            borderTop: '6px solid #231F20',
+            borderLeft: '6px solid #231F20',
+            boxShadow: '-10px -10px 0 rgba(0,0,0,0.2)',
+            transform: 'rotate(-4deg)',
+            zIndex: 5
+          }}></div>
+
+
+        </section>
+
+        {/* 3. Cream "Land" Sections */}
+        <section style={{
+          position: 'relative',
+          backgroundColor: '#FDF1E0',
+          paddingTop: '10vh'
+        }}>
+
+          {/* Continuous Coastline SVG running down the left */}
+          <div style={{ position: 'absolute', top: 0, left: '8%', width: '50px', height: '100%', zIndex: 1 }}>
+            <svg width="100%" height="100%" preserveAspectRatio="none">
+              <path d="M 40 0 Q 20 300, 40 600 T 30 1200 T 50 1800 T 40 2400 T 30 3000 T 50 3600 T 40 4200 L 40 5000"
+                fill="none" stroke="#231F20" strokeWidth="4"
+                style={{ filter: 'drop-shadow(6px 6px 0px rgba(0,0,0,0.1))' }} />
+            </svg>
+          </div>
+
+          {/* --- STORY BLOCKS --- */}
+
+          {/* Block 1: Intro */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+              <FlatIllustration src="/images/story_ingredients_1782482838849.png" alt="Prep" width={450} height={450} />
+            </div>
+            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1.3 }}>
+                CRAFTING TRADITIONAL<br />PICKLES, SWEETS, SNACKS & POWDERS
+              </h2>
+            </div>
+          </div>
+
+          {/* Block 2: Picking Mangoes */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                HANDPICKING THE FINEST
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                INGREDIENTS
+              </h2>
+            </div>
+          </div>
+
+          {/* Block 3: Washing & Prepping */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
+            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                WASHING & PREPPING
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                WITH UTMOST CARE
+              </h2>
+            </div>
+            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+              <FlatIllustration src="/images/story_washing_1782482851676.png" alt="Washing" width={450} height={450} />
+            </div>
+          </div>
+
+          {/* Block 4: Chillies */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+              <FlatIllustration src="/images/story_spices_1782482862546.png" alt="Chili" width={450} height={450} />
+            </div>
+            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                & CHOOSING THE FIERIEST
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                GUNTUR
+              </h2>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginTop: '0.5rem' }}>
+                CHILLIES & PURE SPICES
+              </h3>
+            </div>
+          </div>
+
+          {/* Block 5: Sun-Drying */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                SUN-DRYING THEM ON
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                OPEN TERRACES
+              </h2>
+            </div>
+          </div>
+
+          {/* Block 6: Stone-Grinding */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
+            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                STONE-GRINDING EVERYTHING
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                BY HAND
+              </h2>
+            </div>
+            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+              <FlatIllustration src="/images/story_grinding_1782482873236.png" alt="Grinding" width={450} height={450} />
+            </div>
+          </div>
+
+          {/* Block 7: Mixing in Sesame Oil */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                AND SLOWLY MIXING IT IN
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                COLD-PRESSED
+              </h2>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginTop: '0.5rem' }}>
+                SESAME OIL
+              </h3>
+            </div>
+          </div>
+
+          {/* Block 8: Hand-Packing */}
+          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+              <FlatIllustration src="/images/story_packing_1782482885885.png" alt="Hand Packing" width={450} height={450} />
+            </div>
+            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                BEFORE HAND-PACKING EVERY BATCH
+              </h3>
+              <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(3.5rem, 7vw, 6rem)', fontWeight: 900, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1 }}>
+                JUST LIKE AMMAYYA DID
+              </h2>
+              <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginTop: '0.5rem' }}>
+                SINCE 1970
+              </h3>
+            </div>
+          </div>
+
+
+          {/* Airplane / Path Trail Section */}
+          <div style={{ position: 'relative', height: '35vh', width: '100%', marginTop: '5vh', overflow: 'hidden' }}>
+            <svg width="100%" height="100%" preserveAspectRatio="none" style={{ position: 'absolute', top: 0, left: 0 }}>
+              <path d="M 150 100 Q 500 50, 700 200 T 1100 150" fill="none" stroke="#688F70" strokeWidth="5" strokeDasharray="15, 20" strokeLinecap="round" />
+            </svg>
+            <div style={{ position: 'absolute', top: '120px', left: '700px', transform: 'rotate(15deg)' }}>
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="#1C4B36">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+              </svg>
+            </div>
           </div>
         </section>
 
-        {/* Values - Glassmorphism Grid */}
-        <section id="our-values" style={{ padding: '8rem 2rem', background: '#f8f5f0', position: 'relative' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '4rem' }} className="reveal">
-              <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--forest-green)' }}>What We Stand For</span>
-              <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', fontWeight: 900, color: 'var(--rich-brown)', marginTop: '0.5rem' }}>Our Values &amp; Promise</h2>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2.5rem' }}>
-              {values.map((v, i) => (
-                <div key={v.title} className="reveal magnetic" style={{
-                  background: '#fff', borderRadius: '24px', padding: '3rem 2rem', textAlign: 'center',
-                  border: '1px solid rgba(139,94,60,0.05)', boxShadow: '0 10px 30px rgba(61,31,10,0.03)',
-                  transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease',
-                  animationDelay: `${i * 0.1}s`
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-10px)'; e.currentTarget.style.boxShadow = '0 20px 40px rgba(61,31,10,0.08)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(61,31,10,0.03)'; }}
-                >
-                  <div style={{ fontSize: '3rem', marginBottom: '1.5rem', transform: 'scale(1)', transition: 'transform 0.3s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.2)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>{v.emoji}</div>
-                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', fontWeight: 800, color: 'var(--forest-green)', marginBottom: '1rem' }}>{v.title}</h3>
-                  <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.05rem', color: 'var(--aged-wood)', lineHeight: 1.6 }}>{v.desc}</p>
-                </div>
-              ))}
-            </div>
+        {/* 4. BOTTOM RED FARM SECTION */}
+        <section style={{
+          position: 'relative',
+          backgroundColor: '#FDF1E0',
+          borderBottom: '20px solid #DA291C',
+          paddingTop: '15vh'
+        }}>
+          <div style={{ textAlign: 'center', position: 'relative', zIndex: 20, padding: '0 5vw 5vh' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-montserrat), sans-serif',
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: 900,
+              color: '#1C4B36',
+              textTransform: 'uppercase',
+              lineHeight: 1.2
+            }}>
+              FROM DIFFERENT FARMS <br /> ACROSS ANDHRA
+            </h2>
           </div>
-        </section>
 
-        {/* CTA */}
-        <section style={{ background: 'var(--terracotta)', padding: '8rem 2rem', textAlign: 'center' }}>
-          <div style={{ maxWidth: '640px', margin: '0 auto' }} className="reveal">
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1.2 }}>Taste the Story in Every Jar</h2>
-            <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.25rem', color: 'rgba(250,240,220,0.9)', marginBottom: '3rem', lineHeight: 1.7 }}>
-              Over 50 years of tradition, delivered to your door.
-            </p>
-            <Link href="/products" className="btn btn-outline-cream magnetic" style={{ fontSize: '1rem', padding: '1.25rem 3.5rem', border: '2px solid var(--ivory)', background: 'var(--ivory)', color: 'var(--terracotta)' }}>
-              Shop All Pickles →
-            </Link>
+          {/* We increase the height based on viewport width to prevent the image from clipping when covering full screen */}
+          <div style={{ width: '100%', height: 'max(400px, 40vw)', position: 'relative', zIndex: 10, mixBlendMode: 'multiply' }}>
+            <img 
+              src="/images/red_farm_wide.png" 
+              alt="Farm Illustration" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} 
+            />
           </div>
         </section>
 
       </main>
       <Footer />
-      <style>{`
-        .horizontal-scroll-container::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }

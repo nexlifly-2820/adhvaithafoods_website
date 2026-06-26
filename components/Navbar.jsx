@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
@@ -76,14 +77,13 @@ export default function Navbar() {
         />
 
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '120px' }}>
 
             {/* Logo Section */}
             <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
               <div
                 style={{
-                  width: '75px',
-                  height: '75px',
+                  width: '110px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -93,7 +93,7 @@ export default function Navbar() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               >
-                <img src="/images/Adhvaitha_foods_logo.png" alt="Adhvaitha Foods Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/images/logo.svg" alt="Adhvaitha Foods Logo" style={{ width: '100%', height: 'auto', display: 'block' }} />
               </div>
             </Link>
 
