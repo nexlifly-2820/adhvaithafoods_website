@@ -76,55 +76,24 @@ export default function Navbar() {
         />
 
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
 
             {/* Logo Section */}
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
+            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
               <div
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  background: 'var(--terracotta)',
-                  borderRadius: '10px',
+                  width: '75px',
+                  height: '75px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(196,96,58,0.35)',
                   transition: 'transform 0.3s ease',
                   flexShrink: 0,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = 'rotate(-5deg) scale(1.1)')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = 'rotate(0) scale(1)')}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               >
-                <span style={{ fontSize: '1.2rem' }}>🏺</span>
-              </div>
-              <div style={{ lineHeight: 1 }}>
-                <div
-                  style={{
-                    fontFamily: 'Playfair Display, serif',
-                    fontWeight: 900,
-                    fontSize: '1.15rem',
-                    letterSpacing: '0.08em',
-                    color: isScrolled ? 'var(--terracotta)' : 'var(--ivory)',
-                    transition: 'color 0.4s ease',
-                  }}
-                >
-                  AVDAITHA
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'Lato, sans-serif',
-                    fontWeight: 900,
-                    fontSize: '0.5rem',
-                    letterSpacing: '0.4em',
-                    textTransform: 'uppercase',
-                    color: isScrolled ? 'var(--forest-green)' : 'var(--turmeric)',
-                    transition: 'color 0.4s ease',
-                    marginTop: '1px',
-                  }}
-                >
-                  FOODS
-                </div>
+                <img src="/images/Adhvaitha_foods_logo.png" alt="Adhvaitha Foods Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
             </Link>
 

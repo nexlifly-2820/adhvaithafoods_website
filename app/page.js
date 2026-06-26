@@ -21,14 +21,7 @@ function useReveal() {
 
 import { ALL_PRODUCTS } from '@/components/productsData';
 
-/* ── DATA ─────────────────────────────────── */
-// Pick 4 featured products from our main catalog
-const products = ALL_PRODUCTS.slice(0, 4).map(p => ({
-  ...p,
-  tag: p.badge,
-  tagCls: p.badgeClass,
-  accent: '#C4603A' // default accent color
-}));
+// Dynamic featured products will be fetched inside the component
 
 const ingredients = [
   { name: 'Raw Green Mangoes',       source: 'Andhra Orchards',   emoji: '🥭', bg: 'rgba(74,124,64,0.12)'  },
@@ -47,7 +40,7 @@ const testimonials = [
 
 const trustBadges = ['🌿 100% Natural', '🚫 No Preservatives', '👵 Family Recipe Since 1970', '🏺 Traditional Method', '📦 Pan India Delivery', '☀️ Sun-Dried Always', '🪨 Stone-Ground Spices', '🫙 Glass Jars Only'];
 
-const recipes = [
+const FALLBACK_RECIPES = [
   { id: 'allam-velluli-pickle-recipe',    name: 'Allam Velluli Pickle Rice',    time: '10 min', emoji: '🍚', color: '#C4603A', desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee.' },
   { id: 'crispy-allu-chips', name: 'Crispy Allu Chips', time: '20 min', emoji: '🥔', color: '#E8A820', desc: 'Make perfectly crispy, golden potato chips at home with this simple traditional method.' },
   { id: 'daniya-powder-rasam',  name: 'Daniya Powder Rasam',  time: '20 min', emoji: '🥣', color: '#2D5A27', desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder.' },
@@ -67,6 +60,155 @@ export default function HomePage() {
   useReveal();
   const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [featuredProducts, setFeaturedProducts] = useState(() => {
+    const defaultProducts = ALL_PRODUCTS.slice(0, 4).map(p => ({
+      ...p,
+      tag: p.badge,
+      tagCls: p.badgeClass,
+      accent: '#C4603A'
+    }));
+    return defaultProducts;
+  });
+  const [featuredRecipes, setFeaturedRecipes] = useState(FALLBACK_RECIPES);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-products` : '/dashboard/website/api/get-website-products';
+        const res = await fetch(fetchUrl);
+        let apiProducts = [];
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data && Array.isArray(json.data)) {
+            apiProducts = json.data.map(p => ({
+              ...p,
+              name: p.productName || p.name || 'Unnamed Product',
+              desc: p.productDescription || p.desc || '',
+              img: (p.images && p.images.length > 0) ? p.images[0] : (p.img || 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&q=80'),
+              rating: p.rating || 5,
+              reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
+              updatedAt: p.updatedAt || p.createdAt || 0
+            }));
+          }
+        }
+        
+        // Combine API products and local ALL_PRODUCTS (API products take precedence if same id)
+        const combinedProducts = [...apiProducts];
+        for (const localP of ALL_PRODUCTS) {
+          if (!combinedProducts.find(p => p.id === localP.id || p.name === localP.name)) {
+            combinedProducts.push(localP);
+          }
+        }
+        
+        const categories = [
+          'Prepared Foods',
+          'Ready-to-eat savouries',
+          'Salts, spices, soups',
+          'Indian Sweets & Snacks'
+        ];
+        
+        const selectedProducts = [];
+        
+        for (const cat of categories) {
+          const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+          const normalizedCat = normalize(cat);
+          
+          const catProducts = combinedProducts.filter(p => {
+             const pCat = normalize(p.category);
+             return pCat === normalizedCat || pCat.includes(normalizedCat) || normalizedCat.includes(pCat);
+          });
+          
+          catProducts.sort((a, b) => {
+            const dateA = new Date(a.updatedAt || 0).getTime();
+            const dateB = new Date(b.updatedAt || 0).getTime();
+            return dateB - dateA;
+          });
+          
+          if (catProducts.length > 0) {
+            const p = catProducts[0];
+            if (!selectedProducts.find(sp => sp.id === p.id)) {
+              selectedProducts.push({
+                ...p,
+                tag: p.badge,
+                tagCls: p.badgeClass,
+                accent: '#C4603A'
+              });
+            }
+          }
+        }
+        
+        // Fill up to 4 items if needed
+        if (selectedProducts.length < 4) {
+           const remaining = combinedProducts.filter(p => !selectedProducts.find(sp => sp.id === p.id));
+           for (let i = 0; selectedProducts.length < 4 && i < remaining.length; i++) {
+               const p = remaining[i];
+               selectedProducts.push({
+                  ...p,
+                  tag: p.badge,
+                  tagCls: p.badgeClass,
+                  accent: '#C4603A'
+               });
+           }
+        }
+
+        setFeaturedProducts(selectedProducts.slice(0, 4));
+
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        const defaultProducts = ALL_PRODUCTS.slice(0, 4).map(p => ({
+          ...p,
+          tag: p.badge,
+          tagCls: p.badgeClass,
+          accent: '#C4603A'
+        }));
+        setFeaturedProducts(defaultProducts);
+      }
+    };
+    
+    const fetchRecipes = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-recipes` : '/dashboard/website/api/get-website-recipes';
+        const res = await fetch(fetchUrl);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data && Array.isArray(json.data) && json.data.length > 0) {
+            // Sort by updatedAt descending
+            const sortedRecipes = json.data.sort((a, b) => {
+              const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
+              const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
+              return dateB - dateA;
+            });
+            
+            const apiRecipes = sortedRecipes.map(r => ({
+              id: r.id || Math.random().toString(),
+              name: r.recipeName || r.name || 'Unnamed Recipe',
+              desc: r.recipeDescription || r.desc || '',
+              time: (r.makingTime && r.makingTime.value) ? `${r.makingTime.value} ${r.makingTime.unit || 'min'}` : (r.time || '15 min'),
+              color: r.color || '#C4603A',
+              img: (r.images && r.images.length > 0) ? r.images[0] : (r.img || null),
+              emoji: r.emoji || '🥘'
+            }));
+            
+            // If less than 4, fill from fallback
+            if (apiRecipes.length < 4) {
+              const remaining = FALLBACK_RECIPES.filter(r => !apiRecipes.find(ar => ar.name === r.name));
+              for (let i = 0; apiRecipes.length < 4 && i < remaining.length; i++) {
+                apiRecipes.push(remaining[i]);
+              }
+            }
+            setFeaturedRecipes(apiRecipes.slice(0, 4));
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    };
+
+    fetchProducts();
+    fetchRecipes();
+  }, []);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -180,8 +322,8 @@ export default function HomePage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '2rem' }}>
-              {products.map((p, i) => (
-                <div key={p.id} id={`product-${p.id}`} className="product-card reveal" style={{ '--i': i, animationDelay: `${i * 0.08}s` }}>
+              {featuredProducts.map((p, i) => (
+                <div key={p.id} id={`product-${p.id}`} className="product-card" style={{ '--i': i, animationDelay: `${i * 0.08}s` }}>
                   {/* Image */}
                   <div style={{ position: 'relative', height: '240px', overflow: 'hidden', background: '#f0e8d8' }}>
                     {p.img
@@ -245,19 +387,7 @@ export default function HomePage() {
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(61,31,10,0.2), transparent)' }} />
                 </div>
                 
-                {/* Floating Est badge */}
-                <div className="animate-float" style={{
-                  position: 'absolute', bottom: '-20px', left: '-10px',
-                  background: 'var(--terracotta)', color: 'var(--ivory)',
-                  borderRadius: '50%', width: '110px', height: '110px',
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 15px 35px rgba(196,96,58,0.4)',
-                  textAlign: 'center', border: '6px solid #f0e2c4',
-                  zIndex: 2
-                }}>
-                  <div style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.65rem', fontWeight: 900, letterSpacing: '0.15em', opacity: 0.9 }}>EST.</div>
-                  <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.6rem', fontWeight: 900, lineHeight: 1 }}>1970</div>
-                </div>
+                {/* Floating Est badge removed */}
               </div>
 
               {/* Text Side - Frosted Glass overlapping the image */}
@@ -642,9 +772,9 @@ export default function HomePage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.75rem' }}>
-              {recipes.map((r, i) => (
+              {featuredRecipes.map((r, i) => (
                 <Link key={r.id} href="/recipes" id={`recipe-${r.id}`} style={{ textDecoration: 'none', display: 'flex' }}>
-                  <div className="reveal" style={{
+                  <div style={{
                     borderRadius: '16px', background: '#fff',
                     border: '1px solid rgba(139,94,60,0.1)',
                     overflow: 'hidden', cursor: 'pointer',
@@ -658,7 +788,7 @@ export default function HomePage() {
                     onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                   >
                     <div style={{ height: '180px', flexShrink: 0, background: `linear-gradient(135deg, ${r.color}20, ${r.color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem', position: 'relative' }}>
-                      {r.emoji}
+                      {r.img ? <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : r.emoji}
                       <div style={{ position: 'absolute', bottom: '10px', right: '12px', fontFamily: 'Lato, sans-serif', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.08em', color: r.color, background: 'rgba(255,255,255,0.9)', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>⏱ {r.time}</div>
                     </div>
                     <div style={{ padding: '1.5rem 1.75rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
