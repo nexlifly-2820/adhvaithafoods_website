@@ -864,51 +864,104 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ RECIPES ════════════════════════════════ */}
-        <section id="recipes" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
-          <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center', marginBottom: '3.5rem' }} className="recipes-header">
-              <div className="reveal">
-                <span className="eyebrow">In The Kitchen</span>
-                <h2 className="display-lg" style={{ color: 'var(--forest-green)' }}>Cook With Our<br /><em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Pickles</em></h2>
-              </div>
-              <p className="body-xl reveal" style={{ color: 'var(--aged-wood)' }}>
-                Grandmother's pickles aren't just condiments — they're the hero ingredient that transforms simple meals into celebrations.
-              </p>
-            </div>
+        {/* ══ RECIPES (MARQUEE EXACT CLONE) ════════════════════════ */}
+        <section id="recipes" style={{ 
+          backgroundColor: '#FFF4ED',
+          backgroundImage: 'radial-gradient(circle, #D2446A 1.5px, transparent 1.5px)',
+          backgroundSize: '40px 40px',
+          overflow: 'hidden',
+          padding: '6rem 0' 
+        }}>
+          <div className="container" style={{ marginBottom: '4.5rem', textAlign: 'center' }}>
+            <span style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '1rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B72740' }}>In The Kitchen</span>
+            <h2 style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: '#111111', margin: '0.5rem 0', textTransform: 'uppercase', lineHeight: 1.1 }}>Cook With Our <span style={{ color: '#D2446A' }}>Pickles</span></h2>
+            <p style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '1.1rem', color: '#555555', maxWidth: '650px', margin: '0 auto', lineHeight: 1.4 }}>
+              Grandmother's pickles aren't just condiments — they're the hero ingredient that transforms simple meals into celebrations.
+            </p>
+          </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.75rem' }}>
-              {featuredRecipes.map((r, i) => (
-                <Link key={r.id} href="/recipes" id={`recipe-${r.id}`} style={{ textDecoration: 'none', display: 'flex' }}>
-                  <div style={{
-                    borderRadius: '16px', background: '#fff',
-                    border: '1px solid rgba(139,94,60,0.1)',
-                    overflow: 'hidden', cursor: 'pointer',
-                    transition: 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease',
-                    animationDelay: `${i * 0.12}s`,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 20px 48px rgba(61,31,10,0.13)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-                  >
-                    <div style={{ height: '180px', flexShrink: 0, background: `linear-gradient(135deg, ${r.color}20, ${r.color}50)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem', position: 'relative' }}>
-                      {r.img ? <img src={r.img} alt={r.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : r.emoji}
-                      <div style={{ position: 'absolute', bottom: '10px', right: '12px', fontFamily: 'Lato, sans-serif', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.08em', color: r.color, background: 'rgba(255,255,255,0.9)', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>⏱ {r.time}</div>
-                    </div>
-                    <div style={{ padding: '1.5rem 1.75rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                      <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700, color: 'var(--rich-brown)', marginBottom: '0.4rem' }}>{r.name}</h3>
-                      <p className="body-md" style={{ color: 'var(--aged-wood)', marginBottom: '1.5rem', flexGrow: 1 }}>{r.desc}</p>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontFamily: 'Lato, sans-serif', fontWeight: 900, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--terracotta)' }}>
-                        View Recipe <ChevronRight size={14} />
+          <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'recipe-marquee 40s linear infinite', width: 'fit-content' }}>
+            {/* Map array multiple times for a seamless infinite loop */}
+            {[...featuredRecipes, ...featuredRecipes, ...featuredRecipes].map((r, i) => {
+              const colors = ['#B72740', '#7BC644', '#D2446A', '#B7DF4C', '#B72740', '#7BC644']; 
+              const textColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#111111', '#FFFFFF', '#FFFFFF'];
+              
+              // Map specific recipe IDs to their unique pop-art graphic
+              const graphicsMap = {
+                'allam-velluli-pickle-recipe': '/images/flat_garlic.png',
+                'crispy-allu-chips': '/images/flat_potato.png',
+                'daniya-powder-rasam': '/images/flat_coriander.png',
+                'millets-kheer': '/images/flat_laddu.png'
+              };
+              const graphicSrc = graphicsMap[r.id] || '/images/flat_mango.png';
+              
+              return (
+                <div key={`recipe-mq-${r.id}-${i}`} style={{ position: 'relative', width: '360px', height: '580px', flexShrink: 0, marginRight: '40px' }}>
+                  
+                  {/* The Recipe Card (Staggered Vertically, Reduced Size) */}
+                  <Link href="/recipes" style={{ textDecoration: 'none' }}>
+                    <div style={{
+                      position: 'absolute',
+                      top: i % 2 === 0 ? '0px' : '80px',
+                      left: '20px',
+                      width: '280px',
+                      height: '280px',
+                      background: colors[i % colors.length],
+                      borderRadius: '8px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '2rem',
+                      zIndex: 2
+                    }}>
+                      <p style={{
+                        fontFamily: '"Arial Black", system-ui, sans-serif',
+                        fontSize: '1.15rem',
+                        lineHeight: 1.35,
+                        color: textColors[i % textColors.length],
+                        textAlign: 'center',
+                        marginBottom: '1.5rem',
+                        whiteSpace: 'normal',
+                        fontWeight: 900
+                      }}>"{r.desc}"</p>
+
+                      <div style={{
+                        fontFamily: '"Arial Black", system-ui, sans-serif',
+                        fontWeight: 900,
+                        fontSize: '0.8rem',
+                        color: textColors[i % textColors.length],
+                        textTransform: 'uppercase',
+                        textAlign: 'center',
+                        whiteSpace: 'normal'
+                      }}>
+                        {r.name}
                       </div>
                     </div>
+                  </Link>
+
+                  {/* The Graphic Element (Floating completely below with a clear gap) */}
+                  <div style={{ 
+                    position: 'absolute',
+                    width: '200px', 
+                    height: '200px', 
+                    top: i % 2 === 0 ? '300px' : '380px', 
+                    left: i % 2 === 0 ? '100px' : '40px',
+                    zIndex: 1
+                  }}>
+                    <img src={graphicSrc} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt={`${r.name} Graphic`} />
                   </div>
-                </Link>
-              ))}
-            </div>
+
+                </div>
+              );
+            })}
           </div>
+          <style>{`
+            @keyframes recipe-marquee {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-33.3333%); }
+            }
+          `}</style>
         </section>
 
 
