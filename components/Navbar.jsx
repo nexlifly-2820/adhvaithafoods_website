@@ -106,7 +106,6 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={`nav-link ${isActive ? 'active' : ''}`}
-                    style={{ color: isScrolled ? 'var(--rich-brown)' : 'rgba(250,240,220,0.85)' }}
                   >
                     {link.label}
                   </Link>
@@ -177,6 +176,34 @@ export default function Navbar() {
       </nav>
 
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+
+        .nav-link {
+          font-family: 'Oswald', sans-serif;
+          font-weight: 600;
+          font-size: 1.25rem;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #3b1605;
+          text-decoration: none;
+          position: relative;
+          transition: color 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+          color: #a4231b;
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 24px;
+          height: 4px;
+          background-color: #a4231b;
+        }
+
         @keyframes gradientShift {
           0%   { background-position: 0%   50%; }
           50%  { background-position: 100% 50%; }

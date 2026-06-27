@@ -280,6 +280,7 @@ function EmptyState({ onClearFilters }) {
 // ─── Main Page Component ──────────────────────────────────────────
 
 export default function ProductsPage() {
+  console.log("ProductsPage re-rendering with new SVG coordinates...");
   const [activeCategory, setActiveCategory] = useState(FILTER_ALL);
   const [sortBy, setSortBy] = useState(SORT_FEATURED);
   const [products, setProducts] = useState([]);
@@ -355,22 +356,43 @@ export default function ProductsPage() {
     <>
       <Navbar />
       <main>
-        {/* ── SVG Poster Hero — text on curved paths like Chipotle ── */}
+        {/* ── Custom Typography Hero perfectly matching the requested image ── */}
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lato:wght@900&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Patrick+Hand+SC&display=swap');
 
           #products-hero {
-            background-color: #EDE5CE;
+            background-color: #F4EFE6; /* Match the textured off-white beige of the image */
           }
 
-          @keyframes stripIn { from{opacity:0;transform:scale(1.04)} to{opacity:1;transform:scale(1)} }
-          .food-strip-img { animation: stripIn 1.2s ease 0.4s both; }
+          /* Subtle texture overlay */
+          .texture-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            mix-blend-mode: multiply;
+          }
 
-          @keyframes sbSpin { to { transform: rotate(360deg); } }
-          .sb-ray-g { animation: sbSpin 30s linear infinite; transform-origin: 50% 50%; transform-box: fill-box; }
+          @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+          }
+          
+          .animated-path {
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            animation: drawLine 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          }
 
-          .hero-label { opacity: 0; animation: labelIn 0.5s ease 0.1s both; }
-          @keyframes labelIn { to { opacity: 1; } }
+          .animated-text {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: popIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          }
+
+          @keyframes popIn {
+            to { opacity: 1; transform: translateY(0); }
+          }
         `}</style>
 
         <section
@@ -379,149 +401,99 @@ export default function ProductsPage() {
             position: 'relative', overflow: 'hidden',
             minHeight: '100vh', paddingTop: '75px',
             display: 'flex', flexDirection: 'column',
-            alignItems: 'flex-start', justifyContent: 'center',
-            paddingLeft: 'clamp(1.5rem, 6vw, 6rem)',
-            paddingRight: 'clamp(1.5rem, 6vw, 6rem)',
+            alignItems: 'center', justifyContent: 'center',
+            paddingLeft: '1rem',
+            paddingRight: '1rem',
           }}
         >
-          {/* ── Background food image ── */}
-          <img
-            src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2400&auto=format&fit=crop"
-            alt=""
-            aria-hidden="true"
-            style={{
-              position: 'absolute', inset: 0,
-              width: '100%', height: '100%',
-              objectFit: 'cover', objectPosition: 'center 55%',
-              display: 'block',
-            }}
-          />
-          {/* Warm cream overlay so text stays crisp */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(160deg, rgba(237,229,206,0.92) 0%, rgba(237,229,206,0.82) 50%, rgba(180,140,90,0.55) 100%)',
-            pointerEvents: 'none',
-          }} />
-          {/* Label */}
-          <p className="hero-label" style={{
-            fontFamily: 'Lato, sans-serif', fontWeight: 900,
-            fontSize: 'clamp(0.6rem, 1.1vw, 0.85rem)',
-            letterSpacing: '0.3em', textTransform: 'uppercase',
-            color: '#5A3A1A', margin: '0 0 1rem 0',
-            position: 'relative', zIndex: 1,
-          }}>
-            THE AVDAITHA COLLECTION
-          </p>
+          <div className="texture-overlay" />
 
-          {/* ── SVG poster — text on curved arc paths ── */}
+          {/* ── SVG Poster perfectly modeled after the reference image ── */}
           <svg
-            viewBox="0 0 1000 450"
+            viewBox="0 0 1000 520"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ width: '100%', maxWidth: '1080px', height: 'auto', display: 'block', overflow: 'visible', position: 'relative', zIndex: 1 }}
+            style={{ 
+              width: '100%', 
+              height: 'auto', 
+              maxHeight: '85vh', 
+              display: 'block', 
+              overflow: 'visible', 
+              position: 'relative', 
+              zIndex: 1,
+              margin: '0 auto' 
+            }}
           >
             <defs>
-              {/*
-                Arc paths — each row of text rides along this curve.
-                Gentle arcs: only 12-18px of height variation so it's
-                a subtle wave, not a dramatic slope.
-              */}
-
-              {/* Row 1: "WE BELIEVE THAT" — very gentle upward arc */}
-              <path id="arc1" d="M 5 100 C 300 86, 700 90, 995 100" />
-
-              {/* Row 3: "TO NOURISH THE SOUL." — gentle dip arc */}
-              <path id="arc3" d="M 5 390 C 300 378, 700 384, 995 390" />
-
-              {/*
-                Left-to-right clip reveal:
-                Rect animates from width=0 → 1000 over 2s,
-                wiping everything left→right.
-              */}
-              <clipPath id="lr">
-                <rect x="0" y="0" height="460">
-                  <animate
-                    attributeName="width"
-                    from="0" to="1000"
-                    dur="2s"
-                    calcMode="spline"
-                    keyTimes="0;1"
-                    keySplines="0.22 0.8 0.28 1"
-                    fill="freeze"
-                    begin="0.15s"
-                  />
-                </rect>
-              </clipPath>
+              <path id="top-text-arc" d="M 120 100 Q 450 40, 900 110" />
             </defs>
 
-            {/* All text + strokes revealed L→R */}
-            <g clipPath="url(#lr)" fontFamily="'Caveat', cursive" fontWeight="700" fill="#3D1F0A">
+            <g fontFamily="'Caveat Brush', 'Patrick Hand SC', cursive" fill="#442111" strokeLinecap="round" strokeLinejoin="round">
+              
+              {/* ── WAVY LINES (Decorative separators) ── */}
+              <path 
+                d="M 110 150 Q 320 100, 580 160 Q 750 200, 900 150" 
+                fill="none" stroke="#442111" strokeWidth="5" 
+                className="animated-path" 
+                style={{ animationDelay: '0.2s' }}
+              />
+              
+              <path 
+                d="M 110 320 Q 320 280, 580 320 Q 750 350, 900 310" 
+                fill="none" stroke="#442111" strokeWidth="5" 
+                className="animated-path" 
+                style={{ animationDelay: '0.4s' }}
+              />
 
-              {/*
-                ── Stroke 1 — sits cleanly ABOVE row 1 text ──
-                Row 1 baseline min ≈ 86 (arc dip), cap-height ≈ 0.8×72=57px
-                → top of letters ≈ 86−57 = 29. Stroke at y≈14: 15px gap ✓
-              */}
-              <path d="M 5 14 C 200 8, 550 20, 800 12 C 920 8, 970 16, 995 12"
-                stroke="#3D1F0A" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-              {/* ── ROW 1: "WE BELIEVE THAT" on arc1 ── */}
-              <text fontSize="72">
-                <textPath href="#arc1" startOffset="1%">WE BELIEVE THAT</textPath>
+              {/* ── TOP LINE: WE BELIEVE THAT AUTHENTIC ── */}
+              <text fontSize="60" className="animated-text" style={{ animationDelay: '0.6s' }}>
+                <textPath href="#top-text-arc" startOffset="0%">WE BELIEVE THAT AUTHENTIC</textPath>
               </text>
 
-              {/*
-                ── Stroke 2 — between row 1 and row 2 ──
-                Row 1 baseline max ≈ 100. Descenders ≈ +14px → 114.
-                FOOD cap top ≈ 270−0.8×148=270−118=152. Stroke at y≈130: safe gap ✓
-              */}
-              <path d="M 5 130 C 220 122, 520 138, 780 128 C 910 122, 970 134, 995 128"
-                stroke="#3D1F0A" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-              {/* ── ROW 2: "FOOD" giant left + stacked right ── */}
-              <text x="5" y="272" fontSize="148">FOOD</text>
-              <text x="490" y="207" fontSize="46">HAS THE</text>
-              <text x="490" y="265" fontSize="46">POWER</text>
-
-              {/*
-                ── Stroke 3 — between row 2 and row 3 ──
-                FOOD baseline = 272. Descenders ≈ +30px → 302.
-                Row 3 cap top ≈ 378−0.8×74=378−59=319. Stroke at y≈308: 9px gap — fine ✓
-              */}
-              <path d="M 5 308 C 220 300, 520 316, 780 306 C 910 300, 970 312, 995 306"
-                stroke="#3D1F0A" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-              {/* ── ROW 3: "TO NOURISH THE SOUL." on arc3 ── */}
-              <text fontSize="74">
-                <textPath href="#arc3" startOffset="1%">
-                  TO NOURISH THE <tspan fill="#B83A1A">SOUL.</tspan>
-                </textPath>
+              {/* ── MIDDLE LINE: FOOD HAS THE POWER ── */}
+              {/* FOOD */}
+              <text x="100" y="290" fontSize="170" className="animated-text" style={{ animationDelay: '0.7s', letterSpacing: '2px' }}>
+                FOOD
               </text>
-
-              {/*
-                ── Stroke 4 — below row 3 ──
-                Row 3 baseline max ≈ 390. Descenders ≈ +15px → 405.
-              */}
-              <path d="M 5 412 C 220 406, 520 420, 780 410 C 910 404, 970 416, 995 410"
-                stroke="#3D1F0A" strokeWidth="2" fill="none" strokeLinecap="round" />
-            </g>
-
-            {/* ── Sunburst (outside clip — always visible) ── */}
-            <g transform="translate(920, 80)">
-              <g className="sb-ray-g">
-                {Array.from({ length: 22 }, (_, i) => {
-                  const a = (i / 22) * 2 * Math.PI;
-                  return <line key={i}
-                    x1={42 * Math.cos(a)} y1={42 * Math.sin(a)}
-                    x2={68 * Math.cos(a)} y2={68 * Math.sin(a)}
-                    stroke="#3D1F0A" strokeWidth="2.2" strokeLinecap="round" />;
-                })}
+              
+              {/* HAS THE (Stacked) */}
+              <g className="animated-text" style={{ animationDelay: '0.8s' }}>
+                <text x="480" y="220" fontSize="40">HAS</text>
+                <text x="470" y="280" fontSize="40">THE</text>
               </g>
-              <circle cx="0" cy="0" r="32" fill="#EDE5CE" stroke="#3D1F0A" strokeWidth="2.2" />
-              <ellipse cx="0" cy="0" rx="18" ry="18" fill="none" stroke="#3D1F0A" strokeWidth="1.8" />
-              <path d="M-18 0 Q-9-12 0 0 Q9 12 18 0" fill="none" stroke="#3D1F0A" strokeWidth="1.8" />
-              <line x1="0" y1="-18" x2="0" y2="18" stroke="#3D1F0A" strokeWidth="1.8" />
+
+              {/* POWER */}
+              <text x="560" y="270" fontSize="100" transform="rotate(-2, 560, 270)" className="animated-text" style={{ animationDelay: '0.9s' }}>
+                POWER
+              </text>
+
+              {/* ── BOTTOM LINE: TO CHANGE THE WORLD. ── */}
+              {/* TO (with underline) */}
+              <g className="animated-text" style={{ animationDelay: '1.0s' }}>
+                <text x="140" y="420" fontSize="48">TO</text>
+                <path d="M 140 435 Q 165 430, 185 432" fill="none" stroke="#442111" strokeWidth="4" />
+              </g>
+
+              {/* CHANGE */}
+              <text x="210" y="430" fontSize="105" className="animated-text" style={{ animationDelay: '1.1s' }}>
+                CHANGE
+              </text>
+
+              {/* THE (Stacked with double underline) */}
+              <g className="animated-text" style={{ animationDelay: '1.2s' }}>
+                <text x="525" y="375" fontSize="35">THE</text>
+                <path d="M 525 390 Q 545 385, 565 390" fill="none" stroke="#442111" strokeWidth="3" />
+                <path d="M 528 400 Q 545 395, 562 400" fill="none" stroke="#442111" strokeWidth="3" />
+              </g>
+
+              {/* WORLD. */}
+              <text x="590" y="430" fontSize="105" transform="rotate(-2, 590, 430)" className="animated-text" style={{ animationDelay: '1.3s' }}>
+                WORLD.
+              </text>
+
+
             </g>
           </svg>
+
         </section>
 
         {/* ── Advanced Sidebar Layout ──────────────────────── */}
