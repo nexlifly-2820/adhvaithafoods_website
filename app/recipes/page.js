@@ -263,7 +263,7 @@ export default function RecipesPage() {
   return (
     <div style={{ backgroundColor: '#F0CD4C', overflowX: 'hidden' }}>
       <Navbar />
-      
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Modak&family=Mouse+Memoirs&family=Inter:wght@400;700&display=swap');
         
@@ -273,38 +273,38 @@ export default function RecipesPage() {
       `}</style>
 
       <main style={{ minHeight: '100vh', paddingBottom: '0' }}>
-        
+
         {/* CravBurgers Style Cinematic Hero */}
         <section id="recipes-hero" style={{
           position: 'relative', overflow: 'hidden',
           minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
           textAlign: 'center', padding: '12rem 2rem 8rem',
-          background: 'url(https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop) center/cover no-repeat fixed'
+          background: 'url(https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2000&auto=format&fit=crop) center/cover no-repeat fixed'
         }}>
           {/* Dark Overlay */}
           <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.25)' }} />
 
           <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateY(-2rem)' }}>
-            <h2 className="font-modak" style={{ 
-              fontSize: 'clamp(2.5rem, 6vw, 4rem)', 
-              color: '#F0CD4C', 
+            <h2 className="font-modak" style={{
+              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+              color: '#F0CD4C',
               WebkitTextStroke: '2px #FFF',
-              textTransform: 'uppercase', 
+              textTransform: 'uppercase',
               marginBottom: '-2rem',
               transform: 'rotate(-3deg)',
               zIndex: 2
             }}>
               WHAT'S INSIDE
             </h2>
-            <h1 className="font-mouse" style={{ 
-              fontSize: 'clamp(6rem, 15vw, 14rem)', 
-              color: '#FF1E1E', 
-              WebkitTextStroke: '4px #FFF', 
-              textTransform: 'uppercase', 
+            <h1 className="font-mouse" style={{
+              fontSize: 'clamp(6rem, 15vw, 14rem)',
+              color: '#FF1E1E',
+              WebkitTextStroke: '4px #FFF',
+              textTransform: 'uppercase',
               lineHeight: 0.8,
               filter: 'drop-shadow(0px 15px 10px rgba(0,0,0,0.4))'
             }}>
-              SIMPLE THINGS<br/>DONE RIGHT
+              SIMPLE THINGS<br />DONE RIGHT
             </h1>
           </div>
 
@@ -316,33 +316,33 @@ export default function RecipesPage() {
 
         {/* CravBurgers Style Staggered Ingredients Layout */}
         <section style={{ backgroundColor: '#F0CD4C', padding: '6rem 2rem 12rem', position: 'relative' }}>
-          
+
           <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', marginBottom: '8rem' }}>
-             <h2 className="font-mouse" style={{ 
-               fontSize: 'clamp(5rem, 12vw, 12rem)', 
-               color: '#FFF', 
-               lineHeight: 0.8, 
-               textTransform: 'uppercase', 
-               filter: 'drop-shadow(4px 4px 0px rgba(200,160,40,0.5))' 
-             }}>
-               A STORY IN<br/>EVERY BITE.
-             </h2>
-             <p className="font-mouse" style={{ 
-               fontSize: '2.5rem', 
-               color: '#111', 
-               marginTop: '2rem', 
-               textTransform: 'uppercase', 
-               letterSpacing: '1px' 
-             }}>
-               FROM FRESH FARMS TO YOUR HANDS EVERY LAYER MATTERS.
-             </p>
+            <h2 className="font-mouse" style={{
+              fontSize: 'clamp(5rem, 12vw, 12rem)',
+              color: '#FFF',
+              lineHeight: 0.8,
+              textTransform: 'uppercase',
+              filter: 'drop-shadow(4px 4px 0px rgba(200,160,40,0.5))'
+            }}>
+              A STORY IN<br />EVERY BITE.
+            </h2>
+            <p className="font-mouse" style={{
+              fontSize: '2.5rem',
+              color: '#111',
+              marginTop: '2rem',
+              textTransform: 'uppercase',
+              letterSpacing: '1px'
+            }}>
+              FROM FRESH FARMS TO YOUR HANDS EVERY LAYER MATTERS.
+            </p>
           </div>
 
           <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative' }}>
-            
+
             <div style={{ position: 'absolute', top: '200px', bottom: '200px', left: 0, right: 0, zIndex: 0 }}>
               <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" style={{ display: 'block', overflow: 'visible' }}>
-                <path 
+                <path
                   id="journey-path"
                   d={recipes.reduce((path, _, i) => {
                     const x = i % 2 === 0 ? 22 : 78;
@@ -353,32 +353,32 @@ export default function RecipesPage() {
                     // S-Curve down the page
                     return `${path} C ${prevX} ${prevY + 20}, ${x} ${y - 20}, ${x} ${y}`;
                   }, '')}
-                  fill="none" stroke="#D4A733" strokeWidth="4" strokeDasharray="12, 12" 
+                  fill="none" stroke="#D4A733" strokeWidth="4" strokeDasharray="12, 12"
                   vectorEffect="non-scaling-stroke"
                   style={{ transition: 'stroke-dashoffset 0.1s ease-out' }}
                 />
               </svg>
             </div>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8rem', position: 'relative', zIndex: 1 }}>
               {isLoading ? (
                 <div className="font-mouse" style={{ textAlign: 'center', fontSize: '3rem', color: '#111' }}>Loading...</div>
               ) : recipes.slice(0, visibleCount).map((recipe, index) => {
                 const isEven = index % 2 === 0;
                 return (
-                  <div key={recipe.id} style={{ 
-                    display: 'flex', 
+                  <div key={recipe.id} style={{
+                    display: 'flex',
                     justifyContent: isEven ? 'flex-start' : 'flex-end',
                     width: '100%'
                   }}>
-                    <div style={{ 
+                    <div style={{
                       width: '45%', position: 'relative'
                     }}>
-                      
+
                       {/* Bubbly Floating Label */}
-                      <div className="font-modak" style={{ 
+                      <div className="font-modak" style={{
                         position: 'absolute', top: '-1.5rem', [isEven ? 'right' : 'left']: '-2rem', zIndex: 10,
-                        fontSize: '3rem', color: recipe.color, WebkitTextStroke: '1px #FFF', 
+                        fontSize: '3rem', color: recipe.color, WebkitTextStroke: '1px #FFF',
                         textTransform: 'uppercase', transform: isEven ? 'rotate(5deg)' : 'rotate(-5deg)',
                         filter: 'drop-shadow(2px 4px 0px rgba(0,0,0,0.15))'
                       }}>
@@ -386,19 +386,19 @@ export default function RecipesPage() {
                       </div>
 
                       {/* Floating Recipe Image Card */}
-                      <div style={{ 
-                        borderRadius: '24px', overflow: 'hidden', 
-                        boxShadow: '0 30px 50px rgba(0,0,0,0.15)', 
+                      <div style={{
+                        borderRadius: '24px', overflow: 'hidden',
+                        boxShadow: '0 30px 50px rgba(0,0,0,0.15)',
                         position: 'relative', height: '400px',
                         border: '8px solid #FFF',
                         transform: 'translateY(0)',
                         transition: 'transform 0.4s ease'
                       }}
-                      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-10px)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                        onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-10px)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
                         <img src={recipe.img} alt={recipe.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
-                      
+
                       {/* Title & Desc */}
                       <div style={{ marginTop: '1.5rem', padding: '0 1rem' }}>
                         <h3 className="font-mouse" style={{ fontSize: '3.5rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
@@ -410,9 +410,9 @@ export default function RecipesPage() {
                       </div>
 
                       {/* Floating Decorative Emoji Cutout (Moved to inner edge of card) */}
-                      <div style={{ 
-                        position: 'absolute', top: '-2rem', [isEven ? 'left' : 'right']: '-2rem', 
-                        width: '70px', height: '70px', background: '#FFF', borderRadius: '50%', 
+                      <div style={{
+                        position: 'absolute', top: '-2rem', [isEven ? 'left' : 'right']: '-2rem',
+                        width: '70px', height: '70px', background: '#FFF', borderRadius: '50%',
                         boxShadow: '0 15px 30px rgba(0,0,0,0.15)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem',
                         transform: 'rotate(-10deg)',
@@ -424,16 +424,16 @@ export default function RecipesPage() {
                   </div>
                 )
               })}
-              
+
               {/* View More Button */}
               {!isLoading && visibleCount < recipes.length && (
                 <div style={{ textAlign: 'center', marginTop: '4rem', position: 'relative', zIndex: 10 }}>
-                  <button 
+                  <button
                     onClick={() => setVisibleCount(prev => prev + 4)}
                     className="font-mouse"
                     style={{
-                      background: '#FFF', color: '#111', 
-                      fontSize: '2.5rem', textTransform: 'uppercase', 
+                      background: '#FFF', color: '#111',
+                      fontSize: '2.5rem', textTransform: 'uppercase',
                       padding: '1rem 4rem', borderRadius: '50px', border: '4px solid #111',
                       cursor: 'pointer', boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
                       transition: 'transform 0.2s ease, background 0.2s ease'
@@ -463,16 +463,16 @@ export default function RecipesPage() {
             <p className="font-mouse" style={{ fontSize: '2rem', color: '#FFF', opacity: 0.9, textTransform: 'uppercase', marginBottom: '3rem' }}>
               Bring these magical authentic flavors directly to your kitchen.
             </p>
-            <Link href="/products" style={{ 
+            <Link href="/products" style={{
               display: 'inline-block',
-              background: '#FFF', color: '#FF1E1E', 
-              fontFamily: 'Mouse Memoirs, sans-serif', fontSize: '2.5rem', 
+              background: '#FFF', color: '#FF1E1E',
+              fontFamily: 'Mouse Memoirs, sans-serif', fontSize: '2.5rem',
               textTransform: 'uppercase', padding: '1rem 4rem', borderRadius: '50px',
               textDecoration: 'none', boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
               transition: 'transform 0.2s ease'
             }}
-            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
               ORDER NOW
             </Link>
           </div>
