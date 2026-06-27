@@ -59,40 +59,61 @@ export default function HowWeMakeItPage() {
       <Navbar />
       <main>
 
-        {/* Cinematic Hero */}
+        {/* FUNKY BRUTALIST HERO (Replaces Cinematic Hero) */}
         <section id="process-hero" style={{
           position: 'relative',
-          minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          overflow: 'hidden'
+          minHeight: '70vh', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          backgroundColor: '#FBC835', /* Solid Bright Yellow */
+          padding: '8rem 2rem 6rem 2rem',
+          overflow: 'hidden',
+          zIndex: 2
         }}>
-          {/* Background Image */}
-          <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,10,3,0.9), rgba(26,10,3,1))' }} />
-          </div>
-
-          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 2rem' }} className="reveal">
+          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '1100px' }} className="reveal">
+            
             <span style={{
-              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900,
-              letterSpacing: '0.4em', color: 'var(--turmeric)', display: 'block', marginBottom: '1.5rem',
+              fontFamily: '"Arial Black", system-ui, sans-serif', 
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)', 
+              fontWeight: 900,
+              letterSpacing: '0.05em', 
+              color: '#111111', 
+              display: 'block', 
+              marginBottom: '1.5rem',
               textTransform: 'uppercase'
             }}>
               The Art of Pickle Making
             </span>
+            
             <h1 style={{
-              fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3.5rem, 8vw, 6rem)',
-              fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1
+              fontFamily: '"Arial Black", "Inter", sans-serif', 
+              fontSize: 'clamp(4rem, 10vw, 8rem)',
+              fontWeight: 900, 
+              color: '#111111', 
+              marginBottom: '1rem', 
+              lineHeight: 0.85,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.03em'
             }}>
-              Made The Old Way.<br />
-              <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Always.</em>
+              MADE THE OLD WAY.<br/>ALWAYS.
             </h1>
+            
             <p style={{
-              fontFamily: 'Lato, sans-serif', fontSize: '1.2rem', color: 'rgba(250,240,220,0.8)',
-              maxWidth: '600px', margin: '0 auto', lineHeight: 1.8
+              fontFamily: '"Arial Black", system-ui, sans-serif', 
+              fontSize: 'clamp(1.1rem, 2vw, 1.5rem)', 
+              color: '#111111',
+              maxWidth: '800px', 
+              margin: '2rem auto 0 auto', 
+              lineHeight: 1.4,
+              fontWeight: 900,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.01em'
             }}>
               Six meticulous steps. No shortcuts. No machines where hands work better. This is our promise to you.
             </p>
           </div>
-
         </section>
 
         {/* ULTRA-ADVANCED STICKY STACKING SECTION */}

@@ -199,7 +199,7 @@ export default function Navbar() {
           position: absolute;
           bottom: -8px;
           left: 0;
-          width: 24px;
+          width: 100%;
           height: 4px;
           background-color: #a4231b;
         }
