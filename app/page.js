@@ -543,11 +543,38 @@ export default function HomePage() {
         <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
-              <span className="eyebrow">Our Collection</span>
-              <h2 style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 900, color: 'var(--forest-green)', display: 'inline' }}>Our Beloved </h2>
-              <h2 style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 900, fontStyle: 'italic', color: 'var(--terracotta)', display: 'inline' }}>Pickles</h2>
-              <p style={{ fontFamily: '"Lato", sans-serif', fontSize: '1.4rem', fontWeight: 500, color: 'var(--aged-wood)', marginTop: '1.5rem', maxWidth: '480px', margin: '1.5rem auto 0' }}>
-                Every jar tells a story of love and tradition
+              <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em' }}>IN OUR COLLECTION</span>
+              <br/>
+              <h2 style={{ 
+                fontFamily: '"Arial Black", system-ui, sans-serif', 
+                fontSize: 'clamp(3rem, 7vw, 5.5rem)', 
+                fontWeight: 900, 
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                color: '#111', 
+                display: 'inline' 
+              }}>OUR BELOVED </h2>
+              <h2 style={{ 
+                fontFamily: '"Arial Black", system-ui, sans-serif', 
+                fontSize: 'clamp(3rem, 7vw, 5.5rem)', 
+                fontWeight: 900, 
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                color: '#D44A6A', 
+                display: 'inline' 
+              }}>PICKLES</h2>
+              <p style={{ 
+                fontFamily: '"Arial Black", system-ui, sans-serif', 
+                fontSize: '1.1rem', 
+                fontWeight: 900, 
+                color: '#444', 
+                marginTop: '1.5rem', 
+                maxWidth: '600px', 
+                margin: '1.5rem auto 0' 
+              }}>
+                Every jar tells a story of love and tradition — transforming simple meals into celebrations.
               </p>
             </div>
 
