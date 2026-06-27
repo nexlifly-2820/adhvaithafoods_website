@@ -16,6 +16,7 @@ const steps = [
 export default function HowWeMakeItPage() {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeStandardTab, setActiveStandardTab] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -33,13 +34,13 @@ export default function HowWeMakeItPage() {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
+
       // Calculate how far the container has been scrolled through
       // 0 means top of container is at the bottom of the viewport
       // 1 means bottom of container is at the top of the viewport
       const totalScrollDistance = rect.height + windowHeight;
       const currentScroll = windowHeight - rect.top;
-      
+
       let progress = currentScroll / totalScrollDistance;
       // Clamp between 0 and 1
       progress = Math.max(0, Math.min(1, progress));
@@ -49,7 +50,7 @@ export default function HowWeMakeItPage() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     // Initial check
     handleScroll();
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -66,51 +67,36 @@ export default function HowWeMakeItPage() {
         }}>
           {/* Background Image */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,10,3,0.9), rgba(26,10,3,1))' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(26,10,3,0.9), rgba(26,10,3,1))' }} />
           </div>
 
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 2rem' }} className="reveal">
-            <span style={{ 
-              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, 
+            <span style={{
+              fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900,
               letterSpacing: '0.4em', color: 'var(--turmeric)', display: 'block', marginBottom: '1.5rem',
               textTransform: 'uppercase'
             }}>
               The Art of Pickle Making
             </span>
-            <h1 style={{ 
-              fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3.5rem, 8vw, 6rem)', 
-              fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1 
+            <h1 style={{
+              fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+              fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem', lineHeight: 1
             }}>
               Made The Old Way.<br />
               <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Always.</em>
             </h1>
-            <p style={{ 
-              fontFamily: 'Lato, sans-serif', fontSize: '1.2rem', color: 'rgba(250,240,220,0.8)', 
-              maxWidth: '600px', margin: '0 auto', lineHeight: 1.8 
+            <p style={{
+              fontFamily: 'Lato, sans-serif', fontSize: '1.2rem', color: 'rgba(250,240,220,0.8)',
+              maxWidth: '600px', margin: '0 auto', lineHeight: 1.8
             }}>
               Six meticulous steps. No shortcuts. No machines where hands work better. This is our promise to you.
             </p>
           </div>
-          
+
         </section>
 
         {/* ULTRA-ADVANCED STICKY STACKING SECTION */}
         <div ref={containerRef} style={{ background: 'var(--cream)', padding: '10vh 0', position: 'relative' }}>
-          
-          {/* The Spice Route Scroll Trail */}
-          <div style={{ 
-            position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
-            width: '4px', height: '100%', background: 'rgba(196,96,58,0.1)', zIndex: 0,
-            borderRadius: '4px'
-          }}>
-            <div style={{ 
-              width: '100%', height: `${scrollProgress * 100}%`, 
-              background: 'linear-gradient(to bottom, var(--turmeric), var(--terracotta))',
-              boxShadow: '0 0 20px var(--terracotta)',
-              borderRadius: '4px',
-              transition: 'height 0.1s ease-out'
-            }} />
-          </div>
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1, padding: '0 2rem' }}>
             {steps.map((step, i) => {
@@ -118,21 +104,21 @@ export default function HowWeMakeItPage() {
               const bgColors = ['#F6F2DF', '#8B55D5', '#6CB83A', '#F3D966', '#E96847', '#4CB0D8'];
               const textColors = ['#1C402C', '#FFFFFF', '#1C402C', '#1C402C', '#FFFFFF', '#FFFFFF'];
               const rotations = [-1.5, 1.5, -2, 2, -1.5, 1.5];
-              
+
               // Calculate sticky top offset
               const topOffset = `calc(5vh + ${i * 15}px)`;
-              
+
               return (
-                <div key={step.id} style={{ 
-                  position: 'sticky', 
-                  top: topOffset, 
+                <div key={step.id} style={{
+                  position: 'sticky',
+                  top: topOffset,
                   marginBottom: '20vh', // Huge spacing to allow scrolling
                   height: '80vh', // Massive card height
                   width: '100%',
                   zIndex: i + 1 // Ensure proper stacking
                 }}>
                   {/* The Card Itself - Video Style */}
-                  <div className="sticky-card" style={{ 
+                  <div className="sticky-card" style={{
                     width: '100%', height: '100%',
                     background: bgColors[i % bgColors.length],
                     borderRadius: '40px', // Large rounded corners like video
@@ -140,15 +126,15 @@ export default function HowWeMakeItPage() {
                     display: 'flex', overflow: 'hidden',
                     transform: `rotate(${rotations[i % rotations.length]}deg)`, // Alternating rotations
                   }}>
-                    
+
                     {/* Image Half */}
                     <div style={{ flex: '1', position: 'relative', overflow: 'hidden', padding: '2rem' }}>
                       <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '24px', overflow: 'hidden' }}>
                         <img src={step.img} alt={step.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.1)' }} />
                       </div>
-                      
-                      <div style={{ 
+
+                      <div style={{
                         position: 'absolute', bottom: '0', left: '0',
                         fontFamily: '"Arial Black", system-ui, sans-serif', fontSize: '25vw', fontWeight: 900,
                         color: 'rgba(255,255,255,0.2)', lineHeight: 0.8, pointerEvents: 'none',
@@ -160,7 +146,7 @@ export default function HowWeMakeItPage() {
 
                     {/* Text Half */}
                     <div style={{ flex: '1.2', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 3rem 2rem 1rem' }}>
-                      
+
                       {/* Compact Step Indicator */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>{step.emoji}</span>
@@ -170,11 +156,11 @@ export default function HowWeMakeItPage() {
                         </div>
                       </div>
 
-                      <h2 style={{ 
-                        fontFamily: '"Arial Black", system-ui, sans-serif', 
+                      <h2 style={{
+                        fontFamily: '"Arial Black", system-ui, sans-serif',
                         fontSize: 'clamp(2.5rem, 4vw, 4rem)', // Reduced massive size to fit inside the card
-                        fontWeight: 900, 
-                        color: '#111111', 
+                        fontWeight: 900,
+                        color: '#111111',
                         WebkitTextStroke: '2px #ffffff', // Slightly thinner stroke to match smaller text
                         filter: 'drop-shadow(4px 4px 0px #111111)', // Reduced shadow size
                         textTransform: 'uppercase',
@@ -186,11 +172,11 @@ export default function HowWeMakeItPage() {
                         {step.title}
                       </h2>
 
-                      <p style={{ 
-                        fontFamily: 'system-ui, sans-serif', 
+                      <p style={{
+                        fontFamily: 'system-ui, sans-serif',
                         fontSize: '1.1rem', // Reduced from 1.5rem
-                        color: textColors[i % textColors.length] === '#FFFFFF' ? '#FFFFFF' : '#111111', 
-                        lineHeight: 1.6, 
+                        color: textColors[i % textColors.length] === '#FFFFFF' ? '#FFFFFF' : '#111111',
+                        lineHeight: 1.6,
                         marginBottom: '1.5rem',
                         fontWeight: 600, // Slightly less bold
                         maxWidth: '95%'
@@ -198,11 +184,11 @@ export default function HowWeMakeItPage() {
                         {step.desc}
                       </p>
 
-                      <div style={{ 
-                        fontFamily: 'system-ui, sans-serif', 
+                      <div style={{
+                        fontFamily: 'system-ui, sans-serif',
                         fontSize: '0.9rem', // Reduced from 1.2rem
-                        fontWeight: 900, 
-                        color: textColors[i % textColors.length] === '#FFFFFF' ? 'rgba(255,255,255,0.9)' : '#111111', 
+                        fontWeight: 900,
+                        color: textColors[i % textColors.length] === '#FFFFFF' ? 'rgba(255,255,255,0.9)' : '#111111',
                         letterSpacing: '0.02em',
                         textTransform: 'uppercase'
                       }}>
@@ -217,51 +203,230 @@ export default function HowWeMakeItPage() {
         </div>
 
         {/* Quality Promise - Advanced Design */}
-        <section style={{ background: 'var(--forest-green)', padding: '10rem 2rem', position: 'relative', overflow: 'hidden', zIndex: 2 }}>
-          <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '600px', height: '600px', background: 'var(--turmeric)', borderRadius: '50%', filter: 'blur(150px)', opacity: 0.1 }} />
-          
+        <section style={{ background: 'var(--cream)', padding: '8rem 2rem', position: 'relative', overflow: 'hidden', zIndex: 2 }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <div style={{ textAlign: 'center', marginBottom: '6rem' }} className="reveal">
-              <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(250,240,220,0.5)' }}>Our Commitment</span>
-              <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 900, color: 'var(--ivory)', marginTop: '1rem' }}>The Avdaitha Standard</h2>
+
+            {/* Minimalist Header */}
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }} className="reveal">
+              <span style={{ fontFamily: 'system-ui, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'var(--forest-green)' }}>Our Commitment</span>
+              <h2 style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 900, color: '#111111', marginTop: '0.5rem', textTransform: 'uppercase' }}>The Adhvaitha Standard</h2>
             </div>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-              {[
-                { emoji: '🌿', title: '100% Natural', text: 'No artificial flavors, colors, or cheap fillers. Just pure ingredients from the earth.' },
-                { emoji: '🚫', title: 'Zero Preservatives', text: 'Preserved naturally using salt, oil, and sun-drying, exactly how our ancestors did it.' },
-                { emoji: '🫙', title: 'Glass Only', text: 'Packed in sterilized glass jars to maintain purity and prevent plastic leaching.' },
-              ].map((item, i) => (
-                <div key={i} className="reveal magnetic" style={{ 
-                  background: 'rgba(250,240,220,0.05)', backdropFilter: 'blur(10px)', 
-                  border: '1px solid rgba(250,240,220,0.1)', borderRadius: '24px', 
-                  padding: '4rem 2.5rem', textAlign: 'center', animationDelay: `${i * 0.15}s`,
-                  transition: 'transform 0.4s ease, background 0.4s ease'
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = 'rgba(250,240,220,0.08)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'rgba(250,240,220,0.05)'}
-                >
-                  <div style={{ fontSize: '4rem', marginBottom: '1.5rem', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.2))' }}>{item.emoji}</div>
-                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.6rem', fontWeight: 700, color: 'var(--ivory)', marginBottom: '1rem' }}>{item.title}</h3>
-                  <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.05rem', color: 'rgba(250,240,220,0.7)', lineHeight: 1.6 }}>{item.text}</p>
-                </div>
-              ))}
+
+            {/* Interactive Vertical Tab Component */}
+            <div className="reveal" style={{ display: 'flex', gap: '1rem', height: '550px', maxWidth: '1200px', margin: '0 auto' }}>
+
+              {/* Left Side: Tabs */}
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                {[
+                  { title: '100% NATURAL', color: '#FBC835' },
+                  { title: 'ZERO PRESERVATIVES', color: '#47B8E6' },
+                  { title: 'GLASS JARS ONLY', color: '#C4B4E3' }
+                ].map((tab, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveStandardTab(i)}
+                    style={{
+                      width: '70px',
+                      height: '100%',
+                      backgroundColor: tab.color,
+                      border: '2px solid #111111',
+                      borderRadius: '40px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.3s ease',
+                      opacity: activeStandardTab === i ? 1 : 0.6,
+                      boxShadow: activeStandardTab === i ? '4px 4px 0px rgba(0,0,0,1)' : 'none'
+                    }}
+                  >
+                    <span style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)',
+                      fontFamily: '"Arial Black", system-ui, sans-serif',
+                      fontWeight: 900,
+                      fontSize: '1.2rem',
+                      color: '#111111',
+                      whiteSpace: 'nowrap',
+                      letterSpacing: '0.05em'
+                    }}>
+                      {tab.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Side: Main Card */}
+              {(() => {
+                const tabsData = [
+                  {
+                    subtitle: 'THE ADHVAITHA STANDARD',
+                    heading: '100% PURE & NATURAL',
+                    desc: 'No artificial flavors, colors, or cheap fillers. Just pure ingredients from the earth, handpicked at their peak freshness to deliver authentic taste.',
+                    img: '/images/story_ingredients_1782482838849.png',
+                    color: '#FBC835'
+                  },
+                  {
+                    subtitle: 'TRADITIONAL METHOD',
+                    heading: 'ZERO CHEMICALS',
+                    desc: 'Preserved naturally using salt, cold-pressed sesame oil, and sun-drying. Exactly how our ancestors did it centuries ago.',
+                    img: '/images/tab2_generated.jpg',
+                    color: '#47B8E6'
+                  },
+                  {
+                    subtitle: 'SAFE PACKAGING',
+                    heading: 'PACKED IN GLASS ONLY',
+                    desc: 'Packed in sterilized glass jars to maintain absolute purity, preserve authentic flavor, and completely prevent plastic chemical leaching.',
+                    img: '/images/tab3_generated.jpg',
+                    color: '#C4B4E3'
+                  }
+                ];
+                const activeData = tabsData[activeStandardTab];
+
+                return (
+                  <div style={{
+                    flex: 1,
+                    backgroundColor: activeData.color,
+                    border: '2px solid #111111',
+                    borderRadius: '32px',
+                    padding: '1.5rem',
+                    display: 'flex',
+                    gap: '3rem',
+                    alignItems: 'center',
+                    transition: 'background-color 0.4s ease',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    {/* Image inside card */}
+                    <div style={{
+                      width: '45%',
+                      height: '100%',
+                      borderRadius: '24px',
+                      border: '2px solid #111111',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      backgroundColor: '#fff'
+                    }}>
+                      <img src={activeData.img} alt={activeData.heading} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+
+                    {/* Content inside card */}
+                    <div style={{ flex: 1, paddingRight: '2rem', color: '#111111' }}>
+                      <p style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                        {activeData.subtitle}
+                      </p>
+                      <h3 style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '3rem', lineHeight: 1.1, marginBottom: '1.5rem', textTransform: 'uppercase' }}>
+                        {activeData.heading}
+                      </h3>
+                      <p style={{ fontFamily: 'system-ui, sans-serif', fontSize: '1.1rem', lineHeight: 1.5, marginBottom: '2rem', fontWeight: 500, maxWidth: '90%' }}>
+                        {activeData.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
+
           </div>
         </section>
 
-        {/* CTA */}
-        <section style={{ background: 'var(--terracotta)', padding: '10rem 2rem', textAlign: 'center', zIndex: 2, position: 'relative' }}>
-          <div style={{ maxWidth: '700px', margin: '0 auto' }} className="reveal">
-            <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 900, color: 'var(--ivory)', marginBottom: '1.5rem' }}>
-              Taste The Heritage
-            </h2>
-            <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.25rem', color: 'rgba(250,240,220,0.9)', marginBottom: '3rem', lineHeight: 1.7 }}>
-              Every jar of Avdaitha Foods is a labor of love, crafted over weeks to bring you the authentic taste of an Indian grandmother's kitchen.
-            </p>
-            <Link href="/products" className="btn btn-outline-cream magnetic" style={{ fontSize: '1.1rem', padding: '1.25rem 4rem', border: '2px solid var(--ivory)', background: 'var(--ivory)', color: 'var(--terracotta)' }}>
-              Shop Our Pickles →
-            </Link>
+        {/* FUNKY BRUTALIST CTA (Replaces Taste The Heritage) */}
+        <section style={{ backgroundColor: '#FF4E00', paddingTop: '8rem', paddingBottom: '0', position: 'relative', overflow: 'hidden', zIndex: 2 }}>
+          
+          <div style={{ maxWidth: '1050px', margin: '0 auto', position: 'relative' }} className="reveal">
+            
+            {/* Black Cartoon Clouds Behind Card */}
+            <div style={{ position: 'absolute', top: '-100px', left: '-5%', width: '110%', height: '180px', zIndex: 0 }}>
+              <svg viewBox="0 0 1200 150" fill="#221F1F" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '100%' }}>
+                <path d="M0 150 L0 80 Q 80 -10 180 60 Q 300 -30 450 40 Q 600 -40 750 30 Q 900 -30 1050 50 Q 1150 0 1200 80 L1200 150 Z" />
+              </svg>
+            </div>
+
+            {/* Main Purple Card */}
+            <div style={{ 
+              backgroundColor: '#C5B4E3', 
+              padding: '6rem 2rem 5rem 2rem', 
+              position: 'relative', 
+              zIndex: 1, 
+              textAlign: 'center',
+              borderTopLeftRadius: '32px',
+              borderTopRightRadius: '32px',
+              minHeight: '400px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              
+              {/* Yellow Starburst Badge */}
+              <div style={{ position: 'absolute', top: '-40px', left: '-20px', zIndex: 10, width: '140px', height: '140px' }}>
+                <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                  <path d="M50 0 L61 28 L90 20 L75 46 L100 66 L71 72 L73 100 L50 82 L27 100 L29 72 L0 66 L25 46 L10 20 L39 28 Z" fill="#FDD000" />
+                  <text x="50" y="45" fontFamily='"Arial Black", sans-serif' fontSize="11" fontWeight="900" textAnchor="middle" fill="#111" transform="rotate(-15 50 50)">SINCE</text>
+                  <text x="50" y="58" fontFamily='"Arial Black", sans-serif' fontSize="13" fontWeight="900" textAnchor="middle" fill="#111" transform="rotate(-15 50 50)">1970</text>
+                </svg>
+              </div>
+
+              {/* Maroon Circle Badge */}
+              <div style={{ position: 'absolute', top: '-40px', right: '-10px', zIndex: 10, width: '130px', height: '130px', background: '#752c4b', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                <svg viewBox="0 0 100 100" style={{ position: 'absolute', width: '100%', height: '100%' }}>
+                  <path id="curve" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" fill="transparent" />
+                  <text width="100">
+                    <textPath href="#curve" startOffset="0" fill="#FFF" fontSize="10.5" fontFamily="system-ui, sans-serif" fontWeight="bold" letterSpacing="2">
+                      • 100% AUTHENTIC • ADHVAITHA
+                    </textPath>
+                  </text>
+                </svg>
+                <span style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '2.5rem', fontWeight: 900, lineHeight: 1 }}>AF</span>
+              </div>
+
+              {/* Content */}
+              <h2 style={{ 
+                fontFamily: '"Arial Black", "Inter", sans-serif', 
+                fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', 
+                fontWeight: 900, 
+                color: '#221F1F', 
+                marginBottom: '1rem', 
+                lineHeight: 0.9, 
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                maxWidth: '900px'
+              }}>
+                TASTE THE<br/>HERITAGE
+              </h2>
+              
+              <p style={{ 
+                fontFamily: 'system-ui, -apple-system, sans-serif', 
+                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
+                color: '#333333', 
+                marginBottom: '3rem', 
+                lineHeight: 1.5,
+                fontWeight: 500,
+                maxWidth: '650px'
+              }}>
+                Every jar of Adhvaitha Foods is a labor of love, crafted over weeks to bring you the authentic taste of an Indian grandmother's kitchen.
+              </p>
+
+              <Link href="/products" style={{
+                display: 'inline-block',
+                backgroundColor: '#221F1F',
+                color: '#FFFFFF',
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontWeight: 900,
+                fontSize: '1.2rem',
+                padding: '1.2rem 3.5rem',
+                borderRadius: '50px',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                letterSpacing: '0.05em',
+                transition: 'transform 0.2s ease, background 0.2s ease',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.backgroundColor = '#000'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.backgroundColor = '#221F1F'; }}
+              >
+                Shop Our Pickles
+              </Link>
+            </div>
           </div>
         </section>
       </main>
