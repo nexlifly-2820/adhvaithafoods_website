@@ -321,35 +321,105 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: '2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '3rem', paddingTop: '80px' }}>
               {featuredProducts.map((p, i) => (
-                <div key={p.id} id={`product-${p.id}`} className="product-card" style={{ '--i': i, animationDelay: `${i * 0.08}s` }}>
-                  {/* Image */}
-                  <div style={{ position: 'relative', height: '240px', overflow: 'hidden', background: '#f0e8d8' }}>
+                <div
+                  key={p.id}
+                  id={`product-${p.id}`}
+                  className="product-card-reveal"
+                  style={{
+                    background: '#EBAA03', // Solid golden yellow
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '0 2rem 2.5rem 2rem',
+                    marginTop: '90px', // Space for floating circle
+                    transition: 'transform 0.3s ease',
+                    animationDelay: `${i * 0.08}s`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-5px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  {/* Circular Floating Image */}
+                  <div 
+                    style={{
+                      width: '180px',
+                      height: '180px',
+                      borderRadius: '50%',
+                      marginTop: '-90px',
+                      border: '3px solid #111',
+                      boxShadow: '10px 10px 15px rgba(0,0,0,0.5)',
+                      overflow: 'hidden',
+                      position: 'relative',
+                      backgroundColor: '#fff',
+                      flexShrink: 0,
+                      marginBottom: '2rem'
+                    }}
+                  >
                     {p.img
-                      ? <Image src={p.img} alt={p.name} fill sizes="300px" style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                      />
-                      : <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5rem', background: `linear-gradient(135deg, ${p.accent}20, ${p.accent}40)` }}>{p.emoji}</div>
+                      ? <Image src={p.img} alt={p.name} fill sizes="180px" style={{ objectFit: 'cover' }} />
+                      : <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5rem', background: `linear-gradient(135deg, ${p.accent}20, ${p.accent}40)` }}>{p.emoji}</div>
                     }
-                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(0,0,0,0.22), transparent)', pointerEvents: 'none' }} />
-                    <div style={{ position: 'absolute', top: '12px', left: '12px' }}><span className={`badge ${p.tagCls}`}>{p.tag}</span></div>
-                    <div style={{ position: 'absolute', bottom: '10px', right: '12px', color: 'var(--turmeric)', fontSize: '0.82rem', filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.4))' }}>★★★★★</div>
                   </div>
 
-                  {/* Content */}
-                  <div style={{ padding: '1.5rem' }}>
-                    <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700, color: 'var(--rich-brown)', marginBottom: '0.5rem' }}>{p.name}</h3>
-                    <p className="body-md" style={{ color: 'var(--aged-wood)', marginBottom: '1.25rem' }}>{p.desc}</p>
+                  {/* Title */}
+                  <h3
+                    style={{
+                      fontFamily: 'Playfair Display, serif',
+                      fontSize: '1.6rem',
+                      fontWeight: 900,
+                      color: '#111',
+                      textAlign: 'center',
+                      lineHeight: 1.15,
+                      marginBottom: '1.25rem',
+                      minHeight: '3.5rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {p.name}
+                  </h3>
 
-                    {/* Display weight requirement instead of price/cart */}
-                    <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid rgba(139,94,60,0.1)' }}>
-                      <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', fontWeight: 700, color: 'var(--terracotta)' }}>
-                        Weight: min 250g - 2kg
-                      </p>
-                    </div>
+                  {/* Stats Pill */}
+                  <div style={{
+                    backgroundColor: '#fff',
+                    padding: '0.4rem 1rem',
+                    marginBottom: '1.25rem',
+                  }}>
+                    <span style={{
+                      fontFamily: '"Inter", system-ui, sans-serif',
+                      fontSize: '0.75rem',
+                      fontWeight: 800,
+                      color: '#111',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {p.tag || 'AUTHENTIC'} | ★ {p.rating || 5} STARS
+                    </span>
                   </div>
+
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontFamily: '"Inter", system-ui, sans-serif',
+                      fontSize: '0.9rem',
+                      fontWeight: 500,
+                      color: '#111',
+                      textAlign: 'center',
+                      lineHeight: 1.5,
+                      marginBottom: '0',
+                      flex: 1
+                    }}
+                  >
+                    {p.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -551,28 +621,28 @@ export default function HomePage() {
 
             {/* Minimalist Typography Block (Replacing Advanced Quote Block) */}
             <div className="reveal" style={{ textAlign: 'center', padding: '6rem 0 4rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <h2 style={{
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                  fontSize: 'clamp(3rem, 7vw, 7rem)',
-                  fontWeight: 900,
-                  color: '#305A32', /* Dark Forest Green */
-                  lineHeight: 0.9,
-                  letterSpacing: '-0.04em',
-                  margin: 0
-                }}>
-                  No artificial colors.
-                </h2>
-                <h3 style={{
-                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                  fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
-                  fontWeight: 700,
-                  color: '#86B372', /* Light Muted Green */
-                  marginTop: '0.8rem',
-                  letterSpacing: '-0.02em',
-                  margin: '0.5rem 0 0 0'
-                }}>
-                  No preservatives. No shortcuts. Ever.
-                </h3>
+              <h2 style={{
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                fontSize: 'clamp(3rem, 7vw, 7rem)',
+                fontWeight: 900,
+                color: '#305A32', /* Dark Forest Green */
+                lineHeight: 0.9,
+                letterSpacing: '-0.04em',
+                margin: 0
+              }}>
+                No artificial colors.
+              </h2>
+              <h3 style={{
+                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
+                fontWeight: 700,
+                color: '#86B372', /* Light Muted Green */
+                marginTop: '0.8rem',
+                letterSpacing: '-0.02em',
+                margin: '0.5rem 0 0 0'
+              }}>
+                No preservatives. No shortcuts. Ever.
+              </h3>
             </div>
           </div>
         </section>

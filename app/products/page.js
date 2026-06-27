@@ -54,126 +54,106 @@ function getFilteredAndSortedProducts(products, category, sortBy) {
 /**
  * Renders an individual product card.
  */
+/**
+ * Renders an individual product card matching the specific bold yellow 'Recipe' design.
+ */
 function ProductCard({ product, index }) {
   return (
     <div
       id={`product-${product.id}`}
       className="product-card-reveal"
       style={{
-        background: 'var(--ivory)',
-        borderRadius: '24px',
-        overflow: 'hidden',
-        border: '1px solid rgba(139,94,60,0.08)',
-        boxShadow: '0 20px 40px rgba(61,31,10,0.03)',
-        transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease',
-        animationDelay: `${Math.min(index, 8) * 0.06}s`,
+        background: '#EBAA03', // Solid golden yellow from the image
+        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
+        padding: '0 2rem 2.5rem 2rem', // No top padding since image floats
+        marginTop: '90px', // Creates space for the overflowing circle
+        transition: 'transform 0.3s ease',
+        animationDelay: `${Math.min(index, 8) * 0.06}s`,
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-10px)';
-        e.currentTarget.style.boxShadow = '0 30px 60px rgba(61,31,10,0.08)';
+        e.currentTarget.style.transform = 'translateY(-5px)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 20px 40px rgba(61,31,10,0.03)';
       }}
     >
-      {/* Product Image Area */}
-      <div style={{ position: 'relative', height: '300px', overflow: 'hidden', background: '#f8f5f0' }}>
+      {/* Circular Floating Image */}
+      <div
+        style={{
+          width: '180px',
+          height: '180px',
+          borderRadius: '50%',
+          marginTop: '-90px', // Pulls it up exactly half its height
+          border: '3px solid #111',
+          boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', // Strong black drop shadow
+          overflow: 'hidden',
+          backgroundColor: '#fff',
+          flexShrink: 0,
+          marginBottom: '2rem'
+        }}
+      >
         <img
           src={product.img}
           alt={product.name}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
-          onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.08)')}
-          onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: '50%',
-            background: 'linear-gradient(to top, rgba(26,10,3,0.5), transparent)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        {product.badge && (
-          <div style={{ position: 'absolute', top: '1.5rem', left: '1.5rem' }}>
-            <span
-              style={{
-                fontFamily: 'Lato, sans-serif',
-                fontSize: '0.7rem',
-                fontWeight: 900,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                background:
-                  product.badgeClass === 'badge-bestseller'
-                    ? 'var(--turmeric)'
-                    : product.badgeClass === 'badge-new'
-                    ? 'var(--terracotta)'
-                    : 'var(--forest-green)',
-                color: product.badgeClass === 'badge-bestseller' ? 'var(--rich-brown)' : 'var(--ivory)',
-                padding: '0.5rem 1rem',
-                borderRadius: '4px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              }}
-            >
-              {product.badge}
-            </span>
-          </div>
-        )}
-
-
       </div>
 
-      {/* Product Details Area */}
-      <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <span style={{ color: 'var(--turmeric)', fontSize: '1rem', letterSpacing: '2px' }}>
-            {'★'.repeat(product.rating || 5)}
-            {'☆'.repeat(5 - (product.rating || 5))}
-          </span>
-          <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.8rem', fontWeight: 700, color: 'var(--aged-wood)' }}>
-            ({(product.reviews || 0).toLocaleString()} Reviews)
-          </span>
-        </div>
+      {/* Title */}
+      <h3
+        style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: '1.6rem',
+          fontWeight: 900,
+          color: '#111',
+          textAlign: 'center',
+          lineHeight: 1.15,
+          marginBottom: '1.25rem',
+          minHeight: '3.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        {product.name}
+      </h3>
 
-        <h3
-          style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: '1.75rem',
-            fontWeight: 900,
-            color: 'var(--rich-brown)',
-            marginBottom: '0.75rem',
-            lineHeight: 1.2,
-          }}
-        >
-          {product.name}
-        </h3>
-
-        <p
-          style={{
-            fontFamily: 'Lato, sans-serif',
-            fontSize: '1rem',
-            color: 'var(--aged-wood)',
-            marginBottom: '1rem',
-            lineHeight: 1.6,
-            flex: 1,
-          }}
-        >
-          {product.desc}
-        </p>
-
-        {/* Display weight requirement */}
-        <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid rgba(139,94,60,0.1)' }}>
-          <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1rem', fontWeight: 700, color: 'var(--terracotta)' }}>
-            Weight: {DISPLAY_WEIGHT}
-          </p>
-        </div>
+      {/* Stats Pill */}
+      <div style={{
+        backgroundColor: '#fff',
+        padding: '0.4rem 1rem',
+        marginBottom: '1.25rem',
+      }}>
+        <span style={{
+          fontFamily: '"Inter", system-ui, sans-serif',
+          fontSize: '0.75rem',
+          fontWeight: 800,
+          color: '#111',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em'
+        }}>
+          {product.badge || 'AUTHENTIC'} | {DISPLAY_WEIGHT} | ★ {product.rating || 5}
+        </span>
       </div>
+
+      {/* Description */}
+      <p
+        style={{
+          fontFamily: '"Inter", system-ui, sans-serif',
+          fontSize: '0.9rem',
+          fontWeight: 500,
+          color: '#111',
+          textAlign: 'center',
+          lineHeight: 1.5,
+          marginBottom: '0',
+          flex: 1
+        }}
+      >
+        {product.desc}
+      </p>
     </div>
   );
 }
@@ -286,6 +266,13 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState(SORT_FEATURED);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
+
+  // Reset page to 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, sortBy]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -322,6 +309,12 @@ export default function ProductsPage() {
   const filteredProducts = useMemo(() => {
     return getFilteredAndSortedProducts(products, activeCategory, sortBy);
   }, [products, activeCategory, sortBy]);
+
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   // Setup reveal animation for non-product page elements (runs once)
   useEffect(() => {
@@ -413,15 +406,15 @@ export default function ProductsPage() {
           <svg
             viewBox="0 0 1000 520"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ 
-              width: '100%', 
-              height: 'auto', 
-              maxHeight: '85vh', 
-              display: 'block', 
-              overflow: 'visible', 
-              position: 'relative', 
+            style={{
+              width: '100%',
+              height: 'auto',
+              maxHeight: '85vh',
+              display: 'block',
+              overflow: 'visible',
+              position: 'relative',
               zIndex: 1,
-              margin: '0 auto' 
+              margin: '0 auto'
             }}
           >
             <defs>
@@ -429,19 +422,19 @@ export default function ProductsPage() {
             </defs>
 
             <g fontFamily="'Caveat Brush', 'Patrick Hand SC', cursive" fill="#442111" strokeLinecap="round" strokeLinejoin="round">
-              
+
               {/* ── WAVY LINES (Decorative separators) ── */}
-              <path 
-                d="M 110 150 Q 320 100, 580 160 Q 750 200, 900 150" 
-                fill="none" stroke="#442111" strokeWidth="5" 
-                className="animated-path" 
+              <path
+                d="M 110 150 Q 320 100, 580 160 Q 750 200, 900 150"
+                fill="none" stroke="#442111" strokeWidth="5"
+                className="animated-path"
                 style={{ animationDelay: '0.2s' }}
               />
-              
-              <path 
-                d="M 110 320 Q 320 280, 580 320 Q 750 350, 900 310" 
-                fill="none" stroke="#442111" strokeWidth="5" 
-                className="animated-path" 
+
+              <path
+                d="M 110 320 Q 320 280, 580 320 Q 750 350, 900 310"
+                fill="none" stroke="#442111" strokeWidth="5"
+                className="animated-path"
                 style={{ animationDelay: '0.4s' }}
               />
 
@@ -455,7 +448,7 @@ export default function ProductsPage() {
               <text x="100" y="290" fontSize="170" className="animated-text" style={{ animationDelay: '0.7s', letterSpacing: '2px' }}>
                 FOOD
               </text>
-              
+
               {/* HAS THE (Stacked) */}
               <g className="animated-text" style={{ animationDelay: '0.8s' }}>
                 <text x="480" y="220" fontSize="40">HAS</text>
@@ -500,10 +493,10 @@ export default function ProductsPage() {
         {/* ── Advanced Sidebar Layout ──────────────────────── */}
         <section style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '4rem', flexDirection: 'row' }} className="products-layout">
-            
-            <FilterSidebar 
-              activeCategory={activeCategory} 
-              setActiveCategory={setActiveCategory} 
+
+            <FilterSidebar
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
             />
 
             {/* ── Main Products Grid ── */}
@@ -550,7 +543,7 @@ export default function ProductsPage() {
 
               {/* Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '3rem' }}>
-                {filteredProducts.map((p, i) => (
+                {paginatedProducts.map((p, i) => (
                   <ProductCard key={p.id} product={p} index={i} />
                 ))}
 
@@ -562,6 +555,57 @@ export default function ProductsPage() {
                   <EmptyState onClearFilters={handleClearFilters} />
                 ) : null}
               </div>
+
+              {/* Pagination Controls */}
+              {!isLoading && totalPages > 1 && (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '4rem', gap: '1.5rem' }}>
+                  <button
+                    onClick={() => {
+                      setCurrentPage(p => Math.max(1, p - 1));
+                      window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === 1}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      background: currentPage === 1 ? 'transparent' : 'var(--terracotta)',
+                      color: currentPage === 1 ? 'rgba(139,94,60,0.4)' : '#fff',
+                      border: currentPage === 1 ? '1px solid rgba(139,94,60,0.2)' : 'none',
+                      borderRadius: '8px',
+                      fontFamily: 'Lato, sans-serif',
+                      fontWeight: 700,
+                      cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    Previous
+                  </button>
+
+                  <span style={{ fontFamily: 'Lato, sans-serif', fontWeight: 700, color: 'var(--rich-brown)' }}>
+                    Page {currentPage} of {totalPages}
+                  </span>
+
+                  <button
+                    onClick={() => {
+                      setCurrentPage(p => Math.min(totalPages, p + 1));
+                      window.scrollTo({ top: 300, behavior: 'smooth' });
+                    }}
+                    disabled={currentPage === totalPages}
+                    style={{
+                      padding: '0.75rem 1.5rem',
+                      background: currentPage === totalPages ? 'transparent' : 'var(--terracotta)',
+                      color: currentPage === totalPages ? 'rgba(139,94,60,0.4)' : '#fff',
+                      border: currentPage === totalPages ? '1px solid rgba(139,94,60,0.2)' : 'none',
+                      borderRadius: '8px',
+                      fontFamily: 'Lato, sans-serif',
+                      fontWeight: 700,
+                      cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -583,10 +627,10 @@ export default function ProductsPage() {
             {/* Render 4 sets of the text + flower to ensure seamless looping */}
             {[1, 2, 3, 4].map((i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ 
-                  fontSize: 'clamp(4rem, 8vw, 6.5rem)', 
-                  fontWeight: 900, 
-                  fontFamily: '"Arial Black", "Inter", system-ui, sans-serif', 
+                <span style={{
+                  fontSize: 'clamp(4rem, 8vw, 6.5rem)',
+                  fontWeight: 900,
+                  fontFamily: '"Arial Black", "Inter", system-ui, sans-serif',
                   color: '#FFFFFF',
                   textTransform: 'uppercase',
                   letterSpacing: '-0.02em',
@@ -616,7 +660,7 @@ export default function ProductsPage() {
             }
           `}</style>
         </section>
-        
+
         {/* FAQ SECTION */}
         <FaqAccordion />
 
