@@ -10,6 +10,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import FaqAccordion from '@/components/FaqAccordion';
 
 // Constants extracted to avoid magic strings and improve maintainability
 const FILTER_ALL = 'All';
@@ -627,6 +628,10 @@ export default function ProductsPage() {
             </p>
           </div>
         </section>
+        
+        {/* FAQ SECTION */}
+        <FaqAccordion />
+
       </main>
       <Footer />
       <style>{`
