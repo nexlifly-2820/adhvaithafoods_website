@@ -877,136 +877,103 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ CINEMATIC PROCESS FLOW ════════════════════════════════ */}
-        <section id="process-section" className="section-pad-xl" style={{ background: 'var(--cream)', position: 'relative', overflow: 'hidden' }}>
-          <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1400px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '6rem' }} className="reveal">
-              <span className="eyebrow" style={{ color: 'var(--forest-green)', letterSpacing: '0.4em' }}>The Ancient Craft</span>
-              <h2 className="display-xl" style={{ color: 'var(--rich-brown)', marginTop: '0.5rem' }}>
-                Made The Old Way.<br /><em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Always.</em>
-              </h2>
+        {/* ══ STICKY SCROLL - HIGHLIGHT OF THE MONTH ════════════════════════════════ */}
+        <section id="process-section" style={{ position: 'relative', height: '550vh', backgroundColor: '#CC0044' }}>
+          
+          {/* Sticky Center Text */}
+          <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+            <h2 style={{ 
+              fontFamily: 'var(--font-playfair), serif', 
+              fontWeight: 900,
+              fontSize: 'clamp(4rem, 12vw, 12rem)', 
+              color: '#FFF', 
+              textAlign: 'center', 
+              lineHeight: 0.85,
+              letterSpacing: '-0.02em',
+              textShadow: '8px 8px 0 rgba(0,0,0,0.15)'
+            }}>
+              The Classic<br/>Mango<br/>Avakaya.
+            </h2>
+          </div>
+
+          {/* Floating Yellow Cards Container */}
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }}>
+            
+            <style>{`
+              .seasonal-card {
+                background: #FCE300;
+                border: 4px solid #111;
+                padding: 1.5rem 2.5rem;
+                width: 380px;
+                max-width: 90vw;
+                color: #111;
+                font-weight: 800;
+                font-size: 1.4rem;
+                font-family: 'Inter', system-ui, sans-serif;
+                position: absolute;
+                box-shadow: 12px 12px 0 rgba(0,0,0,1);
+                pointer-events: auto;
+                line-height: 1.35;
+                transition: transform 0.3s ease;
+              }
+              .seasonal-card:hover {
+                transform: translateY(-5px);
+              }
+              .seasonal-card-circle {
+                position: absolute;
+                bottom: -35px;
+                left: -35px;
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                border: 4px solid #111;
+                background: #FFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3rem;
+                box-shadow: 6px 6px 0 rgba(0,0,0,1);
+                transform: rotate(-10deg);
+                pointer-events: none;
+              }
+            `}</style>
+
+            {/* Card 1 */}
+            <div className="seasonal-card" style={{ top: '120vh', left: '10%' }}>
+               This Month's Star! The absolute crowd favorite.
+               <div className="seasonal-card-circle">⭐</div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8rem' }}>
-              {[
-                {
-                  step: '01', title: 'SOURCING', subtitle: 'The foundation of flavor',
-                  text: 'We travel across Andhra Pradesh to hand-pick the finest raw ingredients. From fiery Guntur chilies to raw, tangy mangoes, we only select produce at its peak freshness. We believe that a pickle is only as good as the earth it comes from.',
-                  img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1200&auto=format&fit=crop'
-                },
-                {
-                  step: '02', title: 'PREPARING', subtitle: 'The rhythmic stone grinding',
-                  text: 'We never use pre-mixed powders. Every morning, our spices are stone-ground in small batches to release their natural essential oils. The rhythmic sound of the mortar and pestle is the heartbeat of our kitchen, ensuring unparalleled aroma.',
-                  img: '/images/Washing_Prep.png'
-                },
-                {
-                  step: '03', title: 'SUN DRYING', subtitle: 'Patience under the sun',
-                  text: 'There are no shortcuts to authentic flavor. Our ingredients are marinated in cold-pressed sesame oil and left to sun-dry naturally for 5 to 7 days on traditional terracotta terraces. The sun naturally preserves and deepens the complex flavors.',
-                  img: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?q=80&w=1200&auto=format&fit=crop'
-                },
-                {
-                  step: '04', title: 'JARRING', subtitle: 'Sealed with love',
-                  text: 'The final masterpiece is hand-packed into sterilized glass jars, preserving the purity and integrity of the pickle. Each jar is sealed tightly, holding within it three generations of culinary heritage, ready to be delivered to your table.',
-                  img: '/images/Hand-packing.png'
-                },
-              ].map((item, i) => {
-                const isEven = i % 2 === 0;
-                return (
-                  <div key={item.step} className="reveal process-flow-row" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6rem',
-                    flexDirection: isEven ? 'row' : 'row-reverse'
-                  }}>
-                    {/* Image Side */}
-                    <div style={{ flex: '1.2', position: 'relative' }}>
-                      <div style={{
-                        position: 'relative',
-                        width: '100%',
-                        paddingBottom: '80%',
-                        borderRadius: '24px',
-                        overflow: 'hidden',
-                        boxShadow: '0 30px 60px rgba(61,31,10,0.15)'
-                      }}>
-                        <img src={item.img} alt={item.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(61,31,10,0.4), transparent)', pointerEvents: 'none' }} />
-                      </div>
-
-                      {/* Floating Step Number */}
-                      <div style={{
-                        position: 'absolute',
-                        top: '-30px',
-                        [isEven ? 'left' : 'right']: '-30px',
-                        fontFamily: 'Playfair Display, serif',
-                        fontSize: '8rem',
-                        fontWeight: 900,
-                        color: 'var(--terracotta)',
-                        opacity: 0.8,
-                        lineHeight: 1,
-                        textShadow: '0 10px 20px rgba(196,96,58,0.3)',
-                        zIndex: 2,
-                        pointerEvents: 'none'
-                      }}>
-                        {item.step}
-                      </div>
-                    </div>
-
-                    {/* Text Side */}
-                    <div style={{ flex: '1' }}>
-                      <span style={{
-                        fontFamily: 'Lato, sans-serif',
-                        fontSize: '0.85rem',
-                        fontWeight: 900,
-                        letterSpacing: '0.25em',
-                        color: 'var(--terracotta)',
-                        textTransform: 'uppercase',
-                        display: 'block',
-                        marginBottom: '1rem'
-                      }}>
-                        Step {item.step}
-                      </span>
-                      <h3 style={{
-                        fontFamily: 'Playfair Display, serif',
-                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-                        fontWeight: 900,
-                        color: 'var(--rich-brown)',
-                        lineHeight: 1.1,
-                        marginBottom: '0.5rem'
-                      }}>
-                        {item.title}
-                      </h3>
-                      <h4 style={{
-                        fontFamily: 'Playfair Display, serif',
-                        fontSize: '1.4rem',
-                        fontStyle: 'italic',
-                        color: 'var(--forest-green)',
-                        marginBottom: '2rem'
-                      }}>
-                        {item.subtitle}
-                      </h4>
-                      <p style={{
-                        fontFamily: 'Lato, sans-serif',
-                        fontSize: '1.1rem',
-                        lineHeight: 1.8,
-                        color: 'var(--aged-wood)',
-                        marginBottom: '2.5rem'
-                      }}>
-                        {item.text}
-                      </p>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <span style={{ height: '1px', width: '60px', background: 'var(--turmeric)' }} />
-                        <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.15em', color: 'var(--turmeric)', textTransform: 'uppercase' }}>Authentic Method</span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            {/* Card 2 */}
+            <div className="seasonal-card" style={{ top: '180vh', right: '10%' }}>
+               Made with the first catch of crunchy summer mangoes.
+               <div className="seasonal-card-circle">🥭</div>
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '8rem' }} className="reveal">
-              <Link href="/how-we-make-it" className="btn btn-terra" style={{ padding: '1.25rem 3.5rem', fontSize: '0.95rem' }}>View The Detailed Process <ArrowRight size={18} /></Link>
+            {/* Card 3 */}
+            <div className="seasonal-card" style={{ top: '240vh', left: '15%' }}>
+               Blended with pure, fiery Guntur chillies for authentic kick.
+               <div className="seasonal-card-circle">🌶️</div>
             </div>
+
+            {/* Card 4 */}
+            <div className="seasonal-card" style={{ top: '300vh', right: '15%' }}>
+               A timeless explosion of Grandma's traditional spice!
+               <div className="seasonal-card-circle">👵</div>
+            </div>
+
+            {/* Card 5 */}
+            <div className="seasonal-card" style={{ top: '360vh', left: '12%' }}>
+               Marinated in rich, cold-pressed groundnut oil.
+               <div className="seasonal-card-circle">🏺</div>
+            </div>
+
+            {/* Card 6 */}
+            <div className="seasonal-card" style={{ top: '420vh', right: '12%' }}>
+               The absolute perfect companion for hot rice and melted ghee!
+               <div className="seasonal-card-circle">🍚</div>
+            </div>
+
           </div>
         </section>
 
