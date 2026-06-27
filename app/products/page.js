@@ -566,67 +566,55 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        {/* ── Cinematic CTA ─────────────────────────────────────── */}
+        {/* ── Marquee CTA (Replaces Cinematic) ─────────────────────────────────────── */}
         <section
           style={{
             position: 'relative',
             overflow: 'hidden',
-            padding: '10rem 2rem',
+            padding: '4rem 0',
+            backgroundColor: '#E32D3A', // Vibrant red from video
+            backgroundImage: 'radial-gradient(circle, rgba(180, 17, 58, 0.4) 4px, transparent 4px)', // Polka dots
+            backgroundSize: '40px 40px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
           }}
         >
-          <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-            <img
-              src="https://images.unsplash.com/photo-1606850780554-b55ea44f45ce?q=80&w=2000&auto=format&fit=crop"
-              alt="Grinding spices"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(45,90,39,0.9), rgba(26,10,3,0.95))' }} />
+          <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marquee-scroll-fast 35s linear infinite', width: 'fit-content' }}>
+            {/* Render 4 sets of the text + flower to ensure seamless looping */}
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ 
+                  fontSize: 'clamp(4rem, 8vw, 6.5rem)', 
+                  fontWeight: 900, 
+                  fontFamily: '"Arial Black", "Inter", system-ui, sans-serif', 
+                  color: '#FFFFFF',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1
+                }}>
+                  DISCOVER THE TASTE, AUTHENTIC SPICES!
+                </span>
+                <svg viewBox="0 0 100 100" width="85" height="85" style={{ margin: '0 4rem', flexShrink: 0 }}>
+                  {/* Dark red background circle */}
+                  <circle cx="50" cy="50" r="50" fill="#B4113A" />
+                  {/* 8 Pink Petals */}
+                  <g fill="#F24E79">
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                      <ellipse key={angle} cx="50" cy="22" rx="10" ry="16" transform={`rotate(${angle} 50 50)`} />
+                    ))}
+                  </g>
+                  {/* Center Dot */}
+                  <circle cx="50" cy="50" r="14" fill="#B4113A" />
+                </svg>
+              </div>
+            ))}
           </div>
-
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px' }} className="reveal">
-            <span
-              style={{
-                fontFamily: 'Lato, sans-serif',
-                fontSize: '0.85rem',
-                fontWeight: 900,
-                letterSpacing: '0.4em',
-                textTransform: 'uppercase',
-                color: 'var(--turmeric)',
-                display: 'block',
-                marginBottom: '1.5rem',
-              }}
-            >
-              The Ultimate Experience
-            </span>
-            <h2
-              style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-                fontWeight: 900,
-                color: 'var(--ivory)',
-                marginBottom: '1.5rem',
-                lineHeight: 1.1,
-              }}
-            >
-              Discover the taste of<br />
-              <em style={{ color: 'var(--turmeric)', fontStyle: 'italic' }}>Authentic Spices</em>
-            </h2>
-            <p
-              style={{
-                fontFamily: 'Lato, sans-serif',
-                fontSize: '1.25rem',
-                color: 'rgba(250,240,220,0.8)',
-                marginBottom: '3rem',
-                lineHeight: 1.8,
-              }}
-            >
-              Each jar is a testament to our heritage, crafted with patience and love to bring you the best of traditional flavors.
-            </p>
-          </div>
+          <style>{`
+            @keyframes marquee-scroll-fast {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
         </section>
         
         {/* FAQ SECTION */}
