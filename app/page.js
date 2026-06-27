@@ -56,6 +56,145 @@ const FALLBACK_HERO_IMAGES = [
   '/images/hero-3-laddu.jpg',
 ];
 
+const MICHA_SLIDES = [
+  { bgColor: '#E3242B', label: 'MANGO PICKLE', img: '/images/products/1000298812 - Edited.png', particles: ['🥭', '🌶️', '🌿', '🥭', '✨', '🌶️'], fontFamily: 'var(--font-lilita), system-ui, sans-serif' },
+  { bgColor: '#83B748', label: 'USIRI PICKLE', img: '/images/products/1000298817 - Edited.png', particles: ['🍏', '🍃', '✨', '🍏', '🌿', '🍃'], fontFamily: 'var(--font-yellowtail), cursive' },
+  { bgColor: '#F23D69', label: 'SPICY MANGO', img: '/images/products/1000298812 - Edited.png', particles: ['🌶️', '🔥', '🥭', '🌶️', '✨', '🔥'], fontFamily: 'var(--font-lilita), system-ui, sans-serif' },
+  { bgColor: '#8F2090', label: 'SWEET USIRI', img: '/images/products/1000298817 - Edited.png', particles: ['🍯', '🍏', '✨', '🍯', '🌿', '🍏'], fontFamily: 'var(--font-yellowtail), cursive' }
+];
+
+const MICHA_BACKDROPS = [
+  // Slide 0: Mango Pickle (Pink/Red)
+  (
+    <>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '15%', left: '10%', width: '25vh', height: '25vh', animation: 'spin-in-place-slow 40s linear infinite' }}>
+          <path fill="#7D62AB" d="M50,30 C50,10 20,10 20,35 C20,60 50,85 50,85 C50,85 80,60 80,35 C80,10 50,10 50,30 Z" transform="rotate(-30 50 50)" />
+          <circle cx="35" cy="40" r="2" fill="#FCE300" />
+          <circle cx="45" cy="30" r="2" fill="#FCE300" />
+          <circle cx="55" cy="45" r="2" fill="#FCE300" />
+          <circle cx="40" cy="55" r="2" fill="#FCE300" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '30%', left: '15%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 35s linear infinite reverse' }}>
+          <circle cx="50" cy="50" r="40" fill="#CC0044" />
+          <path d="M10,50 L5,50 M90,50 L95,50 M50,10 L50,5 M50,90 L50,95" stroke="#CC0044" strokeWidth="4" />
+          <path d="M22,22 L18,18 M78,78 L82,82 M22,78 L18,82 M78,22 L82,18" stroke="#CC0044" strokeWidth="4" />
+          <path d="M40,30 Q42,32 40,34 M60,40 Q62,42 60,44 M35,60 Q37,62 35,64 M65,65 Q67,67 65,69 M50,50 Q52,52 50,54" stroke="#FF6699" fill="none" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      </div>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '60%', left: '15%', width: '30vh', height: '30vh', animation: 'spin-in-place-slow 25s linear infinite' }}>
+          <circle cx="50" cy="50" r="45" fill="#FCE300" />
+          <circle cx="50" cy="50" r="40" fill="#FF4400" />
+          <path d="M50,10 L50,90 M10,50 L90,50 M22,22 L78,78 M22,78 L78,22" stroke="#FCE300" strokeWidth="3" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '15%', left: '30%', width: '40vh', height: '40vh', animation: 'spin-in-place-slow 30s linear infinite reverse' }}>
+          <path fill="#EE2233" d="M50,5 C70,-5 95,20 90,45 C105,65 80,95 55,90 C35,105 5,80 10,55 C-5,35 20,5 50,5 Z" />
+          <path fill="#CC1122" d="M50,15 C65,5 85,25 80,45 C95,60 75,85 55,80 C40,95 15,75 20,55 C5,40 25,15 50,15 Z" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '55%', left: '30%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 20s linear infinite' }}>
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(0 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(45 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(90 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(135 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(180 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(225 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(270 50 50)" />
+          <path fill="#7D62AB" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(315 50 50)" />
+          <circle cx="50" cy="50" r="15" fill="#5C4585" />
+        </svg>
+      </div>
+    </>
+  ),
+  // Slide 1: Usiri Pickle (Green)
+  (
+    <>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '15%', left: '15%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 35s linear infinite' }}>
+          <path fill="#FFF" d="M50,0 C70,0 100,30 100,50 C100,70 70,100 50,100 C30,100 0,70 0,50 C0,30 30,0 50,0 Z" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '50%', left: '10%', width: '30vh', height: '30vh', animation: 'spin-in-place-slow 25s linear infinite reverse' }}>
+          <circle cx="50" cy="50" r="45" fill="#FFC107" />
+          <circle cx="50" cy="50" r="35" fill="none" stroke="#FFF" strokeWidth="3" strokeDasharray="10 10" />
+        </svg>
+      </div>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '10%', left: '35%', width: '45vh', height: '45vh', animation: 'spin-in-place-slow 40s linear infinite reverse' }}>
+          <path fill="#4CAF50" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(0 50 50)" />
+          <path fill="#4CAF50" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(72 50 50)" />
+          <path fill="#4CAF50" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(144 50 50)" />
+          <path fill="#4CAF50" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(216 50 50)" />
+          <path fill="#4CAF50" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(288 50 50)" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '60%', left: '40%', width: '30vh', height: '30vh', animation: 'spin-in-place-slow 20s linear infinite' }}>
+          <circle cx="50" cy="50" r="40" fill="#CDDC39" />
+          <circle cx="50" cy="50" r="20" fill="#FFF" />
+        </svg>
+      </div>
+    </>
+  ),
+  // Slide 2: Spicy Mango (Pink/Red)
+  (
+    <>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '20%', left: '10%', width: '40vh', height: '40vh', animation: 'spin-in-place-slow 35s linear infinite' }}>
+          <path fill="#FF5722" d="M50,0 C80,30 100,50 50,100 C0,50 20,30 50,0 Z" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '55%', left: '15%', width: '25vh', height: '25vh', animation: 'spin-in-place-slow 20s linear infinite reverse' }}>
+          <circle cx="50" cy="50" r="45" fill="#FFEB3B" />
+          <path d="M50,5 L50,95 M5,50 L95,50 M15,15 L85,85 M15,85 L85,15" stroke="#FF5722" strokeWidth="4" />
+        </svg>
+      </div>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '10%', left: '35%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 25s linear infinite reverse' }}>
+          <circle cx="50" cy="50" r="40" fill="#E91E63" />
+          <circle cx="50" cy="50" r="10" fill="#FFF" />
+          <circle cx="30" cy="30" r="5" fill="#FFF" />
+          <circle cx="70" cy="30" r="5" fill="#FFF" />
+          <circle cx="30" cy="70" r="5" fill="#FFF" />
+          <circle cx="70" cy="70" r="5" fill="#FFF" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '65%', left: '30%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 40s linear infinite' }}>
+          <path fill="#FF9800" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(0 50 50)" />
+          <path fill="#FF9800" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(90 50 50)" />
+          <path fill="#FF9800" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(180 50 50)" />
+          <path fill="#FF9800" d="M50,10 C65,10 70,45 50,50 C30,45 35,10 50,10 Z" transform="rotate(270 50 50)" />
+        </svg>
+      </div>
+    </>
+  ),
+  // Slide 3: Sweet Usiri (Purple)
+  (
+    <>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '15%', left: '15%', width: '30vh', height: '30vh', animation: 'spin-in-place-slow 30s linear infinite' }}>
+          <circle cx="50" cy="50" r="45" fill="#00BCD4" />
+          <circle cx="50" cy="50" r="25" fill="#FFF" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '50%', left: '5%', width: '40vh', height: '40vh', animation: 'spin-in-place-slow 40s linear infinite reverse' }}>
+          <path fill="#E040FB" d="M50,0 C70,0 80,30 50,50 C20,30 30,0 50,0 Z" transform="rotate(0 50 50)" />
+          <path fill="#E040FB" d="M50,0 C70,0 80,30 50,50 C20,30 30,0 50,0 Z" transform="rotate(72 50 50)" />
+          <path fill="#E040FB" d="M50,0 C70,0 80,30 50,50 C20,30 30,0 50,0 Z" transform="rotate(144 50 50)" />
+          <path fill="#E040FB" d="M50,0 C70,0 80,30 50,50 C20,30 30,0 50,0 Z" transform="rotate(216 50 50)" />
+          <path fill="#E040FB" d="M50,0 C70,0 80,30 50,50 C20,30 30,0 50,0 Z" transform="rotate(288 50 50)" />
+        </svg>
+      </div>
+      <div style={{ position: 'absolute', width: '100%', height: '100%', animation: 'fly-in-right 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both' }}>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '10%', left: '35%', width: '35vh', height: '35vh', animation: 'spin-in-place-slow 25s linear infinite' }}>
+          <path fill="#FFEB3B" d="M50,5 C70,-5 95,20 90,45 C105,65 80,95 55,90 C35,105 5,80 10,55 C-5,35 20,5 50,5 Z" />
+        </svg>
+        <svg viewBox="0 0 100 100" style={{ position: 'absolute', top: '65%', left: '30%', width: '30vh', height: '30vh', animation: 'spin-in-place-slow 20s linear infinite reverse' }}>
+          <circle cx="50" cy="50" r="45" fill="#FF4081" />
+          <circle cx="30" cy="50" r="10" fill="#FFF" />
+          <circle cx="70" cy="50" r="10" fill="#FFF" />
+          <circle cx="50" cy="30" r="10" fill="#FFF" />
+          <circle cx="50" cy="70" r="10" fill="#FFF" />
+        </svg>
+      </div>
+    </>
+  )
+];
+
 export default function HomePage() {
   useReveal();
   const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
@@ -238,12 +377,7 @@ export default function HomePage() {
     fetchGallery();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
+  // Auto-scroll removed as requested by the user.
 
   return (
     <>
@@ -254,59 +388,155 @@ export default function HomePage() {
         {/* ══ "SIMPLE AUTO SCROLL" HERO ══════════════════════════════════════ */}
         <section id="hero-section" style={{
           position: 'relative',
-          height: '100vh',
+          height: 'calc(100vh + 80px)',
           width: '100%',
           overflow: 'hidden',
-          background: '#0a0502',
+          backgroundColor: MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].bgColor,
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 3px, transparent 3px)',
+          backgroundSize: '40px 40px',
+          transition: 'background-color 0.5s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           marginTop: '-80px' // Pull up behind navbar
         }}>
-          {/* Image Slider Container */}
-          <div style={{
-            display: 'flex',
-            width: `${heroImages.length * 100}%`,
-            height: '100%',
-            transform: `translateX(-${currentHeroIndex * (100 / heroImages.length)}%)`,
-            transition: 'transform 1s cubic-bezier(0.645, 0.045, 0.355, 1)'
+          {/* Header Text Behind Image */}
+          <h1 style={{
+            position: 'absolute',
+            top: '26%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1,
+            fontFamily: 'var(--font-lilita), system-ui, sans-serif',
+            fontSize: 'clamp(2.5rem, 7vw, 7rem)',
+            fontWeight: 900,
+            color: '#111',
+            WebkitTextStroke: '6px #fff',
+            whiteSpace: 'nowrap',
+            textShadow: '8px 8px 0 rgba(0,0,0,1)',
+            letterSpacing: '0.02em',
+            lineHeight: 1
           }}>
-            {heroImages.map((src, i) => (
-              <div key={src} style={{ width: `${100 / heroImages.length}%`, height: '100%', position: 'relative' }}>
-                <img
-                  src={src}
-                  alt={`Hero ${i + 1}`}
-                  style={{
-                    width: '100%', height: '100%', objectFit: 'cover'
-                  }}
-                />
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
+            Sparkles of Goodness
+          </h1>
+
+          {/* Central Bottle Container */}
+          <div style={{
+            position: 'relative',
+            zIndex: 2,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: '12vh',
+            perspective: '1000px'
+          }}>
+            {/* Background elements removed for a more open, organic look */}
+
+            {/* Clean Flat Vector Floral Background (Micha Style) - Moved OUTSIDE the 3D spin */}
+            <div style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              zIndex: 0,
+              pointerEvents: 'none',
+              animation: 'particle-breath 10s ease-in-out infinite alternate',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingTop: '12vh',
+            }}>
+              <div key={currentHeroIndex} style={{ position: 'relative', width: '50vh', height: '75vh' }}>
+                {MICHA_BACKDROPS[currentHeroIndex % MICHA_BACKDROPS.length]}
               </div>
-            ))}
+            </div>
+
+            {/* The single active bottle spinning in place */}
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                height: '75vh',
+                width: '50vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '15vh',
+                filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))',
+                transform: `rotateY(${currentHeroIndex * 360}deg)`,
+                transformStyle: 'preserve-3d',
+                transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+              }}>
+              <Image
+                src={MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].img}
+                alt={MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].label}
+                fill
+                sizes="50vh"
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
           </div>
 
+          {/* Navigation Arrows */}
+          <button
+            onClick={() => setCurrentHeroIndex(prev => (prev - 1 + MICHA_SLIDES.length) % MICHA_SLIDES.length)}
+            style={{
+              position: 'absolute', left: 'max(2%, calc(50% - 35vh - 32px))', top: '65%', transform: 'translateY(-50%)', zIndex: 10,
+              width: '64px', height: '64px', borderRadius: '50%', background: '#FCE300', border: '5px solid #111',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '6px 6px 0 #111', color: '#111', transition: 'transform 0.1s'
+            }}
+            onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(0.95)'}
+            onMouseUp={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
 
+          <button
+            onClick={() => setCurrentHeroIndex(prev => prev + 1)}
+            style={{
+              position: 'absolute', right: 'max(2%, calc(50% - 35vh - 32px))', top: '65%', transform: 'translateY(-50%)', zIndex: 10,
+              width: '64px', height: '64px', borderRadius: '50%', background: '#FCE300', border: '5px solid #111',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '6px 6px 0 #111', color: '#111', transition: 'transform 0.1s'
+            }}
+            onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(0.95)'}
+            onMouseUp={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+
+          {/* View More Button Removed */}
+
+          <style>{`
+            @keyframes fly-in-left {
+              0% { transform: translateX(-150vw) scale(0.5) rotate(-45deg); opacity: 0; }
+              100% { transform: translateX(0) scale(1) rotate(0); opacity: 1; }
+            }
+            @keyframes fly-in-right {
+              0% { transform: translateX(150vw) scale(0.5) rotate(45deg); opacity: 0; }
+              100% { transform: translateX(0) scale(1) rotate(0); opacity: 1; }
+            }
+            @keyframes particle-breath {
+              0% { transform: scale(0.95); }
+              100% { transform: scale(1.05); }
+            }
+            @keyframes spin-in-place-slow {
+              100% { transform: rotate(360deg); }
+            }
+            @keyframes spin-in-place {
+              0% { transform: scale(0.8) rotate(-360deg); opacity: 0; }
+              100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            }
+          `}</style>
         </section>
 
 
 
-        {/* ══ MARQUEE TRUST BAR ══════════════════════ */}
-        <div style={{
-          background: 'var(--forest-green)',
-          borderTop: '1px solid rgba(232,168,32,0.18)',
-          borderBottom: '1px solid rgba(232,168,32,0.18)',
-          padding: '0.85rem 0', overflow: 'hidden',
-        }}>
-          <div className="marquee-track">
-            {[...trustBadges, ...trustBadges].map((item, i) => (
-              <span key={i} className="label" style={{
-                color: 'var(--ivory)', padding: '0 2.5rem',
-                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                fontSize: '0.78rem',
-              }}>
-                {item} <span style={{ color: 'var(--turmeric)', opacity: 0.5, marginLeft: '0.5rem' }}>✦</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
+        {/* ══ MARQUEE TRUST BAR DELETED ══════════════════════ */}
 
 
         {/* ══ PRODUCTS ═══════════════════════════════ */}
@@ -346,7 +576,7 @@ export default function HomePage() {
                   }}
                 >
                   {/* Circular Floating Image */}
-                  <div 
+                  <div
                     style={{
                       width: '180px',
                       height: '180px',

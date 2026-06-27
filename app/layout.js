@@ -1,4 +1,4 @@
-import { Playfair_Display, Lato, Dancing_Script, Crimson_Text, Montserrat, Yellowtail } from 'next/font/google';
+import { Playfair_Display, Lato, Dancing_Script, Crimson_Text, Montserrat, Yellowtail, Lilita_One } from 'next/font/google';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -42,6 +42,13 @@ const yellowtail = Yellowtail({
   display: 'swap',
 });
 
+const lilitaOne = Lilita_One({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-lilita',
+  display: 'swap',
+});
+
 export const metadata = {
   title: 'Adhvaitha Foods — Straight From Grandmother\'s Kitchen | Authentic Indian Pickles',
   description: 'Handcrafted Indian pickles made with pure, natural ingredients and traditional recipes since 1970. No preservatives, no shortcuts. Mango Avakaya, Gongura, Lemon, and more. Pan India delivery.',
@@ -55,12 +62,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${lato.variable} ${dancingScript.variable} ${crimsonText.variable} ${montserrat.variable} ${yellowtail.variable}`}>
+    <html lang="en">
       <head>
         <link rel="icon" href="/images/logo.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body>
+      <body className={`${playfair.variable} ${lato.variable} ${dancingScript.variable} ${crimsonText.variable} ${montserrat.variable} ${yellowtail.variable} ${lilitaOne.variable}`}>
         {children}
       </body>
     </html>
