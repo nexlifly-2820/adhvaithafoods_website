@@ -549,32 +549,30 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Advanced Quote Block */}
-            <div className="reveal" style={{ textAlign: 'center', position: 'relative' }}>
-              <div style={{
-                display: 'inline-block',
-                padding: '3rem 4rem',
-                background: 'linear-gradient(145deg, var(--forest-green), var(--forest-dark))',
-                borderRadius: '24px',
-                position: 'relative',
-                boxShadow: '0 20px 40px rgba(45,90,39,0.25)',
-                overflow: 'hidden'
-              }}>
-                {/* Huge quote mark background */}
-                <div style={{ position: 'absolute', top: '-20px', left: '20px', fontSize: '10rem', color: 'rgba(255,255,255,0.05)', fontFamily: 'Playfair Display, serif', lineHeight: 1, pointerEvents: 'none' }}>"</div>
-
-                <p style={{
-                  fontFamily: 'Playfair Display, serif',
-                  fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
-                  fontWeight: 700, fontStyle: 'italic',
-                  color: 'var(--ivory)',
-                  position: 'relative',
-                  zIndex: 1,
-                  lineHeight: 1.4
+            {/* Minimalist Typography Block (Replacing Advanced Quote Block) */}
+            <div className="reveal" style={{ textAlign: 'center', padding: '6rem 0 4rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h2 style={{
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                  fontSize: 'clamp(3rem, 7vw, 7rem)',
+                  fontWeight: 900,
+                  color: '#305A32', /* Dark Forest Green */
+                  lineHeight: 0.9,
+                  letterSpacing: '-0.04em',
+                  margin: 0
                 }}>
-                  No artificial colors. No preservatives. No shortcuts. <span style={{ color: 'var(--turmeric)' }}>Ever.</span>
-                </p>
-              </div>
+                  No artificial colors.
+                </h2>
+                <h3 style={{
+                  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+                  fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
+                  fontWeight: 700,
+                  color: '#86B372', /* Light Muted Green */
+                  marginTop: '0.8rem',
+                  letterSpacing: '-0.02em',
+                  margin: '0.5rem 0 0 0'
+                }}>
+                  No preservatives. No shortcuts. Ever.
+                </h3>
             </div>
           </div>
         </section>
@@ -847,30 +845,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ GREEN CTA BANNER ════════════════════════ */}
-        <section style={{ background: 'var(--forest-green)', padding: '5rem 2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 80% at 50% 50%, rgba(232,168,32,0.08), transparent)' }} />
-          <div className="container-sm reveal" style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏺</div>
-            <h2 className="display-md" style={{ color: 'var(--ivory)', marginBottom: '0.75rem' }}>
-              Over <span style={{ color: 'var(--turmeric)' }}>50,000</span> Happy Families
-            </h2>
-            <p className="body-xl" style={{ color: 'rgba(250,240,220,0.72)', marginBottom: '2.25rem' }}>
-              Free delivery on orders above ₹499 · Pan India Shipping · 100% Satisfaction Guaranteed
-            </p>
-            <Link href="/products" id="cta-order-btn" className="btn btn-gold" style={{ fontSize: '0.88rem', padding: '1rem 2.5rem' }}>
-              Order Your Jar Today <ShoppingCart size={17} />
-            </Link>
-          </div>
-        </section>
 
         {/* ══ RECIPES (MARQUEE EXACT CLONE) ════════════════════════ */}
-        <section id="recipes" style={{ 
+        <section id="recipes" style={{
           backgroundColor: '#FFF4ED',
           backgroundImage: 'radial-gradient(circle, #D2446A 1.5px, transparent 1.5px)',
           backgroundSize: '40px 40px',
           overflow: 'hidden',
-          padding: '6rem 0' 
+          padding: '6rem 0'
         }}>
           <div className="container" style={{ marginBottom: '4.5rem', textAlign: 'center' }}>
             <span style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '1rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B72740' }}>In The Kitchen</span>
@@ -883,9 +865,9 @@ export default function HomePage() {
           <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'recipe-marquee 40s linear infinite', width: 'fit-content' }}>
             {/* Map array multiple times for a seamless infinite loop */}
             {[...featuredRecipes, ...featuredRecipes, ...featuredRecipes].map((r, i) => {
-              const colors = ['#B72740', '#7BC644', '#D2446A', '#B7DF4C', '#B72740', '#7BC644']; 
+              const colors = ['#B72740', '#7BC644', '#D2446A', '#B7DF4C', '#B72740', '#7BC644'];
               const textColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#111111', '#FFFFFF', '#FFFFFF'];
-              
+
               // Map specific recipe IDs to their unique pop-art graphic
               const graphicsMap = {
                 'allam-velluli-pickle-recipe': '/images/flat_garlic.png',
@@ -894,10 +876,10 @@ export default function HomePage() {
                 'millets-kheer': '/images/flat_laddu.png'
               };
               const graphicSrc = graphicsMap[r.id] || '/images/flat_mango.png';
-              
+
               return (
                 <div key={`recipe-mq-${r.id}-${i}`} style={{ position: 'relative', width: '360px', height: '580px', flexShrink: 0, marginRight: '40px' }}>
-                  
+
                   {/* The Recipe Card (Staggered Vertically, Reduced Size) */}
                   <Link href="/recipes" style={{ textDecoration: 'none' }}>
                     <div style={{
@@ -941,11 +923,11 @@ export default function HomePage() {
                   </Link>
 
                   {/* The Graphic Element (Floating completely below with a clear gap) */}
-                  <div style={{ 
+                  <div style={{
                     position: 'absolute',
-                    width: '200px', 
-                    height: '200px', 
-                    top: i % 2 === 0 ? '300px' : '380px', 
+                    width: '200px',
+                    height: '200px',
+                    top: i % 2 === 0 ? '300px' : '380px',
                     left: i % 2 === 0 ? '100px' : '40px',
                     zIndex: 1
                   }}>
@@ -964,6 +946,100 @@ export default function HomePage() {
           `}</style>
         </section>
 
+
+        {/* ══ ORANGE SPLIT CTA BANNER (Like Reference) ════════════════════════ */}
+        <section style={{ backgroundColor: '#EEA236', position: 'relative', overflow: 'hidden' }}>
+          <div className="container" style={{ maxWidth: '1400px', padding: '0 2rem' }}>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', minHeight: '300px' }}>
+
+              {/* Left Side: Text Content */}
+              <div style={{ padding: '2.5rem 4rem 2.5rem 0', color: '#111111' }}>
+                <h2 style={{
+                  fontFamily: '"Oswald", "Arial Black", sans-serif',
+                  fontSize: '3.6rem',
+                  fontWeight: 900,
+                  lineHeight: 0.95,
+                  textTransform: 'uppercase',
+                  marginBottom: '0.8rem',
+                  letterSpacing: '-0.02em'
+                }}>
+                  BIG CRAVING?<br />WE'VE GOT YOU.
+                </h2>
+                <h3 style={{
+                  fontFamily: '"Oswald", "Arial Black", sans-serif',
+                  fontSize: '1.8rem',
+                  fontWeight: 700,
+                  lineHeight: 1.1,
+                  marginBottom: '1rem',
+                  textTransform: 'none',
+                  letterSpacing: '-0.01em'
+                }}>
+                  Authentic Indian Pickles for Families & Foodies
+                </h3>
+                <p style={{
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  fontSize: '1.1rem',
+                  fontWeight: 400,
+                  lineHeight: 1.5,
+                  marginBottom: '1.5rem',
+                  maxWidth: '500px'
+                }}>
+                  Order authentic flavors straight from the grandmother's kitchen that knows how to spice it up. Adhvaitha Foods style.
+                </p>
+                <p style={{
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  marginBottom: '1.2rem'
+                }}>
+                  * Free delivery on orders above ₹499
+                </p>
+
+                <Link href="/products" style={{
+                  display: 'inline-block',
+                  backgroundColor: '#C82030',
+                  color: '#FFFFFF',
+                  fontFamily: '"Oswald", "Arial Black", sans-serif',
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  padding: '0.8rem 1.6rem',
+                  borderRadius: '30px',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
+                  Order Your Jar Today
+                </Link>
+              </div>
+
+              {/* Right Side: Flatlay Ingredients Image */}
+              <div style={{
+                position: 'relative',
+                height: '100%',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <img
+                  src="/images/cta_ingredients_white.png"
+                  alt="Ingredients Flatlay"
+                  style={{
+                    width: '140%',
+                    height: 'auto',
+                    maxHeight: '120%',
+                    objectFit: 'cover',
+                    mixBlendMode: 'multiply',
+                    marginRight: '-20%',
+                    pointerEvents: 'none'
+                  }}
+                />
+              </div>
+
+            </div>
+          </div>
+        </section>
 
       </main>
 
