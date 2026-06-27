@@ -941,37 +941,49 @@ export default function HomePage() {
             {/* Card 1 */}
             <div className="seasonal-card" style={{ top: '120vh', left: '10%' }}>
                This Month's Star! The absolute crowd favorite.
-               <div className="seasonal-card-circle">⭐</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/star.png" alt="Star" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
             {/* Card 2 */}
             <div className="seasonal-card" style={{ top: '180vh', right: '10%' }}>
                Made with the first catch of crunchy summer mangoes.
-               <div className="seasonal-card-circle">🥭</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/mango.png" alt="Mango" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
             {/* Card 3 */}
             <div className="seasonal-card" style={{ top: '240vh', left: '15%' }}>
                Blended with pure, fiery Guntur chillies for authentic kick.
-               <div className="seasonal-card-circle">🌶️</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/chili.png" alt="Chili" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
             {/* Card 4 */}
             <div className="seasonal-card" style={{ top: '300vh', right: '15%' }}>
                A timeless explosion of Grandma's traditional spice!
-               <div className="seasonal-card-circle">👵</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/jar.png" alt="Jar" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
             {/* Card 5 */}
             <div className="seasonal-card" style={{ top: '360vh', left: '12%' }}>
                Marinated in rich, cold-pressed groundnut oil.
-               <div className="seasonal-card-circle">🏺</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/oil.png" alt="Oil" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
             {/* Card 6 */}
             <div className="seasonal-card" style={{ top: '420vh', right: '12%' }}>
                The absolute perfect companion for hot rice and melted ghee!
-               <div className="seasonal-card-circle">🍚</div>
+               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                 <Image src="/images/cards/rice.png" alt="Rice" width={90} height={90} style={{ objectFit: 'cover' }} />
+               </div>
             </div>
 
           </div>
