@@ -24,12 +24,12 @@ import { ALL_PRODUCTS } from '@/components/productsData';
 // Dynamic featured products will be fetched inside the component
 
 const ingredients = [
-  { name: 'Raw Green Mangoes',       source: 'Andhra Orchards',   emoji: '🥭', bg: 'rgba(74,124,64,0.12)'  },
-  { name: 'Red Kashmiri Chilies',    source: 'Sun-dried 7 days',  emoji: '🌶️', bg: 'rgba(185,28,28,0.1)'   },
-  { name: 'Cold-Pressed Sesame Oil', source: 'Wooden press',      emoji: '🫙',  bg: 'rgba(217,119,6,0.1)'  },
-  { name: 'Mustard Seeds',           source: 'Stone-ground fresh', emoji: '🌰', bg: 'rgba(120,53,15,0.1)'  },
-  { name: 'Himalayan Rock Salt',     source: 'Pure & unprocessed', emoji: '🧂', bg: 'rgba(100,116,139,0.1)' },
-  { name: 'Fresh Curry Leaves',      source: 'Handpicked daily',  emoji: '🍃', bg: 'rgba(21,128,61,0.1)'   },
+  { name: 'Raw Green Mangoes', source: 'Andhra Orchards', img: '/images/ing_mango.png', bg: 'rgba(74,124,64,0.12)' },
+  { name: 'Red Kashmiri Chilies', source: 'Sun-dried 7 days', img: '/images/ing_chili.png', bg: 'rgba(185,28,28,0.1)' },
+  { name: 'Cold-Pressed Sesame Oil', source: 'Wooden press', img: '/images/ing_oil.png', bg: 'rgba(217,119,6,0.1)' },
+  { name: 'Mustard Seeds', source: 'Stone-ground fresh', img: '/images/ing_mustard.png', bg: 'rgba(120,53,15,0.1)' },
+  { name: 'Himalayan Rock Salt', source: 'Pure & unprocessed', img: '/images/ing_salt.png', bg: 'rgba(100,116,139,0.1)' },
+  { name: 'Fresh Curry Leaves', source: 'Handpicked daily', img: '/images/ing_leaves.png', bg: 'rgba(21,128,61,0.1)' },
 ];
 
 const testimonials = [
@@ -41,9 +41,9 @@ const testimonials = [
 const trustBadges = ['🌿 100% Natural', '🚫 No Preservatives', '👵 Family Recipe Since 1970', '🏺 Traditional Method', '📦 Pan India Delivery', '☀️ Sun-Dried Always', '🪨 Stone-Ground Spices', '🫙 Glass Jars Only'];
 
 const FALLBACK_RECIPES = [
-  { id: 'allam-velluli-pickle-recipe',    name: 'Allam Velluli Pickle Rice',    time: '10 min', emoji: '🍚', color: '#C4603A', desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee.' },
+  { id: 'allam-velluli-pickle-recipe', name: 'Allam Velluli Pickle Rice', time: '10 min', emoji: '🍚', color: '#C4603A', desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee.' },
   { id: 'crispy-allu-chips', name: 'Crispy Allu Chips', time: '20 min', emoji: '🥔', color: '#E8A820', desc: 'Make perfectly crispy, golden potato chips at home with this simple traditional method.' },
-  { id: 'daniya-powder-rasam',  name: 'Daniya Powder Rasam',  time: '20 min', emoji: '🥣', color: '#2D5A27', desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder.' },
+  { id: 'daniya-powder-rasam', name: 'Daniya Powder Rasam', time: '20 min', emoji: '🥣', color: '#2D5A27', desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder.' },
   { id: 'millets-kheer', name: 'Millets Laddu Kheer', time: '15 min', emoji: '🍨', color: '#8B5E3C', desc: 'Comforting, creamy kheer made by crumbling Millets Laddu into warm milk.' },
 ];
 
@@ -92,7 +92,7 @@ export default function HomePage() {
             }));
           }
         }
-        
+
         // Combine API products and local ALL_PRODUCTS (API products take precedence if same id)
         const combinedProducts = [...apiProducts];
         for (const localP of ALL_PRODUCTS) {
@@ -100,31 +100,31 @@ export default function HomePage() {
             combinedProducts.push(localP);
           }
         }
-        
+
         const categories = [
           'Prepared Foods',
           'Ready-to-eat savouries',
           'Salts, spices, soups',
           'Indian Sweets & Snacks'
         ];
-        
+
         const selectedProducts = [];
-        
+
         for (const cat of categories) {
           const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
           const normalizedCat = normalize(cat);
-          
+
           const catProducts = combinedProducts.filter(p => {
-             const pCat = normalize(p.category);
-             return pCat === normalizedCat || pCat.includes(normalizedCat) || normalizedCat.includes(pCat);
+            const pCat = normalize(p.category);
+            return pCat === normalizedCat || pCat.includes(normalizedCat) || normalizedCat.includes(pCat);
           });
-          
+
           catProducts.sort((a, b) => {
             const dateA = new Date(a.updatedAt || 0).getTime();
             const dateB = new Date(b.updatedAt || 0).getTime();
             return dateB - dateA;
           });
-          
+
           if (catProducts.length > 0) {
             const p = catProducts[0];
             if (!selectedProducts.find(sp => sp.id === p.id)) {
@@ -137,19 +137,19 @@ export default function HomePage() {
             }
           }
         }
-        
+
         // Fill up to 4 items if needed
         if (selectedProducts.length < 4) {
-           const remaining = combinedProducts.filter(p => !selectedProducts.find(sp => sp.id === p.id));
-           for (let i = 0; selectedProducts.length < 4 && i < remaining.length; i++) {
-               const p = remaining[i];
-               selectedProducts.push({
-                  ...p,
-                  tag: p.badge,
-                  tagCls: p.badgeClass,
-                  accent: '#C4603A'
-               });
-           }
+          const remaining = combinedProducts.filter(p => !selectedProducts.find(sp => sp.id === p.id));
+          for (let i = 0; selectedProducts.length < 4 && i < remaining.length; i++) {
+            const p = remaining[i];
+            selectedProducts.push({
+              ...p,
+              tag: p.badge,
+              tagCls: p.badgeClass,
+              accent: '#C4603A'
+            });
+          }
         }
 
         setFeaturedProducts(selectedProducts.slice(0, 4));
@@ -165,7 +165,7 @@ export default function HomePage() {
         setFeaturedProducts(defaultProducts);
       }
     };
-    
+
     const fetchRecipes = async () => {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
@@ -180,7 +180,7 @@ export default function HomePage() {
               const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
               return dateB - dateA;
             });
-            
+
             const apiRecipes = sortedRecipes.map(r => ({
               id: r.id || Math.random().toString(),
               name: r.recipeName || r.name || 'Unnamed Recipe',
@@ -190,7 +190,7 @@ export default function HomePage() {
               img: (r.images && r.images.length > 0) ? r.images[0] : (r.img || null),
               emoji: r.emoji || '🥘'
             }));
-            
+
             // If less than 4, fill from fallback
             if (apiRecipes.length < 4) {
               const remaining = FALLBACK_RECIPES.filter(r => !apiRecipes.find(ar => ar.name === r.name));
@@ -215,7 +215,7 @@ export default function HomePage() {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || ''; // If empty, defaults to relative path which is fine for client-side fetch in Next.js
         const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-gallery` : '/dashboard/website/api/get-website-gallery';
-        
+
         const res = await fetch(fetchUrl);
         if (res.ok) {
           const json = await res.json();
@@ -226,8 +226,8 @@ export default function HomePage() {
             setHeroImages(FALLBACK_HERO_IMAGES);
           }
         } else {
-           // Keep default FALLBACK_HERO_IMAGES
-           setHeroImages(FALLBACK_HERO_IMAGES);
+          // Keep default FALLBACK_HERO_IMAGES
+          setHeroImages(FALLBACK_HERO_IMAGES);
         }
       } catch (err) {
         console.error('Failed to fetch gallery images:', err);
@@ -281,7 +281,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          
+
 
         </section>
 
@@ -328,9 +328,9 @@ export default function HomePage() {
                   <div style={{ position: 'relative', height: '240px', overflow: 'hidden', background: '#f0e8d8' }}>
                     {p.img
                       ? <Image src={p.img} alt={p.name} fill sizes="300px" style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                          onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                          onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                        />
+                        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                      />
                       : <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5rem', background: `linear-gradient(135deg, ${p.accent}20, ${p.accent}40)` }}>{p.emoji}</div>
                     }
                     <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(to top, rgba(0,0,0,0.22), transparent)', pointerEvents: 'none' }} />
@@ -371,12 +371,12 @@ export default function HomePage() {
               position: 'relative',
               zIndex: 1
             }} className="split-grid heritage-grid">
-              
+
               {/* Image Side with Parallax/Overlap */}
               <div className="reveal" style={{ position: 'relative', zIndex: 1 }}>
                 <div className="heritage-img-wrapper" style={{
-                  position: 'relative', 
-                  width: '100%', 
+                  position: 'relative',
+                  width: '100%',
                   paddingBottom: '100%',
                   borderRadius: '24px',
                   overflow: 'hidden',
@@ -386,12 +386,12 @@ export default function HomePage() {
                   <Image src="/images/grandmother_kitchen.png" alt="Grandmother making pickles" fill sizes="50vw" style={{ objectFit: 'cover', transform: 'scale(1.05)', transition: 'transform 0.7s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1.05)'} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(61,31,10,0.2), transparent)' }} />
                 </div>
-                
+
                 {/* Floating Est badge removed */}
               </div>
 
               {/* Text Side - Frosted Glass overlapping the image */}
-              <div className="reveal heritage-text-card" style={{ 
+              <div className="reveal heritage-text-card" style={{
                 background: 'rgba(255, 255, 255, 0.92)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
@@ -403,32 +403,32 @@ export default function HomePage() {
                 transform: 'translateX(-40px)',
                 border: '1px solid rgba(255,255,255,0.4)'
               }}>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
                   <span style={{ width: '40px', height: '2px', background: 'var(--terracotta)' }}></span>
                   <span className="eyebrow" style={{ marginBottom: 0, color: 'var(--aged-wood)' }}>Our Heritage</span>
                 </div>
-                
-                <h2 style={{ 
-                  fontFamily: 'Playfair Display, serif', 
-                  fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
-                  fontWeight: 800, 
-                  color: 'var(--forest-green)', 
+
+                <h2 style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
+                  fontWeight: 800,
+                  color: 'var(--forest-green)',
                   lineHeight: 1.15,
-                  marginBottom: '1.5rem' 
+                  marginBottom: '1.5rem'
                 }}>
                   Three Generations of<br />
                   <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Pickle Making</em>
                 </h2>
-                
+
                 <p className="body-lg" style={{ color: 'var(--rich-brown)', marginBottom: '1.25rem', lineHeight: 1.8 }}>
                   It began in a small kitchen in Guntur, 1970. Our grandmother Avdaitha Ammayya would wake before dawn, stone-grinding spices by hand, selecting only the ripest mangoes from her brother's orchard.
                 </p>
-                
+
                 <p className="body-lg" style={{ color: 'var(--rich-brown)', marginBottom: '3rem', lineHeight: 1.8 }}>
                   Her daughters learned every secret — the exact spice ratios, the sun-drying days, the patience it takes. Same methods. Same love. Every jar.
                 </p>
-                
+
                 <Link href="/our-story" className="btn btn-terra" style={{
                   padding: '1rem 2.5rem',
                   fontSize: '0.9rem',
@@ -442,7 +442,7 @@ export default function HomePage() {
         </section>
 
         {/* ══ ADVANCED INGREDIENTS ═══════════════════════════ */}
-        <section id="ingredients" className="section-pad-xl" style={{ 
+        <section id="ingredients" className="section-pad-xl" style={{
           background: 'linear-gradient(135deg, var(--cream) 0%, #f4e9d8 100%)',
           position: 'relative',
           overflow: 'hidden'
@@ -452,104 +452,109 @@ export default function HomePage() {
           <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '300px', height: '300px', background: 'var(--forest-green)', borderRadius: '50%', filter: 'blur(100px)', opacity: 0.06 }} />
 
           <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ textAlign: 'center', marginBottom: '4.5rem' }} className="reveal">
-              <span className="eyebrow" style={{ color: 'var(--forest-green)', letterSpacing: '0.4em' }}>Purity Guaranteed</span>
-              <h2 className="display-lg" style={{ color: 'var(--rich-brown)', marginTop: '0.5rem' }}>
-                What Goes Inside<br />
-                <span style={{ 
-                  display: 'inline-block', 
-                  fontFamily: 'Playfair Display, serif', 
-                  fontStyle: 'italic', 
-                  color: 'transparent',
-                  WebkitTextStroke: '1.5px var(--terracotta)',
-                  position: 'relative'
-                }}>
-                  Every Jar
-                  <div style={{ position: 'absolute', bottom: '10px', left: 0, right: 0, height: '12px', background: 'var(--terracotta)', opacity: 0.15, zIndex: -1, transform: 'skewX(-15deg)' }} />
-                </span>
+            <div style={{ textAlign: 'center', marginBottom: '5.5rem' }} className="reveal">
+              <h2 style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                fontWeight: 900,
+                color: '#134027', // Deep dark green from reference
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                margin: 0
+              }}>
+                What Goes Inside Every Jar
               </h2>
-              <p className="body-lg" style={{ color: 'var(--aged-wood)', maxWidth: '500px', margin: '1.5rem auto 0' }}>
-                We source only the finest, freshest, and most authentic ingredients. Our grandmother wouldn't have it any other way.
-              </p>
             </div>
 
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-              gap: '2rem', 
-              marginBottom: '5rem' 
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '0',
+              marginBottom: '5rem',
+              padding: '2rem 0'
             }}>
-              {ingredients.map((ing, i) => (
-                <div key={ing.name} className="reveal ingredient-card-advanced" style={{ 
-                  animationDelay: `${i * 0.1}s`,
-                  background: 'rgba(255, 255, 255, 0.6)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
-                  borderRadius: '24px',
-                  padding: '2.5rem 2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1.5rem',
-                  boxShadow: '0 15px 35px rgba(61,31,10,0.04)',
-                  transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = 'translateY(-10px)';
-                  e.currentTarget.style.boxShadow = '0 25px 50px rgba(61,31,10,0.08)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
-                  e.currentTarget.querySelector('.ing-emoji-wrapper').style.transform = 'scale(1.15) rotate(5deg)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(61,31,10,0.04)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
-                  e.currentTarget.querySelector('.ing-emoji-wrapper').style.transform = 'scale(1) rotate(0deg)';
-                }}
-                >
-                  <div className="ing-emoji-wrapper" style={{ 
-                    width: '80px', height: '80px', 
-                    background: ing.bg, 
-                    borderRadius: '50%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '2.5rem',
-                    flexShrink: 0,
-                    boxShadow: 'inset 0 -5px 15px rgba(0,0,0,0.05)',
-                    transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
-                  }}>
-                    {ing.emoji}
+              {ingredients.map((ing, i) => {
+                const rotations = [-8, 4, -6, 5, -4, 6];
+                const marginLefts = ['0', '-40px', '-40px', '0', '-40px', '-40px'];
+                const marginTop = i > 2 ? '3rem' : '0'; // Add space for the second row
+
+                return (
+                  <div key={ing.name} className="reveal" style={{
+                    animationDelay: `${i * 0.1}s`,
+                    background: '#ffffff',
+                    padding: '18px 18px 60px 18px', // Thick bottom border for polaroid
+                    boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
+                    transform: `rotate(${rotations[i]}deg)`,
+                    marginLeft: marginLefts[i],
+                    marginTop: marginTop,
+                    zIndex: i,
+                    position: 'relative',
+                    transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s',
+                    width: '320px',
+                  }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = `rotate(0deg) scale(1.08) translateY(-15px)`;
+                      e.currentTarget.style.zIndex = 20;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = `rotate(${rotations[i]}deg)`;
+                      e.currentTarget.style.zIndex = i;
+                    }}
+                  >
+                    {/* The "Photo" area with thin green border */}
+                    <div style={{
+                      border: '2px solid #1c402c', // Dark green border from reference
+                      background: ing.bg,
+                      height: '350px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '0',
+                      textAlign: 'center',
+                      overflow: 'hidden',
+                      position: 'relative'
+                    }}>
+                      <div style={{ position: 'absolute', inset: 0 }}>
+                        <Image src={ing.img} alt={ing.name} fill sizes="320px" style={{ objectFit: 'cover' }} />
+                      </div>
+
+                      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1.5rem 1.5rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)' }}>
+                        <h4 style={{
+                          fontFamily: 'Playfair Display, serif',
+                          fontSize: '1.4rem',
+                          fontWeight: 900,
+                          color: '#ffffff',
+                          lineHeight: 1.1,
+                          marginBottom: '0.4rem',
+                          textShadow: '0 2px 5px rgba(0,0,0,0.8)'
+                        }}>{ing.name}</h4>
+
+                        <p style={{
+                          fontFamily: 'Lato, sans-serif',
+                          fontSize: '0.8rem',
+                          fontWeight: 900,
+                          letterSpacing: '0.15em',
+                          textTransform: 'uppercase',
+                          color: 'var(--turmeric)',
+                          textShadow: '0 2px 5px rgba(0,0,0,0.8)'
+                        }}>{ing.source}</p>
+                      </div>
+                    </div>
                   </div>
-                  
-                  <div>
-                    <h4 style={{ 
-                      fontFamily: 'Playfair Display, serif', 
-                      fontSize: '1.2rem', 
-                      fontWeight: 800, 
-                      color: 'var(--rich-brown)', 
-                      marginBottom: '0.4rem',
-                      lineHeight: 1.2
-                    }}>{ing.name}</h4>
-                    <p style={{ 
-                      fontFamily: 'Lato, sans-serif',
-                      fontSize: '0.75rem',
-                      fontWeight: 900,
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                      color: 'var(--terracotta)'
-                    }}>{ing.source}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Advanced Quote Block */}
             <div className="reveal" style={{ textAlign: 'center', position: 'relative' }}>
               <div style={{
-                display: 'inline-block', 
+                display: 'inline-block',
                 padding: '3rem 4rem',
-                background: 'linear-gradient(145deg, var(--forest-green), var(--forest-dark))', 
+                background: 'linear-gradient(145deg, var(--forest-green), var(--forest-dark))',
                 borderRadius: '24px',
                 position: 'relative',
                 boxShadow: '0 20px 40px rgba(45,90,39,0.25)',
@@ -557,7 +562,7 @@ export default function HomePage() {
               }}>
                 {/* Huge quote mark background */}
                 <div style={{ position: 'absolute', top: '-20px', left: '20px', fontSize: '10rem', color: 'rgba(255,255,255,0.05)', fontFamily: 'Playfair Display, serif', lineHeight: 1, pointerEvents: 'none' }}>"</div>
-                
+
                 <p style={{
                   fontFamily: 'Playfair Display, serif',
                   fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
@@ -586,22 +591,22 @@ export default function HomePage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8rem' }}>
               {[
-                { 
+                {
                   step: '01', title: 'SOURCING', subtitle: 'The foundation of flavor',
                   text: 'We travel across Andhra Pradesh to hand-pick the finest raw ingredients. From fiery Guntur chilies to raw, tangy mangoes, we only select produce at its peak freshness. We believe that a pickle is only as good as the earth it comes from.',
                   img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1200&auto=format&fit=crop'
                 },
-                { 
+                {
                   step: '02', title: 'PREPARING', subtitle: 'The rhythmic stone grinding',
                   text: 'We never use pre-mixed powders. Every morning, our spices are stone-ground in small batches to release their natural essential oils. The rhythmic sound of the mortar and pestle is the heartbeat of our kitchen, ensuring unparalleled aroma.',
                   img: '/images/Washing_Prep.png'
                 },
-                { 
+                {
                   step: '03', title: 'SUN DRYING', subtitle: 'Patience under the sun',
                   text: 'There are no shortcuts to authentic flavor. Our ingredients are marinated in cold-pressed sesame oil and left to sun-dry naturally for 5 to 7 days on traditional terracotta terraces. The sun naturally preserves and deepens the complex flavors.',
                   img: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?q=80&w=1200&auto=format&fit=crop'
                 },
-                { 
+                {
                   step: '04', title: 'JARRING', subtitle: 'Sealed with love',
                   text: 'The final masterpiece is hand-packed into sterilized glass jars, preserving the purity and integrity of the pickle. Each jar is sealed tightly, holding within it three generations of culinary heritage, ready to be delivered to your table.',
                   img: '/images/Hand-packing.png'
@@ -609,26 +614,26 @@ export default function HomePage() {
               ].map((item, i) => {
                 const isEven = i % 2 === 0;
                 return (
-                  <div key={item.step} className="reveal process-flow-row" style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                  <div key={item.step} className="reveal process-flow-row" style={{
+                    display: 'flex',
+                    alignItems: 'center',
                     gap: '6rem',
                     flexDirection: isEven ? 'row' : 'row-reverse'
                   }}>
                     {/* Image Side */}
                     <div style={{ flex: '1.2', position: 'relative' }}>
-                      <div style={{ 
-                        position: 'relative', 
-                        width: '100%', 
-                        paddingBottom: '80%', 
-                        borderRadius: '24px', 
+                      <div style={{
+                        position: 'relative',
+                        width: '100%',
+                        paddingBottom: '80%',
+                        borderRadius: '24px',
                         overflow: 'hidden',
                         boxShadow: '0 30px 60px rgba(61,31,10,0.15)'
                       }}>
                         <img src={item.img} alt={item.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
                         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(61,31,10,0.4), transparent)', pointerEvents: 'none' }} />
                       </div>
-                      
+
                       {/* Floating Step Number */}
                       <div style={{
                         position: 'absolute',
@@ -650,11 +655,11 @@ export default function HomePage() {
 
                     {/* Text Side */}
                     <div style={{ flex: '1' }}>
-                      <span style={{ 
-                        fontFamily: 'Lato, sans-serif', 
-                        fontSize: '0.85rem', 
-                        fontWeight: 900, 
-                        letterSpacing: '0.25em', 
+                      <span style={{
+                        fontFamily: 'Lato, sans-serif',
+                        fontSize: '0.85rem',
+                        fontWeight: 900,
+                        letterSpacing: '0.25em',
                         color: 'var(--terracotta)',
                         textTransform: 'uppercase',
                         display: 'block',
@@ -662,35 +667,35 @@ export default function HomePage() {
                       }}>
                         Step {item.step}
                       </span>
-                      <h3 style={{ 
-                        fontFamily: 'Playfair Display, serif', 
-                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', 
-                        fontWeight: 900, 
-                        color: 'var(--rich-brown)', 
+                      <h3 style={{
+                        fontFamily: 'Playfair Display, serif',
+                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                        fontWeight: 900,
+                        color: 'var(--rich-brown)',
                         lineHeight: 1.1,
                         marginBottom: '0.5rem'
                       }}>
                         {item.title}
                       </h3>
-                      <h4 style={{ 
-                        fontFamily: 'Playfair Display, serif', 
-                        fontSize: '1.4rem', 
+                      <h4 style={{
+                        fontFamily: 'Playfair Display, serif',
+                        fontSize: '1.4rem',
                         fontStyle: 'italic',
-                        color: 'var(--forest-green)', 
+                        color: 'var(--forest-green)',
                         marginBottom: '2rem'
                       }}>
                         {item.subtitle}
                       </h4>
-                      <p style={{ 
-                        fontFamily: 'Lato, sans-serif', 
-                        fontSize: '1.1rem', 
-                        lineHeight: 1.8, 
+                      <p style={{
+                        fontFamily: 'Lato, sans-serif',
+                        fontSize: '1.1rem',
+                        lineHeight: 1.8,
                         color: 'var(--aged-wood)',
                         marginBottom: '2.5rem'
                       }}>
                         {item.text}
                       </p>
-                      
+
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <span style={{ height: '1px', width: '60px', background: 'var(--turmeric)' }} />
                         <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.15em', color: 'var(--turmeric)', textTransform: 'uppercase' }}>Authentic Method</span>
@@ -710,33 +715,134 @@ export default function HomePage() {
         {/* ══ TESTIMONIALS ═══════════════════════════ */}
         <section id="testimonials" className="section-pad-xl" style={{ background: '#f8f0e2' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
-              <span className="eyebrow">Community Love</span>
-              <h2 className="display-lg" style={{ color: 'var(--forest-green)' }}>
-                What Our<br /><em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Pickle Lovers Say</em>
+            <div style={{ textAlign: 'center', marginBottom: '5.5rem' }} className="reveal">
+              <h2 style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: 'clamp(3rem, 6vw, 5rem)', // Slightly smaller max size since the text is longer
+                fontWeight: 900,
+                color: '#134027', // Deep dark green
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                margin: 0
+              }}>
+                What Our Pickle Lovers Say
               </h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.75rem' }}>
-              {testimonials.map((t, i) => (
-                <div key={t.author} id={`testi-${i}`} className="testimonial-card reveal" style={{ animationDelay: `${i * 0.12}s` }}>
-                  <div className="big-quote">"</div>
-                  <div className="stars" style={{ marginBottom: '0.85rem', marginTop: '2rem' }}>★★★★★</div>
-                  <p className="body-lg" style={{ color: 'var(--rich-brown)', marginBottom: '1.5rem' }}>"{t.text}"</p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', paddingTop: '1rem', borderTop: '1px solid rgba(139,94,60,0.1)' }}>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '1.5rem'
+            }}>
+              {testimonials.map((t, i) => {
+                const colors = ['#f5b89c', '#a5da71', '#ffc745']; // Peach, Green, Yellow
+                const darkColors = ['#eb7952', '#86c646', '#f3aa00']; // Darker shade for the bottom box
+                const textColors = ['#ffffff', '#1c402c', '#1c402c']; // White text for peach box, dark for others
+                const products = [
+                  { name: 'TRADITIONAL MANGO AVAKAYA', img: '/images/ing_mango.png' },
+                  { name: 'ANDHRA GONGURA PICKLE', img: '/images/ing_leaves.png' },
+                  { name: 'TANGY LEMON PICKLE', img: '/images/ing_salt.png' },
+                ];
+
+                return (
+                  <div key={t.author} className="reveal" style={{
+                    animationDelay: `${i * 0.12}s`,
+                    width: '320px',
+                    minHeight: '380px',
+                    background: colors[i % colors.length],
+                    border: '1px solid #1c402c', // Thin dark green/black border
+                    borderRadius: '12px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                  }}>
+                    {/* Top Quote Section */}
+                    <div style={{ padding: '2rem 1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                      <p style={{
+                        fontFamily: 'Playfair Display, serif',
+                        fontSize: '1.5rem',
+                        lineHeight: 1.3,
+                        color: '#1c402c',
+                        textAlign: 'center',
+                        marginBottom: '1.5rem'
+                      }}>"{t.text}"</p>
+
+                      <div style={{
+                        fontFamily: 'system-ui, -apple-system, sans-serif',
+                        fontWeight: 400,
+                        fontSize: '0.9rem',
+                        color: '#1c402c',
+                      }}>
+                        {t.author}
+                      </div>
+                    </div>
+
+                    {/* Bottom Product Box */}
                     <div style={{
-                      width: '42px', height: '42px', borderRadius: '50%',
-                      background: 'linear-gradient(135deg, var(--terracotta), var(--forest-green))',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: 'Playfair Display, serif', fontWeight: 800, fontSize: '1rem', color: 'var(--ivory)',
-                    }}>{t.author[0]}</div>
-                    <div>
-                      <div style={{ fontFamily: 'Lato, sans-serif', fontWeight: 900, fontSize: '0.9rem', color: 'var(--forest-green)' }}>{t.author}</div>
-                      <div className="label" style={{ color: 'var(--aged-wood)', fontSize: '0.72rem' }}>{t.city}</div>
+                      display: 'flex',
+                      background: darkColors[i % darkColors.length],
+                      border: '1px solid #1c402c',
+                      borderRadius: '8px',
+                      height: '80px',
+                      margin: '0 12px 12px 12px', // Floating inside the card
+                      overflow: 'hidden'
+                    }}>
+                      {/* Product Image */}
+                      <div style={{
+                        width: '70px',
+                        borderRight: '1px solid #1c402c',
+                        padding: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(255,255,255,0.1)'
+                      }}>
+                        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                          <Image src={products[i].img} alt={products[i].name} fill sizes="60px" style={{ objectFit: 'cover', borderRadius: '4px' }} />
+                        </div>
+                      </div>
+
+                      {/* Product Info & Button */}
+                      <div style={{
+                        flex: 1,
+                        padding: '0 12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '8px'
+                      }}>
+                        <div style={{
+                          fontFamily: 'system-ui, -apple-system, sans-serif',
+                          fontSize: '0.75rem',
+                          fontWeight: 800,
+                          color: textColors[i % textColors.length],
+                          lineHeight: 1.2,
+                          letterSpacing: '0.02em',
+                          maxWidth: '90px' // Force wrapping to look like reference
+                        }}>
+                          {products[i].name}
+                        </div>
+
+                        <button style={{
+                          background: '#ffffff',
+                          border: '1px solid #1c402c',
+                          borderRadius: '24px',
+                          padding: '0.4rem 0.9rem',
+                          fontFamily: 'system-ui, -apple-system, sans-serif',
+                          fontSize: '0.85rem',
+                          fontWeight: 400,
+                          color: '#1c402c',
+                          cursor: 'pointer'
+                        }}>
+                          Shop
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

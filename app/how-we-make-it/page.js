@@ -114,64 +114,97 @@ export default function HowWeMakeItPage() {
 
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1, padding: '0 2rem' }}>
             {steps.map((step, i) => {
-              // Calculate sticky top offset to create the stacking effect
-              const topOffset = `calc(10vh + ${i * 30}px)`;
+              // Exact design from the micha.asia video: full bright colors, alternating rotations
+              const bgColors = ['#F6F2DF', '#8B55D5', '#6CB83A', '#F3D966', '#E96847', '#4CB0D8'];
+              const textColors = ['#1C402C', '#FFFFFF', '#1C402C', '#1C402C', '#FFFFFF', '#FFFFFF'];
+              const rotations = [-1.5, 1.5, -2, 2, -1.5, 1.5];
+              
+              // Calculate sticky top offset
+              const topOffset = `calc(5vh + ${i * 15}px)`;
               
               return (
                 <div key={step.id} style={{ 
                   position: 'sticky', 
                   top: topOffset, 
-                  marginBottom: '10vh', // Spacing between cards to allow scrolling
-                  height: '75vh', // Card height
-                  width: '100%'
+                  marginBottom: '20vh', // Huge spacing to allow scrolling
+                  height: '80vh', // Massive card height
+                  width: '100%',
+                  zIndex: i + 1 // Ensure proper stacking
                 }}>
-                  {/* The Card Itself */}
+                  {/* The Card Itself - Video Style */}
                   <div className="sticky-card" style={{ 
                     width: '100%', height: '100%',
-                    background: '#fff', borderRadius: '32px',
-                    boxShadow: '0 30px 60px rgba(61,31,10,0.15), 0 -10px 30px rgba(61,31,10,0.05)',
+                    background: bgColors[i % bgColors.length],
+                    borderRadius: '40px', // Large rounded corners like video
+                    boxShadow: '0 -15px 40px rgba(0,0,0,0.2)', // Shadow for overlapping effect
                     display: 'flex', overflow: 'hidden',
-                    transformOrigin: 'top center',
-                    borderTop: `4px solid ${step.color}`
+                    transform: `rotate(${rotations[i % rotations.length]}deg)`, // Alternating rotations
                   }}>
                     
                     {/* Image Half */}
-                    <div style={{ flex: '1.2', position: 'relative', overflow: 'hidden' }}>
-                      <img src={step.img} alt={step.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.2)' }} />
+                    <div style={{ flex: '1', position: 'relative', overflow: 'hidden', padding: '2rem' }}>
+                      <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '24px', overflow: 'hidden' }}>
+                        <img src={step.img} alt={step.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.1)' }} />
+                      </div>
                       
                       <div style={{ 
-                        position: 'absolute', bottom: '-2vw', left: '-2vw',
-                        fontFamily: 'Playfair Display, serif', fontSize: '20vw', fontWeight: 900,
-                        color: 'rgba(255,255,255,0.15)', lineHeight: 1, pointerEvents: 'none'
+                        position: 'absolute', bottom: '0', left: '0',
+                        fontFamily: '"Arial Black", system-ui, sans-serif', fontSize: '25vw', fontWeight: 900,
+                        color: 'rgba(255,255,255,0.2)', lineHeight: 0.8, pointerEvents: 'none',
+                        mixBlendMode: 'overlay'
                       }}>
                         {step.num}
                       </div>
                     </div>
 
                     {/* Text Half */}
-                    <div style={{ flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '4rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-                        <span style={{ fontSize: '3rem' }}>{step.emoji}</span>
+                    <div style={{ flex: '1.2', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 3rem 2rem 1rem' }}>
+                      
+                      {/* Compact Step Indicator */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                        <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>{step.emoji}</span>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span style={{ fontFamily: 'Lato, sans-serif', fontSize: '0.8rem', fontWeight: 900, letterSpacing: '0.25em', color: step.color, textTransform: 'uppercase' }}>Step {step.num}</span>
-                          <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontStyle: 'italic', color: 'var(--aged-wood)' }}>{step.subtitle}</span>
+                          <span style={{ fontFamily: 'system-ui, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', color: textColors[i % textColors.length], textTransform: 'uppercase' }}>Step {step.num}</span>
+                          <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', fontStyle: 'italic', color: textColors[i % textColors.length], opacity: 0.9 }}>{step.subtitle}</span>
                         </div>
                       </div>
 
-                      <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 3.5vw, 4rem)', fontWeight: 900, color: 'var(--rich-brown)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
+                      <h2 style={{ 
+                        fontFamily: '"Arial Black", system-ui, sans-serif', 
+                        fontSize: 'clamp(2.5rem, 4vw, 4rem)', // Reduced massive size to fit inside the card
+                        fontWeight: 900, 
+                        color: '#111111', 
+                        WebkitTextStroke: '2px #ffffff', // Slightly thinner stroke to match smaller text
+                        filter: 'drop-shadow(4px 4px 0px #111111)', // Reduced shadow size
+                        textTransform: 'uppercase',
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.02em',
+                        marginBottom: '1.5rem',
+                        transform: 'rotate(-2deg)'
+                      }}>
                         {step.title}
                       </h2>
 
-                      <p style={{ fontFamily: 'Lato, sans-serif', fontSize: '1.15rem', color: 'var(--aged-wood)', lineHeight: 1.8, marginBottom: '3rem' }}>
+                      <p style={{ 
+                        fontFamily: 'system-ui, sans-serif', 
+                        fontSize: '1.1rem', // Reduced from 1.5rem
+                        color: textColors[i % textColors.length] === '#FFFFFF' ? '#FFFFFF' : '#111111', 
+                        lineHeight: 1.6, 
+                        marginBottom: '1.5rem',
+                        fontWeight: 600, // Slightly less bold
+                        maxWidth: '95%'
+                      }}>
                         {step.desc}
                       </p>
 
                       <div style={{ 
-                        padding: '1.25rem 1.5rem', background: 'rgba(240,230,210,0.5)', 
-                        borderRadius: '12px',
-                        fontFamily: 'Lato, sans-serif', fontSize: '0.9rem', fontWeight: 700, 
-                        color: step.color, letterSpacing: '0.05em'
+                        fontFamily: 'system-ui, sans-serif', 
+                        fontSize: '0.9rem', // Reduced from 1.2rem
+                        fontWeight: 900, 
+                        color: textColors[i % textColors.length] === '#FFFFFF' ? 'rgba(255,255,255,0.9)' : '#111111', 
+                        letterSpacing: '0.02em',
+                        textTransform: 'uppercase'
                       }}>
                         ✦ {step.detail}
                       </div>
