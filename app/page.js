@@ -544,9 +544,9 @@ export default function HomePage() {
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
               <span className="eyebrow">Our Collection</span>
-              <h2 className="display-lg" style={{ color: 'var(--forest-green)', display: 'inline' }}>Our Beloved </h2>
-              <h2 className="display-lg" style={{ color: 'var(--terracotta)', fontStyle: 'italic', display: 'inline' }}>Pickles</h2>
-              <p className="body-lg" style={{ color: 'var(--aged-wood)', marginTop: '0.75rem', maxWidth: '480px', margin: '0.75rem auto 0' }}>
+              <h2 style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 900, color: 'var(--forest-green)', display: 'inline' }}>Our Beloved </h2>
+              <h2 style={{ fontFamily: '"Playfair Display", serif', fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 900, fontStyle: 'italic', color: 'var(--terracotta)', display: 'inline' }}>Pickles</h2>
+              <p style={{ fontFamily: '"Lato", sans-serif', fontSize: '1.4rem', fontWeight: 500, color: 'var(--aged-wood)', marginTop: '1.5rem', maxWidth: '480px', margin: '1.5rem auto 0' }}>
                 Every jar tells a story of love and tradition
               </p>
             </div>
@@ -660,86 +660,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ ADVANCED HERITAGE SPLIT ═════════════════════════ */}
-        <section id="heritage-story" style={{ background: '#f0e2c4', padding: '6rem 2rem' }}>
-          <div className="container" style={{ position: 'relative' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1.2fr 1fr',
-              gap: '0',
-              alignItems: 'center',
-              position: 'relative',
-              zIndex: 1
-            }} className="split-grid heritage-grid">
-
-              {/* Image Side with Parallax/Overlap */}
-              <div className="reveal" style={{ position: 'relative', zIndex: 1 }}>
-                <div className="heritage-img-wrapper" style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingBottom: '100%',
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  boxShadow: '0 30px 60px rgba(61,31,10,0.15)',
-                  transform: 'translateX(40px)',
-                }}>
-                  <Image src="/images/grandmother_kitchen.png" alt="Grandmother making pickles" fill sizes="50vw" style={{ objectFit: 'cover', transform: 'scale(1.05)', transition: 'transform 0.7s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1.05)'} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(61,31,10,0.2), transparent)' }} />
-                </div>
-
-                {/* Floating Est badge removed */}
-              </div>
-
-              {/* Text Side - Frosted Glass overlapping the image */}
-              <div className="reveal heritage-text-card" style={{
-                background: 'rgba(255, 255, 255, 0.92)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                padding: 'clamp(3rem, 5vw, 4.5rem)',
-                borderRadius: '24px',
-                boxShadow: '0 20px 50px rgba(0,0,0,0.08)',
-                position: 'relative',
-                zIndex: 2,
-                transform: 'translateX(-40px)',
-                border: '1px solid rgba(255,255,255,0.4)'
-              }}>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  <span style={{ width: '40px', height: '2px', background: 'var(--terracotta)' }}></span>
-                  <span className="eyebrow" style={{ marginBottom: 0, color: 'var(--aged-wood)' }}>Our Heritage</span>
-                </div>
-
-                <h2 style={{
-                  fontFamily: 'Playfair Display, serif',
-                  fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
-                  fontWeight: 800,
-                  color: 'var(--forest-green)',
-                  lineHeight: 1.15,
-                  marginBottom: '1.5rem'
-                }}>
-                  Three Generations of<br />
-                  <em style={{ color: 'var(--terracotta)', fontStyle: 'italic' }}>Pickle Making</em>
-                </h2>
-
-                <p className="body-lg" style={{ color: 'var(--rich-brown)', marginBottom: '1.25rem', lineHeight: 1.8 }}>
-                  It began in a small kitchen in Guntur, 1970. Our grandmother Avdaitha Ammayya would wake before dawn, stone-grinding spices by hand, selecting only the ripest mangoes from her brother's orchard.
-                </p>
-
-                <p className="body-lg" style={{ color: 'var(--rich-brown)', marginBottom: '3rem', lineHeight: 1.8 }}>
-                  Her daughters learned every secret — the exact spice ratios, the sun-drying days, the patience it takes. Same methods. Same love. Every jar.
-                </p>
-
-                <Link href="/our-story" className="btn btn-terra" style={{
-                  padding: '1rem 2.5rem',
-                  fontSize: '0.9rem',
-                  boxShadow: '0 8px 20px rgba(196,96,58,0.25)'
-                }}>
-                  Discover Our Roots <ArrowRight size={16} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ══ ADVANCED INGREDIENTS ═══════════════════════════ */}
         <section id="ingredients" className="section-pad-xl" style={{
@@ -879,26 +799,41 @@ export default function HomePage() {
 
         {/* ══ STICKY SCROLL - HIGHLIGHT OF THE MONTH ════════════════════════════════ */}
         <section id="process-section" style={{ position: 'relative', height: '550vh', backgroundColor: '#CC0044' }}>
-          
+
           {/* Sticky Center Text */}
-          <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
-            <h2 style={{ 
-              fontFamily: 'var(--font-playfair), serif', 
+          <div style={{ position: 'sticky', top: 0, height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+
+            <span style={{
+              fontFamily: '"Inter", system-ui, sans-serif',
+              fontSize: '1rem',
+              fontWeight: 800,
+              letterSpacing: '0.3em',
+              color: '#FCE300',
+              textTransform: 'uppercase',
+              marginBottom: '1.5rem',
+              textShadow: '2px 2px 0 rgba(0,0,0,0.2)'
+            }}>
+              Highlight of the Month
+            </span>
+
+            <h2 style={{
+              fontFamily: 'var(--font-playfair), serif',
               fontWeight: 900,
-              fontSize: 'clamp(4rem, 12vw, 12rem)', 
-              color: '#FFF', 
-              textAlign: 'center', 
+              fontSize: 'clamp(4rem, 12vw, 12rem)',
+              color: '#FFF',
+              textAlign: 'center',
               lineHeight: 0.85,
               letterSpacing: '-0.02em',
-              textShadow: '8px 8px 0 rgba(0,0,0,0.15)'
+              textShadow: '8px 8px 0 rgba(0,0,0,0.15)',
+              margin: 0
             }}>
-              The Classic<br/>Mango<br/>Avakaya.
+              The Classic<br />Mango<br />Avakaya.
             </h2>
           </div>
 
           {/* Floating Yellow Cards Container */}
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }}>
-            
+
             <style>{`
               .seasonal-card {
                 background: #FCE300;
@@ -940,50 +875,50 @@ export default function HomePage() {
 
             {/* Card 1 */}
             <div className="seasonal-card" style={{ top: '120vh', left: '10%' }}>
-               This Month's Star! The absolute crowd favorite.
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/star.png" alt="Star" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              This Month's Star! The absolute crowd favorite.
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/star.png" alt="Star" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
             {/* Card 2 */}
             <div className="seasonal-card" style={{ top: '180vh', right: '10%' }}>
-               Made with the first catch of crunchy summer mangoes.
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/mango.png" alt="Mango" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              Made with the first catch of crunchy summer mangoes.
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/mango.png" alt="Mango" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
             {/* Card 3 */}
             <div className="seasonal-card" style={{ top: '240vh', left: '15%' }}>
-               Blended with pure, fiery Guntur chillies for authentic kick.
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/chili.png" alt="Chili" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              Blended with pure, fiery Guntur chillies for authentic kick.
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/chili.png" alt="Chili" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
             {/* Card 4 */}
             <div className="seasonal-card" style={{ top: '300vh', right: '15%' }}>
-               A timeless explosion of Grandma's traditional spice!
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/jar.png" alt="Jar" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              A timeless explosion of Grandma's traditional spice!
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/jar.png" alt="Jar" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
             {/* Card 5 */}
             <div className="seasonal-card" style={{ top: '360vh', left: '12%' }}>
-               Marinated in rich, cold-pressed groundnut oil.
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/oil.png" alt="Oil" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              Marinated in rich, cold-pressed groundnut oil.
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/oil.png" alt="Oil" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
             {/* Card 6 */}
             <div className="seasonal-card" style={{ top: '420vh', right: '12%' }}>
-               The absolute perfect companion for hot rice and melted ghee!
-               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                 <Image src="/images/cards/rice.png" alt="Rice" width={90} height={90} style={{ objectFit: 'cover' }} />
-               </div>
+              The absolute perfect companion for hot rice and melted ghee!
+              <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
+                <Image src="/images/cards/rice.png" alt="Rice" width={90} height={90} style={{ objectFit: 'cover' }} />
+              </div>
             </div>
 
           </div>
