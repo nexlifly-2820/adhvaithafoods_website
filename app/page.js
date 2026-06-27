@@ -417,7 +417,7 @@ export default function HomePage() {
             letterSpacing: '0.02em',
             lineHeight: 1
           }}>
-            Sparkles of Goodness
+            Taste of Tradition
           </h1>
 
           {/* Central Bottle Container */}
