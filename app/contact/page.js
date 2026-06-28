@@ -7,7 +7,6 @@ import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,10 +14,6 @@ export default function ContactPage() {
   };
 
   useEffect(() => {
-    // Splash screen timeout
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -80,39 +75,7 @@ export default function ContactPage() {
         .font-mouse { font-family: 'Mouse Memoirs', sans-serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         
-        /* Splash Loader Animation */
-        @keyframes splashOut {
-          0% { transform: scale(1); opacity: 1; }
-          40% { transform: scale(1.1); opacity: 1; }
-          100% { transform: scale(5); opacity: 0; visibility: hidden; }
-        }
-        
         /* Floating Elements Animations */
-        @keyframes floatLeft {
-          0% { transform: translateY(0) rotate(-10deg); }
-          50% { transform: translateY(-20px) rotate(-5deg); }
-          100% { transform: translateY(0) rotate(-10deg); }
-        }
-        
-        @keyframes floatRight {
-          0% { transform: translateY(0) rotate(10deg); }
-          50% { transform: translateY(-20px) rotate(15deg); }
-          100% { transform: translateY(0) rotate(10deg); }
-        }
-        
-        @keyframes dropIn {
-          0% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
-          60% { transform: translateY(20px) rotate(15deg); opacity: 1; }
-          80% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-          100% { transform: translateY(0) rotate(0deg); opacity: 1; }
-        }
-        
-        @keyframes popJar {
-          0% { transform: scale(0.8); opacity: 0; }
-          50% { transform: scale(1.1); opacity: 1; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        
         /* Animated Parallax Waves */
         .waves {
           position: relative;
@@ -163,106 +126,6 @@ export default function ContactPage() {
         .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
       `}</style>
-
-      {/* Splash Screen */}
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: '#FF1E1E',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        animation: !loading ? 'splashOut 0.8s cubic-bezier(0.8, 0, 0.2, 1) forwards' : 'none',
-        pointerEvents: loading ? 'all' : 'none'
-      }}>
-        <div style={{ position: 'relative', width: '200px', height: '300px', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-          {/* The Jar */}
-          <div style={{
-            width: '120px',
-            height: '120px',
-            position: 'absolute',
-            bottom: '0',
-            opacity: 0,
-            animation: loading ? 'popJar 0.4s ease-out forwards' : 'none',
-            zIndex: 10,
-            filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.4))'
-          }}>
-            <img src="/images/contact_loader/bowl.png" alt="Bowl" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          
-          {/* Ingredient 1 */}
-          <div style={{
-            width: '50px',
-            height: '50px',
-            position: 'absolute',
-            bottom: '45px',
-            left: '45px',
-            opacity: 0,
-            animation: loading ? 'dropIn 0.5s ease-out 0.2s forwards' : 'none',
-            zIndex: 20,
-            filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.3))'
-          }}>
-            <img src="/images/contact_loader/ing1.png" alt="Ingredient 1" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          
-          {/* Ingredient 2 */}
-          <div style={{
-            width: '55px',
-            height: '55px',
-            position: 'absolute',
-            bottom: '50px', 
-            left: '75px',
-            opacity: 0,
-            animation: loading ? 'dropIn 0.5s ease-out 0.35s forwards' : 'none',
-            zIndex: 21,
-            filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.3))'
-          }}>
-            <img src="/images/contact_loader/ing2.png" alt="Ingredient 2" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          
-          {/* Ingredient 3 */}
-          <div style={{
-            width: '45px',
-            height: '45px',
-            position: 'absolute',
-            bottom: '55px', 
-            left: '55px',
-            opacity: 0,
-            animation: loading ? 'dropIn 0.5s ease-out 0.5s forwards' : 'none',
-            zIndex: 22,
-            filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.3))'
-          }}>
-            <img src="/images/contact_loader/ing3.png" alt="Ingredient 3" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-
-          {/* Ingredient 4 */}
-          <div style={{
-            width: '45px',
-            height: '45px',
-            position: 'absolute',
-            bottom: '45px', 
-            left: '85px',
-            opacity: 0,
-            animation: loading ? 'dropIn 0.5s ease-out 0.65s forwards' : 'none',
-            zIndex: 23,
-            filter: 'drop-shadow(0 5px 10px rgba(0,0,0,0.3))'
-          }}>
-            <img src="/images/contact_loader/ing4.png" alt="Ingredient 4" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          
-          {/* Loading Text */}
-          <div style={{
-            position: 'absolute',
-            bottom: '-40px',
-            fontFamily: 'Mouse Memoirs, sans-serif',
-            fontSize: '2rem',
-            color: '#FFF',
-            letterSpacing: '2px',
-            opacity: 0,
-            animation: loading ? 'popJar 0.4s ease-out 0.8s forwards' : 'none',
-            textShadow: '0 4px 10px rgba(0,0,0,0.2)',
-            whiteSpace: 'nowrap'
-          }}>
-            MIXING...
-          </div>
-        </div>
-      </div>
 
       <main>
 
