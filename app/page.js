@@ -544,35 +544,35 @@ export default function HomePage() {
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
               <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em' }}>IN OUR COLLECTION</span>
-              <br/>
-              <h2 style={{ 
-                fontFamily: '"Arial Black", system-ui, sans-serif', 
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)', 
-                fontWeight: 900, 
+              <br />
+              <h2 style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                fontWeight: 900,
                 textTransform: 'uppercase',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: '#111', 
-                display: 'inline' 
+                color: '#111',
+                display: 'inline'
               }}>OUR BELOVED </h2>
-              <h2 style={{ 
-                fontFamily: '"Arial Black", system-ui, sans-serif', 
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)', 
-                fontWeight: 900, 
+              <h2 style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                fontWeight: 900,
                 textTransform: 'uppercase',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: '#D44A6A', 
-                display: 'inline' 
+                color: '#D44A6A',
+                display: 'inline'
               }}>PICKLES</h2>
-              <p style={{ 
-                fontFamily: '"Arial Black", system-ui, sans-serif', 
-                fontSize: '1.1rem', 
-                fontWeight: 900, 
-                color: '#444', 
-                marginTop: '1.5rem', 
-                maxWidth: '600px', 
-                margin: '1.5rem auto 0' 
+              <p style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: '1.1rem',
+                fontWeight: 900,
+                color: '#444',
+                marginTop: '1.5rem',
+                maxWidth: '600px',
+                margin: '1.5rem auto 0'
               }}>
                 Every jar tells a story of love and tradition — transforming simple meals into celebrations.
               </p>
