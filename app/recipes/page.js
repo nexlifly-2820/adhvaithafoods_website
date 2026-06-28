@@ -253,7 +253,11 @@ export default function RecipesPage() {
             };
           });
           // Merge API recipes with fallback recipes to guarantee a beautiful populated UI
-          setRecipes([...mappedRecipes, ...FALLBACK_RECIPES]);
+          const merged = [...mappedRecipes, ...FALLBACK_RECIPES];
+          const uniqueRecipes = merged.filter((recipe, index, self) => 
+            index === self.findIndex((r) => r.id === recipe.id)
+          );
+          setRecipes(uniqueRecipes);
         } else {
           setRecipes(FALLBACK_RECIPES);
         }
