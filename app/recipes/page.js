@@ -254,7 +254,7 @@ export default function RecipesPage() {
           });
           // Merge API recipes with fallback recipes to guarantee a beautiful populated UI
           const merged = [...mappedRecipes, ...FALLBACK_RECIPES];
-          const uniqueRecipes = merged.filter((recipe, index, self) => 
+          const uniqueRecipes = merged.filter((recipe, index, self) =>
             index === self.findIndex((r) => r.id === recipe.id)
           );
           setRecipes(uniqueRecipes);
