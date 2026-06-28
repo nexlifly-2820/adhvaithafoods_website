@@ -208,6 +208,25 @@ export default function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(8);
+  const [pageData, setPageData] = useState(null);
+
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        const res = await fetch(`${baseUrl}/dashboard/website/api/get-recipes-page_web`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data) {
+            setPageData(json.data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching recipes page data:', error);
+      }
+    }
+    fetchPageData();
+  }, []);
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -294,7 +313,7 @@ export default function RecipesPage() {
               transform: 'rotate(-3deg)',
               zIndex: 2
             }}>
-              WHAT'S INSIDE
+              {pageData?.hero?.eyebrow || "WHAT'S INSIDE"}
             </h2>
             <h1 className="font-mouse" style={{
               fontSize: 'clamp(6rem, 15vw, 14rem)',
@@ -302,9 +321,10 @@ export default function RecipesPage() {
               WebkitTextStroke: '4px #FFF',
               textTransform: 'uppercase',
               lineHeight: 0.8,
-              filter: 'drop-shadow(0px 15px 10px rgba(0,0,0,0.4))'
+              filter: 'drop-shadow(0px 15px 10px rgba(0,0,0,0.4))',
+              whiteSpace: 'pre-line'
             }}>
-              SIMPLE THINGS<br />DONE RIGHT
+              {pageData?.hero?.title || "SIMPLE THINGS\nDONE RIGHT"}
             </h1>
           </div>
 
@@ -323,9 +343,10 @@ export default function RecipesPage() {
               color: '#FFF',
               lineHeight: 0.8,
               textTransform: 'uppercase',
-              filter: 'drop-shadow(4px 4px 0px rgba(200,160,40,0.5))'
+              filter: 'drop-shadow(4px 4px 0px rgba(200,160,40,0.5))',
+              whiteSpace: 'pre-line'
             }}>
-              A STORY IN<br />EVERY BITE.
+              {pageData?.middleSection?.title || "A STORY IN\nEVERY BITE."}
             </h2>
             <p className="font-mouse" style={{
               fontSize: '2.5rem',
@@ -334,7 +355,7 @@ export default function RecipesPage() {
               textTransform: 'uppercase',
               letterSpacing: '1px'
             }}>
-              FROM FRESH FARMS TO YOUR HANDS EVERY LAYER MATTERS.
+              {pageData?.middleSection?.subtitle || "FROM FRESH FARMS TO YOUR HANDS EVERY LAYER MATTERS."}
             </p>
           </div>
 
@@ -344,14 +365,16 @@ export default function RecipesPage() {
               <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" style={{ display: 'block', overflow: 'visible' }}>
                 <path
                   id="journey-path"
-                  d={recipes.reduce((path, _, i) => {
+                  d={recipes.slice(0, visibleCount).reduce((path, _, i, arr) => {
                     const x = i % 2 === 0 ? 22 : 78;
-                    const y = (i / Math.max(1, recipes.length - 1)) * 100;
+                    const maxIdx = Math.max(1, arr.length - 1);
+                    const y = (i / maxIdx) * 100;
                     if (i === 0) return `M ${x} ${y}`;
                     const prevX = (i - 1) % 2 === 0 ? 22 : 78;
-                    const prevY = ((i - 1) / Math.max(1, recipes.length - 1)) * 100;
-                    // S-Curve down the page
-                    return `${path} C ${prevX} ${prevY + 20}, ${x} ${y - 20}, ${x} ${y}`;
+                    const prevY = ((i - 1) / maxIdx) * 100;
+                    // Proportional S-Curve down the page
+                    const step = (y - prevY) / 2;
+                    return `${path} C ${prevX} ${prevY + step}, ${x} ${y - step}, ${x} ${y}`;
                   }, '')}
                   fill="none" stroke="#D4A733" strokeWidth="4" strokeDasharray="12, 12"
                   vectorEffect="non-scaling-stroke"
@@ -457,11 +480,11 @@ export default function RecipesPage() {
           </svg>
 
           <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10, marginTop: '2rem' }}>
-            <h2 className="font-mouse" style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', color: '#FFF', lineHeight: 0.9, textTransform: 'uppercase', marginBottom: '1rem' }}>
-              FEEL THE CHANGE
+            <h2 className="font-mouse" style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', color: '#FFF', lineHeight: 0.9, textTransform: 'uppercase', marginBottom: '1rem', whiteSpace: 'pre-line' }}>
+              {pageData?.cta?.title || "FEEL THE CHANGE"}
             </h2>
-            <p className="font-mouse" style={{ fontSize: '2rem', color: '#FFF', opacity: 0.9, textTransform: 'uppercase', marginBottom: '3rem' }}>
-              Bring these magical authentic flavors directly to your kitchen.
+            <p className="font-mouse" style={{ fontSize: '2rem', color: '#FFF', opacity: 0.9, textTransform: 'uppercase', marginBottom: '3rem', whiteSpace: 'pre-line' }}>
+              {pageData?.cta?.subtitle || "Bring these magical authentic flavors directly to your kitchen."}
             </p>
             <Link href="/products" style={{
               display: 'inline-block',
@@ -473,7 +496,7 @@ export default function RecipesPage() {
             }}
               onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
               onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-              ORDER NOW
+              {pageData?.cta?.buttonText || "ORDER NOW"}
             </Link>
           </div>
         </section>

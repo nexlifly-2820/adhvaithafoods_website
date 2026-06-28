@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const FAQ_DATA = [
@@ -83,6 +83,24 @@ const FAQ_DATA = [
 
 export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState(null);
+  const [faqs, setFaqs] = useState(FAQ_DATA);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-faq_web` : '/dashboard/website/api/get-faq_web';
+        const res = await fetch(fetchUrl);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data?.faqs) {
+            setFaqs(json.data.faqs);
+          }
+        }
+      } catch (err) { console.error('Error fetching FAQs:', err); }
+    };
+    fetchFaqs();
+  }, []);
 
   const toggleOpen = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -105,7 +123,7 @@ export default function FaqAccordion() {
         </h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          {FAQ_DATA.map((faq, index) => {
+          {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             // The orange/red bar needs white text for better contrast
             const textColor = faq.color === '#FF4B12' ? '#FFFFFF' : '#111111';
