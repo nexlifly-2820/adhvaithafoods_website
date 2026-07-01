@@ -38,6 +38,7 @@ const testimonials = [
   { text: 'Exactly like my naani used to make! The mango avakaya is absolutely perfect — the right amount of spice and oil. Will never buy from a supermarket again.', author: 'Priya Sharma', city: 'Hyderabad' },
   { text: 'Ordered the combo pack and finished it in a week! The gongura pickle is outstanding. Pure authentic Andhra taste. Fast delivery too.', author: 'Ravi Kumar', city: 'Bangalore' },
   { text: 'My mother cried when she tasted the lemon pickle — said it reminded her of her mother\'s recipe. That says everything. Thank you Avdaitha Foods.', author: 'Meena Reddy', city: 'Chennai' },
+  { text: 'The red chilli pickle is incredible! It has that authentic smoky heat and richness that you just can\'t find anywhere else. Absolutely love it.', author: 'Sanjay Patel', city: 'Mumbai' },
 ];
 
 const trustBadges = ['🌿 100% Natural', '🚫 No Preservatives', '👵 Family Recipe Since 1970', '🏺 Traditional Method', '📦 Pan India Delivery', '☀️ Sun-Dried Always', '🪨 Stone-Ground Spices', '🫙 Glass Jars Only'];
@@ -935,20 +936,21 @@ export default function HomePage() {
               gap: '1.5rem'
             }}>
               {testimonials.map((t, i) => {
-                const colors = ['#f5b89c', '#a5da71', '#ffc745']; // Peach, Green, Yellow
-                const darkColors = ['#eb7952', '#86c646', '#f3aa00']; // Darker shade for the bottom box
-                const textColors = ['#ffffff', '#1c402c', '#1c402c']; // White text for peach box, dark for others
+                const colors = ['#f5b89c', '#a5da71', '#ffc745', '#9cd5f5']; // Peach, Green, Yellow, Light Blue
+                const darkColors = ['#eb7952', '#86c646', '#f3aa00', '#5bbef0']; // Darker shades
+                const textColors = ['#ffffff', '#1c402c', '#1c402c', '#1c402c']; // White text for peach box, dark for others
                 const products = [
                   { name: 'TRADITIONAL MANGO AVAKAYA', img: '/images/ing_mango.png' },
                   { name: 'ANDHRA GONGURA PICKLE', img: '/images/ing_leaves.png' },
                   { name: 'TANGY LEMON PICKLE', img: '/images/ing_salt.png' },
+                  { name: 'SPICY RED CHILLI PICKLE', img: '/images/ing_chili.png' },
                 ];
 
                 return (
                   <div key={t.author} className="reveal" style={{
                     animationDelay: `${i * 0.12}s`,
-                    width: '320px',
-                    minHeight: '380px',
+                    width: '280px', // Reduced from 320px
+                    minHeight: '340px', // Reduced from 380px
                     background: colors[i % colors.length],
                     border: '1px solid #1c402c', // Thin dark green/black border
                     borderRadius: '12px',
@@ -957,10 +959,10 @@ export default function HomePage() {
                     overflow: 'hidden',
                   }}>
                     {/* Top Quote Section */}
-                    <div style={{ padding: '2rem 1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ padding: '1.5rem 1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                       <p style={{
                         fontFamily: 'Playfair Display, serif',
-                        fontSize: '1.5rem',
+                        fontSize: '1.25rem', // Reduced from 1.5rem
                         lineHeight: 1.3,
                         color: '#1c402c',
                         textAlign: 'center',
