@@ -391,6 +391,7 @@ export default function ProductsPage() {
 
         <section
           id="products-hero"
+          className="products-hero-section"
           style={{
             position: 'relative', overflow: 'hidden',
             minHeight: '100vh', paddingTop: '75px',
@@ -406,6 +407,7 @@ export default function ProductsPage() {
           <svg
             viewBox="0 0 1000 520"
             xmlns="http://www.w3.org/2000/svg"
+            className="products-hero-svg"
             style={{
               width: '100%',
               height: 'auto',
@@ -670,6 +672,8 @@ export default function ProductsPage() {
         @media (max-width: 900px) {
           .products-layout { flex-direction: column !important; }
           .sidebar-hide-mobile { display: none; }
+          .products-hero-section { min-height: 40vh !important; padding-top: 100px !important; padding-bottom: 2rem !important; }
+          .products-hero-svg { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; }
         }
       `}</style>
     </>
