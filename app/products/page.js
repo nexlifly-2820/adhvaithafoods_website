@@ -61,7 +61,7 @@ function ProductCard({ product, index }) {
   return (
     <div
       id={`product-${product.id}`}
-      className="product-card-reveal"
+      className="product-card-reveal product-grid-card"
       style={{
         background: '#EBAA03', // Solid golden yellow from the image
         position: 'relative',
@@ -72,6 +72,7 @@ function ProductCard({ product, index }) {
         marginTop: '90px', // Creates space for the overflowing circle
         transition: 'transform 0.3s ease',
         animationDelay: `${Math.min(index, 8) * 0.06}s`,
+        borderRadius: '8px'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-5px)';
@@ -82,6 +83,7 @@ function ProductCard({ product, index }) {
     >
       {/* Circular Floating Image */}
       <div
+        className="product-grid-img"
         style={{
           width: '180px',
           height: '180px',
@@ -104,6 +106,7 @@ function ProductCard({ product, index }) {
 
       {/* Title */}
       <h3
+        className="product-grid-title"
         style={{
           fontFamily: 'Playfair Display, serif',
           fontSize: '1.6rem',
@@ -122,12 +125,13 @@ function ProductCard({ product, index }) {
       </h3>
 
       {/* Stats Pill */}
-      <div style={{
+      <div className="product-grid-pill" style={{
         backgroundColor: '#fff',
         padding: '0.4rem 1rem',
         marginBottom: '1.25rem',
+        borderRadius: '4px'
       }}>
-        <span style={{
+        <span className="product-grid-pill-text" style={{
           fontFamily: '"Inter", system-ui, sans-serif',
           fontSize: '0.75rem',
           fontWeight: 800,
@@ -141,6 +145,7 @@ function ProductCard({ product, index }) {
 
       {/* Description */}
       <p
+        className="product-grid-desc"
         style={{
           fontFamily: '"Inter", system-ui, sans-serif',
           fontSize: '0.9rem',
@@ -493,7 +498,7 @@ export default function ProductsPage() {
         </section>
 
         {/* ── Advanced Sidebar Layout ──────────────────────── */}
-        <section style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
+        <section className="products-main-section" style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '4rem', flexDirection: 'row' }} className="products-layout">
 
             <FilterSidebar
@@ -502,7 +507,7 @@ export default function ProductsPage() {
             />
 
             {/* ── Main Products Grid ── */}
-            <div style={{ flex: 1 }}>
+            <div className="products-main-content" style={{ flex: 1 }}>
               {/* Toolbar */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -521,30 +526,56 @@ export default function ProductsPage() {
                   </p>
                 </div>
 
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  style={{
-                    fontFamily: 'Lato, sans-serif',
-                    fontWeight: 700,
-                    fontSize: '0.85rem',
-                    color: 'var(--rich-brown)',
-                    border: '1px solid rgba(139,94,60,0.2)',
-                    borderRadius: '8px',
-                    padding: '0.75rem 1.25rem',
-                    background: '#fff',
-                    cursor: 'pointer',
-                    outline: 'none',
-                  }}
-                >
-                  {SORT_OPTIONS.map((o) => (
-                    <option key={o} value={o}>{o}</option>
-                  ))}
-                </select>
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  {/* Mobile Category Dropdown (Hidden on Desktop) */}
+                  <select
+                    className="mobile-category-select"
+                    value={activeCategory}
+                    onChange={(e) => setActiveCategory(e.target.value)}
+                    style={{
+                      fontFamily: 'Lato, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      color: 'var(--rich-brown)',
+                      border: '1px solid rgba(139,94,60,0.2)',
+                      borderRadius: '8px',
+                      padding: '0.75rem 1.25rem',
+                      background: '#fff',
+                      cursor: 'pointer',
+                      outline: 'none',
+                    }}
+                  >
+                    {CATEGORIES.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+
+                  {/* Sort Dropdown */}
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    style={{
+                      fontFamily: 'Lato, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                      color: 'var(--rich-brown)',
+                      border: '1px solid rgba(139,94,60,0.2)',
+                      borderRadius: '8px',
+                      padding: '0.75rem 1.25rem',
+                      background: '#fff',
+                      cursor: 'pointer',
+                      outline: 'none',
+                    }}
+                  >
+                    {SORT_OPTIONS.map((o) => (
+                      <option key={o} value={o}>{o}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '3rem' }}>
+              <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '3rem' }}>
                 {paginatedProducts.map((p, i) => (
                   <ProductCard key={p.id} product={p} index={i} />
                 ))}
@@ -669,11 +700,82 @@ export default function ProductsPage() {
       </main>
       <Footer />
       <style>{`
+        /* Desktop */
+        @media (min-width: 901px) {
+          .mobile-category-select { display: none; }
+        }
+
+        /* Mobile */
         @media (max-width: 900px) {
-          .products-layout { flex-direction: column !important; }
+          .products-main-section { padding-left: 1rem !important; padding-right: 1rem !important; overflow-x: hidden; width: 100vw !important; max-width: 100vw !important; box-sizing: border-box !important; }
+          .products-layout { flex-direction: column !important; width: 100% !important; max-width: 100% !important; overflow: hidden !important; }
+          .products-main-content { width: 100% !important; max-width: 100% !important; overflow: hidden !important; min-width: 0 !important; }
           .sidebar-hide-mobile { display: none; }
           .products-hero-section { min-height: 40vh !important; padding-top: 100px !important; padding-bottom: 2rem !important; }
           .products-hero-svg { width: 100% !important; max-width: 100% !important; margin-left: 0 !important; }
+
+          /* Mobile Overrides for Product Cards (2 per row) */
+          .products-grid {
+            display: grid !important;
+            grid-template-columns: calc(50% - 0.25rem) calc(50% - 0.25rem) !important;
+            gap: 0.5rem !important;
+            padding-top: 30px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+          .product-grid-card {
+            padding: 0 0.5rem 0.5rem 0.5rem !important;
+            margin-top: 40px !important;
+            min-width: 0 !important; /* Prevents long text from overflowing the column */
+            max-width: 100% !important;
+            width: 100% !important;
+            word-wrap: break-word !important; /* Allows long words to break */
+            box-sizing: border-box !important;
+          }
+          .product-grid-img {
+            width: 80px !important;
+            height: 80px !important;
+            margin-top: -40px !important;
+            margin-bottom: 0.5rem !important;
+            border-width: 2px !important;
+          }
+          .product-grid-title {
+            font-size: 0.8rem !important;
+            min-height: 2.2rem !important;
+            margin-bottom: 0.5rem !important;
+            line-height: 1.1 !important;
+            word-break: break-word !important; /* Prevents long title words from breaking layout */
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .product-grid-pill {
+            padding: 0.2rem 0.4rem !important;
+            margin-bottom: 0.5rem !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          .product-grid-pill-text {
+            font-size: 0.45rem !important;
+            display: block !important;
+            text-align: center !important;
+            white-space: normal !important; /* Prevents the pill text from forcing width */
+            width: 100% !important;
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+          }
+          .product-grid-desc {
+            font-size: 0.65rem !important;
+            line-height: 1.2 !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 3 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
         }
       `}</style>
     </>
