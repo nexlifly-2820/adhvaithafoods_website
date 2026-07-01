@@ -259,7 +259,7 @@ export default function HowWeMakeItPage() {
             </div>
 
             {/* Interactive Vertical Tab Component */}
-            <div className="reveal" style={{ display: 'flex', gap: '1rem', height: '550px', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="reveal" style={{ display: 'flex', gap: '1rem', height: '400px', maxWidth: '1200px', margin: '0 auto' }}>
 
               {/* Left Side: Tabs */}
               <div style={{ display: 'flex', gap: '0.5rem' }}>
