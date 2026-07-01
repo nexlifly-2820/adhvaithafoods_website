@@ -1153,11 +1153,11 @@ export default function HomePage() {
         <section style={{ backgroundColor: '#EEA236', position: 'relative', overflow: 'hidden' }}>
           <div className="container" style={{ maxWidth: '1400px', padding: '0 2rem' }}>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', minHeight: '300px' }}>
+            <div className="cta-banner-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', minHeight: '300px' }}>
 
               {/* Left Side: Text Content */}
-              <div style={{ padding: '2.5rem 4rem 2.5rem 0', color: '#111111' }}>
-                <h2 style={{
+              <div className="cta-banner-text-block" style={{ padding: '2.5rem 4rem 2.5rem 0', color: '#111111' }}>
+                <h2 className="cta-banner-title" style={{
                   fontFamily: '"Oswald", "Arial Black", sans-serif',
                   fontSize: '3.6rem',
                   fontWeight: 900,
@@ -1168,7 +1168,7 @@ export default function HomePage() {
                 }}>
                   BIG CRAVING?<br />WE'VE GOT YOU.
                 </h2>
-                <h3 style={{
+                <h3 className="cta-banner-subtitle" style={{
                   fontFamily: '"Oswald", "Arial Black", sans-serif',
                   fontSize: '1.8rem',
                   fontWeight: 700,
@@ -1216,7 +1216,7 @@ export default function HomePage() {
               </div>
 
               {/* Right Side: Flatlay Ingredients Image */}
-              <div style={{
+              <div className="cta-banner-img-block" style={{
                 position: 'relative',
                 height: '100%',
                 width: '100%',
@@ -1255,6 +1255,13 @@ export default function HomePage() {
           .heritage-img-wrapper { transform: none !important; margin-bottom: -2rem; padding-bottom: 75% !important; }
           .heritage-text-card { transform: none !important; margin: 0 1rem; }
           .process-flow-row { flexDirection: column !important; gap: 4rem !important; }
+
+          /* CTA Banner Mobile Overrides */
+          .cta-banner-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .cta-banner-text-block { padding: 3rem 1rem 1rem 1rem !important; }
+          .cta-banner-title { font-size: 2.8rem !important; }
+          .cta-banner-subtitle { font-size: 1.4rem !important; }
+          .cta-banner-img-block img { width: 100% !important; margin: 0 !important; max-height: none !important; }
         }
 
       `}</style>
