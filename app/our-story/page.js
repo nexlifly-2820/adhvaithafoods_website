@@ -43,7 +43,7 @@ export default function OurStoryPage() {
       <main ref={containerRef} style={{ position: 'relative', paddingBottom: '0' }}>
 
         {/* 2. Green "Ocean" Section (KEEPING IT Traditional) */}
-        <section style={{
+        <section className="our-story-hero-section" style={{
           position: 'relative',
           backgroundColor: '#1C4B36',
           paddingTop: '220px', // Enough to fully clear the 120px navbar
@@ -51,7 +51,7 @@ export default function OurStoryPage() {
           paddingLeft: '5vw',
           paddingRight: '5vw',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
           gap: '2rem',
           alignItems: 'center',
           overflow: 'hidden'
@@ -60,7 +60,7 @@ export default function OurStoryPage() {
           {/* Left Side: Keeping It Traditional */}
           <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center' }}>
             <div style={{ transform: 'rotate(-4deg)', display: 'inline-block' }}>
-              <h1 style={{
+              <h1 className="our-story-hero-h1" style={{
                 fontFamily: 'var(--font-montserrat), sans-serif',
                 fontSize: 'clamp(4rem, 10vw, 10rem)',
                 fontWeight: 900,
@@ -73,7 +73,7 @@ export default function OurStoryPage() {
               }}>
                 KEEPING<br />IT
               </h1>
-              <div style={{
+              <div className="our-story-hero-cursive" style={{
                 fontFamily: 'var(--font-yellowtail), cursive',
                 fontSize: 'clamp(4rem, 8vw, 8rem)',
                 color: '#FDF1E0',
@@ -89,8 +89,8 @@ export default function OurStoryPage() {
           </div>
 
           {/* Right Side: So you can get... */}
-          <div style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <h2 style={{
+          <div className="our-story-hero-right" style={{ position: 'relative', zIndex: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <h2 className="our-story-hero-h2" style={{
               fontFamily: 'var(--font-montserrat), sans-serif',
               fontSize: 'clamp(2.5rem, 5vw, 4rem)',
               fontWeight: 800,
@@ -292,7 +292,6 @@ export default function OurStoryPage() {
             </h2>
           </div>
 
-          {/* We increase the height based on viewport width to prevent the image from clipping when covering full screen */}
           <div style={{ width: '100%', height: 'max(400px, 40vw)', position: 'relative', zIndex: 10, mixBlendMode: 'multiply' }}>
             <img 
               src="/images/red_farm_wide.png" 
@@ -304,6 +303,32 @@ export default function OurStoryPage() {
 
       </main>
       <Footer />
+
+      <style>{`
+        @media (max-width: 768px) {
+          .our-story-hero-section {
+            padding-top: 150px !important;
+            padding-bottom: 120px !important;
+            grid-template-columns: 1fr !important;
+          }
+          .our-story-hero-h1 {
+            font-size: 3.5rem !important;
+            line-height: 0.9 !important;
+          }
+          .our-story-hero-cursive {
+            font-size: 4.5rem !important;
+            margin-top: -2rem !important;
+            margin-left: 1rem !important;
+          }
+          .our-story-hero-right {
+            margin-top: 2rem !important;
+          }
+          .our-story-hero-h2 {
+            font-size: 2rem !important;
+            text-align: center !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
