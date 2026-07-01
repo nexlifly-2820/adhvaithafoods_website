@@ -1080,32 +1080,32 @@ export default function HomePage() {
               const graphicSrc = graphicsMap[r.id] || '/images/flat_mango.png';
 
               return (
-                <div key={`recipe-mq-${r.id}-${i}`} style={{ position: 'relative', width: '360px', height: '580px', flexShrink: 0, marginRight: '40px' }}>
+                <div key={`recipe-mq-${r.id}-${i}`} style={{ position: 'relative', width: '240px', height: '420px', flexShrink: 0, marginRight: '24px' }}>
 
                   {/* The Recipe Card (Staggered Vertically, Reduced Size) */}
                   <Link href="/recipes" style={{ textDecoration: 'none' }}>
                     <div style={{
                       position: 'absolute',
-                      top: i % 2 === 0 ? '0px' : '80px',
+                      top: i % 2 === 0 ? '0px' : '50px',
                       left: '20px',
-                      width: '280px',
-                      height: '280px',
+                      width: '200px',
+                      height: '200px',
                       background: colors[i % colors.length],
                       borderRadius: '8px',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      padding: '2rem',
+                      padding: '1.25rem',
                       zIndex: 2
                     }}>
                       <p style={{
                         fontFamily: '"Arial Black", system-ui, sans-serif',
-                        fontSize: '1.15rem',
+                        fontSize: '0.85rem',
                         lineHeight: 1.35,
                         color: textColors[i % textColors.length],
                         textAlign: 'center',
-                        marginBottom: '1.5rem',
+                        marginBottom: '0.8rem',
                         whiteSpace: 'normal',
                         fontWeight: 900
                       }}>"{r.desc}"</p>
@@ -1113,7 +1113,7 @@ export default function HomePage() {
                       <div style={{
                         fontFamily: '"Arial Black", system-ui, sans-serif',
                         fontWeight: 900,
-                        fontSize: '0.8rem',
+                        fontSize: '0.6rem',
                         color: textColors[i % textColors.length],
                         textTransform: 'uppercase',
                         textAlign: 'center',
@@ -1127,10 +1127,10 @@ export default function HomePage() {
                   {/* The Graphic Element (Floating completely below with a clear gap) */}
                   <div style={{
                     position: 'absolute',
-                    width: '200px',
-                    height: '200px',
-                    top: i % 2 === 0 ? '300px' : '380px',
-                    left: i % 2 === 0 ? '100px' : '40px',
+                    width: '140px',
+                    height: '140px',
+                    top: i % 2 === 0 ? '220px' : '270px',
+                    left: i % 2 === 0 ? '80px' : '30px',
                     zIndex: 1
                   }}>
                     <img src={graphicSrc} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt={`${r.name} Graphic`} />
