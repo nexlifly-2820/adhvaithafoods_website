@@ -259,10 +259,10 @@ export default function HowWeMakeItPage() {
             </div>
 
             {/* Interactive Vertical Tab Component */}
-            <div className="reveal" style={{ display: 'flex', gap: '1rem', height: '400px', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="reveal standard-tab-container" style={{ display: 'flex', gap: '1rem', height: '400px', maxWidth: '1200px', margin: '0 auto' }}>
 
               {/* Left Side: Tabs */}
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div className="standard-tabs-list" style={{ display: 'flex', gap: '0.5rem' }}>
                 {[
                   { title: '100% NATURAL', color: '#FBC835' },
                   { title: 'ZERO PRESERVATIVES', color: '#47B8E6' },
@@ -330,7 +330,7 @@ export default function HowWeMakeItPage() {
                 const activeData = tabsData[activeStandardTab];
 
                 return (
-                  <div style={{
+                  <div className="standard-tab-card" style={{
                     flex: 1,
                     backgroundColor: activeData.color,
                     border: '2px solid #111111',
@@ -344,7 +344,7 @@ export default function HowWeMakeItPage() {
                     overflow: 'hidden'
                   }}>
                     {/* Image inside card */}
-                    <div style={{
+                    <div className="standard-tab-img" style={{
                       width: '45%',
                       height: '100%',
                       borderRadius: '24px',
@@ -357,14 +357,14 @@ export default function HowWeMakeItPage() {
                     </div>
 
                     {/* Content inside card */}
-                    <div style={{ flex: 1, paddingRight: '2rem', color: '#111111' }}>
-                      <p style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                    <div className="standard-tab-text" style={{ flex: 1, paddingRight: '2rem', color: '#111111' }}>
+                      <p className="standard-tab-subtitle" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', marginBottom: '1rem' }}>
                         {activeData.subtitle}
                       </p>
-                      <h3 style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '3rem', lineHeight: 1.1, marginBottom: '1.5rem', textTransform: 'uppercase' }}>
+                      <h3 className="standard-tab-h3" style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '3rem', lineHeight: 1.1, marginBottom: '1.5rem', textTransform: 'uppercase' }}>
                         {activeData.heading}
                       </h3>
-                      <p style={{ fontFamily: 'system-ui, sans-serif', fontSize: '1.1rem', lineHeight: 1.5, marginBottom: '2rem', fontWeight: 500, maxWidth: '90%' }}>
+                      <p className="standard-tab-p" style={{ fontFamily: 'system-ui, sans-serif', fontSize: '1.1rem', lineHeight: 1.5, marginBottom: '2rem', fontWeight: 500, maxWidth: '90%' }}>
                         {activeData.desc}
                       </p>
                     </div>
@@ -556,8 +556,55 @@ export default function HowWeMakeItPage() {
           .step-card-header {
             margin-bottom: 0.5rem !important;
           }
-          .step-card-detail {
-            font-size: 0.55rem !important;
+          /* Interactive Tab Component Mobile Overrides */
+          .standard-tab-container {
+            flex-direction: column !important;
+            height: auto !important;
+          }
+          .standard-tabs-list {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            margin-bottom: 1rem !important;
+          }
+          .standard-tabs-list > button {
+            height: 40px !important;
+            width: auto !important;
+            padding: 0 1rem !important;
+            border-radius: 20px !important;
+          }
+          .standard-tabs-list > button > span {
+            writing-mode: horizontal-tb !important;
+            transform: none !important;
+            font-size: 0.85rem !important;
+          }
+          .standard-tab-card {
+            flex-direction: column !important;
+            padding: 1.5rem !important;
+            gap: 1.5rem !important;
+            border-radius: 24px !important;
+          }
+          .standard-tab-img {
+            width: 100% !important;
+            height: 250px !important;
+            border-radius: 16px !important;
+          }
+          .standard-tab-text {
+            padding-right: 0 !important;
+          }
+          .standard-tab-subtitle {
+            font-size: 0.8rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .standard-tab-h3 {
+            font-size: 2rem !important;
+            margin-bottom: 1rem !important;
+          }
+          .standard-tab-p {
+            font-size: 1rem !important;
+            line-height: 1.4 !important;
+            margin-bottom: 0 !important;
+            max-width: 100% !important;
           }
         }
         @keyframes scrollDown {
