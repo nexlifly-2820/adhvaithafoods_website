@@ -30,6 +30,8 @@ const ingredients = [
   { name: 'Mustard Seeds', source: 'Stone-ground fresh', img: '/images/ing_mustard.png', bg: 'rgba(120,53,15,0.1)' },
   { name: 'Himalayan Rock Salt', source: 'Pure & unprocessed', img: '/images/ing_salt.png', bg: 'rgba(100,116,139,0.1)' },
   { name: 'Fresh Curry Leaves', source: 'Handpicked daily', img: '/images/ing_leaves.png', bg: 'rgba(21,128,61,0.1)' },
+  { name: 'Fresh Garlic', source: 'Peeled by hand', img: '/images/ing_garlic_real.png', bg: 'rgba(245,245,220,0.3)' },
+  { name: 'Whole Coriander', source: 'Aromatic & earthy', img: '/images/ing_coriander_real.png', bg: 'rgba(217,119,6,0.1)' },
 ];
 
 const testimonials = [
@@ -690,15 +692,15 @@ export default function HomePage() {
               padding: '2rem 0'
             }}>
               {ingredients.map((ing, i) => {
-                const rotations = [-8, 4, -6, 5, -4, 6];
-                const marginLefts = ['0', '-40px', '-40px', '0', '-40px', '-40px'];
-                const marginTop = i > 2 ? '3rem' : '0'; // Add space for the second row
+                const rotations = [-8, 4, -6, 5, -4, 6, -5, 7];
+                const marginLefts = ['0', '-40px', '-40px', '-40px', '0', '-40px', '-40px', '-40px'];
+                const marginTop = i > 3 ? '4rem' : '0'; // Add space for the second row
 
                 return (
                   <div key={ing.name} className="reveal" style={{
                     animationDelay: `${i * 0.1}s`,
                     background: '#ffffff',
-                    padding: '18px 18px 60px 18px', // Thick bottom border for polaroid
+                    padding: '14px 14px 50px 14px', // Slightly thinner polaroid border
                     boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
                     transform: `rotate(${rotations[i]}deg)`,
                     marginLeft: marginLefts[i],
@@ -706,7 +708,7 @@ export default function HomePage() {
                     zIndex: i,
                     position: 'relative',
                     transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s',
-                    width: '320px',
+                    width: '260px', // Decreased from 320px
                   }}
                     onMouseEnter={e => {
                       e.currentTarget.style.transform = `rotate(0deg) scale(1.08) translateY(-15px)`;
@@ -721,7 +723,7 @@ export default function HomePage() {
                     <div style={{
                       border: '2px solid #1c402c', // Dark green border from reference
                       background: ing.bg,
-                      height: '350px',
+                      height: '280px', // Decreased from 350px
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
@@ -732,7 +734,7 @@ export default function HomePage() {
                       position: 'relative'
                     }}>
                       <div style={{ position: 'absolute', inset: 0 }}>
-                        <Image src={ing.img} alt={ing.name} fill sizes="320px" style={{ objectFit: 'cover' }} />
+                        <Image src={ing.img} alt={ing.name} fill sizes="260px" style={{ objectFit: 'cover' }} />
                       </div>
 
                       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1.5rem 1.5rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)' }}>
