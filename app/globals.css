@@ -749,6 +749,73 @@ a {
   }
 }
 
+.ingredient-polaroid {
+  width: 260px;
+  padding: 14px 14px 50px 14px;
+  margin-left: -40px;
+}
+
+/* Desktop row resets (4 per row) */
+.ingredient-polaroid:nth-child(4n+1) {
+  margin-left: 0;
+}
+.ingredient-polaroid:nth-child(n+5) {
+  margin-top: 4rem;
+}
+
+.ingredient-polaroid-img-container {
+  height: 280px;
+}
+
+.ingredient-polaroid-title {
+  font-size: 1.4rem;
+}
+
+.ingredient-polaroid-source {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .ingredient-polaroid {
+    width: 110px !important;
+    padding: 6px 6px 24px 6px !important;
+    margin-left: -20px !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Reset margin for first item of every 3-item row on mobile */
+  .ingredient-polaroid:nth-child(4n+1) {
+    margin-left: -20px !important; /* Undo desktop rule */
+  }
+  .ingredient-polaroid:nth-child(3n+1) {
+    margin-left: 0 !important;
+  }
+  
+  /* Reset top margin for 5th item */
+  .ingredient-polaroid:nth-child(n+5) {
+    margin-top: 0 !important;
+  }
+  /* Add top margin to items starting from the second row (4th item onwards) */
+  .ingredient-polaroid:nth-child(n+4) {
+    margin-top: 1.5rem !important;
+  }
+
+  .ingredient-polaroid-img-container {
+    height: 110px !important;
+  }
+
+  .ingredient-polaroid-title {
+    font-size: 0.65rem !important;
+    margin-bottom: 0.1rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .ingredient-polaroid-source {
+    font-size: 0.4rem !important;
+    letter-spacing: 0.05em !important;
+  }
+}
+
 @keyframes pulseRing {
   0% {
     box-shadow: 0 0 0 0 rgba(232, 168, 32, 0.5);

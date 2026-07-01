@@ -693,22 +693,16 @@ export default function HomePage() {
             }}>
               {ingredients.map((ing, i) => {
                 const rotations = [-8, 4, -6, 5, -4, 6, -5, 7];
-                const marginLefts = ['0', '-40px', '-40px', '-40px', '0', '-40px', '-40px', '-40px'];
-                const marginTop = i > 3 ? '4rem' : '0'; // Add space for the second row
 
                 return (
-                  <div key={ing.name} className="reveal" style={{
+                  <div key={ing.name} className="reveal ingredient-polaroid" style={{
                     animationDelay: `${i * 0.1}s`,
                     background: '#ffffff',
-                    padding: '14px 14px 50px 14px', // Slightly thinner polaroid border
                     boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
                     transform: `rotate(${rotations[i]}deg)`,
-                    marginLeft: marginLefts[i],
-                    marginTop: marginTop,
                     zIndex: i,
                     position: 'relative',
                     transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s',
-                    width: '260px', // Decreased from 320px
                   }}
                     onMouseEnter={e => {
                       e.currentTarget.style.transform = `rotate(0deg) scale(1.08) translateY(-15px)`;
@@ -720,10 +714,9 @@ export default function HomePage() {
                     }}
                   >
                     {/* The "Photo" area with thin green border */}
-                    <div style={{
+                    <div className="ingredient-polaroid-img-container" style={{
                       border: '2px solid #1c402c', // Dark green border from reference
                       background: ing.bg,
-                      height: '280px', // Decreased from 350px
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
@@ -734,13 +727,12 @@ export default function HomePage() {
                       position: 'relative'
                     }}>
                       <div style={{ position: 'absolute', inset: 0 }}>
-                        <Image src={ing.img} alt={ing.name} fill sizes="260px" style={{ objectFit: 'cover' }} />
+                        <Image src={ing.img} alt={ing.name} fill sizes="(max-width: 768px) 110px, 260px" style={{ objectFit: 'cover' }} />
                       </div>
 
                       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1.5rem 1.5rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)' }}>
-                        <h4 style={{
+                        <h4 className="ingredient-polaroid-title" style={{
                           fontFamily: 'Playfair Display, serif',
-                          fontSize: '1.4rem',
                           fontWeight: 900,
                           color: '#ffffff',
                           lineHeight: 1.1,
@@ -748,9 +740,8 @@ export default function HomePage() {
                           textShadow: '0 2px 5px rgba(0,0,0,0.8)'
                         }}>{ing.name}</h4>
 
-                        <p style={{
+                        <p className="ingredient-polaroid-source" style={{
                           fontFamily: 'Lato, sans-serif',
-                          fontSize: '0.8rem',
                           fontWeight: 900,
                           letterSpacing: '0.15em',
                           textTransform: 'uppercase',
