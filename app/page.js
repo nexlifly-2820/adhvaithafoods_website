@@ -929,7 +929,7 @@ export default function HomePage() {
               </h2>
             </div>
 
-            <div style={{
+            <div className="mobile-testimonials-grid" style={{
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
@@ -947,7 +947,7 @@ export default function HomePage() {
                 ];
 
                 return (
-                  <div key={t.author} className="reveal" style={{
+                  <div key={t.author} className="reveal mobile-testimonial-card" style={{
                     animationDelay: `${i * 0.12}s`,
                     width: '280px', // Reduced from 320px
                     minHeight: '340px', // Reduced from 380px
@@ -959,8 +959,8 @@ export default function HomePage() {
                     overflow: 'hidden',
                   }}>
                     {/* Top Quote Section */}
-                    <div style={{ padding: '1.5rem 1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                      <p style={{
+                    <div className="mobile-testimonial-quote-container" style={{ padding: '1.5rem 1.5rem', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                      <p className="mobile-testimonial-quote" style={{
                         fontFamily: 'Playfair Display, serif',
                         fontSize: '1.25rem', // Reduced from 1.5rem
                         lineHeight: 1.3,
@@ -969,7 +969,7 @@ export default function HomePage() {
                         marginBottom: '1.5rem'
                       }}>"{t.text}"</p>
 
-                      <div style={{
+                      <div className="mobile-testimonial-author" style={{
                         fontFamily: 'system-ui, -apple-system, sans-serif',
                         fontWeight: 400,
                         fontSize: '0.9rem',
@@ -980,7 +980,7 @@ export default function HomePage() {
                     </div>
 
                     {/* Bottom Product Box */}
-                    <div style={{
+                    <div className="mobile-testimonial-product-box" style={{
                       display: 'flex',
                       background: darkColors[i % darkColors.length],
                       border: '1px solid #1c402c',
@@ -990,7 +990,7 @@ export default function HomePage() {
                       overflow: 'hidden'
                     }}>
                       {/* Product Image */}
-                      <div style={{
+                      <div className="mobile-testimonial-product-img-container" style={{
                         width: '70px',
                         borderRight: '1px solid #1c402c',
                         padding: '8px',
@@ -999,13 +999,13 @@ export default function HomePage() {
                         justifyContent: 'center',
                         background: 'rgba(255,255,255,0.1)'
                       }}>
-                        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                        <div className="mobile-testimonial-product-img" style={{ width: '100%', height: '100%', position: 'relative' }}>
                           <Image src={products[i].img} alt={products[i].name} fill sizes="60px" style={{ objectFit: 'cover', borderRadius: '4px' }} />
                         </div>
                       </div>
 
                       {/* Product Info & Button */}
-                      <div style={{
+                      <div className="mobile-testimonial-product-info" style={{
                         flex: 1,
                         padding: '0 12px',
                         display: 'flex',
@@ -1013,7 +1013,7 @@ export default function HomePage() {
                         justifyContent: 'space-between',
                         gap: '8px'
                       }}>
-                        <div style={{
+                        <div className="mobile-testimonial-product-name" style={{
                           fontFamily: 'system-ui, -apple-system, sans-serif',
                           fontSize: '0.75rem',
                           fontWeight: 800,
@@ -1025,7 +1025,7 @@ export default function HomePage() {
                           {products[i].name}
                         </div>
 
-                        <button style={{
+                        <button className="mobile-testimonial-shop-btn" style={{
                           background: '#ffffff',
                           border: '1px solid #1c402c',
                           borderRadius: '24px',

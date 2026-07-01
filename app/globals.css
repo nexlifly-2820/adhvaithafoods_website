@@ -950,3 +950,58 @@ a {
     font-size: 15px;
   }
 }
+
+/* ════════════════════════════════════════
+   TESTIMONIAL CARDS (MOBILE OVERRIDES ONLY)
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mobile-testimonials-grid {
+    gap: 0.5rem !important;
+    padding: 0 0.5rem !important;
+  }
+  .mobile-testimonial-card {
+    width: calc(50% - 0.25rem) !important;
+    min-height: 280px !important;
+  }
+  .mobile-testimonial-quote-container {
+    padding: 0.8rem 0.5rem !important;
+  }
+  .mobile-testimonial-quote {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.8rem !important;
+    line-height: 1.2 !important;
+  }
+  .mobile-testimonial-author {
+    font-size: 0.65rem !important;
+  }
+  .mobile-testimonial-product-box {
+    margin: 0 6px 6px 6px !important;
+    height: auto !important;
+    flex-direction: column !important;
+  }
+  .mobile-testimonial-product-img-container {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #1c402c !important;
+    padding: 4px !important;
+  }
+  .mobile-testimonial-product-img {
+    height: 35px !important;
+  }
+  .mobile-testimonial-product-info {
+    flex-direction: column !important;
+    padding: 6px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .mobile-testimonial-product-name {
+    font-size: 0.55rem !important;
+    max-width: none !important;
+    text-align: center !important;
+    margin-bottom: 4px !important;
+  }
+  .mobile-testimonial-shop-btn {
+    padding: 0.2rem 0.5rem !important;
+    font-size: 0.6rem !important;
+  }
+}
