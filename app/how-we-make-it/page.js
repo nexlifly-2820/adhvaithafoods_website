@@ -74,7 +74,7 @@ export default function HowWeMakeItPage() {
         }}>
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '1100px' }} className="reveal">
             
-            <span style={{
+            <span className="process-hero-subtitle" style={{
               fontFamily: '"Arial Black", system-ui, sans-serif', 
               fontSize: 'clamp(1rem, 2vw, 1.25rem)', 
               fontWeight: 900,
@@ -87,7 +87,7 @@ export default function HowWeMakeItPage() {
               The Art of Pickle Making
             </span>
             
-            <h1 style={{
+            <h1 className="process-hero-h1" style={{
               fontFamily: '"Arial Black", "Inter", sans-serif', 
               fontSize: 'clamp(4rem, 10vw, 8rem)',
               fontWeight: 900, 
@@ -95,25 +95,28 @@ export default function HowWeMakeItPage() {
               marginBottom: '1rem', 
               lineHeight: 0.85,
               textTransform: 'uppercase',
-              letterSpacing: '-0.03em'
+              letterSpacing: '-0.03em',
+              wordBreak: 'break-word'
             }}>
-              MADE THE OLD WAY.<br/>ALWAYS.
+              MADE THE OLD WAY.<br className="hide-on-mobile" />ALWAYS.
             </h1>
             
-            <p style={{
-              fontFamily: '"Arial Black", system-ui, sans-serif', 
-              fontSize: 'clamp(1.1rem, 2vw, 1.5rem)', 
-              color: '#111111',
+            <p className="process-hero-p" style={{
+              fontFamily: '"Arial Black", "Inter", sans-serif',
+              fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', 
+              color: '#111111', 
               maxWidth: '800px', 
-              margin: '2rem auto 0 auto', 
-              lineHeight: 1.4,
-              fontWeight: 900,
+              margin: '2rem auto 0 auto',
+              lineHeight: 1.2,
               textTransform: 'uppercase',
               letterSpacing: '-0.01em'
             }}>
-              Six meticulous steps. No shortcuts. No machines where hands work better. This is our promise to you.
+              Six meticulous steps. No shortcuts. No machines.<br className="hide-on-mobile" /> Just hands, time, and tradition.
             </p>
           </div>
+          
+          {/* Decorative Elements */}
+          <div className="process-badge-1" style={{ position: 'absolute', bottom: '40px', left: '40px', width: '120px', height: '120px', zIndex: 0 }}></div>
         </section>
 
         {/* ULTRA-ADVANCED STICKY STACKING SECTION */}
@@ -125,16 +128,37 @@ export default function HowWeMakeItPage() {
               const bgColors = ['#F6F2DF', '#8B55D5', '#6CB83A', '#F3D966', '#E96847', '#4CB0D8'];
               const textColors = ['#1C402C', '#FFFFFF', '#1C402C', '#1C402C', '#FFFFFF', '#FFFFFF'];
               const rotations = [-1.5, 1.5, -2, 2, -1.5, 1.5];
+              
+              // Organic, wavy shapes using asymmetric border-radius for a funky, natural look
+              // Using 'vw' units ensures the shape remains perfectly bubbly and proportional on mobile!
+              const organicShapes = [
+                '20vw 5vw 18vw 5vw / 5vw 18vw 5vw 20vw',
+                '5vw 20vw 5vw 18vw / 20vw 5vw 18vw 5vw',
+                '16vw 6vw 20vw 4vw / 6vw 17vw 4vw 20vw',
+                '6vw 16vw 4vw 20vw / 17vw 6vw 20vw 4vw',
+                '20vw 4vw 16vw 7vw / 4vw 20vw 7vw 16vw',
+                '4vw 20vw 7vw 16vw / 20vw 4vw 16vw 7vw'
+              ];
+
+              // Inverse shapes for the image container to create contrast
+              const imgShapes = [
+                '6vw 16vw 4vw 20vw / 17vw 6vw 20vw 4vw',
+                '20vw 4vw 16vw 7vw / 4vw 20vw 7vw 16vw',
+                '4vw 20vw 7vw 16vw / 20vw 4vw 16vw 7vw',
+                '20vw 5vw 18vw 5vw / 5vw 18vw 5vw 20vw',
+                '5vw 20vw 5vw 18vw / 20vw 5vw 18vw 5vw',
+                '16vw 6vw 20vw 4vw / 6vw 17vw 4vw 20vw'
+              ];
 
               // Calculate sticky top offset
               const topOffset = `calc(5vh + ${i * 15}px)`;
 
               return (
-                <div key={step.id} style={{
+                <div className="process-sticky-wrapper" key={step.id} style={{
                   position: 'sticky',
                   top: topOffset,
-                  marginBottom: '20vh', // Huge spacing to allow scrolling
-                  height: '80vh', // Massive card height
+                  marginBottom: '15vh', // Spacing to allow scrolling
+                  height: '60vh', // Reduced from 80vh for better laptop view
                   width: '100%',
                   zIndex: i + 1 // Ensure proper stacking
                 }}>
@@ -142,20 +166,20 @@ export default function HowWeMakeItPage() {
                   <div className="sticky-card" style={{
                     width: '100%', height: '100%',
                     background: bgColors[i % bgColors.length],
-                    borderRadius: '40px', // Large rounded corners like video
+                    borderRadius: organicShapes[i % organicShapes.length], // Funky, wavy shape
                     boxShadow: '0 -15px 40px rgba(0,0,0,0.2)', // Shadow for overlapping effect
                     display: 'flex', overflow: 'hidden',
                     transform: `rotate(${rotations[i % rotations.length]}deg)`, // Alternating rotations
                   }}>
 
                     {/* Image Half */}
-                    <div style={{ flex: '1', position: 'relative', overflow: 'hidden', padding: '2rem' }}>
-                      <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '24px', overflow: 'hidden' }}>
+                    <div className="step-card-img-container" style={{ flex: '1', position: 'relative', overflow: 'hidden', padding: '2rem' }}>
+                      <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: imgShapes[i % imgShapes.length], overflow: 'hidden' }}>
                         <img src={step.img} alt={step.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.1)' }} />
                       </div>
 
-                      <div style={{
+                      <div className="step-card-num" style={{
                         position: 'absolute', bottom: '0', left: '0',
                         fontFamily: '"Arial Black", system-ui, sans-serif', fontSize: '25vw', fontWeight: 900,
                         color: 'rgba(255,255,255,0.2)', lineHeight: 0.8, pointerEvents: 'none',
@@ -166,10 +190,10 @@ export default function HowWeMakeItPage() {
                     </div>
 
                     {/* Text Half */}
-                    <div style={{ flex: '1.2', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 3rem 2rem 1rem' }}>
+                    <div className="step-card-text-container" style={{ flex: '1.2', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem 3rem 2rem 1rem' }}>
 
                       {/* Compact Step Indicator */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                      <div className="step-card-header" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
                         <span style={{ fontSize: '2rem', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}>{step.emoji}</span>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                           <span style={{ fontFamily: 'system-ui, sans-serif', fontSize: '0.85rem', fontWeight: 900, letterSpacing: '0.2em', color: textColors[i % textColors.length], textTransform: 'uppercase' }}>Step {step.num}</span>
@@ -177,35 +201,36 @@ export default function HowWeMakeItPage() {
                         </div>
                       </div>
 
-                      <h2 style={{
+                      <h2 className="step-card-h2" style={{
                         fontFamily: '"Arial Black", system-ui, sans-serif',
-                        fontSize: 'clamp(2.5rem, 4vw, 4rem)', // Reduced massive size to fit inside the card
+                        fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', // Noticeably reduced to fit inside smaller card
                         fontWeight: 900,
                         color: '#111111',
-                        WebkitTextStroke: '2px #ffffff', // Slightly thinner stroke to match smaller text
-                        filter: 'drop-shadow(4px 4px 0px #111111)', // Reduced shadow size
+                        WebkitTextStroke: '1px #ffffff', // Thinner stroke
+                        filter: 'drop-shadow(3px 3px 0px #111111)', // Smaller shadow
                         textTransform: 'uppercase',
                         lineHeight: 1.1,
                         letterSpacing: '-0.02em',
-                        marginBottom: '1.5rem',
-                        transform: 'rotate(-2deg)'
+                        marginBottom: '1.25rem',
+                        transform: 'rotate(-2deg)',
+                        wordBreak: 'break-word'
                       }}>
                         {step.title}
                       </h2>
 
-                      <p style={{
+                      <p className="step-card-p" style={{
                         fontFamily: 'system-ui, sans-serif',
-                        fontSize: '1.1rem', // Reduced from 1.5rem
+                        fontSize: '0.95rem', // Reduced from 1.1rem
                         color: textColors[i % textColors.length] === '#FFFFFF' ? '#FFFFFF' : '#111111',
-                        lineHeight: 1.6,
-                        marginBottom: '1.5rem',
-                        fontWeight: 600, // Slightly less bold
-                        maxWidth: '95%'
+                        lineHeight: 1.5,
+                        marginBottom: '1rem',
+                        fontWeight: 600, 
+                        maxWidth: '100%'
                       }}>
                         {step.desc}
                       </p>
 
-                      <div style={{
+                      <div className="step-card-detail" style={{
                         fontFamily: 'system-ui, sans-serif',
                         fontSize: '0.9rem', // Reduced from 1.2rem
                         fontWeight: 900,
@@ -402,7 +427,7 @@ export default function HowWeMakeItPage() {
               </div>
 
               {/* Content */}
-              <h2 style={{ 
+              <h2 className="process-cta-h2" style={{ 
                 fontFamily: '"Arial Black", "Inter", sans-serif', 
                 fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', 
                 fontWeight: 900, 
@@ -411,12 +436,13 @@ export default function HowWeMakeItPage() {
                 lineHeight: 0.9, 
                 textTransform: 'uppercase',
                 letterSpacing: '-0.02em',
-                maxWidth: '900px'
+                maxWidth: '900px',
+                wordBreak: 'break-word'
               }}>
-                TASTE THE<br/>HERITAGE
+                TASTE THE<br className="hide-on-mobile" />HERITAGE
               </h2>
               
-              <p style={{ 
+              <p className="process-cta-p" style={{ 
                 fontFamily: 'system-ui, -apple-system, sans-serif', 
                 fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
                 color: '#333333', 
@@ -454,9 +480,85 @@ export default function HowWeMakeItPage() {
       <Footer />
       <style>{`
         @media (max-width: 900px) {
-          .sticky-card { flexDirection: column !important; height: auto !important; }
-          .sticky-card > div { width: 100% !important; flex: none !important; }
-          .sticky-card > div:first-child { min-height: 300px; }
+          .process-sticky-wrapper {
+            height: 40vh !important; /* Miniature landscape height */
+            min-height: 250px !important;
+            margin-bottom: 10vh !important;
+          }
+          .sticky-card { 
+            flexDirection: row !important; /* Force side-by-side exactly like laptop */
+            height: 100% !important;
+          }
+          .sticky-card > div { 
+            width: 50% !important; 
+            flex: 1 !important; 
+          }
+          .sticky-card > div:first-child { 
+            min-height: auto !important; 
+            height: 100% !important;
+          }
+          
+          #process-hero {
+            padding-top: 150px !important;
+            padding-bottom: 3rem !important;
+          }
+          .process-hero-h1 {
+            font-size: 3rem !important;
+            line-height: 1 !important;
+          }
+          .process-hero-subtitle {
+            font-size: 0.9rem !important;
+            margin-bottom: 1rem !important;
+          }
+          .process-hero-p {
+            font-size: 1.1rem !important;
+          }
+          .process-badge-1 {
+            display: none !important;
+          }
+          .hide-on-mobile {
+            display: none !important;
+          }
+          
+          .process-cta-h2 {
+            font-size: 2.5rem !important;
+            line-height: 1 !important;
+          }
+          .process-cta-p {
+            font-size: 1.05rem !important;
+          }
+
+          /* Sticky Card Overrides - Miniature Text for Side-by-Side */
+          .step-card-img-container {
+            padding: 0.5rem !important;
+          }
+          .step-card-text-container {
+            padding: 1rem 0.5rem 1rem 0rem !important;
+          }
+          .step-card-num {
+            font-size: 20vw !important;
+          }
+          .step-card-h2 {
+            font-size: 1.1rem !important;
+            margin-bottom: 0.5rem !important;
+            line-height: 1 !important;
+            -webkit-text-stroke: 0.5px #fff !important;
+            filter: drop-shadow(2px 2px 0px #111) !important;
+          }
+          .step-card-p {
+            font-size: 0.65rem !important;
+            line-height: 1.2 !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .step-card-header span {
+            font-size: 0.6rem !important;
+          }
+          .step-card-header {
+            margin-bottom: 0.5rem !important;
+          }
+          .step-card-detail {
+            font-size: 0.55rem !important;
+          }
         }
         @keyframes scrollDown {
           0% { transform: translateY(-100%); }
