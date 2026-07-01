@@ -107,98 +107,131 @@ export default function FaqAccordion() {
   };
 
   return (
-    <section style={{ padding: '8rem 2rem 10rem 2rem', backgroundColor: '#FFFDF9', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ maxWidth: '1000px', width: '100%' }}>
-        <h2 style={{ 
-          fontFamily: '"Arial Black", "Inter", sans-serif', 
-          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
-          fontWeight: 900, 
-          color: '#111', 
-          marginBottom: '3.5rem', 
-          textAlign: 'center',
-          textTransform: 'uppercase',
-          letterSpacing: '-0.02em'
-        }}>
-          Frequently Asked Questions
-        </h2>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            // The orange/red bar needs white text for better contrast
-            const textColor = faq.color === '#FF4B12' ? '#FFFFFF' : '#111111';
-            
-            return (
-              <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
-                <button
-                  onClick={() => toggleOpen(index)}
-                  style={{
-                    backgroundColor: faq.color,
-                    border: 'none',
-                    borderRadius: '16px',
-                    padding: '1.25rem 2rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    width: '100%',
-                    textAlign: 'left',
-                    fontFamily: '"Inter", system-ui, sans-serif',
-                    transition: 'transform 0.2s ease',
-                    zIndex: 2,
-                    position: 'relative'
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.01)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
-                >
-                  <span style={{ 
-                    fontSize: '1.15rem', 
-                    fontWeight: 800, 
-                    color: textColor
-                  }}>
-                    {faq.question}
-                  </span>
-                  <div style={{
-                    backgroundColor: '#111',
-                    borderRadius: '8px',
-                    width: '32px',
-                    height: '32px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}>
-                    {isOpen ? (
-                      <ChevronUp size={20} color="#FFF" />
-                    ) : (
-                      <ChevronDown size={20} color="#FFF" />
-                    )}
-                  </div>
-                </button>
-                
-                {/* Expanded Content */}
-                {isOpen && (
-                  <div style={{
-                    backgroundColor: faq.color,
-                    borderRadius: '16px',
-                    padding: '1.5rem 2rem',
-                    marginTop: '0.5rem', // Separates it from the button
-                    fontFamily: '"Inter", system-ui, sans-serif',
-                    fontSize: '1.1rem',
-                    lineHeight: 1.6,
-                    color: textColor,
-                    fontWeight: 500,
-                    zIndex: 1,
-                    position: 'relative'
-                  }}>
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+    <>
+      <section className="faq-section" style={{ padding: '8rem 2rem 10rem 2rem', backgroundColor: '#FFFDF9', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ maxWidth: '1000px', width: '100%' }}>
+          <h2 className="faq-title" style={{ 
+            fontFamily: '"Arial Black", "Inter", sans-serif', 
+            fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', 
+            fontWeight: 900, 
+            color: '#111', 
+            marginBottom: '3.5rem', 
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em'
+          }}>
+            Frequently Asked Questions
+          </h2>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              // The orange/red bar needs white text for better contrast
+              const textColor = faq.color === '#FF4B12' ? '#FFFFFF' : '#111111';
+              
+              return (
+                <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <button
+                    className="faq-button"
+                    onClick={() => toggleOpen(index)}
+                    style={{
+                      backgroundColor: faq.color,
+                      border: 'none',
+                      borderRadius: '16px',
+                      padding: '1.25rem 2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      cursor: 'pointer',
+                      width: '100%',
+                      textAlign: 'left',
+                      fontFamily: '"Inter", system-ui, sans-serif',
+                      transition: 'transform 0.2s ease',
+                      zIndex: 2,
+                      position: 'relative'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.01)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                  >
+                    <span className="faq-button-text" style={{ 
+                      fontSize: '1.15rem', 
+                      fontWeight: 800, 
+                      color: textColor,
+                      paddingRight: '1rem'
+                    }}>
+                      {faq.question}
+                    </span>
+                    <div className="faq-chevron" style={{
+                      backgroundColor: '#111',
+                      borderRadius: '8px',
+                      width: '32px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      {isOpen ? (
+                        <ChevronUp size={20} color="#FFF" />
+                      ) : (
+                        <ChevronDown size={20} color="#FFF" />
+                      )}
+                    </div>
+                  </button>
+                  
+                  {/* Expanded Content */}
+                  {isOpen && (
+                    <div className="faq-answer" style={{
+                      backgroundColor: faq.color,
+                      borderRadius: '16px',
+                      padding: '1.5rem 2rem',
+                      marginTop: '0.5rem', // Separates it from the button
+                      fontFamily: '"Inter", system-ui, sans-serif',
+                      fontSize: '1.1rem',
+                      lineHeight: 1.6,
+                      color: textColor,
+                      fontWeight: 500,
+                      zIndex: 1,
+                      position: 'relative'
+                    }}>
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <style>{`
+        @media (max-width: 768px) {
+          .faq-section {
+            padding: 4rem 1rem 5rem 1rem !important;
+          }
+          .faq-title {
+            font-size: 2.2rem !important;
+            line-height: 1.1 !important;
+            margin-bottom: 2.5rem !important;
+            word-break: break-word;
+          }
+          .faq-button {
+            padding: 1rem 1rem !important;
+            border-radius: 12px !important;
+          }
+          .faq-button-text {
+            font-size: 0.95rem !important;
+          }
+          .faq-chevron {
+            width: 28px !important;
+            height: 28px !important;
+          }
+          .faq-answer {
+            padding: 1rem 1rem !important;
+            font-size: 0.95rem !important;
+            border-radius: 12px !important;
+          }
+        }
+      `}</style>
+    </>
   );
 }
