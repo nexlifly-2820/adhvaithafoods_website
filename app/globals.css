@@ -662,6 +662,93 @@ a {
   }
 }
 
+.featured-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3rem;
+  padding-top: 80px;
+}
+
+.product-card-img {
+  width: 180px;
+  height: 180px;
+  margin-top: -90px;
+}
+
+.product-card-title {
+  font-size: 2.4rem;
+}
+
+.product-card-pill {
+  background-color: #fff;
+  padding: 0.4rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.product-card-pill-text {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.product-card-desc {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 0;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .featured-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding-top: 50px;
+  }
+  
+  .product-card-reveal {
+    padding: 0 0.5rem 1rem 0.5rem !important;
+    margin-top: 50px !important;
+  }
+
+  .product-card-img {
+    width: 90px;
+    height: 90px;
+    margin-top: -45px;
+    margin-bottom: 1rem !important;
+  }
+
+  .product-card-title {
+    font-size: 1.2rem !important;
+    min-height: 2.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .product-card-pill {
+    padding: 0.2rem 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .product-card-pill-text {
+    font-size: 0.55rem !important;
+    white-space: normal !important;
+    text-align: center;
+    display: block;
+  }
+
+  .product-card-desc {
+    font-size: 0.75rem !important;
+    line-height: 1.2 !important;
+  }
+}
+
 @keyframes pulseRing {
   0% {
     box-shadow: 0 0 0 0 rgba(232, 168, 32, 0.5);

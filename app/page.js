@@ -569,7 +569,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '3rem', paddingTop: '80px' }}>
+            <div className="featured-products-grid">
               {featuredProducts.map((p, i) => (
                 <div
                   key={p.id}
@@ -595,11 +595,9 @@ export default function HomePage() {
                 >
                   {/* Circular Floating Image */}
                   <div
+                    className="product-card-img"
                     style={{
-                      width: '180px',
-                      height: '180px',
                       borderRadius: '50%',
-                      marginTop: '-90px',
                       border: '3px solid #111',
                       boxShadow: '10px 10px 15px rgba(0,0,0,0.5)',
                       overflow: 'hidden',
@@ -617,9 +615,9 @@ export default function HomePage() {
 
                   {/* Title */}
                   <h3
+                    className="product-card-title"
                     style={{
                       fontFamily: 'Playfair Display, serif',
-                      fontSize: '1.6rem',
                       fontWeight: 900,
                       color: '#111',
                       textAlign: 'center',
@@ -635,37 +633,14 @@ export default function HomePage() {
                   </h3>
 
                   {/* Stats Pill */}
-                  <div style={{
-                    backgroundColor: '#fff',
-                    padding: '0.4rem 1rem',
-                    marginBottom: '1.25rem',
-                  }}>
-                    <span style={{
-                      fontFamily: '"Inter", system-ui, sans-serif',
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
-                      color: '#111',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      whiteSpace: 'nowrap'
-                    }}>
+                  <div className="product-card-pill">
+                    <span className="product-card-pill-text">
                       {p.tag || 'AUTHENTIC'} | ★ {p.rating || 5} STARS
                     </span>
                   </div>
 
                   {/* Description */}
-                  <p
-                    style={{
-                      fontFamily: '"Inter", system-ui, sans-serif',
-                      fontSize: '0.9rem',
-                      fontWeight: 500,
-                      color: '#111',
-                      textAlign: 'center',
-                      lineHeight: 1.5,
-                      marginBottom: '0',
-                      flex: 1
-                    }}
-                  >
+                  <p className="product-card-desc">
                     {p.desc}
                   </p>
                 </div>
