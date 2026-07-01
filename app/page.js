@@ -401,21 +401,12 @@ export default function HomePage() {
           marginTop: '-80px' // Pull up behind navbar
         }}>
           {/* Header Text Behind Image */}
-          <h1 style={{
+          <h1 className="hero-title-main" style={{
             position: 'absolute',
             top: '26%',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 1,
-            fontFamily: 'var(--font-lilita), system-ui, sans-serif',
-            fontSize: 'clamp(2.5rem, 7vw, 7rem)',
-            fontWeight: 900,
-            color: '#111',
-            WebkitTextStroke: '6px #fff',
-            whiteSpace: 'nowrap',
-            textShadow: '8px 8px 0 rgba(0,0,0,1)',
-            letterSpacing: '0.02em',
-            lineHeight: 1
           }}>
             Taste of Tradition
           </h1>
