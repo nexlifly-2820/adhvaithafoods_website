@@ -165,7 +165,7 @@ export default function ContactPage() {
               <span className="font-mouse" style={{ fontSize: '3rem', letterSpacing: '2px' }}>SAY HELLO</span>
             </div>
 
-            <h1 className="font-mouse" style={{
+            <h1 className="font-mouse contact-hero-title" style={{
               fontSize: 'clamp(5rem, 12vw, 10rem)',
               color: '#FFF',
               lineHeight: 0.85,
@@ -228,7 +228,7 @@ export default function ContactPage() {
                 <div style={{ textAlign: 'center', marginTop: '4rem' }}>
                   <button
                     type="submit"
-                    className="font-mouse"
+                    className="font-mouse contact-submit-btn"
                     style={{
                       background: '#F0CD4C', color: '#111',
                       fontSize: '3.5rem', letterSpacing: '2px',
@@ -283,7 +283,7 @@ export default function ContactPage() {
         <section style={{ backgroundColor: '#F4ECD8', padding: '6rem 2rem 10rem', position: 'relative' }}>
           
           {/* Rolling Cylinder Logo */}
-          <div id="peeling-logo-wrapper" style={{ position: 'absolute', right: '10%', top: '-150px', width: '300px', height: '300px', zIndex: 10, filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}>
+          <div id="peeling-logo-wrapper" className="contact-peeling-logo" style={{ position: 'absolute', right: '10%', top: '-150px', width: '300px', height: '300px', zIndex: 10, filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}>
             {/* The Unrolled Image */}
             <img 
               id="sticker-main"
@@ -329,7 +329,7 @@ export default function ContactPage() {
                 <span className="font-mouse" style={{ fontSize: '2.5rem', letterSpacing: '2px' }}>FIND US</span>
               </div>
 
-              <h2 className="font-mouse" style={{
+              <h2 className="font-mouse contact-feel-spice" style={{
                 fontSize: 'clamp(6rem, 15vw, 12rem)',
                 color: '#FF1E1E',
                 lineHeight: 0.8,
@@ -367,6 +367,7 @@ export default function ContactPage() {
             {/* Massive WhatsApp Pill */}
             <div className="reveal" style={{ display: 'flex', justifyContent: 'center', marginTop: '8rem' }}>
               <a href="https://wa.me/919876543210?text=Hello%20Avdaitha%20Foods!" target="_blank" rel="noopener noreferrer"
+                className="contact-whatsapp-btn"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '1rem',
                   background: '#25D366', color: '#FFF',
@@ -379,7 +380,7 @@ export default function ContactPage() {
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 0 #111'; }}
               >
                 <MessageCircle size={40} fill="#FFF" />
-                <span className="font-mouse" style={{ fontSize: '4rem', letterSpacing: '2px', transform: 'translateY(2px)' }}>
+                <span className="font-mouse contact-whatsapp-text" style={{ fontSize: '4rem', letterSpacing: '2px', transform: 'translateY(2px)' }}>
                   CHAT ON WHATSAPP
                 </span>
               </a>
@@ -388,6 +389,32 @@ export default function ContactPage() {
           </div>
         </section>
 
+        <style>{`
+          @media (max-width: 900px) {
+            .contact-hero-title {
+              line-height: 1 !important;
+              font-size: clamp(4rem, 12vw, 6rem) !important;
+              margin-bottom: 3rem !important;
+            }
+            .contact-submit-btn {
+              padding: 1rem 3rem !important;
+              font-size: 2.5rem !important;
+            }
+            .contact-peeling-logo {
+              display: none !important; /* Hide massive absolute logo on mobile */
+            }
+            .contact-feel-spice {
+              line-height: 1 !important;
+              font-size: clamp(4rem, 15vw, 6rem) !important;
+            }
+            .contact-whatsapp-btn {
+              padding: 1rem 2rem !important;
+            }
+            .contact-whatsapp-text {
+              font-size: 2rem !important;
+            }
+          }
+        `}</style>
       </main>
       <Footer />
     </div>
