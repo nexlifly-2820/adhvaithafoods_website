@@ -370,11 +370,11 @@ export default function RecipesPage() {
                 <path
                   id="journey-path"
                   d={recipes.slice(0, visibleCount).reduce((path, _, i, arr) => {
-                    const x = i % 2 === 0 ? 22 : 78;
+                    const x = i % 2 === 0 ? 16 : 84;
                     const maxIdx = Math.max(1, arr.length - 1);
                     const y = (i / maxIdx) * 100;
                     if (i === 0) return `M ${x} ${y}`;
-                    const prevX = (i - 1) % 2 === 0 ? 22 : 78;
+                    const prevX = (i - 1) % 2 === 0 ? 16 : 84;
                     const prevY = ((i - 1) / maxIdx) * 100;
                     // Proportional S-Curve down the page
                     const step = (y - prevY) / 2;
@@ -399,13 +399,13 @@ export default function RecipesPage() {
                     width: '100%'
                   }}>
                     <div style={{
-                      width: '45%', position: 'relative'
+                      width: '320px', position: 'relative'
                     }}>
 
                       {/* Bubbly Floating Label */}
                       <div className="font-modak" style={{
-                        position: 'absolute', top: '-1.5rem', [isEven ? 'right' : 'left']: '-2rem', zIndex: 10,
-                        fontSize: '3rem', color: recipe.color, WebkitTextStroke: '1px #FFF',
+                        position: 'absolute', top: '-1.5rem', [isEven ? 'right' : 'left']: '-1rem', zIndex: 10,
+                        fontSize: '1.6rem', color: recipe.color, WebkitTextStroke: '1px #FFF',
                         textTransform: 'uppercase', transform: isEven ? 'rotate(5deg)' : 'rotate(-5deg)',
                         filter: 'drop-shadow(2px 4px 0px rgba(0,0,0,0.15))'
                       }}>
@@ -416,7 +416,7 @@ export default function RecipesPage() {
                       <div style={{
                         borderRadius: '24px', overflow: 'hidden',
                         boxShadow: '0 30px 50px rgba(0,0,0,0.15)',
-                        position: 'relative', height: '400px',
+                        position: 'relative', height: '300px',
                         border: '8px solid #FFF',
                         transform: 'translateY(0)',
                         transition: 'transform 0.4s ease'
@@ -428,7 +428,7 @@ export default function RecipesPage() {
 
                       {/* Title & Desc */}
                       <div style={{ marginTop: '1.5rem', padding: '0 1rem' }}>
-                        <h3 className="font-mouse" style={{ fontSize: '3.5rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
+                        <h3 className="font-mouse" style={{ fontSize: '3rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
                           {recipe.name}
                         </h3>
                         <p className="font-mouse" style={{ fontSize: '1.8rem', color: '#333', textTransform: 'uppercase', lineHeight: 1.1 }}>
@@ -438,10 +438,10 @@ export default function RecipesPage() {
 
                       {/* Floating Decorative Emoji Cutout (Moved to inner edge of card) */}
                       <div style={{
-                        position: 'absolute', top: '-2rem', [isEven ? 'left' : 'right']: '-2rem',
-                        width: '70px', height: '70px', background: '#FFF', borderRadius: '50%',
+                        position: 'absolute', top: '-2rem', [isEven ? 'left' : 'right']: '-1.5rem',
+                        width: '50px', height: '50px', background: '#FFF', borderRadius: '50%',
                         boxShadow: '0 15px 30px rgba(0,0,0,0.15)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem',
                         transform: 'rotate(-10deg)',
                         zIndex: 12, border: '4px solid #F0CD4C'
                       }}>

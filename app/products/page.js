@@ -428,59 +428,59 @@ export default function ProductsPage() {
                 d="M 110 150 Q 320 100, 580 160 Q 750 200, 900 150"
                 fill="none" stroke="#442111" strokeWidth="5"
                 className="animated-path"
-                style={{ animationDelay: '0.2s' }}
+                style={{ animationDelay: '2.7s' }}
               />
 
               <path
                 d="M 110 320 Q 320 280, 580 320 Q 750 350, 900 310"
                 fill="none" stroke="#442111" strokeWidth="5"
                 className="animated-path"
-                style={{ animationDelay: '0.4s' }}
+                style={{ animationDelay: '2.9s' }}
               />
 
               {/* ── TOP LINE: WE BELIEVE THAT AUTHENTIC ── */}
-              <text fontSize="60" className="animated-text" style={{ animationDelay: '0.6s' }}>
+              <text fontSize="60" className="animated-text" style={{ animationDelay: '3.1s' }}>
                 <textPath href="#top-text-arc" startOffset="0%">WE BELIEVE THAT AUTHENTIC</textPath>
               </text>
 
               {/* ── MIDDLE LINE: FOOD HAS THE POWER ── */}
               {/* FOOD */}
-              <text x="100" y="290" fontSize="170" className="animated-text" style={{ animationDelay: '0.7s', letterSpacing: '2px' }}>
+              <text x="100" y="290" fontSize="170" className="animated-text" style={{ animationDelay: '3.2s', letterSpacing: '2px' }}>
                 FOOD
               </text>
 
               {/* HAS THE (Stacked) */}
-              <g className="animated-text" style={{ animationDelay: '0.8s' }}>
+              <g className="animated-text" style={{ animationDelay: '3.3s' }}>
                 <text x="480" y="220" fontSize="40">HAS</text>
                 <text x="470" y="280" fontSize="40">THE</text>
               </g>
 
               {/* POWER */}
-              <text x="560" y="270" fontSize="100" transform="rotate(-2, 560, 270)" className="animated-text" style={{ animationDelay: '0.9s' }}>
+              <text x="560" y="270" fontSize="100" transform="rotate(-2, 560, 270)" className="animated-text" style={{ animationDelay: '3.4s' }}>
                 POWER
               </text>
 
               {/* ── BOTTOM LINE: TO CHANGE THE WORLD. ── */}
               {/* TO (with underline) */}
-              <g className="animated-text" style={{ animationDelay: '1.0s' }}>
+              <g className="animated-text" style={{ animationDelay: '3.5s' }}>
                 <text x="140" y="420" fontSize="48">TO</text>
                 <path d="M 140 435 Q 165 430, 185 432" fill="none" stroke="#442111" strokeWidth="4" />
               </g>
 
               {/* CHANGE */}
-              <text x="210" y="430" fontSize="105" className="animated-text" style={{ animationDelay: '1.1s' }}>
+              <text x="210" y="430" fontSize="105" className="animated-text" style={{ animationDelay: '3.6s' }}>
                 CHANGE
               </text>
 
               {/* THE (Stacked with double underline) */}
-              <g className="animated-text" style={{ animationDelay: '1.2s' }}>
+              <g className="animated-text" style={{ animationDelay: '3.7s' }}>
                 <text x="525" y="375" fontSize="35">THE</text>
                 <path d="M 525 390 Q 545 385, 565 390" fill="none" stroke="#442111" strokeWidth="3" />
                 <path d="M 528 400 Q 545 395, 562 400" fill="none" stroke="#442111" strokeWidth="3" />
               </g>
 
               {/* WORLD. */}
-              <text x="590" y="430" fontSize="105" transform="rotate(-2, 590, 430)" className="animated-text" style={{ animationDelay: '1.3s' }}>
+              <text x="590" y="430" fontSize="105" transform="rotate(-2, 590, 430)" className="animated-text" style={{ animationDelay: '3.8s' }}>
                 WORLD.
               </text>
 
