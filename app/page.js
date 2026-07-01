@@ -529,9 +529,234 @@ export default function HomePage() {
         </section>
 
 
+        {/* ══ THE ADHVAITHA PROMISE (SCRAPBOOK STORY) ════════════ */}
+        <section id="adhvaitha-promise" style={{
+          position: 'relative',
+          padding: '12rem 2rem',
+          backgroundColor: '#F4ECD8' // Cream background
+        }}>
+          {/* We import a cursive font just for the handwritten notes */}
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+            
+            .font-handwriting { font-family: 'Caveat', cursive; color: #D44A6A; text-shadow: 1px 1px 0px rgba(0,0,0,0.05); }
+            .font-playfair { font-family: 'Playfair Display', serif; }
+            
+            .promise-grid {
+              display: block;
+              position: relative;
+              max-width: 1400px;
+              margin: 0 auto;
+              min-height: 2200px; /* Spaced out images to prevent overlapping */
+            }
 
-        {/* ══ MARQUEE TRUST BAR DELETED ══════════════════════ */}
+            .promise-text-col {
+              width: 45%;
+              z-index: 10;
+              position: sticky;
+              top: 150px;
+              padding-right: 4rem;
+            }
 
+            /* Photos */
+            .scrapbook-photo {
+              position: absolute;
+              /* NO BORDERS, NO SHADOWS, NO ROTATIONS - Exactly like Terry Ho */
+              transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            /* Exact Terry Ho Placements (Straight images) */
+            .sp-1 { top: 0px; right: 0%; width: 22%; z-index: 2; } /* Top Far Right */
+            .sp-2 { top: 350px; left: 50%; width: 26%; z-index: 3; } /* Middle Left / Center */
+            .sp-3 { top: 700px; right: 5%; width: 20%; z-index: 4; } /* Middle Right */
+            .sp-4 { top: 1050px; left: 55%; width: 20%; z-index: 5; } /* Center */
+            .sp-5 { top: 1400px; right: 0%; width: 28%; z-index: 6; } /* Bottom Right */
+            .sp-6 { top: 1800px; left: 50%; width: 22%; z-index: 7; } /* Bottom Center/Left */
+
+            /* Notes */
+            .scrapbook-note {
+              position: absolute;
+              font-size: 2.8rem;
+              line-height: 1.1;
+              z-index: 20;
+              white-space: nowrap;
+            }
+            .sn-1 { top: 100px; right: 20%; transform: rotate(-5deg); text-align: right; }
+            .sn-2 { top: 450px; left: 40%; transform: rotate(-5deg); }
+            .sn-3 { top: 750px; right: 23%; transform: rotate(-5deg); text-align: right; }
+            .sn-4 { top: 1150px; left: 45%; transform: rotate(-5deg); text-align: center; }
+            .sn-5 { top: 1550px; right: 25%; transform: rotate(-5deg); text-align: right; }
+            .sn-6 { top: 1900px; left: 40%; transform: rotate(-5deg); text-align: center; }
+
+            /* Sparkle */
+            .promise-sparkle {
+              position: absolute;
+              top: 550px;
+              left: 42%;
+              width: 30px;
+              height: 30px;
+              z-index: 10;
+            }
+
+            /* Terry Ho Button */
+            .terry-btn {
+              display: inline-block;
+              background: #D44A6A;
+              color: #111;
+              font-family: 'Inter', sans-serif;
+              font-size: 1.1rem;
+              font-weight: 800;
+              text-transform: uppercase;
+              letterSpacing: 1px;
+              padding: 1rem 2.5rem;
+              border-radius: 50px;
+              border: 3px solid #111;
+              box-shadow: 5px 5px 0px #111;
+              text-decoration: none;
+              transition: transform 0.1s ease, box-shadow 0.1s ease;
+            }
+            .terry-btn:active {
+              transform: translate(3px, 3px);
+              box-shadow: 2px 2px 0px #111;
+            }
+
+            /* Responsive */
+            @media (max-width: 1000px) {
+              .promise-grid {
+                display: flex;
+                flex-direction: column;
+                min-height: auto;
+              }
+              .promise-text-col {
+                position: relative;
+                top: 0;
+                width: 100%;
+                padding-right: 0;
+                text-align: center;
+                margin-bottom: 4rem;
+              }
+              .scrapbook-photo {
+                position: relative !important;
+                width: 100% !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                margin-bottom: 2rem;
+              }
+              .scrapbook-note {
+                position: relative !important;
+                top: -3rem !important;
+                left: 0 !important;
+                right: 0 !important;
+                text-align: center !important;
+                margin-bottom: 4rem;
+                font-size: 2.5rem;
+              }
+              .promise-sparkle { display: none; }
+            }
+          `}</style>
+
+          <div className="promise-grid">
+            
+            {/* Left Column: Bold Text (Terry Ho Style) - NOW STICKY */}
+            <div className="promise-text-col">
+              <div style={{ fontSize: '1.1rem', color: '#111', fontWeight: 600, marginBottom: '0.5rem' }}>
+                Made with Real Ingredients
+              </div>
+              <h2 className="font-playfair" style={{
+                fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                color: '#111',
+                lineHeight: 1,
+                marginTop: '0',
+                marginBottom: '1.5rem',
+                letterSpacing: '-1px',
+                fontWeight: 800
+              }}>
+                The <span style={{ color: '#D44A6A' }}>Adhvaitha</span> Promise
+              </h2>
+              <p className="font-inter" style={{
+                fontSize: '1.05rem',
+                color: '#111',
+                lineHeight: 1.6,
+                marginBottom: '1.5rem',
+                fontWeight: 500,
+                maxWidth: '500px'
+              }}>
+                Adhvaitha Foods celebrates the timeless charm of traditional Telugu cuisine, offering authentic, wholesome dishes made with minimally processed ingredients, just like your great-grandmother would have made them.
+              </p>
+              <p className="font-inter" style={{
+                fontSize: '1.05rem',
+                color: '#111',
+                lineHeight: 1.6,
+                marginBottom: '2.5rem',
+                fontWeight: 500,
+                maxWidth: '500px'
+              }}>
+                Established with a passion for heritage, Adhvaitha Foods has become a trusted name for authentic Telugu flavors. Rooted in tradition but powered by modern, certified facilities, we blend food nostalgia with quality, hygiene, and value—bringing home the true essence of Telugu flavors, wherever you are.
+              </p>
+
+              <Link href="/contact" className="terry-btn">
+                DISCOVER OUR ROOTS
+              </Link>
+            </div>
+
+            {/* Sparkle SVG exactly like Terry Ho */}
+            <svg className="promise-sparkle" viewBox="0 0 24 24" fill="none" stroke="#D44A6A" strokeWidth="1.5">
+              <path d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+
+            {/* Right Side: Scattered Cards */}
+            
+            {/* Photo 1: Nostalgia */}
+            <div className="scrapbook-photo sp-1">
+              <img src="/images/promise_nostalgia.png" alt="Nostalgia" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-1">
+              Nostalgia
+            </div>
+
+            {/* Photo 2: Trust */}
+            <div className="scrapbook-photo sp-2">
+              <img src="/images/promise_trust.png" alt="Trust" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-2">
+              Trust
+            </div>
+
+            {/* Photo 3: Legacy */}
+            <div className="scrapbook-photo sp-3">
+              <img src="/images/promise_legacy.png" alt="Legacy" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-3">
+              Legacy
+            </div>
+
+            {/* Photo 4: Great Value */}
+            <div className="scrapbook-photo sp-4">
+              <img src="/images/promise_value.png" alt="Great Value" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-4">
+              Great Value
+            </div>
+
+            {/* Photo 5: Good Health */}
+            <div className="scrapbook-photo sp-5">
+              <img src="/images/promise_health.png" alt="Good Health" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-5">
+              Good Health
+            </div>
+
+            {/* Photo 6: Authentic */}
+            <div className="scrapbook-photo sp-6">
+              <img src="/images/promise_authentic.png" alt="Authentic" style={{ width: '100%', display: 'block' }} />
+            </div>
+            <div className="font-handwriting scrapbook-note sn-6">
+              Authentic
+            </div>
+
+          </div>
+        </section>
 
         {/* ══ PRODUCTS ═══════════════════════════════ */}
         <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
