@@ -387,23 +387,23 @@ export default function RecipesPage() {
               </svg>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8rem', position: 'relative', zIndex: 1 }}>
+            <div className="recipes-list-container" style={{ display: 'flex', flexDirection: 'column', gap: '8rem', position: 'relative', zIndex: 1 }}>
               {isLoading ? (
                 <div className="font-mouse" style={{ textAlign: 'center', fontSize: '3rem', color: '#111' }}>Loading...</div>
               ) : recipes.slice(0, visibleCount).map((recipe, index) => {
                 const isEven = index % 2 === 0;
                 return (
-                  <div key={recipe.id} style={{
+                  <div key={recipe.id} className="recipe-card-wrapper" style={{
                     display: 'flex',
                     justifyContent: isEven ? 'flex-start' : 'flex-end',
                     width: '100%'
                   }}>
-                    <div style={{
+                    <div className="recipe-card-inner" style={{
                       width: '320px', position: 'relative'
                     }}>
 
                       {/* Bubbly Floating Label */}
-                      <div className="font-modak" style={{
+                      <div className="font-modak recipe-card-label" style={{
                         position: 'absolute', top: '-1.5rem', [isEven ? 'right' : 'left']: '-1rem', zIndex: 10,
                         fontSize: '1.6rem', color: recipe.color, WebkitTextStroke: '1px #FFF',
                         textTransform: 'uppercase', transform: isEven ? 'rotate(5deg)' : 'rotate(-5deg)',
@@ -413,7 +413,7 @@ export default function RecipesPage() {
                       </div>
 
                       {/* Floating Recipe Image Card */}
-                      <div style={{
+                      <div className="recipe-card-img-container" style={{
                         borderRadius: '24px', overflow: 'hidden',
                         boxShadow: '0 30px 50px rgba(0,0,0,0.15)',
                         position: 'relative', height: '300px',
@@ -427,11 +427,11 @@ export default function RecipesPage() {
                       </div>
 
                       {/* Title & Desc */}
-                      <div style={{ marginTop: '1.5rem', padding: '0 1rem' }}>
-                        <h3 className="font-mouse" style={{ fontSize: '3rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
+                      <div className="recipe-card-text" style={{ marginTop: '1.5rem', padding: '0 1rem' }}>
+                        <h3 className="font-mouse recipe-card-title" style={{ fontSize: '3rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
                           {recipe.name}
                         </h3>
-                        <p className="font-mouse" style={{ fontSize: '1.8rem', color: '#333', textTransform: 'uppercase', lineHeight: 1.1 }}>
+                        <p className="font-mouse recipe-card-desc" style={{ fontSize: '1.8rem', color: '#333', textTransform: 'uppercase', lineHeight: 1.1 }}>
                           {recipe.desc}
                         </p>
                       </div>
@@ -504,6 +504,40 @@ export default function RecipesPage() {
             </Link>
           </div>
         </section>
+
+        <style>{`
+          @media (max-width: 900px) {
+            .recipes-list-container {
+              gap: 2rem !important;
+            }
+            .recipe-card-wrapper {
+              /* Remove the center override so they alternate left/right again! */
+            }
+            .recipe-card-inner {
+              width: 180px !important; /* Tiny width to allow left/right staggering */
+            }
+            .recipe-card-img-container {
+              height: 150px !important;
+              border-width: 4px !important;
+              border-radius: 16px !important;
+            }
+            .recipe-card-label {
+              font-size: 0.9rem !important;
+              top: -0.8rem !important;
+              padding: 0.2rem 0.5rem !important;
+            }
+            .recipe-card-text {
+              padding: 0 0.5rem !important;
+              margin-top: 0.8rem !important;
+            }
+            .recipe-card-title {
+              font-size: 1.4rem !important;
+            }
+            .recipe-card-desc {
+              font-size: 0.8rem !important;
+            }
+          }
+        `}</style>
       </main>
       <Footer />
     </div>
