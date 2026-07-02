@@ -657,7 +657,7 @@ export default function HomePage() {
           `}</style>
 
           <div className="promise-grid">
-            
+
             {/* Left Column: Bold Text (Terry Ho Style) - NOW STICKY */}
             <div className="promise-text-col">
               <div style={{ fontSize: '1.1rem', color: '#111', fontWeight: 600, marginBottom: '0.5rem' }}>
@@ -702,11 +702,11 @@ export default function HomePage() {
 
             {/* Sparkle SVG exactly like Terry Ho */}
             <svg className="promise-sparkle" viewBox="0 0 24 24" fill="none" stroke="#D44A6A" strokeWidth="1.5">
-              <path d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 
             {/* Right Side: Scattered Cards */}
-            
+
             {/* Photo 1: Nostalgia */}
             <div className="scrapbook-photo sp-1">
               <img src="/images/promise_nostalgia.png" alt="Nostalgia" style={{ width: '100%', display: 'block' }} />
@@ -1082,6 +1082,24 @@ export default function HomePage() {
                 box-shadow: 6px 6px 0 rgba(0,0,0,1);
                 transform: rotate(-10deg);
                 pointer-events: none;
+              }
+              @media (max-width: 768px) {
+                .seasonal-card {
+                  width: calc(100vw - 2rem) !important;
+                  left: 1rem !important;
+                  right: auto !important;
+                  padding: 1rem 1.5rem !important;
+                  font-size: 1.1rem !important;
+                  box-shadow: 6px 6px 0 rgba(0,0,0,1) !important;
+                }
+                .seasonal-card-circle {
+                  left: -10px !important;
+                  bottom: -15px !important;
+                  width: 60px !important;
+                  height: 60px !important;
+                  border: 3px solid #111 !important;
+                  box-shadow: 4px 4px 0 rgba(0,0,0,1) !important;
+                }
               }
             `}</style>
 
