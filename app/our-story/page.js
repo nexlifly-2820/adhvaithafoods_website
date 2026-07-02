@@ -131,7 +131,7 @@ export default function OurStoryPage() {
         }}>
 
           {/* Continuous Coastline SVG running down the left */}
-          <div style={{ position: 'absolute', top: 0, left: '8%', width: '50px', height: '100%', zIndex: 1 }}>
+          <div className="coastline-svg" style={{ position: 'absolute', top: 0, left: '8%', width: '50px', height: '100%', zIndex: 1 }}>
             <svg width="100%" height="100%" preserveAspectRatio="none">
               <path d="M 40 0 Q 20 300, 40 600 T 30 1200 T 50 1800 T 40 2400 T 30 3000 T 50 3600 T 40 4200 L 40 5000"
                 fill="none" stroke="#231F20" strokeWidth="4"
@@ -142,11 +142,11 @@ export default function OurStoryPage() {
           {/* --- STORY BLOCKS --- */}
 
           {/* Block 1: Intro */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
-            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+          <div className="story-block reverse" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div className="story-img" style={{ flex: '1 1 400px', maxWidth: '500px' }}>
               <FlatIllustration src="/images/story_ingredients_1782482838849.png" alt="Prep" width={450} height={450} />
             </div>
-            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+            <div className="story-text text-left" style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
               <h2 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', lineHeight: 1.3 }}>
                 CRAFTING TRADITIONAL<br />PICKLES, SWEETS, SNACKS & POWDERS
               </h2>
@@ -154,8 +154,8 @@ export default function OurStoryPage() {
           </div>
 
           {/* Block 2: Picking Mangoes */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+          <div className="story-block" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="story-text" style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 HANDPICKING THE FINEST
               </h3>
@@ -166,8 +166,8 @@ export default function OurStoryPage() {
           </div>
 
           {/* Block 3: Washing & Prepping */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
+          <div className="story-block reverse-col" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
+            <div className="story-text text-right" style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 WASHING & PREPPING
               </h3>
@@ -175,17 +175,17 @@ export default function OurStoryPage() {
                 WITH UTMOST CARE
               </h2>
             </div>
-            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+            <div className="story-img" style={{ flex: '1 1 400px', maxWidth: '500px' }}>
               <FlatIllustration src="/images/story_washing_1782482851676.png" alt="Washing" width={450} height={450} />
             </div>
           </div>
 
           {/* Block 4: Chillies */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
-            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+          <div className="story-block reverse" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div className="story-img" style={{ flex: '1 1 400px', maxWidth: '500px' }}>
               <FlatIllustration src="/images/story_spices_1782482862546.png" alt="Chili" width={450} height={450} />
             </div>
-            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+            <div className="story-text text-left" style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 & CHOOSING THE FIERIEST
               </h3>
@@ -199,8 +199,8 @@ export default function OurStoryPage() {
           </div>
 
           {/* Block 5: Sun-Drying */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+          <div className="story-block" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="story-text" style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 SUN-DRYING THEM ON
               </h3>
@@ -211,8 +211,8 @@ export default function OurStoryPage() {
           </div>
 
           {/* Block 6: Stone-Grinding */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
+          <div className="story-block reverse-col" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap' }}>
+            <div className="story-text text-right" style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'right' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 STONE-GRINDING EVERYTHING
               </h3>
@@ -220,14 +220,14 @@ export default function OurStoryPage() {
                 BY HAND
               </h2>
             </div>
-            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+            <div className="story-img" style={{ flex: '1 1 400px', maxWidth: '500px' }}>
               <FlatIllustration src="/images/story_grinding_1782482873236.png" alt="Grinding" width={450} height={450} />
             </div>
           </div>
 
           {/* Block 7: Mixing in Sesame Oil */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
+          <div className="story-block" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="story-text" style={{ zIndex: 10, textAlign: 'center', width: '100%', maxWidth: '1000px' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 AND SLOWLY MIXING IT IN
               </h3>
@@ -241,11 +241,11 @@ export default function OurStoryPage() {
           </div>
 
           {/* Block 8: Hand-Packing */}
-          <div style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
-            <div style={{ flex: '1 1 400px', maxWidth: '500px' }}>
+          <div className="story-block reverse" style={{ padding: '15vh 5vw', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5vw', flexWrap: 'wrap-reverse' }}>
+            <div className="story-img" style={{ flex: '1 1 400px', maxWidth: '500px' }}>
               <FlatIllustration src="/images/story_packing_1782482885885.png" alt="Hand Packing" width={450} height={450} />
             </div>
-            <div style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
+            <div className="story-text text-left" style={{ flex: '1 1 500px', zIndex: 10, textAlign: 'left' }}>
               <h3 style={{ fontFamily: 'var(--font-montserrat), sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', fontWeight: 800, color: '#1C4B36', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
                 BEFORE HAND-PACKING EVERY BATCH
               </h3>
@@ -260,11 +260,11 @@ export default function OurStoryPage() {
 
 
           {/* Airplane / Path Trail Section */}
-          <div style={{ position: 'relative', height: '35vh', width: '100%', marginTop: '5vh', overflow: 'hidden' }}>
+          <div className="airplane-section" style={{ position: 'relative', height: '35vh', width: '100%', marginTop: '5vh', overflow: 'hidden' }}>
             <svg width="100%" height="100%" preserveAspectRatio="none" style={{ position: 'absolute', top: 0, left: 0 }}>
               <path d="M 150 100 Q 500 50, 700 200 T 1100 150" fill="none" stroke="#688F70" strokeWidth="5" strokeDasharray="15, 20" strokeLinecap="round" />
             </svg>
-            <div style={{ position: 'absolute', top: '120px', left: '700px', transform: 'rotate(15deg)' }}>
+            <div className="airplane-icon" style={{ position: 'absolute', top: '120px', left: '700px', transform: 'rotate(15deg)' }}>
               <svg width="60" height="60" viewBox="0 0 24 24" fill="#1C4B36">
                 <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
               </svg>
@@ -326,6 +326,55 @@ export default function OurStoryPage() {
           .our-story-hero-h2 {
             font-size: 2rem !important;
             text-align: center !important;
+          }
+          .story-block {
+            padding: 3vh 2vw !important;
+            gap: 2vw !important;
+            flex-wrap: nowrap !important;
+            flex-direction: row !important;
+          }
+          .story-block.reverse {
+            flex-direction: row !important;
+          }
+          .story-block.reverse-col {
+            flex-direction: row !important;
+          }
+          .story-text {
+            flex: 1 !important;
+            min-width: 0 !important;
+          }
+          .story-block:not(:has(.story-img)) .story-text {
+            flex: 1 1 100% !important;
+            text-align: center !important;
+          }
+          .story-text.text-right {
+            text-align: right !important;
+          }
+          .story-text.text-left {
+            text-align: left !important;
+          }
+          .story-text h2 {
+            font-size: clamp(1rem, 3.5vw, 2.5rem) !important;
+          }
+          .story-text h3 {
+            font-size: clamp(0.6rem, 2vw, 1.5rem) !important;
+          }
+          .story-img {
+            flex: 1 !important;
+            min-width: 0 !important;
+            max-width: 50% !important;
+            margin: 0 !important;
+          }
+          .coastline-svg {
+            left: 2% !important;
+            width: 30px !important;
+          }
+          .airplane-section {
+            height: 15vh !important;
+          }
+          .airplane-icon {
+            left: 50% !important;
+            transform: translateX(-50%) rotate(15deg) scale(0.6) !important;
           }
         }
       `}</style>
