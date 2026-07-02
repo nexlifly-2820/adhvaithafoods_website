@@ -34,10 +34,10 @@ export default function Footer() {
 
   return (
     <footer style={{ background: '#F97316', color: '#000', fontFamily: '"Montserrat", sans-serif', padding: '4rem 2rem 2rem', overflow: 'hidden' }}>
-      <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '3rem' }}>
+      <div className="footer-container" style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '3rem' }}>
         
         {/* Left Column */}
-        <div style={{ flex: '1.2', minWidth: '300px' }}>
+        <div className="footer-col" style={{ flex: '1.2', minWidth: '300px' }}>
           
           <div style={{ marginBottom: '3rem', maxWidth: '380px' }}>
             <h3 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: '1rem', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
@@ -48,7 +48,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '3rem', fontWeight: 900, fontSize: '0.85rem', letterSpacing: '0.05em', lineHeight: 2.2 }}>
+          <div className="footer-links-container" style={{ display: 'flex', gap: '3rem', fontWeight: 900, fontSize: '0.85rem', letterSpacing: '0.05em', lineHeight: 2.2 }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <div style={{ color: '#000', opacity: 0.5, marginBottom: '0.5rem', fontSize: '0.75rem' }}>QUICK LINKS</div>
               {quickLinks.map((link, i) => (
@@ -89,11 +89,12 @@ export default function Footer() {
         </div>
 
         {/* Middle Column */}
-        <div style={{ flex: '1', minWidth: '280px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="footer-col" style={{ flex: '1', minWidth: '280px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <div>
             <img 
               src="/images/logo.svg" 
               alt="Adhvaitha Foods" 
+              className="footer-logo"
               style={{ 
                 width: '380px', 
                 height: 'auto', 
@@ -105,7 +106,7 @@ export default function Footer() {
         </div>
 
         {/* Right Column */}
-        <div style={{ flex: '1.4', minWidth: '350px', display: 'flex', flexDirection: 'column' }}>
+        <div className="footer-col" style={{ flex: '1.4', minWidth: '350px', display: 'flex', flexDirection: 'column' }}>
           
           <div style={{ alignSelf: 'flex-start', background: '#fff', border: '2px solid #000', borderRadius: '50px', padding: '0.4rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', letterSpacing: '0.05em', boxShadow: '3px 3px 0 #000', marginBottom: '1.5rem' }}>
             STRAIGHT FROM GRANDMOTHER'S KITCHEN
@@ -116,7 +117,7 @@ export default function Footer() {
             FREE DELIVERY ON ORDERS ABOVE ₹499. PAN INDIA SHIPPING.
           </p>
 
-          <form style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }} onSubmit={(e) => e.preventDefault()}>
+          <form className="footer-email-form" style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }} onSubmit={(e) => e.preventDefault()}>
             <input 
               type="email" 
               placeholder="email@example.com" 
@@ -144,10 +145,10 @@ export default function Footer() {
             <p style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.8rem', fontWeight: 700, marginBottom: '0.2rem' }}>
               © 2026, Adhvaitha Foods
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.05em', alignItems: 'center' }}>
+            <div className="footer-bottom-links" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.05em', alignItems: 'center' }}>
               <Link href="/terms-and-conditions" className="footer-small-link">TERMS & CONDITIONS</Link>
               <Link href="/privacy-policy" className="footer-small-link">PRIVACY POLICY</Link>
-              <span style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
+              <span className="footer-payment-methods" style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
                 {['UPI', 'CARDS', 'COD'].map(method => (
                   <span key={method} style={{ border: '1px solid #000', padding: '0.1rem 0.4rem', borderRadius: '3px' }}>{method}</span>
                 ))}
@@ -211,6 +212,40 @@ export default function Footer() {
         }
         .footer-small-link:hover {
           text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+          .footer-container {
+            gap: 2rem !important;
+            flex-direction: column !important;
+          }
+          .footer-col {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+          }
+          .footer-logo {
+            width: 100% !important;
+            max-width: 280px !important;
+          }
+          .footer-links-container {
+            gap: 2rem !important;
+            flex-wrap: wrap !important;
+          }
+          .footer-bottom-links {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+          }
+          .footer-payment-methods {
+            margin-left: 0 !important;
+            margin-top: 0.5rem !important;
+          }
+          .footer-email-form {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .footer-email-form button {
+            width: 100% !important;
+          }
         }
       `}</style>
     </footer>
