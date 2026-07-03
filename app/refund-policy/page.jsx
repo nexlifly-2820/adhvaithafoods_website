@@ -1,3 +1,6 @@
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
 export const metadata = {
   title: 'Refund & Cancellation Policy | Adhvaitha Foods',
   description: 'Refund and Cancellation Policy for Adhvaitha Foods, homemade pickles and food products.',
@@ -5,7 +8,9 @@ export const metadata = {
 
 export default function RefundPolicy() {
   return (
-    <main className="section-pad">
+    <div style={{ backgroundColor: '#F4ECD8', minHeight: '100vh', overflowX: 'hidden' }}>
+      <Navbar />
+      <main className="section-pad" style={{ paddingTop: '160px' }}>
       <div className="container-sm" style={{ background: '#fff', borderRadius: '18px', padding: '3rem', boxShadow: '0 10px 30px rgba(61,31,10,0.05)', border: '1px solid rgba(139,94,60,0.1)' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -80,5 +85,7 @@ export default function RefundPolicy() {
         </div>
       </div>
     </main>
+      <Footer />
+    </div>
   );
 }

@@ -1,3 +1,6 @@
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
 export const metadata = {
   title: 'Terms and Conditions | Avdaitha Foods',
   description: 'Terms and Conditions for Avdaitha Foods, homemade pickles and food products.',
@@ -5,7 +8,9 @@ export const metadata = {
 
 export default function TermsAndConditions() {
   return (
-    <main className="section-pad">
+    <div style={{ backgroundColor: '#F4ECD8', minHeight: '100vh', overflowX: 'hidden' }}>
+      <Navbar />
+      <main className="section-pad" style={{ paddingTop: '160px' }}>
       <div className="container-sm" style={{ background: '#fff', borderRadius: '18px', padding: '3rem', boxShadow: '0 10px 30px rgba(61,31,10,0.05)', border: '1px solid rgba(139,94,60,0.1)' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -190,21 +195,46 @@ export default function TermsAndConditions() {
           </section>
 
           <section>
-            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>11. GOVERNING LAW AND DISPUTE RESOLUTION</h2>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>11. DISCLAIMER OF WARRANTIES</h2>
+            <p className="body-md">The Platform and its services are provided on an “as-is” and “as-available” basis without warranties of any kind, either express or implied. We do not guarantee uninterrupted access to the Platform or that it will be free from technical errors.</p>
+          </section>
+
+          <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>12. INDEMNIFICATION</h2>
+            <p className="body-md">You agree to indemnify and hold harmless Adhvaitha Foods, its directors, employees, and affiliates from any claims, damages, or expenses arising from your misuse of the Platform or violation of these Terms.</p>
+          </section>
+
+          <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>13. ELECTRONIC COMMUNICATION</h2>
+            <p className="body-md">By using the Platform or placing an order, you consent to receive communications from us including order confirmations, shipping updates, and promotional messages via email, SMS, or WhatsApp. You may opt out of promotional communications at any time.</p>
+          </section>
+
+          <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>14. USER CONTENT & FEEDBACK</h2>
+            <p className="body-md">If you submit feedback, suggestions, or reviews, you grant Adhvaitha Foods a non-exclusive, royalty-free license to use, reproduce, publish, and display such content for operational or marketing purposes. You agree not to submit unlawful, defamatory, or abusive content.</p>
+          </section>
+
+          <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>15. PRIVACY</h2>
+            <p className="body-md">Your use of this Platform is also subject to our Privacy Policy, which describes how personal information is collected, used, and protected. Please review our Privacy Policy separately.</p>
+          </section>
+
+          <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>16. GOVERNING LAW AND DISPUTE RESOLUTION</h2>
             <ul className="body-md" style={{ listStyle: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <li><strong>11.1</strong> These Terms are governed by the laws of India, specifically applicable in the state of Telangana.</li>
-              <li><strong>11.2</strong> Any disputes shall first be attempted to be resolved through mutual discussion.</li>
-              <li><strong>11.3</strong> If unresolved, disputes shall be subject to the exclusive jurisdiction of the courts located in Yadadri Bhuvanagiri, Telangana, India.</li>
+              <li><strong>16.1</strong> These Terms are governed by the laws of India, specifically applicable in the state of Telangana.</li>
+              <li><strong>16.2</strong> Any disputes shall first be attempted to be resolved through mutual discussion.</li>
+              <li><strong>16.3</strong> If unresolved, disputes shall be subject to the exclusive jurisdiction of the courts located in Yadadri Bhuvanagiri, Telangana, India.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>12. CHANGES TO TERMS</h2>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>17. CHANGES TO TERMS</h2>
             <p className="body-md">We reserve the right to modify these Terms at any time. Updated Terms will be posted on the Platform with a revised effective date. Your continued use after such changes constitutes acceptance.</p>
           </section>
 
           <section>
-            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>13. CONTACT US</h2>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>18. CONTACT US</h2>
             <div style={{ background: 'rgba(250,240,220,0.4)', padding: '1.5rem', borderRadius: '12px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <tbody>
@@ -227,5 +257,7 @@ export default function TermsAndConditions() {
         </div>
       </div>
     </main>
+      <Footer />
+    </div>
   );
 }

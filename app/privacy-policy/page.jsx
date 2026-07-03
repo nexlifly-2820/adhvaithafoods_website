@@ -1,3 +1,6 @@
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
 export const metadata = {
   title: 'Privacy Policy | Avdaitha Foods',
   description: 'Privacy Policy for Avdaitha Foods, homemade pickles and food products.',
@@ -5,7 +8,9 @@ export const metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <main className="section-pad">
+    <div style={{ backgroundColor: '#F4ECD8', minHeight: '100vh', overflowX: 'hidden' }}>
+      <Navbar />
+      <main className="section-pad" style={{ paddingTop: '160px' }}>
       <div className="container-sm" style={{ background: '#fff', borderRadius: '18px', padding: '3rem', boxShadow: '0 10px 30px rgba(61,31,10,0.05)', border: '1px solid rgba(139,94,60,0.1)' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -233,8 +238,8 @@ export default function PrivacyPolicy() {
               </div>
 
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.3 Third-Party Analytics</h3>
-                <p className="body-md">We use Google Analytics and Firebase Analytics to understand how users interact with our Platform. These tools collect anonymised usage data. You can opt out of Google Analytics via Google's opt-out tools.</p>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.3 Advertising and Analytics Tools</h3>
+                <p className="body-md">We use third-party analytics and advertising tools including Google Analytics, Firebase Analytics, Google Ads, and Meta Pixel. These tools help us understand website traffic, measure marketing performance, and deliver relevant advertisements. They may collect information such as pages visited, time spent, interactions with ads, device, and browser information. The collected data is used in accordance with the respective platform policies.</p>
               </div>
             </div>
           </section>
@@ -344,5 +349,7 @@ export default function PrivacyPolicy() {
         </div>
       </div>
     </main>
+      <Footer />
+    </div>
   );
 }
