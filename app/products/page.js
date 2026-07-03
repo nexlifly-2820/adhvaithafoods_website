@@ -7,7 +7,8 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -187,26 +188,46 @@ function FilterSidebar({ activeCategory, setActiveCategory }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat;
+            
+            // Map category names to their respective images
+            const catImages = {
+              'All': '/images/logo.svg',
+              'Prepared Foods': '/images/products/mango-pickle.jpg',
+              'Ready-to-eat savouries': '/images/products/chakodi.jpg',
+              'Salts, spices, soups': '/images/products/biryani-masala.jpg',
+              'Indian Sweets & Snacks': '/images/products/Dry_Fruits_Laddu_(premium_dry_fruits_laddu).jpeg'
+            };
+            
             return (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
                   textAlign: 'left',
                   fontFamily: 'Lato, sans-serif',
                   fontWeight: isActive ? 900 : 700,
                   fontSize: '0.85rem',
-                  padding: '1rem',
+                  padding: '0.75rem 1rem',
                   borderRadius: '12px',
-                  border: 'none',
-                  background: isActive ? '#fff' : 'transparent',
-                  color: isActive ? 'var(--terracotta)' : 'var(--aged-wood)',
+                  border: isActive ? '1px solid rgba(196,96,58,0.3)' : '1px solid rgba(139,94,60,0.15)',
+                  background: isActive ? '#fff' : 'rgba(255,255,255,0.4)',
+                  color: isActive ? 'var(--terracotta)' : 'var(--rich-brown)',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  boxShadow: isActive ? '0 10px 20px rgba(61,31,10,0.05)' : 'none',
-                  borderLeft: isActive ? '4px solid var(--terracotta)' : '4px solid transparent',
+                  transition: 'all 0.2s ease',
+                  boxShadow: isActive ? '0 8px 16px rgba(196,96,58,0.08)' : 'none',
                 }}
               >
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(139,94,60,0.1)', background: '#fff' }}>
+                  <img 
+                    src={catImages[cat]} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = '/images/logo.svg'; }} 
+                    alt={cat} 
+                  />
+                </div>
                 {cat}
               </button>
             );
@@ -265,10 +286,22 @@ function EmptyState({ onClearFilters }) {
 
 // ─── Main Page Component ──────────────────────────────────────────
 
-export default function ProductsPage() {
+function ProductsContent() {
   console.log("ProductsPage re-rendering with new SVG coordinates...");
-  const [activeCategory, setActiveCategory] = useState(FILTER_ALL);
+  const searchParams = useSearchParams();
+  const queryCategory = searchParams.get('category');
+  
+  const [activeCategory, setActiveCategory] = useState(queryCategory && CATEGORIES.includes(queryCategory) ? queryCategory : FILTER_ALL);
   const [sortBy, setSortBy] = useState(SORT_FEATURED);
+
+  // Sync category state when URL changes
+  useEffect(() => {
+    if (queryCategory && CATEGORIES.includes(queryCategory)) {
+      setActiveCategory(queryCategory);
+    } else if (!queryCategory) {
+      setActiveCategory(FILTER_ALL);
+    }
+  }, [queryCategory]);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -498,7 +531,7 @@ export default function ProductsPage() {
         </section>
 
         {/* ── Advanced Sidebar Layout ──────────────────────── */}
-        <section className="products-main-section" style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
+        <section id="shop" className="products-main-section" style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '4rem', flexDirection: 'row' }} className="products-layout">
 
             <FilterSidebar
@@ -779,5 +812,17 @@ export default function ProductsPage() {
         }
       `}</style>
     </>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--cream)', color: 'var(--rich-brown)', fontFamily: 'Lato, sans-serif' }}>
+        Loading our delicious foods...
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   );
 }
