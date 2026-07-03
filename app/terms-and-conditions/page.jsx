@@ -23,13 +23,13 @@ export default function TermsAndConditions() {
             <span>Avdaitha Foods</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Address</strong>
-            <span>Abids, Hyderabad, Telangana 500001, India</span>
+            <span>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Phone / WA</strong>
-            <span>+91 98765 43210 (Mon–Sat, 9 AM–6 PM)</span>
+            <span>+91 93939 34200 (Mon–Sun, 9 AM–6 PM)</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Email</strong>
-            <span>hello@avdaithafoods.com / orders@avdaithafoods.com</span>
+            <span>hello@avdaithafoods.in / orders@avdaithafoods.in</span>
           </div>
         </section>
 
@@ -105,7 +105,7 @@ export default function TermsAndConditions() {
           <section>
             <h2 className="display-sm" style={{ marginBottom: '1rem' }}>6. DELIVERY</h2>
             <ul className="body-md" style={{ listStyle: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <li><strong>6.1</strong> We currently deliver within select areas of Hyderabad, Telangana. Delivery availability will be shown at checkout based on your pincode.</li>
+              <li><strong>6.1</strong> We currently deliver within select areas of Yadadri Bhuvanagiri, Telangana. Delivery availability will be shown at checkout based on your pincode.</li>
               <li><strong>6.2</strong> Estimated delivery times are indicative only and not guaranteed. Actual delivery may vary due to traffic, weather, volume of orders, or other factors.</li>
               <li><strong>6.3</strong> Delivery is made to the address provided at the time of ordering. We are not responsible for failed deliveries due to incorrect or incomplete addresses.</li>
               <li><strong>6.4</strong> If no one is available at the delivery address and our agent cannot reach you, the order may be returned. Re-delivery charges will apply and no refund will be issued for the original order.</li>
@@ -253,7 +253,7 @@ export default function TermsAndConditions() {
             <ul className="body-md" style={{ listStyle: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <li><strong>11.1</strong> These Terms are governed by the laws of India, specifically applicable in the state of Telangana.</li>
               <li><strong>11.2</strong> Any disputes shall first be attempted to be resolved through mutual discussion.</li>
-              <li><strong>11.3</strong> If unresolved, disputes shall be subject to the exclusive jurisdiction of the courts located in Hyderabad, Telangana, India.</li>
+              <li><strong>11.3</strong> If unresolved, disputes shall be subject to the exclusive jurisdiction of the courts located in Yadadri Bhuvanagiri, Telangana, India.</li>
             </ul>
           </section>
 
@@ -267,10 +267,10 @@ export default function TermsAndConditions() {
             <div style={{ background: 'rgba(250,240,220,0.4)', padding: '1.5rem', borderRadius: '12px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <tbody>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.com / orders@avdaithafoods.com</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>WhatsApp</td><td style={{ padding: '0.5rem 0' }}>+91 98765 43210</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Avdaitha Foods, Abids, Hyderabad, Telangana 500001, India</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Saturday: 9:00 AM – 6:00 PM IST | Sunday: Closed</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.in / orders@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>WhatsApp</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods, North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>
               </table>
             </div>
@@ -278,7 +278,7 @@ export default function TermsAndConditions() {
 
           <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(139,94,60,0.2)', textAlign: 'center' }}>
             <p className="body-sm" style={{ fontStyle: 'italic', color: 'var(--aged-wood)' }}>
-              These Terms and Conditions were prepared for Avdaitha Foods, Hyderabad. Please have these reviewed by a qualified legal professional before publishing.
+              These Terms and Conditions were prepared for Adhvaitha Foods, Yadadri Bhuvanagiri. Please have these reviewed by a qualified legal professional before publishing.
             </p>
           </div>
 

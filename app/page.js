@@ -1268,19 +1268,31 @@ export default function HomePage() {
                           {products[i].name}
                         </div>
 
-                        <button className="mobile-testimonial-shop-btn" style={{
+                        <a href="#" className="mobile-testimonial-shop-btn" style={{
                           background: '#ffffff',
                           border: '1px solid #1c402c',
                           borderRadius: '24px',
-                          padding: '0.4rem 0.9rem',
+                          padding: '0.3rem 0.6rem',
                           fontFamily: 'system-ui, -apple-system, sans-serif',
-                          fontSize: '0.85rem',
-                          fontWeight: 400,
+                          fontSize: '0.75rem',
+                          fontWeight: 600,
                           color: '#1c402c',
-                          cursor: 'pointer'
+                          textDecoration: 'none',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.3rem',
+                          whiteSpace: 'nowrap'
                         }}>
-                          Shop
-                        </button>
+                          <svg viewBox="0 0 24 24" width="14" height="14" style={{ flexShrink: 0, display: 'block' }} xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.3,2.4C4.1,2.5,4,2.8,4,3.1v17.7c0,0.3,0.1,0.6,0.3,0.7l0.1,0.1l9.9-9.9v-0.2L4.4,2.3L4.3,2.4z" fill="#00e676"/>
+                            <path d="M18.8,14.6l-3.2-3.2v-0.2l3.2-3.2l0.1,0.1l3.8,2.1c1,0.6,1,1.5,0,2.1l-3.8,2.1L18.8,14.6z" fill="#ffc107"/>
+                            <path d="M14.4,11.3l-10-10C4.3,1.1,4.1,1.1,4,1.3l10.3,10.3L14.4,11.3z" fill="#ff3d00"/>
+                            <path d="M14.4,12.7l-0.1,0.1L4,23.1c0.1,0.1,0.3,0.1,0.5,0l10-10L14.4,12.7z" fill="#29b6f6"/>
+                          </svg>
+                          Get App
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -1409,7 +1421,7 @@ export default function HomePage() {
                   marginBottom: '0.8rem',
                   letterSpacing: '-0.02em'
                 }}>
-                  BIG CRAVING?<br />WE'VE GOT YOU.
+                  DOWNLOAD OUR APP<br />TO ORDER
                 </h2>
                 <h3 className="cta-banner-subtitle" style={{
                   fontFamily: '"Oswald", "Arial Black", sans-serif',
@@ -1430,7 +1442,7 @@ export default function HomePage() {
                   marginBottom: '1.5rem',
                   maxWidth: '500px'
                 }}>
-                  Order authentic flavors straight from the grandmother's kitchen that knows how to spice it up. Adhvaitha Foods style.
+                  To order anything, please download our app from the Play Store. Get authentic flavors straight from grandmother's kitchen delivered to your door.
                 </p>
                 <p style={{
                   fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -1438,24 +1450,30 @@ export default function HomePage() {
                   fontWeight: 600,
                   marginBottom: '1.2rem'
                 }}>
-                  * Free delivery on orders above ₹499
+                  * Available exclusively on Android
                 </p>
 
-                <Link href="/products" style={{
-                  display: 'inline-block',
-                  backgroundColor: '#C82030',
+                <a href="#" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  backgroundColor: '#000000',
                   color: '#FFFFFF',
-                  fontFamily: '"Oswald", "Arial Black", sans-serif',
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  padding: '0.8rem 1.6rem',
-                  borderRadius: '30px',
+                  padding: '0.6rem 1.4rem',
+                  borderRadius: '8px',
                   textDecoration: 'none',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em'
                 }}>
-                  Order Your Jar Today
-                </Link>
+                  <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.3,2.4C4.1,2.5,4,2.8,4,3.1v17.7c0,0.3,0.1,0.6,0.3,0.7l0.1,0.1l9.9-9.9v-0.2L4.4,2.3L4.3,2.4z" fill="#00e676"/>
+                    <path d="M18.8,14.6l-3.2-3.2v-0.2l3.2-3.2l0.1,0.1l3.8,2.1c1,0.6,1,1.5,0,2.1l-3.8,2.1L18.8,14.6z" fill="#ffc107"/>
+                    <path d="M14.4,11.3l-10-10C4.3,1.1,4.1,1.1,4,1.3l10.3,10.3L14.4,11.3z" fill="#ff3d00"/>
+                    <path d="M14.4,12.7l-0.1,0.1L4,23.1c0.1,0.1,0.3,0.1,0.5,0l10-10L14.4,12.7z" fill="#29b6f6"/>
+                  </svg>
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: '1', color: '#ccc' }}>Get it on</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 600, fontFamily: 'system-ui, sans-serif', lineHeight: '1' }}>Google Play</div>
+                  </div>
+                </a>
               </div>
 
               {/* Right Side: Flatlay Ingredients Image */}

@@ -66,10 +66,10 @@ export default function Footer() {
           <div style={{ marginTop: '3rem' }}>
             {/* Contact Details */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontWeight: 800, fontSize: '0.8rem', marginBottom: '1.5rem', letterSpacing: '0.02em', maxWidth: '400px' }}>
-              <div>📍 Hyderabad, Telangana</div>
-              <div>📞 +91 98765 43210</div>
-              <div>✉️ hello@avdaithafoods.com</div>
-              <div>⏰ Mon–Sat: 9AM – 6PM</div>
+              <div>📍 North East Colony, Yadadri Bhuvanagiri 508284</div>
+              <div>📞 +91 93939 34200</div>
+              <div>✉️ hello@avdaithafoods.in</div>
+              <div>⏰ Mon–Sun: 9AM – 6PM</div>
             </div>
 
             {/* Socials */}
@@ -116,6 +116,38 @@ export default function Footer() {
             PURE • NATURAL • TRADITIONAL SINCE 1970.<br/>
             FREE DELIVERY ON ORDERS ABOVE ₹499. PAN INDIA SHIPPING.
           </p>
+
+          <div style={{ marginBottom: '2.5rem' }}>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: 900, marginBottom: '0.8rem', letterSpacing: '0.02em', color: '#111' }}>DOWNLOAD OUR APP</h4>
+            <p style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '1rem', maxWidth: '400px', color: '#333' }}>To order anything, please download our app from the Play Store.</p>
+            <a href="#" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: '#000000',
+              color: '#FFFFFF',
+              padding: '0.5rem 1.2rem',
+              borderRadius: '6px',
+              textDecoration: 'none',
+              border: '1px solid #333',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              transition: 'transform 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.3,2.4C4.1,2.5,4,2.8,4,3.1v17.7c0,0.3,0.1,0.6,0.3,0.7l0.1,0.1l9.9-9.9v-0.2L4.4,2.3L4.3,2.4z" fill="#00e676"/>
+                <path d="M18.8,14.6l-3.2-3.2v-0.2l3.2-3.2l0.1,0.1l3.8,2.1c1,0.6,1,1.5,0,2.1l-3.8,2.1L18.8,14.6z" fill="#ffc107"/>
+                <path d="M14.4,11.3l-10-10C4.3,1.1,4.1,1.1,4,1.3l10.3,10.3L14.4,11.3z" fill="#ff3d00"/>
+                <path d="M14.4,12.7l-0.1,0.1L4,23.1c0.1,0.1,0.3,0.1,0.5,0l10-10L14.4,12.7z" fill="#29b6f6"/>
+              </svg>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '0.55rem', textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: '1', color: '#ccc' }}>Get it on</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 600, fontFamily: 'system-ui, sans-serif', lineHeight: '1' }}>Google Play</div>
+              </div>
+            </a>
+          </div>
 
           <form className="footer-email-form" style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }} onSubmit={(e) => e.preventDefault()}>
             <input 

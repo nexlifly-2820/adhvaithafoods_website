@@ -454,25 +454,32 @@ export default function HowWeMakeItPage() {
                 Every jar of Adhvaitha Foods is a labor of love, crafted over weeks to bring you the authentic taste of an Indian grandmother's kitchen.
               </p>
 
-              <Link href="/products" style={{
-                display: 'inline-block',
-                backgroundColor: '#221F1F',
+              <a href="#" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.8rem',
+                backgroundColor: '#000000',
                 color: '#FFFFFF',
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontWeight: 900,
-                fontSize: '1.2rem',
-                padding: '1.2rem 3.5rem',
-                borderRadius: '50px',
-                textTransform: 'uppercase',
+                padding: '0.8rem 1.6rem',
+                borderRadius: '8px',
                 textDecoration: 'none',
-                letterSpacing: '0.05em',
-                transition: 'transform 0.2s ease, background 0.2s ease',
+                marginTop: '1rem',
+                transition: 'transform 0.2s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.backgroundColor = '#000'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.backgroundColor = '#221F1F'; }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                Shop Our Pickles
-              </Link>
+                <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.3,2.4C4.1,2.5,4,2.8,4,3.1v17.7c0,0.3,0.1,0.6,0.3,0.7l0.1,0.1l9.9-9.9v-0.2L4.4,2.3L4.3,2.4z" fill="#00e676"/>
+                  <path d="M18.8,14.6l-3.2-3.2v-0.2l3.2-3.2l0.1,0.1l3.8,2.1c1,0.6,1,1.5,0,2.1l-3.8,2.1L18.8,14.6z" fill="#ffc107"/>
+                  <path d="M14.4,11.3l-10-10C4.3,1.1,4.1,1.1,4,1.3l10.3,10.3L14.4,11.3z" fill="#ff3d00"/>
+                  <path d="M14.4,12.7l-0.1,0.1L4,23.1c0.1,0.1,0.3,0.1,0.5,0l10-10L14.4,12.7z" fill="#29b6f6"/>
+                </svg>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: '1', color: '#ccc' }}>Get it on</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 600, fontFamily: 'system-ui, sans-serif', lineHeight: '1' }}>Google Play</div>
+                </div>
+              </a>
             </div>
           </div>
         </section>

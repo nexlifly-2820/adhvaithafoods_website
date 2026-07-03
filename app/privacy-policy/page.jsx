@@ -23,13 +23,13 @@ export default function PrivacyPolicy() {
             <span>Avdaitha Foods</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Address</strong>
-            <span>Abids, Hyderabad, Telangana 500001, India</span>
+            <span>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Phone / WA</strong>
-            <span>+91 98765 43210 (Mon–Sat, 9 AM–6 PM)</span>
+            <span>+91 93939 34200 (Mon–Sun, 9 AM–6 PM)</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Email</strong>
-            <span>hello@avdaithafoods.com / orders@avdaithafoods.com</span>
+            <span>hello@avdaithafoods.in / orders@avdaithafoods.in</span>
           </div>
         </section>
 
@@ -210,7 +210,7 @@ export default function PrivacyPolicy() {
               </table>
             </div>
 
-            <p className="body-md">To exercise any of these rights, contact us at <a href="mailto:hello@avdaithafoods.com" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>hello@avdaithafoods.com</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
+            <p className="body-md">To exercise any of these rights, contact us at <a href="mailto:hello@avdaithafoods.in" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>hello@avdaithafoods.in</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
           </section>
 
           <section>
@@ -301,8 +301,8 @@ export default function PrivacyPolicy() {
                 <tbody>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Name</td><td style={{ padding: '0.5rem 0' }}>Avdaitha Foods Representative</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Designation</td><td style={{ padding: '0.5rem 0' }}>Grievance Officer</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>grievance@avdaithafoods.com</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Avdaitha Foods, Abids, Hyderabad, Telangana 500001, India</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>grievance@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods, North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Response</td><td style={{ padding: '0.5rem 0' }}>Within 30 days of receiving the complaint</td></tr>
                 </tbody>
               </table>
@@ -325,10 +325,10 @@ export default function PrivacyPolicy() {
             <div style={{ background: 'rgba(250,240,220,0.4)', padding: '1.5rem', borderRadius: '12px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <tbody>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.com / orders@avdaithafoods.com</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>WhatsApp</td><td style={{ padding: '0.5rem 0' }}>+91 98765 43210</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Avdaitha Foods, Abids, Hyderabad, Telangana 500001, India</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Saturday: 9:00 AM – 6:00 PM IST | Sunday: Closed</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.in / orders@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>WhatsApp</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods, North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>
               </table>
             </div>
@@ -336,7 +336,7 @@ export default function PrivacyPolicy() {
 
           <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(139,94,60,0.2)', textAlign: 'center' }}>
             <p className="body-sm" style={{ fontStyle: 'italic', color: 'var(--aged-wood)' }}>
-              This Privacy Policy was prepared for Avdaitha Foods, Hyderabad. Please have this reviewed by a qualified legal professional before publishing.
+              This Privacy Policy was prepared for Adhvaitha Foods, Yadadri Bhuvanagiri. Please have this reviewed by a qualified legal professional before publishing.
             </p>
           </div>
 

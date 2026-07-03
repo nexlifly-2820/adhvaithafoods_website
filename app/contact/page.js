@@ -209,7 +209,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   className="crav-input"
-                  placeholder="SUBJECT (E.G. BULK ORDER)"
+                  placeholder="SUBJECT (E.G. GENERAL INQUIRY)"
                   value={form.subject}
                   onChange={e => setForm({ ...form, subject: e.target.value })}
                 />
@@ -343,10 +343,10 @@ export default function ContactPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '4rem', marginTop: '8rem' }}>
 
               {[
-                { icon: <MapPin size={48} color="#FF1E1E" />, title: 'OUR KITCHEN', text: 'Avdaitha Foods, Abids\nHyderabad, Telangana 500001' },
-                { icon: <Phone size={48} color="#FF1E1E" />, title: 'CALL US', text: '+91 98765 43210\nMon–Sat, 9AM–6PM' },
-                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: 'hello@avdaithafoods.com\norders@avdaithafoods.com' },
-                { icon: <Clock size={48} color="#FF1E1E" />, title: 'HOURS', text: 'Mon–Sat: 9AM – 6PM\nSunday: Closed' }
+                { icon: <MapPin size={48} color="#FF1E1E" />, title: 'OUR KITCHEN', text: 'Adhvaitha Foods, North East Colony\nDeshmukhi, Yadadri Bhuvanagiri 508284' },
+                { icon: <Phone size={48} color="#FF1E1E" />, title: 'CALL US', text: '+91 93939 34200\nMon–Sun, 9AM–6PM' },
+                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: 'hello@avdaithafoods.in\nsupport@avdaithafoods.in' },
+                { icon: <Clock size={48} color="#FF1E1E" />, title: 'HOURS', text: 'Mon–Sun: 9AM – 6PM\nOpen Every Day' }
               ].map((item, i) => (
                 <div key={i} className="reveal" style={{
                   animationDelay: `${i * 0.1}s`
@@ -366,7 +366,7 @@ export default function ContactPage() {
 
             {/* Massive WhatsApp Pill */}
             <div className="reveal" style={{ display: 'flex', justifyContent: 'center', marginTop: '8rem' }}>
-              <a href="https://wa.me/919876543210?text=Hello%20Avdaitha%20Foods!" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/919393934200?text=Hello%20Avdaitha%20Foods!" target="_blank" rel="noopener noreferrer"
                 className="contact-whatsapp-btn"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '1rem',
