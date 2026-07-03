@@ -79,7 +79,7 @@ export default function TermsAndConditions() {
                 </ul>
               </li>
               <li><strong>4.4</strong> If we cancel your order after payment, a full refund will be issued to your original payment method within 5–7 business days.</li>
-              <li><strong>4.5</strong> You may not cancel an order once it has been accepted and moved to the Packing stage.</li>
+              <li><strong>4.5 Cancellation Rule:</strong> Orders can only be cancelled within 2 hours of placing the order, or before the order has been dispatched—whichever is earlier. Once dispatched, orders cannot be cancelled.</li>
             </ul>
           </section>
 
@@ -99,121 +99,62 @@ export default function TermsAndConditions() {
               <li><strong>5.4</strong> For COD orders, payment must be made in exact change at the time of delivery. Our delivery personnel do not carry change.</li>
               <li><strong>5.5</strong> We reserve the right to change pricing at any time without prior notice. The price at the time of order confirmation is the final price.</li>
               <li><strong>5.6</strong> We are not responsible for duplicate payments arising from re-attempts after a payment failure. Please verify with your bank before re-attempting.</li>
+              <li style={{ background: 'rgba(220, 38, 38, 0.05)', padding: '1rem', borderRadius: '8px', borderLeft: '4px solid #dc2626', margin: '0.5rem 0' }}>
+                <strong>5.7 Fraudulent Chargeback Clause:</strong> Any fraudulent chargebacks (claiming to the bank that you didn't make the purchase when you actually did) or fake refund claims will result in a permanent ban from using the Adhvaitha Foods app and website, and we reserve the right to take legal action to recover the lost amount.
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>6. DELIVERY</h2>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>6. STRICT SHIPPING & DELIVERY POLICY (ANTI-SCAM)</h2>
             <ul className="body-md" style={{ listStyle: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <li><strong>6.1</strong> We currently deliver within select areas of Yadadri Bhuvanagiri, Telangana. Delivery availability will be shown at checkout based on your pincode.</li>
-              <li><strong>6.2</strong> Estimated delivery times are indicative only and not guaranteed. Actual delivery may vary due to traffic, weather, volume of orders, or other factors.</li>
-              <li><strong>6.3</strong> Delivery is made to the address provided at the time of ordering. We are not responsible for failed deliveries due to incorrect or incomplete addresses.</li>
-              <li><strong>6.4</strong> If no one is available at the delivery address and our agent cannot reach you, the order may be returned. Re-delivery charges will apply and no refund will be issued for the original order.</li>
-              <li><strong>6.5</strong> We are not liable for delays caused by natural disasters, civil unrest, government restrictions, or extreme weather.</li>
+              <li><strong>6.1 Customer Responsibility for Address:</strong> Customers must ensure the delivery address and phone number provided are 100% accurate. We are not responsible for non-delivery due to incorrect or incomplete addresses. No refunds will be provided for orders lost or returned due to wrong address inputs.</li>
+              <li><strong>6.2 No Address Changes:</strong> Once an order has been processed and handed over to the courier, the delivery address cannot be changed under any circumstances.</li>
+              <li><strong>6.3 Delivery Timelines are Estimates:</strong> While we strive to deliver within our stated timeframe (e.g., 3 to 7 days), delivery delays caused by courier partners, weather conditions, or unforeseen circumstances are out of our control. We do not offer refunds for delayed deliveries.</li>
+              <li><strong>6.4 Unavailability of Customer:</strong> Our delivery partners will attempt delivery 2 times. If the customer is unavailable to receive the package, or rejects the delivery at the doorstep, the package will be returned to us. <strong>No refunds will be issued for perishable food items in such cases.</strong></li>
+              <li style={{ background: 'rgba(232,168,32,0.1)', padding: '1rem', borderRadius: '8px', borderLeft: '4px solid #F0CD4C', margin: '0.5rem 0' }}>
+                <strong>6.5 The "RTO" (Return to Origin) Clause:</strong> If a prepaid order is returned to us (RTO) because the customer rejected the delivery, provided an incorrect address, or was unreachable, <strong>shipping charges (both forward and return) will be deducted</strong> from any eligible refund. For perishable food items that get spoiled during RTO, zero refund will be issued.
+              </li>
             </ul>
           </section>
 
           <section>
             <div style={{ background: 'var(--terracotta)', color: 'var(--ivory)', padding: '1.5rem', borderRadius: '12px', marginBottom: '2rem' }}>
-              <h2 className="display-sm" style={{ marginBottom: '0.5rem', color: 'var(--ivory)' }}>7. NO RETURN, NO REPLACEMENT, NO REFUND POLICY</h2>
+              <h2 className="display-sm" style={{ marginBottom: '0.5rem', color: 'var(--ivory)' }}>7. STRICT REFUND & RETURN POLICY (ANTI-SCAM)</h2>
               <p className="body-sm" style={{ fontWeight: 700, letterSpacing: '0.05em' }}>PLEASE READ THIS SECTION CAREFULLY BEFORE PLACING YOUR ORDER.</p>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.1 General Policy</h3>
-                <p className="body-md">ALL SALES ARE FINAL. Avdaitha Foods operates a strict No Return, No Replacement, and No Refund policy on all orders once delivered. By placing an order, you acknowledge and agree to this policy unconditionally.</p>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.1 Mandatory Unboxing Video</h3>
+                <p className="body-md">To be eligible for any return, replacement, or refund for damaged or missing items, <strong>a continuous, unedited unboxing video is strictly mandatory</strong>. The video must clearly show the sealed package being opened from all sides. Without an unboxing video, no claims will be entertained.</p>
               </div>
 
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.2 Why We Have This Policy</h3>
-                <p className="body-md">Our products are:</p>
-                <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Freshly prepared food items that cannot be resold once delivered</li>
-                  <li>Perishable in nature and cannot be restocked after leaving our facility</li>
-                  <li>Handcrafted in small batches without industrial preservation</li>
-                  <li>Subject to food safety regulations that prohibit return of opened or handled food products</li>
-                </ul>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.2 Strict 24-Hour Window</h3>
+                <p className="body-md">Any claims for damaged, spoiled, or incorrect items must be reported within <strong>24 hours of delivery</strong>. Claims made after 24 hours will be automatically rejected.</p>
               </div>
 
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.3 No Returns</h3>
-                <p className="body-md">We do not accept returns under any circumstance including but not limited to:</p>
-                <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Change of mind after delivery</li>
-                  <li>Dislike of taste, flavour, spice level, or texture</li>
-                  <li>Ordered by mistake</li>
-                  <li>Received as a gift and not wanted</li>
-                  <li>Delay in delivery leading to dissatisfaction</li>
-                </ul>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.3 No Returns on Food Items</h3>
+                <p className="body-md">Due to hygiene and safety reasons, we do not accept returns on any food items once the seal is broken or the package is opened. Taste preferences, dislike of flavor, or minor natural variations in handcrafted products are not considered a valid reason for a refund.</p>
               </div>
 
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.4 No Replacements</h3>
-                <p className="body-md">We do not offer product replacements for:</p>
-                <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Taste or quality preferences that are subjective in nature</li>
-                  <li>Minor natural variations in colour or texture of handcrafted products</li>
-                  <li>Opened or partially consumed products</li>
-                  <li>Products not stored as per the instructions on the label</li>
-                </ul>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.4 Replacement First Policy</h3>
+                <p className="body-md">If a valid claim is verified via the unboxing video, our policy is to provide a <strong>free replacement</strong> of the item. Cash refunds are only initiated if the replacement item is out of stock.</p>
               </div>
 
               <div>
                 <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.5 No Refunds</h3>
                 <p className="body-md">Refunds will NOT be issued for:</p>
                 <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Delivered orders under any circumstances</li>
-                  <li>COD orders where the customer refuses to pay at delivery</li>
-                  <li>Orders where the customer was unavailable at delivery</li>
-                  <li>Taste dissatisfaction</li>
-                  <li>Any reason other than the narrow exceptions listed in Section 7.6 below</li>
+                  <li>Orders where the customer refused delivery or was unavailable</li>
+                  <li>Taste dissatisfaction or "ordered by mistake"</li>
+                  <li>Any reason other than the narrow exceptions listed above (and proven via unboxing video).</li>
                 </ul>
               </div>
 
-              <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.6 Exceptions (Only Valid Complaints)</h3>
-                <p className="body-md" style={{ marginBottom: '1rem' }}>A complaint will be considered only in the following strictly limited situations:</p>
-                
-                <div style={{ overflowX: 'auto', marginBottom: '1rem' }}>
-                  <table style={{ width: '100%', minWidth: '500px', borderCollapse: 'collapse', border: '1px solid rgba(139,94,60,0.2)' }}>
-                    <thead>
-                      <tr style={{ background: 'rgba(232,168,32,0.1)' }}>
-                        <th style={{ padding: '0.75rem 1rem', textAlign: 'left', borderBottom: '1px solid rgba(139,94,60,0.2)' }}>Situation</th>
-                        <th style={{ padding: '0.75rem 1rem', textAlign: 'left', borderBottom: '1px solid rgba(139,94,60,0.2)' }}>Resolution</th>
-                      </tr>
-                    </thead>
-                    <tbody className="body-md">
-                      <tr>
-                        <td style={{ padding: '0.75rem 1rem', borderBottom: '1px solid rgba(139,94,60,0.1)' }}>Product delivered is completely different from what was ordered (wrong item)</td>
-                        <td style={{ padding: '0.75rem 1rem', borderBottom: '1px solid rgba(139,94,60,0.1)', fontWeight: 700 }}>Replacement or store credit only</td>
-                      </tr>
-                      <tr>
-                        <td style={{ padding: '0.75rem 1rem', borderBottom: '1px solid rgba(139,94,60,0.1)' }}>Product is visibly damaged, leaking, or seal-broken at the time of delivery</td>
-                        <td style={{ padding: '0.75rem 1rem', borderBottom: '1px solid rgba(139,94,60,0.1)', fontWeight: 700 }}>Replacement or store credit only</td>
-                      </tr>
-                      <tr>
-                        <td style={{ padding: '0.75rem 1rem' }}>Product is delivered in an inedible or clearly spoiled condition — must be reported within 2 hours with photo proof</td>
-                        <td style={{ padding: '0.75rem 1rem', fontWeight: 700 }}>Replacement or store credit only</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <p className="body-md" style={{ fontWeight: 700, marginBottom: '0.5rem' }}>Important conditions for any exception claim:</p>
-                <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Must be reported within 2 hours of delivery via WhatsApp or our app</li>
-                  <li>Must include clear photographs of the product and packaging</li>
-                  <li>The product must be unopened or minimally opened (only enough to identify the issue)</li>
-                  <li>Decision by Avdaitha Foods is final and binding</li>
-                  <li>Accepted claims result in store credit or replacement only — never a cash refund</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>7.7 Store Credit</h3>
-                <p className="body-md">In rare accepted cases under Section 7.6, we may issue store credit valid for 30 days from the date of issue. Store credit cannot be converted to cash.</p>
-              </div>
             </div>
           </section>
 
@@ -267,9 +208,10 @@ export default function TermsAndConditions() {
             <div style={{ background: 'rgba(250,240,220,0.4)', padding: '1.5rem', borderRadius: '12px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
                 <tbody>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.in / orders@avdaithafoods.in</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>WhatsApp</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods, North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Legal Entity Name</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Registered Office Address</td><td style={{ padding: '0.5rem 0' }}>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Phone Number</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>
               </table>

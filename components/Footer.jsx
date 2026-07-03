@@ -180,6 +180,8 @@ export default function Footer() {
             <div className="footer-bottom-links" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.05em', alignItems: 'center' }}>
               <Link href="/terms-and-conditions" className="footer-small-link">TERMS & CONDITIONS</Link>
               <Link href="/privacy-policy" className="footer-small-link">PRIVACY POLICY</Link>
+              <Link href="/refund-policy" className="footer-small-link">REFUND POLICY</Link>
+              <Link href="/shipping-policy" className="footer-small-link">SHIPPING POLICY</Link>
               <span className="footer-payment-methods" style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
                 {['UPI', 'CARDS', 'COD'].map(method => (
                   <span key={method} style={{ border: '1px solid #000', padding: '0.1rem 0.4rem', borderRadius: '3px' }}>{method}</span>
