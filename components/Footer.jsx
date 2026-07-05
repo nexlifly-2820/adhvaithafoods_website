@@ -68,7 +68,7 @@ export default function Footer() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontWeight: 800, fontSize: '0.8rem', marginBottom: '1.5rem', letterSpacing: '0.02em', maxWidth: '400px' }}>
               <div>📍 North East Colony, Yadadri Bhuvanagiri 508284</div>
               <div>📞 +91 93939 34200</div>
-              <div>✉️ hello@avdaithafoods.in</div>
+              <div>✉️ info@avdaithafoods.in</div>
               <div>⏰ Mon–Sun: 9AM – 6PM</div>
             </div>
 

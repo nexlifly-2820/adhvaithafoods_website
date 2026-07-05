@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
             <span>+91 93939 34200 (Mon–Sun, 9 AM–6 PM)</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Email</strong>
-            <span>hello@avdaithafoods.in / orders@avdaithafoods.in</span>
+            <span>info@avdaithafoods.in / orders@avdaithafoods.in</span>
           </div>
         </section>
 
@@ -215,7 +215,7 @@ export default function PrivacyPolicy() {
               </table>
             </div>
 
-            <p className="body-md">To exercise any of these rights, contact us at <a href="mailto:hello@avdaithafoods.in" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>hello@avdaithafoods.in</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
+            <p className="body-md">To exercise any of these rights, contact us at <a href="mailto:info@avdaithafoods.in" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>info@avdaithafoods.in</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
           </section>
 
           <section>
@@ -332,7 +332,7 @@ export default function PrivacyPolicy() {
                 <tbody>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Legal Entity Name</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Registered Office Address</td><td style={{ padding: '0.5rem 0' }}>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>hello@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>info@avdaithafoods.in</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Phone Number</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>

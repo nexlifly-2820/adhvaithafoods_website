@@ -402,7 +402,7 @@ export default function ContactPage() {
               {[
                 { icon: <MapPin size={48} color="#FF1E1E" />, title: 'OUR KITCHEN', text: 'Adhvaitha Foods, North East Colony\nDeshmukhi, Yadadri Bhuvanagiri 508284' },
                 { icon: <Phone size={48} color="#FF1E1E" />, title: 'CALL US', text: '+91 93939 34200\nMon–Sun, 9AM–6PM' },
-                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: 'hello@avdaithafoods.in\nsupport@avdaithafoods.in' },
+                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: 'info@avdaithafoods.in\nsupport@avdaithafoods.in' },
                 { icon: <Clock size={48} color="#FF1E1E" />, title: 'HOURS', text: 'Mon–Sun: 9AM – 6PM\nOpen Every Day' }
               ].map((item, i) => (
                 <div key={i} className="reveal" style={{
