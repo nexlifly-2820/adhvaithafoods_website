@@ -9,7 +9,7 @@ export default function ContactPage() {
   useEffect(() => {
     const fetchContact = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/web_settings.php?doc_id=contact_web');
+        const res = await fetch('/api/web-data?doc_id=contact_web');
         if (res.ok) {
           const text = await res.text();
           const json = text ? JSON.parse(text) : null;

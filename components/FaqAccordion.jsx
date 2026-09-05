@@ -88,7 +88,7 @@ export default function FaqAccordion() {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/web_settings.php?doc_id=faq_web');
+        const res = await fetch('/api/web-data?doc_id=faq_web');
         if (res.ok) {
           const text = await res.text();
           const json = text ? JSON.parse(text) : null;

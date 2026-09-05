@@ -231,7 +231,7 @@ export default function RecipesPage() {
   useEffect(() => {
     async function fetchRecipes() {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/recipes.php');
+        const res = await fetch('/api/web-recipes');
         if (!res.ok) throw new Error('Failed to fetch');
         const data = await res.json();
         

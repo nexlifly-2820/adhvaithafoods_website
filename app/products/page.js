@@ -315,7 +315,7 @@ function ProductsContent() {
   useEffect(() => {
     async function fetchProducts() {
         try {
-          const res = await fetch('https://api.adhvaithafoods.in/web_products.php');
+          const res = await fetch('/api/web-products');
           if (!res.ok) throw new Error('Failed to fetch');
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {

@@ -218,7 +218,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchCmsData = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/web_settings.php?doc_id=homepage_web');
+        const res = await fetch('/api/web-data?doc_id=homepage_web');
         const text = await res.text();
         const json = text ? JSON.parse(text) : null;
         if (json && json.success && json.data) {
@@ -237,7 +237,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/web_products.php');
+        const res = await fetch('/api/web-products');
         let apiProducts = [];
         if (res.ok) {
           const data = await res.json();
@@ -330,7 +330,7 @@ export default function HomePage() {
 
     const fetchRecipes = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/recipes.php');
+        const res = await fetch('/api/web-recipes');
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -373,7 +373,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const res = await fetch('https://api.adhvaithafoods.in/web_settings.php?doc_id=homepage_web');
+        const res = await fetch('/api/web-data?doc_id=homepage_web');
         const text = await res.text();
         const json = text ? JSON.parse(text) : null;
         if (json && json.success && json.data) {
