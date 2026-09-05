@@ -236,15 +236,14 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-products` : '/dashboard/website/api/get-website-products';
-        const res = await fetch(fetchUrl);
+        const res = await fetch('http://api.adhvaithafoods.in/web_products.php');
         let apiProducts = [];
         if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data && Array.isArray(json.data)) {
-            apiProducts = json.data.map(p => ({
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            apiProducts = data.map(p => ({
               ...p,
+              id: p.id || Math.random().toString(),
               name: p.productName || p.name || 'Unnamed Product',
               desc: p.productDescription || p.desc || '',
               img: (p.images && p.images.length > 0) ? p.images[0] : (p.img || 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&q=80'),
@@ -330,14 +329,12 @@ export default function HomePage() {
 
     const fetchRecipes = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-recipes` : '/dashboard/website/api/get-website-recipes';
-        const res = await fetch(fetchUrl);
+        const res = await fetch('http://api.adhvaithafoods.in/recipes.php');
         if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data && Array.isArray(json.data) && json.data.length > 0) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
             // Sort by updatedAt descending
-            const sortedRecipes = json.data.sort((a, b) => {
+            const sortedRecipes = data.sort((a, b) => {
               const dateA = new Date(a.updatedAt || a.createdAt || 0).getTime();
               const dateB = new Date(b.updatedAt || b.createdAt || 0).getTime();
               return dateB - dateA;
@@ -375,20 +372,17 @@ export default function HomePage() {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || ''; // If empty, defaults to relative path which is fine for client-side fetch in Next.js
-        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-website-gallery` : '/dashboard/website/api/get-website-gallery';
-
-        const res = await fetch(fetchUrl);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data && json.data.images && json.data.images.length > 0) {
-            setHeroImages(json.data.images);
+        const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=homepage_web');
+        const text = await res.text();
+        const json = text ? JSON.parse(text) : null;
+        if (json && json.success && json.data) {
+          const cmsData = json.data.data ? json.data.data : json.data;
+          if (cmsData.heroImages && Array.isArray(cmsData.heroImages) && cmsData.heroImages.length > 0) {
+            setHeroImages(cmsData.heroImages);
           } else {
-            // Keep default FALLBACK_HERO_IMAGES
             setHeroImages(FALLBACK_HERO_IMAGES);
           }
         } else {
-          // Keep default FALLBACK_HERO_IMAGES
           setHeroImages(FALLBACK_HERO_IMAGES);
         }
       } catch (err) {

@@ -231,12 +231,12 @@ export default function RecipesPage() {
   useEffect(() => {
     async function fetchRecipes() {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/dashboard/website/api/get-website-recipes`);
+        const res = await fetch('http://api.adhvaithafoods.in/recipes.php');
         if (!res.ok) throw new Error('Failed to fetch');
-        const json = await res.json();
-        if (json.success && json.data && json.data.length > 0) {
-          const mappedRecipes = json.data.map((r, index) => {
+        const data = await res.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+          const mappedRecipes = data.map((r, index) => {
             const colors = ['#4CAF50', '#FF3B30', '#007AFF', '#FF9500'];
             return {
               ...r,

@@ -314,14 +314,12 @@ function ProductsContent() {
 
   useEffect(() => {
     async function fetchProducts() {
-      try {
-        // Use a dynamic API URL from environment variables, fallback to localhost for development
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/dashboard/website/api/get-website-products`);
-        if (!res.ok) throw new Error('Failed to fetch');
-        const json = await res.json();
-        if (json.success && json.data && json.data.length > 0) {
-          const mappedProducts = json.data.map(p => ({
+        try {
+          const res = await fetch('http://api.adhvaithafoods.in/web_products.php');
+          if (!res.ok) throw new Error('Failed to fetch');
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            const mappedProducts = data.map(p => ({
             ...p,
             name: p.productName || p.name || 'Unnamed Product',
             desc: p.productDescription || p.desc || '',
