@@ -1286,17 +1286,22 @@ export default function HomePage() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       padding: '1.25rem',
-                      zIndex: 2
+                      zIndex: 2,
+                      overflow: 'hidden'
                     }}>
                       <p style={{
                         fontFamily: '"Arial Black", system-ui, sans-serif',
-                        fontSize: '0.85rem',
-                        lineHeight: 1.35,
+                        fontSize: '0.75rem',
+                        lineHeight: 1.3,
                         color: textColors[i % textColors.length],
                         textAlign: 'center',
-                        marginBottom: '0.8rem',
+                        marginBottom: '0.6rem',
                         whiteSpace: 'normal',
-                        fontWeight: 900
+                        fontWeight: 900,
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 4,
+                        WebkitBoxOrient: 'vertical'
                       }}>"{r.desc}"</p>
 
                       <div style={{
