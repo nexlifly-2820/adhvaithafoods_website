@@ -9,7 +9,7 @@ export const metadata = {
 
 async function getContactData() {
   try {
-    const res = await fetch('/api/web-data?doc_id=contact_web', { next: { revalidate: 60 } });
+    const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=contact_web', { next: { revalidate: 60 } });
     if (res.ok) {
       const text = await res.text();
       const json = text ? JSON.parse(text) : null;
