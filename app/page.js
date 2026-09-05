@@ -806,7 +806,7 @@ export default function HomePage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', padding: '0 1rem' }}>
               {featuredProducts.map((p, i) => (
-                <div key={p.id} className="reveal" style={{ background: '#EBAA03', borderRadius: '8px', padding: '0 2rem 2.5rem 2rem', marginTop: '90px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease', animationDelay: `${i * 0.1}s` }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div key={p.id} style={{ background: '#EBAA03', borderRadius: '8px', padding: '0 2rem 2.5rem 2rem', marginTop: '90px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease', animationDelay: `${i * 0.1}s` }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
                   <div style={{ width: '160px', height: '160px', borderRadius: '50%', marginTop: '-80px', border: '3px solid #111', boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', overflow: 'hidden', flexShrink: 0, marginBottom: '1.5rem', backgroundColor: '#fff' }}>
                     <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
@@ -817,7 +817,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '5rem' }} className="reveal">
+            <div style={{ textAlign: 'center', marginTop: '5rem' }} >
               <Link href="/products" className="terry-btn">
                 SEE ALL PRODUCTS
               </Link>
@@ -857,7 +857,7 @@ export default function HomePage() {
                 const rotations = [-8, 4, -6, 5, -4, 6, -5, 7];
 
                 return (
-                  <div key={ing.name} className="reveal ingredient-polaroid" style={{
+                  <div key={ing.name} className="ingredient-polaroid" style={{
                     animationDelay: `${i * 0.1}s`,
                     background: '#ffffff',
                     boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
@@ -1124,7 +1124,7 @@ export default function HomePage() {
                   const pImg = t.productImg || '/images/ing_mango.png';
 
                   return (
-                  <div key={t.author} className="reveal mobile-testimonial-card" style={{
+                  <div key={t.author} className="mobile-testimonial-card" style={{
                     animationDelay: `${i * 0.12}s`,
                     width: '280px', // Reduced from 320px
                     minHeight: '340px', // Reduced from 380px
