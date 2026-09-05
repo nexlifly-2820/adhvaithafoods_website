@@ -804,7 +804,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', padding: '0 1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', padding: '0 1rem', maxWidth: '700px', margin: '0 auto' }}>
               {featuredProducts.map((p, i) => (
                 <div key={p.id} style={{ background: '#EBAA03', borderRadius: '8px', padding: '0 2rem 2.5rem 2rem', marginTop: '90px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease', animationDelay: `${i * 0.1}s` }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
                   <div style={{ width: '160px', height: '160px', borderRadius: '50%', marginTop: '-80px', border: '3px solid #111', boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', overflow: 'hidden', flexShrink: 0, marginBottom: '1.5rem', backgroundColor: '#fff' }}>
