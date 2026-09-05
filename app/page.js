@@ -778,14 +778,57 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ══ PRODUCTS ═══════════════════════════════ */}
-        <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
+                {/* ══ PRODUCTS ═══════════════════════════════ */}
+        <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)', paddingBottom: '6rem' }}>
           <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
-              <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em' }}>
+            <div style={{ textAlign: 'center', marginBottom: '6rem' }} className="reveal">
+              <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em', display: 'inline-block', marginBottom: '1rem' }}>
                 {cmsData?.productsHeader?.eyebrow || 'IN OUR COLLECTION'}
               </span>
-              <br />
+              <h2 style={{
+                fontFamily: '"Arial Black", system-ui, sans-serif',
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontWeight: 900,
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                color: '#134027',
+                marginBottom: '1rem',
+                textAlign: 'center'
+              }}>
+                {cmsData?.productsHeader?.titlePart1 || 'OUR BELOVED'}<br/>
+                <span style={{ color: '#C4603A' }}>{cmsData?.productsHeader?.titlePart2 || 'PICKLES'}</span>
+              </h2>
+              <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem', color: '#444' }}>
+                {cmsData?.productsHeader?.description || 'Every jar tells a story of love and tradition — transforming simple meals into celebrations.'}
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', padding: '0 1rem' }}>
+              {featuredProducts.map((p, i) => (
+                <div key={p.id} className="reveal" style={{ background: '#EBAA03', borderRadius: '8px', padding: '0 2rem 2.5rem 2rem', marginTop: '90px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease', animationDelay: `${i * 0.1}s` }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
+                  <div style={{ width: '160px', height: '160px', borderRadius: '50%', marginTop: '-80px', border: '3px solid #111', boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', overflow: 'hidden', flexShrink: 0, marginBottom: '1.5rem', backgroundColor: '#fff' }}>
+                    <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', fontWeight: 900, color: '#111', textAlign: 'center', marginBottom: '1rem', minHeight: '3.5rem', display: 'flex', alignItems: 'center' }}>{p.name}</h3>
+                  <div style={{ background: '#fff', padding: '0.4rem 1rem', borderRadius: '4px', marginBottom: '1rem', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', color: '#111' }}>{p.tag || 'AUTHENTIC'} | ★ {p.rating || 5}</div>
+                  <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.9rem', fontWeight: 500, color: '#111', textAlign: 'center', flex: 1, marginBottom: 0 }}>{p.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '5rem' }} className="reveal">
+              <Link href="/products" className="terry-btn">
+                SEE ALL PRODUCTS
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ INGREDIENTS ═══════════════════════════════ */}
+        <section id="ingredients" className="section-pad-xl" style={{ background: '#F4ECD8' }}>
+          <div className="container">
+            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
               <h2 style={{
                 fontFamily: '"Arial Black", system-ui, sans-serif',
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)',
