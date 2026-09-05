@@ -23,7 +23,7 @@ import { ALL_PRODUCTS } from '@/components/productsData';
 
 // Dynamic featured products will be fetched inside the component
 
-const ingredients = [
+const DEFAULT_INGREDIENTS = [
   { name: 'Raw Green Mangoes', source: 'Andhra Orchards', img: '/images/ing_mango.png', bg: 'rgba(74,124,64,0.12)' },
   { name: 'Red Kashmiri Chilies', source: 'Sun-dried 7 days', img: '/images/ing_chili.png', bg: 'rgba(185,28,28,0.1)' },
   { name: 'Cold-Pressed Sesame Oil', source: 'Wooden press', img: '/images/ing_oil.png', bg: 'rgba(217,119,6,0.1)' },
@@ -200,6 +200,7 @@ const MICHA_BACKDROPS = [
 
 export default function HomePage() {
   useReveal();
+  const [ingredients, setIngredients] = useState(DEFAULT_INGREDIENTS);
   const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
   const [featuredProducts, setFeaturedProducts] = useState(() => {
@@ -212,6 +213,25 @@ export default function HomePage() {
     return defaultProducts;
   });
   const [featuredRecipes, setFeaturedRecipes] = useState(FALLBACK_RECIPES);
+
+  useEffect(() => {
+    const fetchCmsData = async () => {
+      try {
+        const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=homepage_web');
+        const text = await res.text();
+        const json = text ? JSON.parse(text) : null;
+        if (json && json.success && json.data) {
+          const cmsData = json.data.data ? json.data.data : json.data;
+          if (cmsData.ingredients && Array.isArray(cmsData.ingredients)) {
+             setIngredients(cmsData.ingredients);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch CMS data', err);
+      }
+    };
+    fetchCmsData();
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
