@@ -6,7 +6,23 @@ export const metadata = {
   description: 'Shipping and Delivery Policy for Adhvaitha Foods, homemade pickles and food products.',
 };
 
-export default function ShippingPolicy() {
+
+async function getContactData() {
+  try {
+    const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=contact_web', { next: { revalidate: 60 } });
+    if (res.ok) {
+      const text = await res.text();
+      const json = text ? JSON.parse(text) : null;
+      if (json && json.success && json.data) {
+        return json.data.data ? json.data.data : json.data;
+      }
+    }
+  } catch (err) {}
+  return null;
+}
+
+export default async function ShippingPolicy() {
+  const contactData = await getContactData();
   return (
     <div style={{ backgroundColor: '#F4ECD8', minHeight: '100vh', overflowX: 'hidden' }}>
       <Navbar />
@@ -50,8 +66,8 @@ export default function ShippingPolicy() {
                 <tbody>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Legal Entity Name</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Registered Office Address</td><td style={{ padding: '0.5rem 0' }}>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>info@avdaithafoods.in</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Phone Number</td><td style={{ padding: '0.5rem 0' }}>+91 93939 34200</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>{contactData?.email || 'info@avdaithafoods.in'}</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Phone Number</td><td style={{ padding: '0.5rem 0' }}>{contactData?.phone || '+91 93939 34200'}</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>
               </table>

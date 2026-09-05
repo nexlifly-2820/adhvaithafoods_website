@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 // SVG Social Icons (brand icons not in lucide-react)
@@ -27,6 +28,23 @@ const WhatsAppIcon = () => (
 );
 
 export default function Footer() {
+  const [contactData, setContactData] = useState(null);
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=contact_web');
+        if (res.ok) {
+          const text = await res.text();
+          const json = text ? JSON.parse(text) : null;
+          if (json && json.success && json.data) {
+            setContactData(json.data.data ? json.data.data : json.data);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchContact();
+  }, []);
+
   const quickLinks = ['Home', 'Products', 'Our Story', 'Process', 'Recipes', 'Contact'];
   const quickHrefs = ['/', '/products', '/our-story', '/how-we-make-it', '/recipes', '/contact'];
   const categories = ['Prepared Foods', 'Ready-to-eat Savouries', 'Salts, Spices & Soups', 'Indian Sweets & Snacks'];
@@ -67,22 +85,24 @@ export default function Footer() {
             {/* Contact Details */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontWeight: 800, fontSize: '0.8rem', marginBottom: '1.5rem', letterSpacing: '0.02em', maxWidth: '400px' }}>
               <div>📍 North East Colony, Yadadri Bhuvanagiri 508284</div>
-              <div>📞 +91 93939 34200</div>
-              <div>✉️ info@avdaithafoods.in</div>
+              <div>📞 {contactData?.phone || '+91 93939 34200'}</div>
+              <div>✉️ {contactData?.email || 'info@avdaithafoods.in'}</div>
               <div>⏰ Mon–Sun: 9AM – 6PM</div>
             </div>
 
             {/* Socials */}
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               {[
-                { icon: <InstagramIcon />, label: 'INSTAGRAM' },
-                { icon: <FacebookIcon />, label: 'FACEBOOK' },
-                { icon: <YoutubeIcon />, label: 'YOUTUBE' },
-                { icon: <WhatsAppIcon />, label: 'WHATSAPP' },
+                { icon: <InstagramIcon />, label: 'INSTAGRAM', url: contactData?.socials?.instagram || '#' },
+                { icon: <FacebookIcon />, label: 'FACEBOOK', url: contactData?.socials?.facebook || '#' },
+                { icon: <YoutubeIcon />, label: 'YOUTUBE', url: '#' },
+                { icon: <WhatsAppIcon />, label: 'WHATSAPP', url: contactData?.whatsapp ? 'https://wa.me/' + contactData.whatsapp.replace(/\D/g, '') : '#' },
               ].map(social => (
-                <button key={social.label} className="social-pill" style={{ background: 'transparent', border: '1px solid #000', borderRadius: '50px', padding: '0.35rem 1rem', fontWeight: 900, fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', transition: 'all 0.2s' }}>
-                  <span>{social.icon}</span> {social.label}
-                </button>
+                <a key={social.label} href={social.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <button className="social-pill" style={{ background: 'transparent', border: '1px solid #000', borderRadius: '50px', padding: '0.35rem 1rem', fontWeight: 900, fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', transition: 'all 0.2s' }}>
+                    <span>{social.icon}</span> {social.label}
+                  </button>
+                </a>
               ))}
             </div>
           </div>

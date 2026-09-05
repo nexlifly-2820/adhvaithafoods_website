@@ -5,6 +5,23 @@ import Footer from '@/components/Footer';
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 
 export default function ContactPage() {
+  const [contactData, setContactData] = useState(null);
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=contact_web');
+        if (res.ok) {
+          const text = await res.text();
+          const json = text ? JSON.parse(text) : null;
+          if (json && json.success && json.data) {
+            setContactData(json.data.data ? json.data.data : json.data);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchContact();
+  }, []);
+
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -400,10 +417,10 @@ export default function ContactPage() {
             <div className="contact-grid">
 
               {[
-                { icon: <MapPin size={48} color="#FF1E1E" />, title: 'OUR KITCHEN', text: 'Adhvaitha Foods, North East Colony\nDeshmukhi, Yadadri Bhuvanagiri 508284' },
-                { icon: <Phone size={48} color="#FF1E1E" />, title: 'CALL US', text: '+91 93939 34200\nMon–Sun, 9AM–6PM' },
-                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: 'info@avdaithafoods.in\nsupport@avdaithafoods.in' },
-                { icon: <Clock size={48} color="#FF1E1E" />, title: 'HOURS', text: 'Mon–Sun: 9AM – 6PM\nOpen Every Day' }
+                { icon: <MapPin size={48} color="#FF1E1E" />, title: 'OUR KITCHEN', text: contactData?.address || 'Adhvaitha Foods, North East Colony\nDeshmukhi, Yadadri Bhuvanagiri 508284' },
+                { icon: <Phone size={48} color="#FF1E1E" />, title: 'CALL US', text: contactData?.phone ? `${contactData.phone}\n${contactData.workingHours || ''}` : '+91 93939 34200\nMon-Sun, 9AM-6PM' },
+                { icon: <Mail size={48} color="#FF1E1E" />, title: 'EMAIL', text: contactData?.email || 'info@avdaithafoods.in\nsupport@avdaithafoods.in' },
+                { icon: <Clock size={48} color="#FF1E1E" />, title: 'HOURS', text: contactData?.workingHours || 'Mon-Sun: 9AM - 6PM\nOpen Every Day' }
               ].map((item, i) => (
                 <div key={i} className="reveal" style={{
                   animationDelay: `${i * 0.1}s`
@@ -423,7 +440,7 @@ export default function ContactPage() {
 
             {/* Massive WhatsApp Pill */}
             <div className="reveal" style={{ display: 'flex', justifyContent: 'center', marginTop: '8rem' }}>
-              <a href="https://wa.me/919393934200?text=Hello%20Avdaitha%20Foods!" target="_blank" rel="noopener noreferrer"
+              <a href={`https://wa.me/${contactData?.whatsapp ? contactData.whatsapp.replace(/\D/g, '') : '919393934200'}?text=Hello%20Avdaitha%20Foods!`} target="_blank" rel="noopener noreferrer"
                 className="contact-whatsapp-btn"
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '1rem',

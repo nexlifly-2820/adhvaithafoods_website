@@ -200,6 +200,7 @@ const MICHA_BACKDROPS = [
 
 export default function HomePage() {
   useReveal();
+  const [cmsData, setCmsData] = useState(null);
   const [ingredients, setIngredients] = useState(DEFAULT_INGREDIENTS);
   const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
@@ -377,6 +378,7 @@ export default function HomePage() {
         const json = text ? JSON.parse(text) : null;
         if (json && json.success && json.data) {
           const cmsData = json.data.data ? json.data.data : json.data;
+          setCmsData(cmsData);
           if (cmsData.heroImages && Array.isArray(cmsData.heroImages) && cmsData.heroImages.length > 0) {
             setHeroImages(cmsData.heroImages);
           } else {
@@ -396,6 +398,10 @@ export default function HomePage() {
 
   // Auto-scroll removed as requested by the user.
 
+  const activeSlides = (cmsData && cmsData.michaSlides && cmsData.michaSlides.length > 0) ? cmsData.michaSlides : MICHA_SLIDES;
+  const currentSlide = activeSlides[currentHeroIndex % activeSlides.length];
+  const activeTestimonials = (cmsData && cmsData.testimonials && cmsData.testimonials.length > 0) ? cmsData.testimonials : testimonials;
+
   return (
     <>
       <Navbar />
@@ -408,7 +414,7 @@ export default function HomePage() {
           height: 'calc(100vh + 80px)',
           width: '100%',
           overflow: 'hidden',
-          backgroundColor: MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].bgColor,
+          backgroundColor: currentSlide.bgColor,
           backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 3px, transparent 3px)',
           backgroundSize: '40px 40px',
           transition: 'background-color 0.5s ease',
@@ -477,8 +483,8 @@ export default function HomePage() {
                 transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}>
               <Image
-                src={MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].img}
-                alt={MICHA_SLIDES[currentHeroIndex % MICHA_SLIDES.length].label}
+                src={currentSlide.img}
+                alt={currentSlide.label}
                 fill
                 sizes="50vh"
                 style={{ objectFit: 'contain' }}
@@ -488,7 +494,7 @@ export default function HomePage() {
 
           {/* Navigation Arrows */}
           <button
-            onClick={() => setCurrentHeroIndex(prev => (prev - 1 + MICHA_SLIDES.length) % MICHA_SLIDES.length)}
+            onClick={() => setCurrentHeroIndex(prev => (prev - 1 + activeSlides.length) % activeSlides.length)}
             style={{
               position: 'absolute', left: 'max(2%, calc(50% - 35vh - 32px))', top: '65%', transform: 'translateY(-50%)', zIndex: 10,
               width: '64px', height: '64px', borderRadius: '50%', background: '#FCE300', border: '5px solid #111',
@@ -776,149 +782,22 @@ export default function HomePage() {
         <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)' }}>
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
-              <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em' }}>IN OUR COLLECTION</span>
+              <span className="eyebrow" style={{ color: '#C4603A', fontWeight: 900, letterSpacing: '0.2em' }}>
+                {cmsData?.productsHeader?.eyebrow || 'IN OUR COLLECTION'}
+              </span>
               <br />
               <h2 style={{
                 fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                 fontWeight: 900,
                 textTransform: 'uppercase',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
-                color: '#111',
-                display: 'inline'
-              }}>OUR BELOVED </h2>
-              <h2 style={{
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
-                fontWeight: 900,
-                textTransform: 'uppercase',
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-                color: '#D44A6A',
-                display: 'inline'
-              }}>PICKLES</h2>
-              <p style={{
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: '1.1rem',
-                fontWeight: 900,
-                color: '#444',
-                marginTop: '1.5rem',
-                maxWidth: '600px',
-                margin: '1.5rem auto 0'
+                color: '#134027',
+                marginBottom: '1rem',
+                textAlign: 'center'
               }}>
-                Every jar tells a story of love and tradition — transforming simple meals into celebrations.
-              </p>
-            </div>
-
-            <div className="featured-products-grid">
-              {featuredProducts.map((p, i) => (
-                <div
-                  key={p.id}
-                  id={`product-${p.id}`}
-                  className="product-card-reveal"
-                  style={{
-                    background: '#EBAA03', // Solid golden yellow
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: '0 2rem 2.5rem 2rem',
-                    marginTop: '90px', // Space for floating circle
-                    transition: 'transform 0.3s ease',
-                    animationDelay: `${i * 0.08}s`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  {/* Circular Floating Image */}
-                  <div
-                    className="product-card-img"
-                    style={{
-                      borderRadius: '50%',
-                      border: '3px solid #111',
-                      boxShadow: '10px 10px 15px rgba(0,0,0,0.5)',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      backgroundColor: '#fff',
-                      flexShrink: 0,
-                      marginBottom: '2rem'
-                    }}
-                  >
-                    {p.img
-                      ? <Image src={p.img} alt={p.name} fill sizes="180px" style={{ objectFit: 'cover' }} />
-                      : <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5rem', background: `linear-gradient(135deg, ${p.accent}20, ${p.accent}40)` }}>{p.emoji}</div>
-                    }
-                  </div>
-
-                  {/* Title */}
-                  <h3
-                    className="product-card-title"
-                    style={{
-                      fontFamily: 'Playfair Display, serif',
-                      fontWeight: 900,
-                      color: '#111',
-                      textAlign: 'center',
-                      lineHeight: 1.15,
-                      marginBottom: '1.25rem',
-                      minHeight: '3.5rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {p.name}
-                  </h3>
-
-                  {/* Stats Pill */}
-                  <div className="product-card-pill">
-                    <span className="product-card-pill-text">
-                      {p.tag || 'AUTHENTIC'} | ★ {p.rating || 5} STARS
-                    </span>
-                  </div>
-
-                  {/* Description */}
-                  <p className="product-card-desc">
-                    {p.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ textAlign: 'center', marginTop: '3rem' }} className="reveal">
-              <Link href="/products" className="btn btn-outline-green">View All Pickles <ArrowRight size={16} /></Link>
-            </div>
-          </div>
-        </section>
-
-
-        {/* ══ ADVANCED INGREDIENTS ═══════════════════════════ */}
-        <section id="ingredients" className="section-pad-xl" style={{
-          background: 'linear-gradient(135deg, var(--cream) 0%, #f4e9d8 100%)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          {/* Decorative background elements */}
-          <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '400px', height: '400px', background: 'var(--turmeric)', borderRadius: '50%', filter: 'blur(100px)', opacity: 0.08 }} />
-          <div style={{ position: 'absolute', bottom: '-10%', left: '-5%', width: '300px', height: '300px', background: 'var(--forest-green)', borderRadius: '50%', filter: 'blur(100px)', opacity: 0.06 }} />
-
-          <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ textAlign: 'center', marginBottom: '5.5rem' }} className="reveal">
-              <h2 style={{
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
-                fontWeight: 900,
-                color: '#134027', // Deep dark green from reference
-                textTransform: 'uppercase',
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-                margin: 0
-              }}>
-                What Goes Inside Every Jar
+                {cmsData?.ingredientsHeader || 'What Goes Inside Every Jar'}
               </h2>
             </div>
 
@@ -1006,7 +885,7 @@ export default function HomePage() {
                 letterSpacing: '-0.04em',
                 margin: 0
               }}>
-                No artificial colors.
+                {cmsData?.ingredientsQuote?.line1 || 'No artificial colors.'}
               </h2>
               <h3 style={{
                 fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -1017,7 +896,7 @@ export default function HomePage() {
                 letterSpacing: '-0.02em',
                 margin: '0.5rem 0 0 0'
               }}>
-                No preservatives. No shortcuts. Ever.
+                {cmsData?.ingredientsQuote?.line2 || 'No preservatives. No shortcuts. Ever.'}
               </h3>
             </div>
           </div>
@@ -1192,18 +1071,16 @@ export default function HomePage() {
               justifyContent: 'center',
               gap: '1.5rem'
             }}>
-              {testimonials.map((t, i) => {
-                const colors = ['#f5b89c', '#a5da71', '#ffc745', '#9cd5f5']; // Peach, Green, Yellow, Light Blue
-                const darkColors = ['#eb7952', '#86c646', '#f3aa00', '#5bbef0']; // Darker shades
-                const textColors = ['#ffffff', '#1c402c', '#1c402c', '#1c402c']; // White text for peach box, dark for others
-                const products = [
-                  { name: 'TRADITIONAL MANGO AVAKAYA', img: '/images/ing_mango.png' },
-                  { name: 'ANDHRA GONGURA PICKLE', img: '/images/ing_leaves.png' },
-                  { name: 'TANGY LEMON PICKLE', img: '/images/ing_salt.png' },
-                  { name: 'SPICY RED CHILLI PICKLE', img: '/images/ing_chili.png' },
-                ];
+              {activeTestimonials.map((t, i) => {
+                  const colors = ['#f5b89c', '#a5da71', '#ffc745', '#9cd5f5'];
+                  const darkColors = ['#eb7952', '#86c646', '#f3aa00', '#5bbef0'];
+                  const textColors = ['#ffffff', '#1c402c', '#1c402c', '#1c402c'];
+                  
+                  // Extract dynamically from CMS, fallback to defaults
+                  const pName = t.product || 'TRADITIONAL PICKLE';
+                  const pImg = t.productImg || '/images/ing_mango.png';
 
-                return (
+                  return (
                   <div key={t.author} className="reveal mobile-testimonial-card" style={{
                     animationDelay: `${i * 0.12}s`,
                     width: '280px', // Reduced from 320px
@@ -1257,7 +1134,7 @@ export default function HomePage() {
                         background: 'rgba(255,255,255,0.1)'
                       }}>
                         <div className="mobile-testimonial-product-img" style={{ width: '100%', height: '100%', position: 'relative' }}>
-                          <Image src={products[i].img} alt={products[i].name} fill sizes="60px" style={{ objectFit: 'cover', borderRadius: '4px' }} />
+                          <Image src={pImg} alt={pName} fill sizes="60px" style={{ objectFit: 'cover', borderRadius: '4px' }} />
                         </div>
                       </div>
 
@@ -1279,7 +1156,7 @@ export default function HomePage() {
                           letterSpacing: '0.02em',
                           maxWidth: '90px' // Force wrapping to look like reference
                         }}>
-                          {products[i].name}
+                          {pName}
                         </div>
 
                         <a href="#" className="mobile-testimonial-shop-btn" style={{

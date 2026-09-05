@@ -88,13 +88,15 @@ export default function FaqAccordion() {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const fetchUrl = baseUrl ? `${baseUrl}/dashboard/website/api/get-faq_web` : '/dashboard/website/api/get-faq_web';
-        const res = await fetch(fetchUrl);
+        const res = await fetch('http://api.adhvaithafoods.in/web_settings.php?doc_id=faq_web');
         if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data?.faqs) {
-            setFaqs(json.data.faqs);
+          const text = await res.text();
+          const json = text ? JSON.parse(text) : null;
+          if (json && json.success && json.data) {
+            const cmsData = json.data.data ? json.data.data : json.data;
+            if (cmsData.faqs) {
+              setFaqs(cmsData.faqs);
+            }
           }
         }
       } catch (err) { console.error('Error fetching FAQs:', err); }
