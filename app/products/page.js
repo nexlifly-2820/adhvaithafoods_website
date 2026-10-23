@@ -35,15 +35,35 @@ const SORT_OPTIONS = [SORT_FEATURED, SORT_TOP_RATED]; // Removed price sort opti
 
 /**
  * Filter and sort logic moved to a helper function.
- * This separates business logic from UI rendering.
+ * Separates business logic from UI rendering.
+ * Supports filtering by the 4 authentic Adhvaitha Foods product types.
  */
-function getFilteredAndSortedProducts(products, category, sortBy) {
+function getFilteredAndSortedProducts(products, category, sortBy, searchQuery = '', productTypeFilters = []) {
   let filtered = products.filter((p) => {
-    const matchesCategory = category === FILTER_ALL || p.category === category;
-    return matchesCategory;
+    // If specific product types are selected via sidebar filter, filter by them
+    if (productTypeFilters && productTypeFilters.length > 0) {
+      if (!productTypeFilters.includes(p.category)) {
+        return false;
+      }
+    } else if (category !== FILTER_ALL && p.category !== category) {
+      // Otherwise filter by active category tab if selected
+      return false;
+    }
+
+    if (searchQuery && searchQuery.trim() !== '') {
+      const q = searchQuery.toLowerCase().trim();
+      const matchName = p.name && p.name.toLowerCase().includes(q);
+      const matchDesc = p.desc && p.desc.toLowerCase().includes(q);
+      const matchCategory = p.category && p.category.toLowerCase().includes(q);
+      if (!matchName && !matchDesc && !matchCategory) return false;
+    }
+
+    return true;
   });
 
-  if (sortBy === SORT_TOP_RATED) {
+  if (sortBy === 'A - Z') {
+    filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy === 'Most Popular' || sortBy === SORT_TOP_RATED) {
     filtered = [...filtered].sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
   }
 
@@ -53,56 +73,171 @@ function getFilteredAndSortedProducts(products, category, sortBy) {
 // ─── Sub-components extracted for better readability ────────────────
 
 /**
- * Renders an individual product card.
- */
-/**
  * Renders an individual product card matching the specific bold yellow 'Recipe' design.
  */
+// Warm Indian spices palette for rotating background designs
+const CARD_BG_COLORS = [
+  '#C0392B', // Vibrant Chilli Red
+  '#D35400', // Warm Amber Ochre
+  '#E67E22', // Golden Saffron / Turmeric
+  '#2E7D32', // Rich Curry Green
+  '#00838F', // Deep Peacock Teal
+  '#8E24AA', // Royal Plum
+];
+
+function CardBackgroundDesign({ color, isHovered }) {
+  // When not hovered: soft muted translucent warm beige/cream matching the user's reference
+  // When hovered: vibrant spice color with dynamic rotation and scale
+  const petalFill = isHovered ? color : '#E7DDCF';
+  const petalOpacity = isHovered ? 0.98 : 0.65;
+
+  return (
+    <div
+      className="product-card-mandala"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '310px',
+        height: '310px',
+        marginTop: '-155px',
+        marginLeft: '-155px',
+        pointerEvents: 'none',
+        zIndex: 1,
+        transition: 'transform 0.85s cubic-bezier(0.2, 0.9, 0.3, 1)',
+        transform: isHovered ? 'rotate(180deg) scale(1.08)' : 'rotate(0deg) scale(1)',
+      }}
+    >
+      <svg viewBox="0 0 240 240" width="100%" height="100%" style={{ overflow: 'visible' }}>
+        <g fill={petalFill} style={{ transition: 'fill 0.4s ease, opacity 0.4s ease', opacity: petalOpacity }}>
+          {/* 16 Organic Rounded Petals matching Brar\'s silhouette */}
+          {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((deg) => (
+            <path
+              key={`petal-${deg}`}
+              d="M 120 12 C 132 12, 142 58, 120 74 C 98 58, 108 12, 120 12 Z"
+              transform={`rotate(${deg} 120 120)`}
+            />
+          ))}
+          {/* Interleaved secondary diamond flares */}
+          {[11.25, 33.75, 56.25, 78.75, 101.25, 123.75, 146.25, 168.75, 191.25, 213.75, 236.25, 258.75, 281.25, 303.75, 326.25, 348.75].map((deg) => (
+            <polygon
+              key={`flare-${deg}`}
+              points="120,28 129,82 120,72 111,82"
+              transform={`rotate(${deg} 120 120)`}
+            />
+          ))}
+          {/* Center disk */}
+          <circle cx="120" cy="120" r="68" fill={petalFill} />
+          {/* Inner decorative dotted ring */}
+          <circle cx="120" cy="120" r="102" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeDasharray="4 6" opacity={isHovered ? 0.7 : 0.35} />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+const getBustedUrl = (url) => {
+  if (!url) return '/images/products/mango-pickle-real.jpg?v=20261022v2';
+  if (url.startsWith('/images/')) {
+    return url.includes('?') ? url : `${url}?v=20261022v2`;
+  }
+  return url;
+};
+
 function ProductCard({ product, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imgSrc, setImgSrc] = useState(getBustedUrl(product.img));
+  const bgColor = CARD_BG_COLORS[index % CARD_BG_COLORS.length];
+  // Staggered floating wave delay so each card floats gently at its own pace
+  const floatDelay = `${(index % 4) * 0.75}s`;
+
+  useEffect(() => {
+    setImgSrc(getBustedUrl(product.img));
+  }, [product.img]);
+
   return (
     <div
       id={`product-${product.id}`}
       className="product-card-reveal product-grid-card"
       style={{
-        background: '#EBAA03', // Solid golden yellow from the image
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '0 2rem 2.5rem 2rem', // No top padding since image floats
-        marginTop: '90px', // Creates space for the overflowing circle
-        transition: 'transform 0.3s ease',
+        background: 'transparent',
+        padding: '0 1rem 2.5rem 1rem',
+        marginTop: '10px',
         animationDelay: `${Math.min(index, 8) * 0.06}s`,
-        borderRadius: '8px'
+        cursor: 'pointer',
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-5px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Circular Floating Image */}
+      {/* Product Image Stage with Rolling Background Design */}
       <div
-        className="product-grid-img"
+        className="product-stage"
         style={{
-          width: '180px',
-          height: '180px',
-          borderRadius: '50%',
-          marginTop: '-90px', // Pulls it up exactly half its height
-          border: '3px solid #111',
-          boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', // Strong black drop shadow
-          overflow: 'hidden',
-          backgroundColor: '#fff',
-          flexShrink: 0,
-          marginBottom: '2rem'
+          position: 'relative',
+          width: '100%',
+          height: '240px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1.25rem',
+          overflow: 'visible',
         }}
       >
-        <img
-          src={product.img}
-          alt={product.name}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+        {/* Rolling Background Mandala Design */}
+        <CardBackgroundDesign color={bgColor} isHovered={isHovered} />
+
+        {/* Floating Jar/Packaging Container with Zoom-out on Hover */}
+        <div
+          className="product-floating-anim"
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            animation: 'productFloat 3.8s ease-in-out infinite alternate',
+            animationDelay: floatDelay,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div
+            className="product-img-wrap"
+            style={{
+              position: 'relative',
+              width: '210px',
+              height: '210px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.55s ease',
+              transform: isHovered ? 'scale(1.14)' : 'scale(1)',
+              filter: isHovered
+                ? 'drop-shadow(0 22px 28px rgba(0,0,0,0.36))'
+                : 'drop-shadow(0 10px 16px rgba(0,0,0,0.2))',
+            }}
+          >
+            <img
+              src={imgSrc}
+              alt={product.name}
+              onError={() => {
+                if (imgSrc !== getBustedUrl(product.fallbackImg) && product.fallbackImg) {
+                  setImgSrc(getBustedUrl(product.fallbackImg));
+                } else if (imgSrc !== getBustedUrl('/images/products/mango-pickle-real.jpg')) {
+                  setImgSrc(getBustedUrl('/images/products/mango-pickle-real.jpg'));
+                }
+              }}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                objectFit: 'contain',
+                borderRadius: '16px',
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Title */}
@@ -110,37 +245,47 @@ function ProductCard({ product, index }) {
         className="product-grid-title"
         style={{
           fontFamily: 'Playfair Display, serif',
-          fontSize: '1.6rem',
+          fontSize: '1.45rem',
           fontWeight: 900,
           color: '#111',
           textAlign: 'center',
-          lineHeight: 1.15,
-          marginBottom: '1.25rem',
-          minHeight: '3.5rem',
+          lineHeight: 1.2,
+          marginBottom: '0.75rem',
+          minHeight: '3.2rem',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          letterSpacing: '-0.01em',
         }}
       >
         {product.name}
       </h3>
 
-      {/* Stats Pill */}
-      <div className="product-grid-pill" style={{
-        backgroundColor: '#fff',
-        padding: '0.4rem 1rem',
-        marginBottom: '1.25rem',
-        borderRadius: '4px'
-      }}>
-        <span className="product-grid-pill-text" style={{
-          fontFamily: '"Inter", system-ui, sans-serif',
-          fontSize: '0.75rem',
-          fontWeight: 800,
-          color: '#111',
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em'
-        }}>
-          {product.badge || 'AUTHENTIC'} | {DISPLAY_WEIGHT} | ★ {product.rating || 5}
+      {/* Stats Pill / Badge */}
+      <div
+        className="product-grid-pill"
+        style={{
+          backgroundColor: '#111',
+          padding: '0.35rem 0.9rem',
+          marginBottom: '1rem',
+          borderRadius: '999px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+        }}
+      >
+        <span
+          className="product-grid-pill-text"
+          style={{
+            fontFamily: '"Inter", system-ui, sans-serif',
+            fontSize: '0.72rem',
+            fontWeight: 800,
+            color: '#fff',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          ✓ {product.badge || 'AUTHENTIC'} • {DISPLAY_WEIGHT}
         </span>
       </div>
 
@@ -149,13 +294,14 @@ function ProductCard({ product, index }) {
         className="product-grid-desc"
         style={{
           fontFamily: '"Inter", system-ui, sans-serif',
-          fontSize: '0.9rem',
+          fontSize: '0.88rem',
           fontWeight: 500,
-          color: '#111',
+          color: '#555',
           textAlign: 'center',
-          lineHeight: 1.5,
+          lineHeight: 1.55,
           marginBottom: '0',
-          flex: 1
+          flex: 1,
+          maxWidth: '92%',
         }}
       >
         {product.desc}
@@ -165,73 +311,202 @@ function ProductCard({ product, index }) {
 }
 
 /**
- * Sidebar for category and spice filtering.
+ * Sidebar for category and dietary preference filtering matching user reference.
  */
-function FilterSidebar({ activeCategory, setActiveCategory }) {
+function FilterSidebar({
+  searchQuery,
+  setSearchQuery,
+  dietaryFilters,
+  setDietaryFilters,
+  onReset,
+}) {
+  const toggleDietary = (id) => {
+    if (dietaryFilters.includes(id)) {
+      setDietaryFilters(dietaryFilters.filter((x) => x !== id));
+    } else {
+      setDietaryFilters([...dietaryFilters, id]);
+    }
+  };
+
   return (
-    <aside style={{ width: '300px', flexShrink: 0 }} className="sidebar-hide-mobile">
+    <aside style={{ width: '280px', flexShrink: 0 }} className="sidebar-hide-mobile">
       <div style={{ position: 'sticky', top: '100px' }}>
-        {/* Categories Section */}
-        <h3
+        {/* Search Box */}
+        <div
           style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: '1.4rem',
-            fontWeight: 900,
-            color: 'var(--rich-brown)',
-            marginBottom: '1.5rem',
-            paddingBottom: '1rem',
-            borderBottom: '2px solid rgba(139,94,60,0.1)',
+            background: '#F5EFE0',
+            borderRadius: '12px',
+            padding: '0.85rem 1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '1.25rem',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
           }}
         >
-          FSSAI Categories
-        </h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat;
-            
-            // Map category names to their respective images
-            const catImages = {
-              'All': '/images/logo.svg',
-              'Prepared Foods': '/images/products/mango-pickle.jpg',
-              'Ready-to-eat savouries': '/images/products/chakodi.jpg',
-              'Salts, spices, soups': '/images/products/biryani-masala.jpg',
-              'Indian Sweets & Snacks': '/images/products/Dry_Fruits_Laddu_(premium_dry_fruits_laddu).jpeg'
-            };
-            
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{
+              border: 'none',
+              background: 'transparent',
+              fontFamily: "'Outfit', -apple-system, sans-serif",
+              fontSize: '1.15rem',
+              fontWeight: 700,
+              color: '#141414',
+              width: '100%',
+              outline: 'none',
+            }}
+          />
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#141414"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ flexShrink: 0 }}
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </div>
+
+        {/* Product Type Header Card */}
+        <div
+          style={{
+            background: '#F5EFE0',
+            borderRadius: '12px',
+            padding: '1rem 1.25rem',
+            marginBottom: '1.25rem',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontFamily: "'Outfit', -apple-system, sans-serif",
+              fontSize: '1.15rem',
+              fontWeight: 800,
+              color: '#141414',
+            }}
+          >
+            Product Type
+          </h3>
+        </div>
+
+        {/* Checkbox Options: The Four Types of Products */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem', padding: '0.2rem 0.5rem 1.75rem' }}>
+          {[
+            { id: 'Prepared Foods', label: 'Prepared Foods' },
+            { id: 'Salts, spices, soups', label: 'Salts, Spices, Soups' },
+            { id: 'Ready-to-eat savouries', label: 'Ready-to-eat Savouries' },
+            { id: 'Indian Sweets & Snacks', label: 'Indian Sweets & Snacks' },
+          ].map((item) => {
+            const isChecked = dietaryFilters.includes(item.id);
             return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
+              <label
+                key={item.id}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  textAlign: 'left',
-                  fontFamily: 'Lato, sans-serif',
-                  fontWeight: isActive ? 900 : 700,
-                  fontSize: '0.85rem',
-                  padding: '0.75rem 1rem',
-                  borderRadius: '12px',
-                  border: isActive ? '1px solid rgba(196,96,58,0.3)' : '1px solid rgba(139,94,60,0.15)',
-                  background: isActive ? '#fff' : 'rgba(255,255,255,0.4)',
-                  color: isActive ? 'var(--terracotta)' : 'var(--rich-brown)',
+                  gap: '14px',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: isActive ? '0 8px 16px rgba(196,96,58,0.08)' : 'none',
+                  userSelect: 'none',
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleDietary(item.id);
                 }}
               >
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '1px solid rgba(139,94,60,0.1)', background: '#fff' }}>
-                  <img 
-                    src={catImages[cat]} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                    onError={(e) => { e.target.onerror = null; e.target.src = '/images/logo.svg'; }} 
-                    alt={cat} 
-                  />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                    border: '2.2px solid #141414',
+                    borderRadius: '4px',
+                    background: isChecked ? '#141414' : '#FFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.15s ease',
+                    flexShrink: 0,
+                  }}
+                >
+                  {isChecked && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#FFF"
+                      strokeWidth="3.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
                 </div>
-                {cat}
-              </button>
+                <span
+                  style={{
+                    fontFamily: "'Outfit', -apple-system, sans-serif",
+                    fontSize: '1.15rem',
+                    fontWeight: 700,
+                    color: '#141414',
+                  }}
+                >
+                  {item.label}
+                </span>
+              </label>
             );
           })}
+        </div>
+
+        {/* Action Buttons: Search & Clear all */}
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById('shop');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{
+              background: '#141414',
+              color: '#FFFFFF',
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              borderRadius: '8px',
+              border: 'none',
+              padding: '0.65rem 1.6rem',
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+            }}
+          >
+            Search
+          </button>
+          <button
+            type="button"
+            onClick={onReset}
+            style={{
+              background: '#FFFFFF',
+              color: '#141414',
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              borderRadius: '8px',
+              border: '1.8px solid #141414',
+              padding: '0.65rem 1.25rem',
+              cursor: 'pointer',
+            }}
+          >
+            Clear all
+          </button>
         </div>
 
 
@@ -292,7 +567,9 @@ function ProductsContent() {
   const queryCategory = searchParams.get('category');
   
   const [activeCategory, setActiveCategory] = useState(queryCategory && CATEGORIES.includes(queryCategory) ? queryCategory : FILTER_ALL);
-  const [sortBy, setSortBy] = useState(SORT_FEATURED);
+  const [sortBy, setSortBy] = useState('Default');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [dietaryFilters, setDietaryFilters] = useState([]);
 
   // Sync category state when URL changes
   useEffect(() => {
@@ -310,25 +587,38 @@ function ProductsContent() {
   // Reset page to 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [activeCategory, sortBy]);
+  }, [activeCategory, sortBy, searchQuery, dietaryFilters]);
 
   useEffect(() => {
     async function fetchProducts() {
         try {
-          const res = await fetch('/api/web-products');
+          const res = await fetch('/api/web-products', { cache: 'no-store' });
           if (!res.ok) throw new Error('Failed to fetch');
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
-            const mappedProducts = data.map(p => ({
-            ...p,
-            name: p.productName || p.name || 'Unnamed Product',
-            desc: p.productDescription || p.desc || '',
-            img: (p.images && p.images.length > 0) ? p.images[0] : (p.img || 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&q=80'),
-            rating: p.rating || 5,
-            reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
-          }));
-          setProducts(mappedProducts);
-        } else {
+            const mappedProducts = data.map(p => {
+              const productName = p.productName || p.name || 'Unnamed Product';
+              const cleanName = productName.toLowerCase().replace(/[^a-z0-9]/g, '');
+              const fallbackItem = FALLBACK_PRODUCTS.find(fp => fp.id === p.id || fp.name.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanName)
+                || FALLBACK_PRODUCTS.find(fp => {
+                  const fpClean = fp.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                  return cleanName.includes(fpClean) || fpClean.includes(cleanName);
+                });
+              const fallbackImg = fallbackItem ? fallbackItem.img : '/images/products/mango-pickle-real.jpg';
+              const remoteImg = (p.images && p.images.length > 0 && p.images[0]) ? p.images[0] : p.img;
+              const chosenImg = (fallbackItem && fallbackItem.img) ? fallbackItem.img : (remoteImg || fallbackImg);
+              return {
+                ...p,
+                name: productName,
+                desc: p.productDescription || p.desc || (fallbackItem ? fallbackItem.desc : ''),
+                img: chosenImg,
+                fallbackImg: fallbackImg,
+                rating: p.rating || 5,
+                reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
+              };
+            });
+            setProducts(mappedProducts);
+          } else {
           setProducts(FALLBACK_PRODUCTS);
         }
       } catch (error) {
@@ -343,8 +633,8 @@ function ProductsContent() {
 
   // Memoize filtered products for performance
   const filteredProducts = useMemo(() => {
-    return getFilteredAndSortedProducts(products, activeCategory, sortBy);
-  }, [products, activeCategory, sortBy]);
+    return getFilteredAndSortedProducts(products, activeCategory, sortBy, searchQuery, dietaryFilters);
+  }, [products, activeCategory, sortBy, searchQuery, dietaryFilters]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = filteredProducts.slice(
@@ -380,228 +670,272 @@ function ProductsContent() {
 
   const handleClearFilters = () => {
     setActiveCategory(FILTER_ALL);
+    setSearchQuery('');
+    setDietaryFilters([]);
+    setSortBy('Default');
   };
 
   return (
     <>
       <Navbar />
       <main>
-        {/* ── Custom Typography Hero perfectly matching the requested image ── */}
+        {/* ── FEELING HUNGRY? DISCOVER OUR PRODUCTS Hero matching reference ── */}
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Patrick+Hand+SC&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Titan+One&family=Lilita+One&family=Outfit:wght@500;700;800;900&display=swap');
 
-          #products-hero {
-            background-color: #F4EFE6; /* Match the textured off-white beige of the image */
+          .discover-hero-section {
+            background-color: #F5B82A;
+            position: relative;
+            padding-top: clamp(6.5rem, 9vw, 9rem);
+            padding-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            text-align: center;
+            overflow: hidden;
           }
 
-          /* Subtle texture overlay */
-          .texture-overlay {
-            position: absolute;
-            inset: 0;
-            opacity: 0.4;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            pointer-events: none;
-            mix-blend-mode: multiply;
+          .discover-eyebrow {
+            font-family: 'Outfit', -apple-system, sans-serif;
+            font-size: clamp(1rem, 1.35vw, 1.3rem);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #141414;
+            text-transform: uppercase;
+            margin: 0 0 clamp(0.75rem, 1.2vw, 1.25rem);
           }
 
-          @keyframes drawLine {
-            to { stroke-dashoffset: 0; }
-          }
-          
-          .animated-path {
-            stroke-dasharray: 2000;
-            stroke-dashoffset: 2000;
-            animation: drawLine 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-          }
-
-          .animated-text {
-            opacity: 0;
-            transform: translateY(10px);
-            animation: popIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          .discover-main-title {
+            font-family: 'Titan One', 'Lilita One', cursive, sans-serif;
+            font-size: clamp(3.6rem, 8vw, 7.6rem);
+            line-height: 0.94;
+            color: #141414;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin: 0 0 clamp(3rem, 5vw, 4.5rem);
+            max-width: 1100px;
+            padding: 0 1rem;
           }
 
-          @keyframes popIn {
-            to { opacity: 1; transform: translateY(0); }
+          .discover-category-bar-wrapper {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: center;
+          }
+
+          .discover-category-bar {
+            background-color: #18181A;
+            border-radius: 24px 24px 0 0;
+            padding: 0.65rem 0.85rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: clamp(0.35rem, 0.6vw, 0.65rem);
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+            width: 100%;
+          }
+
+          .discover-tab-btn {
+            border: none;
+            background: transparent;
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(0.95rem, 1.1vw, 1.12rem);
+            font-weight: 600;
+            color: #FFFFFF;
+            padding: 0.7rem clamp(0.9rem, 1.4vw, 1.4rem);
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+          }
+
+          .discover-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+          }
+
+          .discover-tab-btn.active {
+            background-color: #FFFFFF;
+            color: #141414;
+            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+          }
+
+          @media (max-width: 768px) {
+            .discover-category-bar {
+              border-radius: 20px 20px 0 0;
+              padding: 0.5rem;
+              gap: 0.35rem;
+            }
+            .discover-tab-btn {
+              padding: 0.55rem 0.85rem;
+              font-size: 0.9rem;
+            }
           }
         `}</style>
 
-        <section
-          id="products-hero"
-          className="products-hero-section"
-          style={{
-            position: 'relative', overflow: 'hidden',
-            minHeight: '100vh', paddingTop: '75px',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-          }}
-        >
-          <div className="texture-overlay" />
+        <section id="products-hero" className="discover-hero-section">
+          {/* Eyebrow */}
+          <div className="discover-eyebrow">FEELING HUNGRY?</div>
 
-          {/* ── SVG Poster perfectly modeled after the reference image ── */}
-          <svg
-            viewBox="0 0 1000 520"
-            xmlns="http://www.w3.org/2000/svg"
-            className="products-hero-svg"
-            style={{
-              width: '100%',
-              height: 'auto',
-              maxHeight: '85vh',
-              display: 'block',
-              overflow: 'visible',
-              position: 'relative',
-              zIndex: 1,
-              margin: '0 auto'
-            }}
-          >
-            <defs>
-              <path id="top-text-arc" d="M 120 100 Q 450 40, 900 110" />
-            </defs>
+          {/* Chunky Main Title */}
+          <h1 className="discover-main-title">
+            DISCOVER OUR<br />
+            PRODUCTS
+          </h1>
 
-            <g fontFamily="'Caveat Brush', 'Patrick Hand SC', cursive" fill="#442111" strokeLinecap="round" strokeLinejoin="round">
+          {/* Dark Category Bar Matching Reference */}
+          <div className="discover-category-bar-wrapper">
+            <div className="discover-category-bar">
+              {/* Tab 1: All products with ✦ sparkle */}
+              <button
+                type="button"
+                className={`discover-tab-btn ${activeCategory === FILTER_ALL ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory(FILTER_ALL);
+                  const el = document.getElementById('shop');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <span style={{ fontSize: '1.1rem', color: activeCategory === FILTER_ALL ? '#141414' : '#FFF' }}>✦</span>
+                <span>All products</span>
+              </button>
 
-              {/* ── WAVY LINES (Decorative separators) ── */}
-              <path
-                d="M 110 150 Q 320 100, 580 160 Q 750 200, 900 150"
-                fill="none" stroke="#442111" strokeWidth="5"
-                className="animated-path"
-                style={{ animationDelay: '2.7s' }}
-              />
+              {/* Tab 2: Prepared Foods (Pickles) with Burgundy Starburst */}
+              <button
+                type="button"
+                className={`discover-tab-btn ${activeCategory === 'Prepared Foods' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory('Prepared Foods');
+                  const el = document.getElementById('shop');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#7E1D3B" style={{ flexShrink: 0 }}>
+                  <path d="M12 1.5L13.8 5.2L17.8 4.3L17.9 8.4L22 9.4L20.2 13.1L22.8 16.2L19 17.6L18.9 21.7L14.8 20.8L13 24.5L10.3 21.4L6.4 22.8L6.3 18.7L2.2 17.7L4 14L1.4 10.9L5.2 9.5L5.3 5.4L9.4 6.4L11.2 2.7L12 1.5Z" />
+                </svg>
+                <span>Prepared Foods</span>
+              </button>
 
-              <path
-                d="M 110 320 Q 320 280, 580 320 Q 750 350, 900 310"
-                fill="none" stroke="#442111" strokeWidth="5"
-                className="animated-path"
-                style={{ animationDelay: '2.9s' }}
-              />
+              {/* Tab 3: Ready-to-eat savouries with Cyan Starburst */}
+              <button
+                type="button"
+                className={`discover-tab-btn ${activeCategory === 'Ready-to-eat savouries' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory('Ready-to-eat savouries');
+                  const el = document.getElementById('shop');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#00A3C4" style={{ flexShrink: 0 }}>
+                  <path d="M12 1.5L13.8 5.2L17.8 4.3L17.9 8.4L22 9.4L20.2 13.1L22.8 16.2L19 17.6L18.9 21.7L14.8 20.8L13 24.5L10.3 21.4L6.4 22.8L6.3 18.7L2.2 17.7L4 14L1.4 10.9L5.2 9.5L5.3 5.4L9.4 6.4L11.2 2.7L12 1.5Z" />
+                </svg>
+                <span>Savouries</span>
+              </button>
 
-              {/* ── TOP LINE: WE BELIEVE THAT AUTHENTIC ── */}
-              <text fontSize="60" className="animated-text" style={{ animationDelay: '3.1s' }}>
-                <textPath href="#top-text-arc" startOffset="0%">WE BELIEVE THAT AUTHENTIC</textPath>
-              </text>
+              {/* Tab 4: Salts, spices, soups with Orange Starburst */}
+              <button
+                type="button"
+                className={`discover-tab-btn ${activeCategory === 'Salts, spices, soups' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory('Salts, spices, soups');
+                  const el = document.getElementById('shop');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#E85D04" style={{ flexShrink: 0 }}>
+                  <path d="M12 1.5L13.8 5.2L17.8 4.3L17.9 8.4L22 9.4L20.2 13.1L22.8 16.2L19 17.6L18.9 21.7L14.8 20.8L13 24.5L10.3 21.4L6.4 22.8L6.3 18.7L2.2 17.7L4 14L1.4 10.9L5.2 9.5L5.3 5.4L9.4 6.4L11.2 2.7L12 1.5Z" />
+                </svg>
+                <span>Spices & Soups</span>
+              </button>
 
-              {/* ── MIDDLE LINE: FOOD HAS THE POWER ── */}
-              {/* FOOD */}
-              <text x="100" y="290" fontSize="170" className="animated-text" style={{ animationDelay: '3.2s', letterSpacing: '2px' }}>
-                FOOD
-              </text>
-
-              {/* HAS THE (Stacked) */}
-              <g className="animated-text" style={{ animationDelay: '3.3s' }}>
-                <text x="480" y="220" fontSize="40">HAS</text>
-                <text x="470" y="280" fontSize="40">THE</text>
-              </g>
-
-              {/* POWER */}
-              <text x="560" y="270" fontSize="100" transform="rotate(-2, 560, 270)" className="animated-text" style={{ animationDelay: '3.4s' }}>
-                POWER
-              </text>
-
-              {/* ── BOTTOM LINE: TO CHANGE THE WORLD. ── */}
-              {/* TO (with underline) */}
-              <g className="animated-text" style={{ animationDelay: '3.5s' }}>
-                <text x="140" y="420" fontSize="48">TO</text>
-                <path d="M 140 435 Q 165 430, 185 432" fill="none" stroke="#442111" strokeWidth="4" />
-              </g>
-
-              {/* CHANGE */}
-              <text x="210" y="430" fontSize="105" className="animated-text" style={{ animationDelay: '3.6s' }}>
-                CHANGE
-              </text>
-
-              {/* THE (Stacked with double underline) */}
-              <g className="animated-text" style={{ animationDelay: '3.7s' }}>
-                <text x="525" y="375" fontSize="35">THE</text>
-                <path d="M 525 390 Q 545 385, 565 390" fill="none" stroke="#442111" strokeWidth="3" />
-                <path d="M 528 400 Q 545 395, 562 400" fill="none" stroke="#442111" strokeWidth="3" />
-              </g>
-
-              {/* WORLD. */}
-              <text x="590" y="430" fontSize="105" transform="rotate(-2, 590, 430)" className="animated-text" style={{ animationDelay: '3.8s' }}>
-                WORLD.
-              </text>
-
-
-            </g>
-          </svg>
-
+              {/* Tab 5: Indian Sweets & Snacks with Tan Starburst */}
+              <button
+                type="button"
+                className={`discover-tab-btn ${activeCategory === 'Indian Sweets & Snacks' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory('Indian Sweets & Snacks');
+                  const el = document.getElementById('shop');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#C49767" style={{ flexShrink: 0 }}>
+                  <path d="M12 1.5L13.8 5.2L17.8 4.3L17.9 8.4L22 9.4L20.2 13.1L22.8 16.2L19 17.6L18.9 21.7L14.8 20.8L13 24.5L10.3 21.4L6.4 22.8L6.3 18.7L2.2 17.7L4 14L1.4 10.9L5.2 9.5L5.3 5.4L9.4 6.4L11.2 2.7L12 1.5Z" />
+                </svg>
+                <span>Sweets & Snacks</span>
+              </button>
+            </div>
+          </div>
         </section>
 
         {/* ── Advanced Sidebar Layout ──────────────────────── */}
-        <section id="shop" className="products-main-section" style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem' }}>
+        <section id="shop" className="products-main-section" style={{ background: 'var(--cream)', minHeight: '80vh', padding: '4rem 2rem 10rem', scrollMarginTop: '120px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '4rem', flexDirection: 'row' }} className="products-layout">
 
             <FilterSidebar
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              dietaryFilters={dietaryFilters}
+              setDietaryFilters={setDietaryFilters}
+              onReset={handleClearFilters}
             />
 
             {/* ── Main Products Grid ── */}
             <div className="products-main-content" style={{ flex: 1 }}>
-              {/* Toolbar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ width: '40px', height: '2px', background: 'var(--terracotta)' }} />
-                  <p
-                    style={{
-                      fontFamily: 'Lato, sans-serif',
-                      fontSize: '0.85rem',
-                      fontWeight: 900,
-                      color: 'var(--aged-wood)',
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    Showing {filteredProducts.length} Artisanal Pickles
-                  </p>
-                </div>
+              {/* Toolbar matching reference screenshot */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <p
+                  style={{
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: '0.95rem',
+                    fontWeight: 800,
+                    color: '#141414',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    margin: 0,
+                  }}
+                >
+                  Showing {filteredProducts.length} Items
+                </p>
 
-                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                  {/* Mobile Category Dropdown (Hidden on Desktop) */}
-                  <select
-                    className="mobile-category-select"
-                    value={activeCategory}
-                    onChange={(e) => setActiveCategory(e.target.value)}
-                    style={{
-                      fontFamily: 'Lato, sans-serif',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                      color: 'var(--rich-brown)',
-                      border: '1px solid rgba(139,94,60,0.2)',
-                      borderRadius: '8px',
-                      padding: '0.75rem 1.25rem',
-                      background: '#fff',
-                      cursor: 'pointer',
-                      outline: 'none',
-                    }}
-                  >
-                    {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-
-                  {/* Sort Dropdown */}
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    style={{
-                      fontFamily: 'Lato, sans-serif',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                      color: 'var(--rich-brown)',
-                      border: '1px solid rgba(139,94,60,0.2)',
-                      borderRadius: '8px',
-                      padding: '0.75rem 1.25rem',
-                      background: '#fff',
-                      cursor: 'pointer',
-                      outline: 'none',
-                    }}
-                  >
-                    {SORT_OPTIONS.map((o) => (
-                      <option key={o} value={o}>{o}</option>
-                    ))}
-                  </select>
+                {/* Pill buttons: Default, A - Z, Most Popular */}
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  {[
+                    { id: 'Default', label: 'Default' },
+                    { id: 'A - Z', label: 'A - Z' },
+                    { id: 'Most Popular', label: 'Most Popular' },
+                  ].map((opt) => {
+                    const isActive = (sortBy === opt.id) || (opt.id === 'Default' && sortBy === SORT_FEATURED);
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => setSortBy(opt.id)}
+                        style={{
+                          background: isActive ? '#141414' : '#FFFFFF',
+                          color: isActive ? '#FFFFFF' : '#141414',
+                          border: isActive ? 'none' : '1.8px solid #141414',
+                          borderRadius: '8px',
+                          padding: '0.6rem 1.35rem',
+                          fontFamily: "'Outfit', sans-serif",
+                          fontWeight: 700,
+                          fontSize: '0.92rem',
+                          cursor: 'pointer',
+                          boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.12)' : 'none',
+                          transition: 'all 0.18s ease',
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -731,6 +1065,19 @@ function ProductsContent() {
       </main>
       <Footer />
       <style>{`
+        /* Floating motion animation */
+        @keyframes productFloat {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-9px);
+          }
+          100% {
+            transform: translateY(2px);
+          }
+        }
+
         /* Desktop */
         @media (min-width: 901px) {
           .mobile-category-select { display: none; }
@@ -757,20 +1104,27 @@ function ProductsContent() {
             overflow: hidden !important;
           }
           .product-grid-card {
-            padding: 0 0.5rem 0.5rem 0.5rem !important;
-            margin-top: 40px !important;
-            min-width: 0 !important; /* Prevents long text from overflowing the column */
+            padding: 0 0.25rem 1rem 0.25rem !important;
+            margin-top: 10px !important;
+            min-width: 0 !important;
             max-width: 100% !important;
             width: 100% !important;
-            word-wrap: break-word !important; /* Allows long words to break */
+            word-wrap: break-word !important;
             box-sizing: border-box !important;
           }
-          .product-grid-img {
-            width: 80px !important;
-            height: 80px !important;
-            margin-top: -40px !important;
+          .product-stage {
+            height: 140px !important;
             margin-bottom: 0.5rem !important;
-            border-width: 2px !important;
+          }
+          .product-card-mandala {
+            width: 150px !important;
+            height: 150px !important;
+            margin-top: -75px !important;
+            margin-left: -75px !important;
+          }
+          .product-img-wrap {
+            width: 125px !important;
+            height: 125px !important;
           }
           .product-grid-title {
             font-size: 0.8rem !important;

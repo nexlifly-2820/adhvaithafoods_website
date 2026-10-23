@@ -1,0 +1,209 @@
+/* Adhvaitha Foods — "Signature Pickles" section (fits one screen) */
+
+.frame {
+  --border: clamp(18px, 2.8vw, 48px);
+  --orange: #F15A29;
+  --cream: #F8EFE8;
+  --brown: #5C3313;
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--border);
+  background-color: var(--orange);
+  scroll-margin-top: 100px;
+  /* repeating mango + chilli pattern (cream on orange) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='%23F8EFE8'%3E%3Cpath d='M10 38c-6-14 2-30 18-32 8 10 6 26-6 34-5 3-9 2-12-2z'/%3E%3Cpath d='M86 58c6 14-2 30-18 32-8-10-6-26 6-34 5-3 9-2 12 2z'/%3E%3Cpath d='M58 10c14-6 30 2 32 18-10 8-26 6-34-6-3-5-2-9 2-12z'/%3E%3Cpath d='M38 86c-14 6-30-2-32-18 10-8 26-6 34 6 3 5 2 9-2 12z'/%3E%3Ccircle cx='48' cy='48' r='11'/%3E%3C/g%3E%3Cg fill='%23F15A29'%3E%3Ccircle cx='48' cy='48' r='5'/%3E%3Cpath d='M17 14c3 6 3 14-1 20' stroke='%23F15A29' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M79 82c-3-6-3-14 1-20' stroke='%23F15A29' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M82 17c-6 3-14 3-20-1' stroke='%23F15A29' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 79c6-3 14-3 20 1' stroke='%23F15A29' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 96px;
+  font-family: "Lato", system-ui, sans-serif;
+}
+
+.panel {
+  background: var(--cream);
+  box-sizing: border-box;
+  padding: clamp(48px, 6vw, 84px) clamp(16px, 2.5vw, 36px) clamp(52px, 6.5vw, 88px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+}
+
+/* ---------- Title ---------- */
+.titleWrap {
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: clamp(14px, 2vw, 32px);
+  margin-bottom: clamp(84px, 9.5vw, 136px);
+  padding: clamp(12px, 1.8vw, 24px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  position: relative;
+  margin: 0;
+  text-align: center;
+  line-height: 1;
+}
+.big {
+  display: block;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(46px, 7.5vw, 116px);
+  letter-spacing: 0.01em;
+  color: var(--orange);
+  line-height: 0.9;
+}
+.script {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-35%) rotate(-7deg);
+  font-family: "Mr Dafoe", "Brush Script MT", cursive;
+  font-weight: 400;
+  font-size: clamp(48px, 7.5vw, 118px);
+  color: var(--brown);
+  white-space: nowrap;
+  z-index: 5;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5), -1px -1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.doodle {
+  position: absolute;
+  pointer-events: none;
+}
+.bowl  { left: 3%;  top: 6%;  width: clamp(65px, 7.5vw, 120px); animation: wob 5s ease-in-out infinite; }
+.leaf  { left: 22%; top: 62%; width: clamp(35px, 4vw, 72px);   animation: wob 4s ease-in-out .6s infinite; }
+.mango { right: 3%; top: 12%; width: clamp(75px, 7.5vw, 120px); animation: wob 6s ease-in-out 1s infinite; }
+@keyframes wob { 0%,100% { transform: rotate(0deg) translateY(0); } 50% { transform: rotate(4deg) translateY(-6px); } }
+
+/* ---------- Cards ---------- */
+.cards {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 32px);
+  align-items: stretch;
+}
+
+.card {
+  --pad: clamp(12px, 1vw, 18px);    /* frame thickness */
+  --r: 10px;                         /* scallop radius */
+  --gap: 28px;                       /* scallop spacing */
+  position: relative;
+  min-height: 480px;
+  padding: var(--pad);
+  background: var(--frame);
+  box-shadow: 0 10px 22px -10px rgba(60, 30, 10, 0.45);
+  transform: rotate(0deg) translateY(0);
+  transition: transform 0.4s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.3s;
+  text-decoration: none;
+  display: block;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: rotate(-3deg) translateY(-10px) scale(1.02);
+  box-shadow: 0 26px 40px -16px rgba(60, 30, 10, 0.5);
+  outline: none;
+  animation: cardShake 0.45s ease-in-out;
+}
+
+@keyframes cardShake {
+  0% { transform: rotate(0deg) translateY(0) scale(1); }
+  25% { transform: rotate(-4deg) translateY(-10px) scale(1.02); }
+  50% { transform: rotate(2.5deg) translateY(-10px) scale(1.02); }
+  75% { transform: rotate(-2.5deg) translateY(-10px) scale(1.02); }
+  100% { transform: rotate(-3deg) translateY(-10px) scale(1.02); }
+}
+
+/* inner panel with scalloped (stamp) edges */
+.inner {
+  height: 100%;
+  box-sizing: border-box;
+  background-color: var(--fill);
+  background-image:
+    radial-gradient(circle at 50% 0,    var(--frame) var(--r), transparent calc(var(--r) + 0.5px)),
+    radial-gradient(circle at 50% 100%, var(--frame) var(--r), transparent calc(var(--r) + 0.5px)),
+    radial-gradient(circle at 0 50%,    var(--frame) var(--r), transparent calc(var(--r) + 0.5px)),
+    radial-gradient(circle at 100% 50%, var(--frame) var(--r), transparent calc(var(--r) + 0.5px));
+  background-size:
+    var(--gap) var(--r), var(--gap) var(--r),
+    var(--r) var(--gap), var(--r) var(--gap);
+  background-position: center top, center bottom, left center, right center;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  color: var(--ink);
+  padding: clamp(14px, 2.2vh, 28px) clamp(16px, 1.8vw, 28px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 6px;
+}
+
+.img {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img img {
+  max-height: 100%;
+  width: auto;
+  max-width: 88%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.3));
+  transition: transform 0.5s cubic-bezier(.34, 1.56, .64, 1);
+}
+.card:hover .img img { transform: scale(1.08) rotate(-4deg); }
+
+.name {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(24px, 2.5vw, 44px);
+  line-height: 1;
+  color: var(--ink);
+}
+.desc {
+  margin: 4px 0 0;
+  font-size: clamp(12px, 1.05vw, 17px);
+  line-height: 1.3;
+  max-width: 22ch;
+  color: var(--ink);
+  opacity: 0.92;
+}
+.tags {
+  margin-top: clamp(6px, 1.5vh, 18px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 18px;
+  font-family: "Oswald", "Arial Narrow", sans-serif;
+  font-weight: 600;
+  font-size: clamp(10px, 0.85vw, 15px);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+/* ---------- Tablet / phone ---------- */
+@media (max-width: 900px) {
+  .frame { height: auto; min-height: 100vh; padding: 24px 16px; }
+  .panel { height: auto; }
+  .cards {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 16px 4px 24px;
+  }
+  .card { flex: 0 0 78%; height: 460px; scroll-snap-align: center; }
+  .leaf { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle { animation: none; }
+  .card, .img img { transition: none; }
+}

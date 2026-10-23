@@ -4,6 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import HeroCarousel from '@/components/HeroCarousel';
+import SignatureSection from '@/components/SignatureSection';
+import AdhvaithaPromise from '@/components/AdhvaithaPromise';
 import { ShoppingCart, ArrowRight, ChevronRight } from 'lucide-react';
 
 /* ── Scroll-reveal hook ───────────────────── */
@@ -49,6 +52,275 @@ const FALLBACK_RECIPES = [
   { id: 'daniya-powder-rasam', name: 'Daniya Powder Rasam', time: '20 min', emoji: '🥣', color: '#2D5A27', desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder.' },
   { id: 'millets-kheer', name: 'Millets Laddu Kheer', time: '15 min', emoji: '🍨', color: '#8B5E3C', desc: 'Comforting, creamy kheer made by crumbling Millets Laddu into warm milk.' },
 ];
+
+/* ══ PRODUCT CARD MANDALA DESIGN (Brar's Style) ══ */
+const HOME_CARD_BG_COLORS = [
+  '#C4603A', // Rich Terracotta / Clay
+  '#2E7D32', // Rich Curry Green
+  '#D35400', // Warm Amber Ochre
+  '#E67E22', // Golden Saffron / Turmeric
+  '#C0392B', // Vibrant Chilli Red
+  '#00838F', // Deep Peacock Teal
+];
+
+const HOME_CATEGORY_ROWS = [
+  {
+    id: 'pickles',
+    name: 'Authentic Pickles',
+    eyebrow: 'TRADITIONAL TELUGU AVAKAYA',
+    categoryKey: 'Prepared Foods',
+    defaultNames: ['Mango Pickle', 'Allam Avakaya', 'Usiri Pickle', 'Pandu Mirchi']
+  },
+  {
+    id: 'podis',
+    name: 'Stone-Ground Podis',
+    eyebrow: 'AROMATIC SPICE POWDERS',
+    categoryKey: 'Salts, spices, soups',
+    defaultNames: ['Karvepaku Karam', 'Special Kura Karam', 'Allam Velluli Karam', 'Daniya Powder']
+  },
+  {
+    id: 'snacks',
+    name: 'Crispy Savouries',
+    eyebrow: 'CRUNCHY TEA-TIME SNACKS',
+    categoryKey: 'Ready-to-eat savouries',
+    defaultNames: ['Muthyala Chudwa', 'Allu Chips', 'Chakinalu', 'Bundhi']
+  },
+  {
+    id: 'sweets',
+    name: 'Traditional Sweets',
+    eyebrow: 'PURE GHEE & JAGGERY DELIGHTS',
+    categoryKey: 'Indian Sweets & Snacks',
+    defaultNames: ['Sunnunda Laddu', 'Dry Fruits Laddu', 'Millets Laddu', 'Palli Patti']
+  }
+];
+
+function HomeCardBackgroundDesign({ color, isHovered }) {
+  // When not hovered: soft muted translucent warm beige/cream matching products page
+  // When hovered: vibrant spice color with dynamic rotation and scale
+  const petalFill = isHovered ? color : '#E7DDCF';
+  const petalOpacity = isHovered ? 0.98 : 0.65;
+
+  return (
+    <div
+      className="product-card-mandala"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '300px',
+        height: '300px',
+        marginTop: '-150px',
+        marginLeft: '-150px',
+        pointerEvents: 'none',
+        zIndex: 1,
+        transition: 'transform 0.85s cubic-bezier(0.2, 0.9, 0.3, 1)',
+        transform: isHovered ? 'rotate(180deg) scale(1.08)' : 'rotate(0deg) scale(1)',
+      }}
+    >
+      <svg viewBox="0 0 240 240" width="100%" height="100%" style={{ overflow: 'visible' }}>
+        <g fill={petalFill} style={{ transition: 'fill 0.4s ease, opacity 0.4s ease', opacity: petalOpacity }}>
+          {/* 16 Organic Rounded Petals matching Brar's silhouette */}
+          {[0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5].map((deg) => (
+            <path
+              key={`home-petal-${deg}`}
+              d="M 120 12 C 132 12, 142 58, 120 74 C 98 58, 108 12, 120 12 Z"
+              transform={`rotate(${deg} 120 120)`}
+            />
+          ))}
+          {/* Interleaved secondary flares */}
+          {[11.25, 33.75, 56.25, 78.75, 101.25, 123.75, 146.25, 168.75, 191.25, 213.75, 236.25, 258.75, 281.25, 303.75, 326.25, 348.75].map((deg) => (
+            <polygon
+              key={`home-flare-${deg}`}
+              points="120,28 129,82 120,72 111,82"
+              transform={`rotate(${deg} 120 120)`}
+            />
+          ))}
+          {/* Center disk */}
+          <circle cx="120" cy="120" r="68" fill={petalFill} style={{ transition: 'fill 0.4s ease' }} />
+          {/* Inner decorative dotted ring */}
+          <circle cx="120" cy="120" r="102" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeDasharray="4 6" opacity={isHovered ? 0.7 : 0.35} style={{ transition: 'opacity 0.4s ease' }} />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+const getBustedUrl = (url) => {
+  if (!url) return '/images/products/mango-pickle-real.jpg?v=20261022v2';
+  if (url.startsWith('/images/')) {
+    return url.includes('?') ? url : `${url}?v=20261022v2`;
+  }
+  return url;
+};
+
+function FeaturedProductCard({ product, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imgSrc, setImgSrc] = useState(getBustedUrl(product.img));
+  const bgColor = HOME_CARD_BG_COLORS[index % HOME_CARD_BG_COLORS.length];
+  const floatDelay = `${(index % 4) * 0.75}s`;
+
+  useEffect(() => {
+    setImgSrc(getBustedUrl(product.img));
+  }, [product.img]);
+
+  return (
+    <div
+      key={product.id}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        background: 'transparent',
+        padding: '0 0.5rem 2rem 0.5rem',
+        marginTop: '10px',
+        animationDelay: `${index * 0.1}s`,
+        cursor: 'pointer',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link
+        href={`/products?search=${encodeURIComponent(product.name)}`}
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
+        {/* Product Image Stage with Rolling Background Design */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '240px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '1.25rem',
+            overflow: 'visible',
+          }}
+        >
+          {/* Rolling Background Mandala Design */}
+          <HomeCardBackgroundDesign color={bgColor} isHovered={isHovered} />
+
+          {/* Floating Jar/Packaging Container with Zoom-In on Hover */}
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 2,
+              animation: 'homeProductFloat 3.8s ease-in-out infinite alternate',
+              animationDelay: floatDelay,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                width: '210px',
+                height: '210px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.55s ease',
+                transform: isHovered ? 'scale(1.14)' : 'scale(1)',
+                filter: isHovered
+                  ? 'drop-shadow(0 22px 28px rgba(0,0,0,0.36))'
+                  : 'drop-shadow(0 10px 16px rgba(0,0,0,0.2))',
+              }}
+            >
+              <img
+                src={imgSrc}
+                alt={product.name}
+                onError={() => {
+                  if (imgSrc !== getBustedUrl(product.fallbackImg) && product.fallbackImg) {
+                    setImgSrc(getBustedUrl(product.fallbackImg));
+                  } else if (imgSrc !== getBustedUrl('/images/products/mango-pickle-real.jpg')) {
+                    setImgSrc(getBustedUrl('/images/products/mango-pickle-real.jpg'));
+                  }
+                }}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  objectFit: 'contain',
+                  borderRadius: '16px',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Title */}
+        <h3
+          style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: '1.4rem',
+            fontWeight: 900,
+            color: '#111',
+            textAlign: 'center',
+            lineHeight: 1.2,
+            marginBottom: '0.75rem',
+            minHeight: '3.2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            letterSpacing: '-0.01em',
+          }}
+        >
+          {product.name}
+        </h3>
+
+        {/* Stats Pill / Badge */}
+        <div
+          style={{
+            backgroundColor: '#111',
+            padding: '0.35rem 0.9rem',
+            marginBottom: '1rem',
+            borderRadius: '999px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: '"Inter", system-ui, sans-serif',
+              fontSize: '0.72rem',
+              fontWeight: 800,
+              color: '#fff',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            ✓ {product.tag || 'AUTHENTIC'} • MIN 250G - 2KG
+          </span>
+        </div>
+
+        {/* Description */}
+        <p
+          style={{
+            fontFamily: '"Inter", system-ui, sans-serif',
+            fontSize: '0.88rem',
+            fontWeight: 500,
+            color: '#555',
+            textAlign: 'center',
+            lineHeight: 1.55,
+            marginBottom: '0',
+            flex: 1,
+            maxWidth: '92%',
+          }}
+        >
+          {product.desc}
+        </p>
+      </Link>
+    </div>
+  );
+}
 
 /* ═══════════════════════════════════════════════════
    HOMEPAGE
@@ -198,20 +470,219 @@ const MICHA_BACKDROPS = [
   )
 ];
 
+/* ══ BANH MI WORLD STYLE STAMP SIGNATURE CARD ══ */
+const SIGNATURE_STAMP_CARDS = [
+  {
+    title: 'Avakaya',
+    desc: 'Sun-dried raw mangoes, cold-pressed sesame oil, heirloom spices.',
+    tags: ['#SPICY', '#ANDHRA_SPECIAL'],
+    img: '/images/products/mango-pickle.jpg',
+    cardBg: '#C85228',       // Terracotta warm orange
+    stampBorder: '#8A2D14',  // Deep rich terracotta edge
+    stampHoles: '#FBF5E8',   // Match page cream background
+  },
+  {
+    title: 'Gongura',
+    desc: 'Tangy sorrel leaves slow-cooked with roasted red chillies.',
+    tags: ['#TANGY', '#HERITAGE'],
+    img: '/images/hero/gongura.png',
+    cardBg: '#376843',       // Olive forest green
+    stampBorder: '#1F4229',  // Dark pine green edge
+    stampHoles: '#FBF5E8',
+  },
+  {
+    title: 'Allam Pickle',
+    desc: 'Golden sun-cured ginger & garlic with rich jaggery undertones.',
+    tags: ['#WARMTH', '#HOMEMADE'],
+    img: '/images/products/allam-velluli-pickle.jpg',
+    cardBg: '#E06B26',       // Bright turmeric orange
+    stampBorder: '#A6410A',  // Deep burnt orange edge
+    stampHoles: '#FBF5E8',
+  },
+  {
+    title: 'Chilli Podi',
+    desc: 'Slow stone-ground red chillies and roasted aromatic pulses.',
+    tags: ['#CRUNCHY', '#FIERY_HEAT'],
+    img: '/images/products/allam-velluli-karam.jpg',
+    cardBg: '#5A3825',       // Heritage dark brown
+    stampBorder: '#361E11',  // Espresso deep edge
+    stampHoles: '#FBF5E8',
+  },
+];
+
+function StampSignatureCard({ item, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '1.25rem 1rem 2rem 1rem',
+        borderRadius: '16px',
+        background: item.cardBg,
+        boxShadow: isHovered 
+          ? '0 24px 45px rgba(0,0,0,0.22)' 
+          : '0 12px 28px rgba(0,0,0,0.12)',
+        transition: 'transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1), box-shadow 0.45s ease',
+        transform: isHovered ? 'translateY(-10px)' : 'translateY(0)',
+        cursor: 'pointer',
+        overflow: 'hidden',
+        minHeight: '440px',
+        border: `8px solid ${item.stampBorder}`,
+        outline: '1px solid rgba(0,0,0,0.06)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Decorative Scalloped Stamp Holes around Border (Banh Mi World stamp effect) */}
+      <div 
+        style={{
+          position: 'absolute',
+          inset: '-8px',
+          pointerEvents: 'none',
+          backgroundImage: `
+            radial-gradient(circle at 10px 0, ${item.stampHoles} 7px, transparent 8px),
+            radial-gradient(circle at 10px 100%, ${item.stampHoles} 7px, transparent 8px),
+            radial-gradient(circle at 0 10px, ${item.stampHoles} 7px, transparent 8px),
+            radial-gradient(circle at 100% 10px, ${item.stampHoles} 7px, transparent 8px)
+          `,
+          backgroundSize: '24px 100%, 24px 100%, 100% 24px, 100% 24px',
+          backgroundPosition: '0 0, 0 100%, 0 0, 100% 0',
+          backgroundRepeat: 'repeat-x, repeat-x, repeat-y, repeat-y',
+          zIndex: 1,
+        }}
+      />
+
+      {/* Product Image Stage */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '210px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+          zIndex: 2,
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            width: '185px',
+            height: '185px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.5s ease',
+            transform: isHovered ? 'scale(1.12)' : 'scale(1)',
+            filter: isHovered 
+              ? 'drop-shadow(0 16px 22px rgba(0,0,0,0.45))' 
+              : 'drop-shadow(0 8px 14px rgba(0,0,0,0.3))',
+          }}
+        >
+          <img
+            src={item.img}
+            alt={item.title}
+            onError={(e) => { e.target.onerror = null; e.target.src = '/images/products/mango-pickle.jpg'; }}
+            style={{
+              maxWidth: '92%',
+              maxHeight: '92%',
+              objectFit: 'contain',
+              borderRadius: '16px',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Title */}
+      <h3
+        style={{
+          fontFamily: '"Montserrat", "Arial Black", sans-serif',
+          fontSize: '1.9rem',
+          fontWeight: 900,
+          color: '#FFFFFF',
+          textAlign: 'center',
+          lineHeight: 1.1,
+          marginBottom: '0.65rem',
+          letterSpacing: '-0.02em',
+          zIndex: 2,
+        }}
+      >
+        {item.title}
+      </h3>
+
+      {/* Description */}
+      <p
+        style={{
+          fontFamily: '"Inter", sans-serif',
+          fontSize: '0.9rem',
+          lineHeight: 1.45,
+          color: 'rgba(255,255,255,0.92)',
+          textAlign: 'center',
+          fontWeight: 500,
+          marginBottom: '1.5rem',
+          padding: '0 0.5rem',
+          flex: 1,
+          zIndex: 2,
+        }}
+      >
+        {item.desc}
+      </p>
+
+      {/* Hashtags Bottom */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          zIndex: 2,
+          paddingTop: '0.5rem',
+        }}
+      >
+        {item.tags.map((tag, tIdx) => (
+          <span
+            key={tIdx}
+            style={{
+              fontFamily: '"Montserrat", sans-serif',
+              fontSize: '0.68rem',
+              fontWeight: 800,
+              letterSpacing: '0.08em',
+              color: 'rgba(255,255,255,0.85)',
+              textTransform: 'uppercase',
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   useReveal();
   const [cmsData, setCmsData] = useState(null);
   const [ingredients, setIngredients] = useState(DEFAULT_INGREDIENTS);
   const [heroImages, setHeroImages] = useState(FALLBACK_HERO_IMAGES);
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-  const [featuredProducts, setFeaturedProducts] = useState(() => {
-    const defaultProducts = ALL_PRODUCTS.slice(0, 4).map(p => ({
-      ...p,
-      tag: p.badge,
-      tagCls: p.badgeClass,
-      accent: '#C4603A'
+  const [categorySections, setCategorySections] = useState(() => {
+    return HOME_CATEGORY_ROWS.map(cat => ({
+      ...cat,
+      products: cat.defaultNames.map(name => {
+        const found = ALL_PRODUCTS.find(p => p.name.toLowerCase() === name.toLowerCase()) || ALL_PRODUCTS[0];
+        return {
+          ...found,
+          tag: found.badge || 'AUTHENTIC',
+          tagCls: found.badgeClass || '',
+          accent: '#C4603A'
+        };
+      })
     }));
-    return defaultProducts;
   });
   const [featuredRecipes, setFeaturedRecipes] = useState(FALLBACK_RECIPES);
 
@@ -237,21 +708,34 @@ export default function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/web-products');
+        const res = await fetch('/api/web-products', { cache: 'no-store' });
         let apiProducts = [];
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) {
-            apiProducts = data.map(p => ({
-              ...p,
-              id: p.id || Math.random().toString(),
-              name: p.productName || p.name || 'Unnamed Product',
-              desc: p.productDescription || p.desc || '',
-              img: (p.images && p.images.length > 0) ? p.images[0] : (p.img || 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&q=80'),
-              rating: p.rating || 5,
-              reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
-              updatedAt: p.updatedAt || p.createdAt || 0
-            }));
+            apiProducts = data.map(p => {
+              const productName = p.productName || p.name || 'Unnamed Product';
+              const cleanName = productName.toLowerCase().replace(/[^a-z0-9]/g, '');
+              const fallbackItem = ALL_PRODUCTS.find(fp => fp.id === p.id || fp.name.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanName)
+                || ALL_PRODUCTS.find(fp => {
+                  const fpClean = fp.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                  return cleanName.includes(fpClean) || fpClean.includes(cleanName);
+                });
+              const fallbackImg = fallbackItem ? fallbackItem.img : '/images/products/mango-pickle-real.jpg';
+              const remoteImg = (p.images && p.images.length > 0 && p.images[0]) ? p.images[0] : p.img;
+              const chosenImg = (fallbackItem && fallbackItem.img) ? fallbackItem.img : (remoteImg || fallbackImg);
+              return {
+                ...p,
+                id: p.id || Math.random().toString(),
+                name: productName,
+                desc: p.productDescription || p.desc || (fallbackItem ? fallbackItem.desc : ''),
+                img: chosenImg,
+                fallbackImg: fallbackImg,
+                rating: p.rating || 5,
+                reviews: p.reviews || Math.floor(Math.random() * 100) + 10,
+                updatedAt: p.updatedAt || p.createdAt || 0
+              };
+            });
           }
         }
 
@@ -263,68 +747,77 @@ export default function HomePage() {
           }
         }
 
-        const categories = [
-          'Prepared Foods',
-          'Ready-to-eat savouries',
-          'Salts, spices, soups',
-          'Indian Sweets & Snacks'
-        ];
+        const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
-        const selectedProducts = [];
+        const updatedCategorySections = HOME_CATEGORY_ROWS.map(cat => {
+          const normalizedCat = normalize(cat.categoryKey);
 
-        for (const cat of categories) {
-          const normalize = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-          const normalizedCat = normalize(cat);
-
+          // Find products matching this category
           const catProducts = combinedProducts.filter(p => {
             const pCat = normalize(p.category);
             return pCat === normalizedCat || pCat.includes(normalizedCat) || normalizedCat.includes(pCat);
           });
 
+          // Sort by recent / updated
           catProducts.sort((a, b) => {
             const dateA = new Date(a.updatedAt || 0).getTime();
             const dateB = new Date(b.updatedAt || 0).getTime();
             return dateB - dateA;
           });
 
-          if (catProducts.length > 0) {
-            const p = catProducts[0];
-            if (!selectedProducts.find(sp => sp.id === p.id)) {
-              selectedProducts.push({
-                ...p,
-                tag: p.badge,
-                tagCls: p.badgeClass,
+          const rowProducts = [];
+          // 1. Prioritize signature items in defaultNames
+          for (const defName of cat.defaultNames) {
+            const cleanDef = normalize(defName);
+            const found = catProducts.find(p => normalize(p.name) === cleanDef) ||
+                          combinedProducts.find(p => normalize(p.name) === cleanDef) ||
+                          ALL_PRODUCTS.find(p => normalize(p.name) === cleanDef);
+            if (found && !rowProducts.find(sp => sp.id === found.id || normalize(sp.name) === normalize(found.name))) {
+              rowProducts.push({
+                ...found,
+                tag: found.badge || 'AUTHENTIC',
+                tagCls: found.badgeClass || '',
                 accent: '#C4603A'
               });
             }
           }
-        }
 
-        // Fill up to 4 items if needed
-        if (selectedProducts.length < 4) {
-          const remaining = combinedProducts.filter(p => !selectedProducts.find(sp => sp.id === p.id));
-          for (let i = 0; selectedProducts.length < 4 && i < remaining.length; i++) {
-            const p = remaining[i];
-            selectedProducts.push({
-              ...p,
-              tag: p.badge,
-              tagCls: p.badgeClass,
-              accent: '#C4603A'
-            });
+          // 2. Fill remaining slots up to 4 items from catProducts
+          for (const p of catProducts) {
+            if (rowProducts.length >= 4) break;
+            if (!rowProducts.find(sp => sp.id === p.id || normalize(sp.name) === normalize(p.name))) {
+              rowProducts.push({
+                ...p,
+                tag: p.badge || 'AUTHENTIC',
+                tagCls: p.badgeClass || '',
+                accent: '#C4603A'
+              });
+            }
           }
-        }
 
-        setFeaturedProducts(selectedProducts.slice(0, 4));
+          return {
+            ...cat,
+            products: rowProducts.slice(0, 4)
+          };
+        });
+
+        setCategorySections(updatedCategorySections);
 
       } catch (error) {
         console.error('Error fetching products:', error);
-        const defaultProducts = ALL_PRODUCTS.slice(0, 4).map(p => ({
-          ...p,
-          tag: p.badge,
-          tagCls: p.badgeClass,
-          accent: '#C4603A'
+        const defaultSections = HOME_CATEGORY_ROWS.map(cat => ({
+          ...cat,
+          products: cat.defaultNames.map(name => {
+            const found = ALL_PRODUCTS.find(p => p.name.toLowerCase() === name.toLowerCase()) || ALL_PRODUCTS[0];
+            return {
+              ...found,
+              tag: found.badge || 'AUTHENTIC',
+              tagCls: found.badgeClass || '',
+              accent: '#C4603A'
+            };
+          })
         }));
-        setFeaturedProducts(defaultProducts);
+        setCategorySections(defaultSections);
       }
     };
 
@@ -407,376 +900,15 @@ export default function HomePage() {
       <Navbar />
       <main>
 
-        {/* ══ HERO ══════════════════════════════════════ */}
-        {/* ══ "SIMPLE AUTO SCROLL" HERO ══════════════════════════════════════ */}
-        <section id="hero-section" style={{
-          position: 'relative',
-          height: 'calc(100vh + 80px)',
-          width: '100%',
-          overflow: 'hidden',
-          backgroundColor: currentSlide.bgColor,
-          backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 3px, transparent 3px)',
-          backgroundSize: '40px 40px',
-          transition: 'background-color 0.5s ease',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '-80px' // Pull up behind navbar
-        }}>
-          {/* Header Text Behind Image */}
-          <h1 className="hero-title-main" style={{
-            position: 'absolute',
-            top: '26%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-          }}>
-            Taste of Tradition
-          </h1>
+        {/* ══ HERO CAROUSEL ══════════════════════════════ */}
+        <HeroCarousel />
 
-          {/* Central Bottle Container */}
-          <div style={{
-            position: 'relative',
-            zIndex: 2,
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingTop: '12vh',
-            perspective: '1000px'
-          }}>
-            {/* Background elements removed for a more open, organic look */}
-
-            {/* Clean Flat Vector Floral Background (Micha Style) - Moved OUTSIDE the 3D spin */}
-            <div style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              zIndex: 0,
-              pointerEvents: 'none',
-              animation: 'particle-breath 10s ease-in-out infinite alternate',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingTop: '12vh',
-            }}>
-              <div key={currentHeroIndex} style={{ position: 'relative', width: '50vh', height: '75vh' }}>
-                {MICHA_BACKDROPS[currentHeroIndex % MICHA_BACKDROPS.length]}
-              </div>
-            </div>
-
-            {/* The single active bottle spinning in place */}
-            <div
-              style={{
-                position: 'relative',
-                zIndex: 1,
-                height: '75vh',
-                width: '50vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: '15vh',
-                filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))',
-                transform: `rotateY(${currentHeroIndex * 360}deg)`,
-                transformStyle: 'preserve-3d',
-                transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
-              }}>
-              <Image
-                src={currentSlide.img}
-                alt={currentSlide.label}
-                fill
-                sizes="50vh"
-                style={{ objectFit: 'contain' }}
-              />
-            </div>
-          </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={() => setCurrentHeroIndex(prev => (prev - 1 + activeSlides.length) % activeSlides.length)}
-            style={{
-              position: 'absolute', left: 'max(2%, calc(50% - 35vh - 32px))', top: '65%', transform: 'translateY(-50%)', zIndex: 10,
-              width: '64px', height: '64px', borderRadius: '50%', background: '#FCE300', border: '5px solid #111',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '6px 6px 0 #111', color: '#111', transition: 'transform 0.1s'
-            }}
-            onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(0.95)'}
-            onMouseUp={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-
-          <button
-            onClick={() => setCurrentHeroIndex(prev => prev + 1)}
-            style={{
-              position: 'absolute', right: 'max(2%, calc(50% - 35vh - 32px))', top: '65%', transform: 'translateY(-50%)', zIndex: 10,
-              width: '64px', height: '64px', borderRadius: '50%', background: '#FCE300', border: '5px solid #111',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '6px 6px 0 #111', color: '#111', transition: 'transform 0.1s'
-            }}
-            onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(0.95)'}
-            onMouseUp={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-
-          {/* View More Button Removed */}
-
-          <style>{`
-            @keyframes fly-in-left {
-              0% { transform: translateX(-150vw) scale(0.5) rotate(-45deg); opacity: 0; }
-              100% { transform: translateX(0) scale(1) rotate(0); opacity: 1; }
-            }
-            @keyframes fly-in-right {
-              0% { transform: translateX(150vw) scale(0.5) rotate(45deg); opacity: 0; }
-              100% { transform: translateX(0) scale(1) rotate(0); opacity: 1; }
-            }
-            @keyframes particle-breath {
-              0% { transform: scale(0.95); }
-              100% { transform: scale(1.05); }
-            }
-            @keyframes spin-in-place-slow {
-              100% { transform: rotate(360deg); }
-            }
-            @keyframes spin-in-place {
-              0% { transform: scale(0.8) rotate(-360deg); opacity: 0; }
-              100% { transform: scale(1) rotate(0deg); opacity: 1; }
-            }
-          `}</style>
-        </section>
+        {/* ══ SIGNATURE PICKLES (Banh Mi World Style) ════════════ */}
+        <SignatureSection />
 
 
-        {/* ══ THE ADHVAITHA PROMISE (SCRAPBOOK STORY) ════════════ */}
-        <section id="adhvaitha-promise" style={{
-          position: 'relative',
-          padding: '12rem 2rem',
-          backgroundColor: '#F4ECD8' // Cream background
-        }}>
-          {/* We import a cursive font just for the handwritten notes */}
-          <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
-            
-            .font-handwriting { font-family: 'Caveat', cursive; color: #D44A6A; text-shadow: 1px 1px 0px rgba(0,0,0,0.05); }
-            .font-playfair { font-family: 'Playfair Display', serif; }
-            
-            .promise-grid {
-              display: block;
-              position: relative;
-              max-width: 1400px;
-              margin: 0 auto;
-              min-height: 2200px; /* Spaced out images to prevent overlapping */
-            }
-
-            .promise-text-col {
-              width: 45%;
-              z-index: 10;
-              position: sticky;
-              top: 150px;
-              padding-right: 4rem;
-            }
-
-            /* Photos */
-            .scrapbook-photo {
-              position: absolute;
-              /* NO BORDERS, NO SHADOWS, NO ROTATIONS - Exactly like Terry Ho */
-              transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-
-            /* Exact Terry Ho Placements (Straight images) */
-            .sp-1 { top: 0px; right: 0%; width: 22%; z-index: 2; } /* Top Far Right */
-            .sp-2 { top: 350px; left: 50%; width: 26%; z-index: 3; } /* Middle Left / Center */
-            .sp-3 { top: 700px; right: 5%; width: 20%; z-index: 4; } /* Middle Right */
-            .sp-4 { top: 1050px; left: 55%; width: 20%; z-index: 5; } /* Center */
-            .sp-5 { top: 1400px; right: 0%; width: 28%; z-index: 6; } /* Bottom Right */
-            .sp-6 { top: 1800px; left: 50%; width: 22%; z-index: 7; } /* Bottom Center/Left */
-
-            /* Notes */
-            .scrapbook-note {
-              position: absolute;
-              font-size: 2.8rem;
-              line-height: 1.1;
-              z-index: 20;
-              white-space: nowrap;
-            }
-            .sn-1 { top: 100px; right: 20%; transform: rotate(-5deg); text-align: right; }
-            .sn-2 { top: 450px; left: 40%; transform: rotate(-5deg); }
-            .sn-3 { top: 750px; right: 23%; transform: rotate(-5deg); text-align: right; }
-            .sn-4 { top: 1150px; left: 45%; transform: rotate(-5deg); text-align: center; }
-            .sn-5 { top: 1550px; right: 25%; transform: rotate(-5deg); text-align: right; }
-            .sn-6 { top: 1900px; left: 40%; transform: rotate(-5deg); text-align: center; }
-
-            /* Sparkle */
-            .promise-sparkle {
-              position: absolute;
-              top: 550px;
-              left: 42%;
-              width: 30px;
-              height: 30px;
-              z-index: 10;
-            }
-
-            /* Terry Ho Button */
-            .terry-btn {
-              display: inline-block;
-              background: #D44A6A;
-              color: #111;
-              font-family: 'Inter', sans-serif;
-              font-size: 1.1rem;
-              font-weight: 800;
-              text-transform: uppercase;
-              letterSpacing: 1px;
-              padding: 1rem 2.5rem;
-              border-radius: 50px;
-              border: 3px solid #111;
-              box-shadow: 5px 5px 0px #111;
-              text-decoration: none;
-              transition: transform 0.1s ease, box-shadow 0.1s ease;
-            }
-            .terry-btn:active {
-              transform: translate(3px, 3px);
-              box-shadow: 2px 2px 0px #111;
-            }
-
-            /* Responsive */
-            @media (max-width: 1000px) {
-              .promise-grid {
-                display: flex;
-                flex-direction: column;
-                min-height: auto;
-              }
-              .promise-text-col {
-                position: relative;
-                top: 0;
-                width: 100%;
-                padding-right: 0;
-                text-align: center;
-                margin-bottom: 4rem;
-              }
-              .scrapbook-photo {
-                position: relative !important;
-                width: 100% !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                margin-bottom: 2rem;
-              }
-              .scrapbook-note {
-                position: relative !important;
-                top: -3rem !important;
-                left: 0 !important;
-                right: 0 !important;
-                text-align: center !important;
-                margin-bottom: 4rem;
-                font-size: 2.5rem;
-              }
-              .promise-sparkle { display: none; }
-            }
-          `}</style>
-
-          <div className="promise-grid">
-
-            {/* Left Column: Bold Text (Terry Ho Style) - NOW STICKY */}
-            <div className="promise-text-col">
-              <div style={{ fontSize: '1.1rem', color: '#111', fontWeight: 600, marginBottom: '0.5rem' }}>
-                Made with Real Ingredients
-              </div>
-              <h2 className="font-playfair" style={{
-                fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-                color: '#111',
-                lineHeight: 1,
-                marginTop: '0',
-                marginBottom: '1.5rem',
-                letterSpacing: '-1px',
-                fontWeight: 800
-              }}>
-                The <span style={{ color: '#D44A6A' }}>Adhvaitha</span> Promise
-              </h2>
-              <p className="font-inter" style={{
-                fontSize: '1.05rem',
-                color: '#111',
-                lineHeight: 1.6,
-                marginBottom: '1.5rem',
-                fontWeight: 500,
-                maxWidth: '500px'
-              }}>
-                Adhvaitha Foods celebrates the timeless charm of traditional Telugu cuisine, offering authentic, wholesome dishes made with minimally processed ingredients, just like your great-grandmother would have made them.
-              </p>
-              <p className="font-inter" style={{
-                fontSize: '1.05rem',
-                color: '#111',
-                lineHeight: 1.6,
-                marginBottom: '2.5rem',
-                fontWeight: 500,
-                maxWidth: '500px'
-              }}>
-                Established with a passion for heritage, Adhvaitha Foods has become a trusted name for authentic Telugu flavors. Rooted in tradition but powered by modern, certified facilities, we blend food nostalgia with quality, hygiene, and value—bringing home the true essence of Telugu flavors, wherever you are.
-              </p>
-
-              <Link href="/contact" className="terry-btn">
-                DISCOVER OUR ROOTS
-              </Link>
-            </div>
-
-            {/* Sparkle SVG exactly like Terry Ho */}
-            <svg className="promise-sparkle" viewBox="0 0 24 24" fill="none" stroke="#D44A6A" strokeWidth="1.5">
-              <path d="M12 3v18m9-9H3m15.364-6.364l-12.728 12.728m0-12.728l12.728 12.728" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-
-            {/* Right Side: Scattered Cards */}
-
-            {/* Photo 1: Nostalgia */}
-            <div className="scrapbook-photo sp-1">
-              <img src="/images/promise_nostalgia.png" alt="Nostalgia" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-1">
-              Nostalgia
-            </div>
-
-            {/* Photo 2: Trust */}
-            <div className="scrapbook-photo sp-2">
-              <img src="/images/promise_trust.png" alt="Trust" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-2">
-              Trust
-            </div>
-
-            {/* Photo 3: Legacy */}
-            <div className="scrapbook-photo sp-3">
-              <img src="/images/promise_legacy.png" alt="Legacy" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-3">
-              Legacy
-            </div>
-
-            {/* Photo 4: Great Value */}
-            <div className="scrapbook-photo sp-4">
-              <img src="/images/promise_value.png" alt="Great Value" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-4">
-              Great Value
-            </div>
-
-            {/* Photo 5: Good Health */}
-            <div className="scrapbook-photo sp-5">
-              <img src="/images/promise_health.png" alt="Good Health" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-5">
-              Good Health
-            </div>
-
-            {/* Photo 6: Authentic */}
-            <div className="scrapbook-photo sp-6">
-              <img src="/images/promise_authentic.png" alt="Authentic" style={{ width: '100%', display: 'block' }} />
-            </div>
-            <div className="font-handwriting scrapbook-note sn-6">
-              Authentic
-            </div>
-
-          </div>
-        </section>
+        {/* ══ THE ADHVAITHA PROMISE (SUCKERPUNCH STYLE DUAL BLOCK) ════════════ */}
+        <AdhvaithaPromise />
 
                 {/* ══ PRODUCTS ═══════════════════════════════ */}
         <section id="featured-products" className="section-pad-xl" style={{ background: 'var(--cream)', paddingBottom: '6rem' }}>
@@ -786,161 +918,149 @@ export default function HomePage() {
                 {cmsData?.productsHeader?.eyebrow || 'IN OUR COLLECTION'}
               </span>
               <h2 style={{
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                fontWeight: 900,
+                fontFamily: "'Oswald', 'Bebas Neue', system-ui, sans-serif",
+                fontSize: 'clamp(2.8rem, 5.5vw, 4.6rem)',
+                fontWeight: 700,
                 textTransform: 'uppercase',
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
+                letterSpacing: '0.04em',
+                lineHeight: 1.05,
                 color: '#134027',
                 marginBottom: '1rem',
                 textAlign: 'center'
               }}>
                 {cmsData?.productsHeader?.titlePart1 || 'OUR BELOVED'}<br/>
-                <span style={{ color: '#C4603A' }}>{cmsData?.productsHeader?.titlePart2 || 'PICKLES'}</span>
+                <span style={{ color: '#C4603A' }}>{cmsData?.productsHeader?.titlePart2 || 'COLLECTIONS'}</span>
               </h2>
-              <p style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem', color: '#444' }}>
+              <p style={{
+                maxWidth: '960px',
+                margin: '0 auto',
+                fontSize: 'clamp(0.95rem, 1.2vw, 1.12rem)',
+                color: '#444',
+                lineHeight: 1.5,
+                textAlign: 'center'
+              }}>
                 {cmsData?.productsHeader?.description || 'Every jar tells a story of love and tradition — transforming simple meals into celebrations.'}
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', padding: '0 1rem', maxWidth: '700px', margin: '0 auto' }}>
-              {featuredProducts.map((p, i) => (
-                <div key={p.id} style={{ background: '#EBAA03', borderRadius: '8px', padding: '0 2rem 2.5rem 2rem', marginTop: '90px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', transition: 'transform 0.3s ease', animationDelay: `${i * 0.1}s` }} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-5px)'} onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
-                  <div style={{ width: '160px', height: '160px', borderRadius: '50%', marginTop: '-80px', border: '3px solid #111', boxShadow: '10px 10px 15px rgba(0,0,0,0.5)', overflow: 'hidden', flexShrink: 0, marginBottom: '1.5rem', backgroundColor: '#fff' }}>
-                    <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <style>{`
+              .featured-products-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+                max-width: 1280px;
+                margin: 0 auto;
+              }
+              @media (max-width: 1024px) {
+                .featured-products-grid {
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 2rem;
+                }
+              }
+              @media (max-width: 580px) {
+                .featured-products-grid {
+                  grid-template-columns: 1fr;
+                  gap: 2rem;
+                }
+              }
+            `}</style>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4.5rem' }}>
+              {categorySections.map((catSection, sectionIdx) => (
+                <div key={catSection.id} style={{ position: 'relative' }}>
+                  {/* Category Row Header */}
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'flex-end',
+                    justifyContent: 'space-between',
+                    gap: '1rem',
+                    borderBottom: '2px solid #EFE6D8',
+                    paddingBottom: '1rem',
+                    marginBottom: '2.5rem'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: '#C4603A',
+                        color: '#FFF',
+                        fontFamily: '"Inter", sans-serif',
+                        fontSize: '0.82rem',
+                        fontWeight: 800
+                      }}>
+                        {sectionIdx + 1}
+                      </span>
+                      <div>
+                        <span style={{
+                          fontFamily: '"Inter", system-ui, sans-serif',
+                          fontSize: '0.72rem',
+                          fontWeight: 800,
+                          letterSpacing: '0.18em',
+                          color: '#C4603A',
+                          textTransform: 'uppercase',
+                          display: 'block',
+                          marginBottom: '0.2rem'
+                        }}>
+                          {catSection.eyebrow}
+                        </span>
+                        <h3 style={{
+                          fontFamily: 'Playfair Display, serif',
+                          fontSize: 'clamp(1.5rem, 2.4vw, 2.2rem)',
+                          fontWeight: 900,
+                          color: '#111',
+                          margin: 0,
+                          letterSpacing: '-0.01em'
+                        }}>
+                          {catSection.name}
+                        </h3>
+                      </div>
+                    </div>
+                    <Link
+                      href={`/products?category=${encodeURIComponent(catSection.categoryKey)}`}
+                      style={{
+                        fontFamily: '"Inter", system-ui, sans-serif',
+                        fontSize: '0.84rem',
+                        fontWeight: 800,
+                        letterSpacing: '0.06em',
+                        color: '#C4603A',
+                        textTransform: 'uppercase',
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        transition: 'transform 0.2s ease, color 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = '#9E4322'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = '#C4603A'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                    >
+                      View All {catSection.name} &rarr;
+                    </Link>
                   </div>
-                  <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', fontWeight: 900, color: '#111', textAlign: 'center', marginBottom: '1rem', minHeight: '3.5rem', display: 'flex', alignItems: 'center' }}>{p.name}</h3>
-                  <div style={{ background: '#fff', padding: '0.4rem 1rem', borderRadius: '4px', marginBottom: '1rem', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', color: '#111' }}>{p.tag || 'AUTHENTIC'} | ★ {p.rating || 5}</div>
-                  <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.9rem', fontWeight: 500, color: '#111', textAlign: 'center', flex: 1, marginBottom: 0 }}>{p.desc}</p>
+
+                  {/* 4 Cards in Single Row */}
+                  <div className="featured-products-grid">
+                    {catSection.products.map((p, i) => (
+                      <FeaturedProductCard
+                        key={p.id || `${catSection.id}-${i}`}
+                        product={p}
+                        index={sectionIdx * 4 + i}
+                      />
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: '5rem' }} >
+            <div style={{ textAlign: 'center', marginTop: '5rem' }}>
               <Link href="/products" className="terry-btn">
                 SEE ALL PRODUCTS
               </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ══ INGREDIENTS ═══════════════════════════════ */}
-        <section id="ingredients" className="section-pad-xl" style={{ background: '#F4ECD8' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }} className="reveal">
-              <h2 style={{
-                fontFamily: '"Arial Black", system-ui, sans-serif',
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                fontWeight: 900,
-                textTransform: 'uppercase',
-                letterSpacing: '-0.02em',
-                lineHeight: 1.1,
-                color: '#134027',
-                marginBottom: '1rem',
-                textAlign: 'center'
-              }}>
-                {cmsData?.ingredientsHeader || 'What Goes Inside Every Jar'}
-              </h2>
-            </div>
-
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '0',
-              marginBottom: '5rem',
-              padding: '2rem 0'
-            }}>
-              {ingredients.map((ing, i) => {
-                const rotations = [-8, 4, -6, 5, -4, 6, -5, 7];
-
-                return (
-                  <div key={ing.name} className="ingredient-polaroid" style={{
-                    animationDelay: `${i * 0.1}s`,
-                    background: '#ffffff',
-                    boxShadow: '0 15px 35px rgba(0,0,0,0.15)',
-                    transform: `rotate(${rotations[i]}deg)`,
-                    zIndex: i,
-                    position: 'relative',
-                    transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s',
-                  }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.transform = `rotate(0deg) scale(1.08) translateY(-15px)`;
-                      e.currentTarget.style.zIndex = 20;
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.transform = `rotate(${rotations[i]}deg)`;
-                      e.currentTarget.style.zIndex = i;
-                    }}
-                  >
-                    {/* The "Photo" area with thin green border */}
-                    <div className="ingredient-polaroid-img-container" style={{
-                      border: '2px solid #1c402c', // Dark green border from reference
-                      background: ing.bg,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '0',
-                      textAlign: 'center',
-                      overflow: 'hidden',
-                      position: 'relative'
-                    }}>
-                      <div style={{ position: 'absolute', inset: 0 }}>
-                        <Image src={ing.img} alt={ing.name} fill sizes="(max-width: 768px) 110px, 260px" style={{ objectFit: 'cover' }} />
-                      </div>
-
-                      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2.5rem 1.5rem 1.5rem', background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)' }}>
-                        <h4 className="ingredient-polaroid-title" style={{
-                          fontFamily: 'Playfair Display, serif',
-                          fontWeight: 900,
-                          color: '#ffffff',
-                          lineHeight: 1.1,
-                          marginBottom: '0.4rem',
-                          textShadow: '0 2px 5px rgba(0,0,0,0.8)'
-                        }}>{ing.name}</h4>
-
-                        <p className="ingredient-polaroid-source" style={{
-                          fontFamily: 'Lato, sans-serif',
-                          fontWeight: 900,
-                          letterSpacing: '0.15em',
-                          textTransform: 'uppercase',
-                          color: 'var(--turmeric)',
-                          textShadow: '0 2px 5px rgba(0,0,0,0.8)'
-                        }}>{ing.source}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Minimalist Typography Block (Replacing Advanced Quote Block) */}
-            <div className="reveal" style={{ textAlign: 'center', padding: '6rem 0 4rem 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h2 style={{
-                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                fontSize: 'clamp(3rem, 7vw, 7rem)',
-                fontWeight: 900,
-                color: '#305A32', /* Dark Forest Green */
-                lineHeight: 0.9,
-                letterSpacing: '-0.04em',
-                margin: 0
-              }}>
-                {cmsData?.ingredientsQuote?.line1 || 'No artificial colors.'}
-              </h2>
-              <h3 style={{
-                fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-                fontSize: 'clamp(1.5rem, 3vw, 2.8rem)',
-                fontWeight: 700,
-                color: '#86B372', /* Light Muted Green */
-                marginTop: '0.8rem',
-                letterSpacing: '-0.02em',
-                margin: '0.5rem 0 0 0'
-              }}>
-                {cmsData?.ingredientsQuote?.line2 || 'No preservatives. No shortcuts. Ever.'}
-              </h3>
             </div>
           </div>
         </section>
@@ -1237,209 +1357,431 @@ export default function HomePage() {
         </section>
 
 
-        {/* ══ RECIPES (MARQUEE EXACT CLONE) ════════════════════════ */}
+        {/* ══ RECIPES (CAULDRON FOODS POP-ORGANIC DESIGN) ════════════ */}
         <section id="recipes" style={{
-          backgroundColor: '#FFF4ED',
-          backgroundImage: 'radial-gradient(circle, #D2446A 1.5px, transparent 1.5px)',
-          backgroundSize: '40px 40px',
-          overflow: 'hidden',
-          padding: '6rem 0'
+          backgroundColor: '#00BFA5', // Vibrant teal outer frame like Cauldron
+          padding: 'clamp(24px, 3.5vw, 48px) clamp(16px, 2.5vw, 36px)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          <div className="container" style={{ marginBottom: '4.5rem', textAlign: 'center' }}>
-            <span style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '1rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#B72740' }}>In The Kitchen</span>
-            <h2 style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: '#111111', margin: '0.5rem 0', textTransform: 'uppercase', lineHeight: 1.1 }}>Cook With Our <span style={{ color: '#D2446A' }}>Pickles</span></h2>
-            <p style={{ fontFamily: '"Arial Black", system-ui, sans-serif', fontWeight: 900, fontSize: '1.1rem', color: '#555555', maxWidth: '650px', margin: '0 auto', lineHeight: 1.4 }}>
-              Grandmother's pickles aren't just condiments — they're the hero ingredient that transforms simple meals into celebrations.
-            </p>
-          </div>
+          {/* Inner Purple Container with Organic Magenta Waves & Rounded Edges */}
+          <div style={{
+            position: 'relative',
+            backgroundColor: '#3E104A', // Deep Cauldron plum purple
+            borderRadius: '40px',
+            overflow: 'hidden',
+            padding: 'clamp(48px, 6vw, 80px) 0 clamp(44px, 5vw, 68px)',
+            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.22)'
+          }}>
 
-          <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'recipe-marquee 40s linear infinite', width: 'fit-content' }}>
-            {/* Map array multiple times for a seamless infinite loop */}
-            {[...featuredRecipes, ...featuredRecipes, ...featuredRecipes].map((r, i) => {
-              const colors = ['#B72740', '#7BC644', '#D2446A', '#B7DF4C', '#B72740', '#7BC644'];
-              const textColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#111111', '#FFFFFF', '#FFFFFF'];
+            {/* Wavy Organic Pink/Magenta Curves */}
+            <svg
+              viewBox="0 0 1440 900"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+                overflow: 'hidden'
+              }}
+              preserveAspectRatio="none"
+            >
+              {/* Top-left sweeping organic curve */}
+              <path
+                d="M -100 -50 C 180 30, 360 200, 240 460 C 140 680, -20 560, -100 500 Z"
+                fill="#F0006E"
+                opacity="0.95"
+              />
+              {/* Top-right down to right-edge huge swooping wave */}
+              <path
+                d="M 920 -50 C 880 180, 1080 260, 1240 450 C 1420 660, 1520 800, 1550 960 L 1550 -50 Z"
+                fill="#F0006E"
+                opacity="0.95"
+              />
+              {/* Bottom organic petal accent */}
+              <path
+                d="M -50 720 C 110 740, 240 840, 200 960 L -50 960 Z"
+                fill="#F0006E"
+                opacity="0.92"
+              />
+            </svg>
 
-              // Map specific recipe IDs to their unique pop-art graphic
-              const graphicsMap = {
-                'allam-velluli-pickle-recipe': '/images/flat_garlic.png',
-                'crispy-allu-chips': '/images/flat_potato.png',
-                'daniya-powder-rasam': '/images/flat_coriander.png',
-                'millets-kheer': '/images/flat_laddu.png'
-              };
-              const graphicSrc = graphicsMap[r.id] || '/images/flat_mango.png';
+            {/* Header Content */}
+            <div style={{ position: 'relative', zIndex: 2, padding: '0 1.5rem', marginBottom: 'clamp(2.5rem, 4.5vw, 4rem)', textAlign: 'center' }}>
+              <h2 style={{
+                fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                fontWeight: 900,
+                fontSize: 'clamp(2.5rem, 5.2vw, 4.2rem)',
+                color: '#FFFFFF',
+                margin: 0,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.08
+              }}>
+                Cook with our pickles
+              </h2>
+              <p style={{
+                fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                fontWeight: 500,
+                fontSize: 'clamp(1rem, 1.35vw, 1.25rem)',
+                color: 'rgba(255, 255, 255, 0.94)',
+                maxWidth: '740px',
+                margin: '1.25rem auto 0',
+                lineHeight: 1.5
+              }}>
+                Grandmother's pickles aren't just condiments — they're the hero ingredient that transforms simple meals into celebrations.
+              </p>
+            </div>
 
-              return (
-                <div key={`recipe-mq-${r.id}-${i}`} style={{ position: 'relative', width: '240px', height: '420px', flexShrink: 0, marginRight: '24px' }}>
+            {/* Horizontally Scrolling Marquee (Interactive & Smooth) */}
+            <div
+              className="cauldron-recipes-marquee-wrap"
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                width: '100%',
+                overflow: 'hidden',
+                padding: '12px 0 20px'
+              }}
+            >
+              <div
+                className="cauldron-recipes-track"
+                style={{
+                  display: 'flex',
+                  gap: '36px',
+                  width: 'fit-content',
+                  animation: 'recipe-marquee 32s linear infinite'
+                }}
+              >
+                {[...featuredRecipes, ...featuredRecipes, ...featuredRecipes, ...featuredRecipes].map((r, i) => {
+                  const colors = ['#00C49F', '#7BC644', '#D2446A', '#00A8FF', '#B47FE3', '#FF5757'];
+                  const textColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'];
 
-                  {/* The Recipe Card (Staggered Vertically, Reduced Size) */}
-                  <Link href="/recipes" style={{ textDecoration: 'none' }}>
-                    <div style={{
-                      position: 'absolute',
-                      top: i % 2 === 0 ? '0px' : '50px',
-                      left: '20px',
-                      width: '200px',
-                      height: '200px',
-                      background: colors[i % colors.length],
-                      borderRadius: '8px',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '1.25rem',
-                      zIndex: 2,
-                      overflow: 'hidden'
-                    }}>
-                      <p style={{
-                        fontFamily: '"Arial Black", system-ui, sans-serif',
-                        fontSize: '0.75rem',
-                        lineHeight: 1.3,
-                        color: textColors[i % textColors.length],
-                        textAlign: 'center',
-                        marginBottom: '0.6rem',
-                        whiteSpace: 'normal',
-                        fontWeight: 900,
-                        overflow: 'hidden',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 4,
-                        WebkitBoxOrient: 'vertical'
-                      }}>"{r.desc}"</p>
+                  const getGraphic = (item) => {
+                    const name = (item.name || '').toLowerCase();
+                    const id = (item.id || '').toLowerCase();
+                    if (id.includes('allam') || name.includes('allam') || name.includes('garlic')) return '/images/real_garlic_cutout.png';
+                    if (id.includes('allu') || id.includes('potato') || name.includes('allu') || name.includes('chips')) return '/images/real_chips_cutout.png';
+                    if (id.includes('daniya') || id.includes('rasam') || name.includes('daniya') || name.includes('coriander') || name.includes('rasam')) return '/images/real_coriander_cutout.png';
+                    if (id.includes('millet') || id.includes('laddu') || name.includes('millet') || name.includes('kheer') || name.includes('laddu')) return '/images/real_laddu_cutout.png';
+                    if (id.includes('mango') || name.includes('mango') || name.includes('avakaya')) return '/images/product_mango.png';
+                    if (id.includes('chili') || name.includes('chili') || name.includes('mirchi')) return '/images/product_chili.png';
+                    if (item.img && !item.img.includes('placeholder')) return item.img;
+                    return '/images/real_garlic_cutout.png';
+                  };
+                  const graphicSrc = getGraphic(r);
 
-                      <div style={{
-                        fontFamily: '"Arial Black", system-ui, sans-serif',
-                        fontWeight: 900,
-                        fontSize: '0.6rem',
-                        color: textColors[i % textColors.length],
-                        textTransform: 'uppercase',
-                        textAlign: 'center',
-                        whiteSpace: 'normal'
-                      }}>
-                        {r.name}
+                  return (
+                    <div
+                      key={`recipe-pack-${r.id}-${i}`}
+                      style={{
+                        position: 'relative',
+                        width: '240px',
+                        height: '430px',
+                        flexShrink: 0,
+                        marginRight: '28px'
+                      }}
+                      className="cauldron-recipe-item"
+                    >
+                      {/* The Recipe Text Card (Staggered Vertically like before) */}
+                      <Link href="/recipes" style={{ textDecoration: 'none' }}>
+                        <div
+                          className="cauldron-text-card"
+                          style={{
+                            position: 'absolute',
+                            top: i % 2 === 0 ? '0px' : '45px',
+                            left: '15px',
+                            width: '210px',
+                            height: '210px',
+                            backgroundColor: colors[i % colors.length],
+                            borderRadius: '16px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '1.25rem',
+                            zIndex: 2,
+                            overflow: 'hidden',
+                            boxShadow: '0 12px 24px rgba(0, 0, 0, 0.35)',
+                            border: '2px solid rgba(255, 255, 255, 0.25)',
+                            transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease'
+                          }}
+                        >
+                          <p style={{
+                            fontFamily: 'system-ui, -apple-system, sans-serif',
+                            fontSize: '0.82rem',
+                            lineHeight: 1.35,
+                            color: textColors[i % textColors.length],
+                            textAlign: 'center',
+                            marginBottom: '0.75rem',
+                            whiteSpace: 'normal',
+                            fontWeight: 800,
+                            overflow: 'hidden',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 4,
+                            WebkitBoxOrient: 'vertical'
+                          }}>
+                            "{r.desc}"
+                          </p>
+
+                          <div style={{
+                            fontFamily: 'system-ui, -apple-system, sans-serif',
+                            fontWeight: 900,
+                            fontSize: '0.68rem',
+                            letterSpacing: '0.08em',
+                            color: textColors[i % textColors.length],
+                            textTransform: 'uppercase',
+                            textAlign: 'center',
+                            whiteSpace: 'normal'
+                          }}>
+                            {r.name}
+                          </div>
+                        </div>
+                      </Link>
+
+                      {/* The Real Food Cutout Image (Floating completely below with clear gap) */}
+                      <div
+                        className="cauldron-floating-graphic"
+                        style={{
+                          position: 'absolute',
+                          width: '165px',
+                          height: '165px',
+                          top: i % 2 === 0 ? '228px' : '272px',
+                          left: i % 2 === 0 ? '60px' : '18px',
+                          zIndex: 1,
+                          filter: 'drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45))',
+                          transition: 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                        }}
+                      >
+                        <img
+                          src={graphicSrc}
+                          alt={`${r.name} Real Cutout`}
+                          onError={(e) => { e.currentTarget.src = '/images/real_garlic_cutout.png'; }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain'
+                          }}
+                        />
                       </div>
                     </div>
-                  </Link>
+                  );
+                })}
+              </div>
+            </div>
 
-                  {/* The Graphic Element (Floating completely below with a clear gap) */}
-                  <div style={{
-                    position: 'absolute',
-                    width: '140px',
-                    height: '140px',
-                    top: i % 2 === 0 ? '220px' : '270px',
-                    left: i % 2 === 0 ? '80px' : '30px',
-                    zIndex: 1
-                  }}>
-                    <img src={graphicSrc} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt={`${r.name} Graphic`} />
-                  </div>
+            {/* Bottom Button ("Show me more!") */}
+            <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', marginTop: 'clamp(2.5rem, 4.5vw, 3.8rem)' }}>
+              <Link
+                href="/recipes"
+                className="cauldron-show-more-btn"
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: '#FFD200', // Sunshine yellow like Cauldron
+                  color: '#3B104A', // Deep purple text
+                  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                  fontWeight: 900,
+                  fontSize: '1.2rem',
+                  padding: '1.05rem 3.2rem',
+                  borderRadius: '9999px',
+                  textDecoration: 'none',
+                  boxShadow: '0 12px 28px rgba(0, 0, 0, 0.3)',
+                  transition: 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease'
+                }}
+              >
+                Show me more!
+              </Link>
+            </div>
 
-                </div>
-              );
-            })}
+            <style>{`
+              @keyframes recipe-marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+              .cauldron-recipes-marquee-wrap:hover .cauldron-recipes-track {
+                animation-play-state: paused;
+              }
+              .cauldron-recipe-item:hover .cauldron-text-card {
+                transform: translateY(-8px) scale(1.04);
+                box-shadow: 0 20px 32px rgba(0, 0, 0, 0.45);
+              }
+              .cauldron-recipe-item:hover .cauldron-floating-graphic {
+                transform: scale(1.1) rotate(6deg);
+              }
+              .cauldron-show-more-btn:hover {
+                transform: scale(1.06);
+                box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+              }
+            `}</style>
           </div>
-          <style>{`
-            @keyframes recipe-marquee {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-33.3333%); }
-            }
-          `}</style>
         </section>
 
 
-        {/* ══ ORANGE SPLIT CTA BANNER (Like Reference) ════════════════════════ */}
-        <section style={{ backgroundColor: '#EEA236', position: 'relative', overflow: 'hidden' }}>
-          <div className="container" style={{ maxWidth: '1400px', padding: '0 2rem' }}>
+        {/* ══ CAULDRON-STYLE APP MISSION BANNER (Like Reference Screenshot) ════════════════════════ */}
+        <section id="download-app" style={{
+          backgroundColor: '#00B59B', // Vibrant Cauldron Teal
+          padding: 'clamp(2.5rem, 5vw, 5rem) clamp(1rem, 3vw, 2.5rem)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@800;900&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
 
-            <div className="cta-banner-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', minHeight: '300px' }}>
+            .cauldron-mission-card {
+              max-width: 1360px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              border-radius: 44px;
+              overflow: hidden;
+              box-shadow: 0 24px 60px rgba(0, 95, 80, 0.28);
+              background: #E82674;
+            }
 
-              {/* Left Side: Text Content */}
-              <div className="cta-banner-text-block" style={{ padding: '2.5rem 4rem 2.5rem 0', color: '#111111' }}>
-                <h2 className="cta-banner-title" style={{
-                  fontFamily: '"Oswald", "Arial Black", sans-serif',
-                  fontSize: '3.6rem',
-                  fontWeight: 900,
-                  lineHeight: 0.95,
-                  textTransform: 'uppercase',
-                  marginBottom: '0.8rem',
-                  letterSpacing: '-0.02em'
-                }}>
-                  DOWNLOAD OUR APP<br />TO ORDER
-                </h2>
-                <h3 className="cta-banner-subtitle" style={{
-                  fontFamily: '"Oswald", "Arial Black", sans-serif',
-                  fontSize: '1.8rem',
-                  fontWeight: 700,
-                  lineHeight: 1.1,
-                  marginBottom: '1rem',
-                  textTransform: 'none',
-                  letterSpacing: '-0.01em'
-                }}>
-                  Authentic Indian Pickles for Families & Foodies
-                </h3>
-                <p style={{
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                  fontSize: '1.1rem',
-                  fontWeight: 400,
-                  lineHeight: 1.5,
-                  marginBottom: '1.5rem',
-                  maxWidth: '500px'
-                }}>
-                  To order anything, please download our app from the Play Store. Get authentic flavors straight from grandmother's kitchen delivered to your door.
-                </p>
-                <p style={{
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  marginBottom: '1.2rem'
-                }}>
-                  * Available exclusively on Android
-                </p>
+            .cauldron-text-col {
+              background-color: #E82674; /* Vibrant Cauldron Magenta / Hot Pink */
+              padding: clamp(3.5rem, 5.5vw, 5.5rem) clamp(2rem, 4.5vw, 4.5rem);
+              color: #FFFFFF;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            }
 
-                <a href="#" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.6rem',
-                  backgroundColor: '#000000',
-                  color: '#FFFFFF',
-                  padding: '0.6rem 1.4rem',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                }}>
-                  <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+            .cauldron-mission-title {
+              font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+              font-size: clamp(3.2rem, 5.2vw, 5rem);
+              font-weight: 900;
+              line-height: 0.92;
+              letter-spacing: -0.035em;
+              color: #FFFFFF;
+              margin: 0 0 1.8rem 0;
+            }
+
+            .cauldron-mission-sub {
+              font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+              font-weight: 700;
+              line-height: 1.25;
+              color: #FFFFFF;
+              margin: 0 0 1rem 0;
+              opacity: 0.96;
+            }
+
+            .cauldron-mission-body {
+              font-size: clamp(1rem, 1.2vw, 1.15rem);
+              font-weight: 500;
+              line-height: 1.6;
+              color: rgba(255, 255, 255, 0.93);
+              margin: 0 0 2.2rem 0;
+              max-width: 520px;
+            }
+
+            .cauldron-play-btn {
+              display: inline-flex;
+              align-items: center;
+              gap: 0.85rem;
+              background-color: #111111;
+              color: #FFFFFF;
+              padding: 0.85rem 1.7rem;
+              border-radius: 14px;
+              text-decoration: none;
+              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+              transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+              width: fit-content;
+            }
+
+            .cauldron-play-btn:hover {
+              transform: translateY(-3px) scale(1.02);
+              box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+              background-color: #000000;
+            }
+
+            .cauldron-img-col {
+              position: relative;
+              width: 100%;
+              min-height: 480px;
+              overflow: hidden;
+              background: #00B59B;
+            }
+
+            .cauldron-img-col img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+              transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            .cauldron-mission-card:hover .cauldron-img-col img {
+              transform: scale(1.04);
+            }
+
+            @media (max-width: 960px) {
+              .cauldron-mission-card {
+                grid-template-columns: 1fr;
+                border-radius: 28px;
+              }
+              .cauldron-img-col {
+                min-height: 380px;
+                order: 2;
+              }
+              .cauldron-text-col {
+                order: 1;
+              }
+            }
+          `}</style>
+
+          <div className="cauldron-mission-card">
+            
+            {/* Left: Magenta Card with Punchy Cauldron Typography */}
+            <div className="cauldron-text-col">
+              <h2 className="cauldron-mission-title">
+                Download<br />our app<br />to order...
+              </h2>
+              <h3 className="cauldron-mission-sub">
+                Authentic Indian Pickles for Families & Foodies
+              </h3>
+              <p className="cauldron-mission-body">
+                A mission to bring pure Telugu nostalgia and heirloom recipes straight from grandmother's kitchen to your dining table! Download our app from the Play Store to order handcrafted pickles, podis, and snacks delivered to your door.
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <a
+                  href="https://play.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cauldron-play-btn"
+                  aria-label="Download Adhvaitha Foods App on Google Play"
+                >
+                  <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.3,2.4C4.1,2.5,4,2.8,4,3.1v17.7c0,0.3,0.1,0.6,0.3,0.7l0.1,0.1l9.9-9.9v-0.2L4.4,2.3L4.3,2.4z" fill="#00e676"/>
                     <path d="M18.8,14.6l-3.2-3.2v-0.2l3.2-3.2l0.1,0.1l3.8,2.1c1,0.6,1,1.5,0,2.1l-3.8,2.1L18.8,14.6z" fill="#ffc107"/>
                     <path d="M14.4,11.3l-10-10C4.3,1.1,4.1,1.1,4,1.3l10.3,10.3L14.4,11.3z" fill="#ff3d00"/>
                     <path d="M14.4,12.7l-0.1,0.1L4,23.1c0.1,0.1,0.3,0.1,0.5,0l10-10L14.4,12.7z" fill="#29b6f6"/>
                   </svg>
                   <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: '1', color: '#ccc' }}>Get it on</div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 600, fontFamily: 'system-ui, sans-serif', lineHeight: '1' }}>Google Play</div>
+                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: '1', color: 'rgba(255,255,255,0.75)' }}>GET IT ON</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, fontFamily: 'system-ui, sans-serif', lineHeight: '1.1', marginTop: '2px' }}>Google Play</div>
                   </div>
                 </a>
-              </div>
 
-              {/* Right Side: Flatlay Ingredients Image */}
-              <div className="cta-banner-img-block" style={{
-                position: 'relative',
-                height: '100%',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <img
-                  src="/images/cta_ingredients_white.png"
-                  alt="Ingredients Flatlay"
-                  style={{
-                    width: '140%',
-                    height: 'auto',
-                    maxHeight: '120%',
-                    objectFit: 'cover',
-                    mixBlendMode: 'multiply',
-                    marginRight: '-20%',
-                    pointerEvents: 'none'
-                  }}
-                />
+                <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'rgba(255, 255, 255, 0.88)', letterSpacing: '0.02em' }}>
+                  * Available exclusively on Android
+                </span>
               </div>
-
             </div>
+
+            {/* Right: Rich Overhead Flatlay Photo of Adhvaitha Products & Greens */}
+            <div className="cauldron-img-col">
+              <img
+                src="/images/app_banner_flatlay.jpg"
+                alt="Adhvaitha Foods Authentic Pickles and Traditional Snacks"
+              />
+            </div>
+
           </div>
         </section>
 
@@ -1448,6 +1790,22 @@ export default function HomePage() {
       <Footer />
 
       <style>{`
+        @keyframes homeProductFloat {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-9px);
+          }
+          100% {
+            transform: translateY(2px);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .hide-mobile-doodle { display: none !important; }
+        }
+
         @media (max-width: 900px) {
           .hero-grid       { grid-template-columns: 1fr !important; }
           .split-grid      { grid-template-columns: 1fr !important; }

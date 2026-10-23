@@ -1,544 +1,697 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import React from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-// One recipe per product category
-const FALLBACK_RECIPES = [
-  {
-    id: 'allam-velluli-pickle-recipe',
-    name: 'Allam Velluli Pickle Rice',
-    category: 'Prepared Foods',
-    time: '10 min',
-    level: 'Easy',
-    serves: 2,
-    img: '/images/products/Allam_Velluli_Pickle_(ginger_garlic_pickle).jpeg',
-    color: '#4CAF50',
-    pickle: 'Allam Velluli Pickle',
-    desc: 'Hot rice tossed with our traditional Allam Velluli Pickle, sesame seeds, and a drizzle of ghee. The simplest and most satisfying Andhra meal — ready in minutes.',
-    ingredients: [
-      '2 cups cooked rice (hot)',
-      '3 tbsp Avdaitha Allam Velluli Pickle',
-      '2 tbsp sesame seeds (roasted)',
-      '1 tbsp ghee',
-      'Fresh curry leaves',
-    ],
-    method:
-      'Mix hot rice with pickle and ghee while the rice is still steaming. Top with roasted sesame and curry leaves. Serve immediately with a side of papad.',
-  },
-  {
-    id: 'crispy-allu-chips',
-    name: 'Crispy Allu Chips',
-    category: 'Ready-to-eat Savouries',
-    time: '20 min',
-    level: 'Medium',
-    serves: 4,
-    img: '/images/products/Allu_Chips_(thinly_sliced_Indian_potato_chips).jpeg',
-    color: '#FF3B30',
-    pickle: 'Allu Chips',
-    desc: 'Make perfectly crispy, golden potato chips at home with this simple traditional method. Perfectly seasoned for a delightful crunch.',
-    ingredients: [
-      '4 large starchy potatoes',
-      'Neutral cooking oil for deep frying',
-      '1 tsp salt',
-      '½ tsp red chili powder or black pepper',
-      'Cold water for soaking',
-    ],
-    method:
-      'Peel and slice potatoes thinly. Soak in cold water for 10 minutes to remove starch. Pat completely dry with a towel. Deep fry in batches in hot oil over medium heat until golden and crispy. Drain excess oil and immediately toss with salt and spices while hot.',
-  },
-  {
-    id: 'daniya-powder-rasam',
-    name: 'Daniya Powder Rasam',
-    category: 'Salts, spices, soups',
-    time: '20 min',
-    level: 'Easy',
-    serves: 4,
-    img: '/images/products/daniya-powder.jpg',
-    color: '#007AFF',
-    pickle: 'Daniya Powder',
-    desc: 'A comforting, deeply aromatic rasam made using freshly ground Daniya Powder. The perfect soothing soup for any day, paired beautifully with hot rice.',
-    ingredients: [
-      '1 lemon-sized tamarind (soaked and extracted)',
-      '1 chopped tomato',
-      '2 tbsp Avdaitha Daniya Powder',
-      '1 tsp mustard seeds, 1 tsp cumin seeds',
-      'Curry leaves, coriander, and ghee for tempering',
-    ],
-    method:
-      'Boil tamarind extract with tomato, turmeric, and salt until raw smell leaves. Add water to adjust consistency, then stir in Daniya Powder and simmer for 5 minutes. Temper mustard seeds, cumin, and curry leaves in ghee and pour over the rasam. Garnish with coriander.',
-  },
-  {
-    id: 'millets-kheer',
-    name: 'Millets Laddu Kheer',
-    category: 'Indian Sweets & Snacks',
-    time: '15 min',
-    level: 'Easy',
-    serves: 4,
-    img: '/images/products/millets-laddu.jpg',
-    color: '#FF9500',
-    pickle: 'Millets Laddu',
-    desc: 'A comforting, creamy kheer made by crumbling Millets Laddu into warm milk. A creative, no-sugar-needed dessert ready in 15 minutes — wholesome and deeply satisfying.',
-    ingredients: [
-      '2 Avdaitha Millets Laddu',
-      '2 cups full-fat milk (warm)',
-      'A pinch of cardamom powder',
-      'Chopped pistachios & almonds to garnish',
-      'A few strands of saffron (optional)',
-    ],
-    method:
-      'Crumble the Millets Laddu into warm milk and stir until dissolved. Add cardamom and saffron. Simmer on low heat for 5 minutes, stirring gently. Pour into bowls and garnish with chopped dry fruits. Serve warm or chilled.',
-  },
-  {
-    id: 'gongura-chicken',
-    name: 'Gongura Pickle Roast',
-    category: 'Prepared Foods',
-    time: '25 min',
-    level: 'Medium',
-    serves: 4,
-    img: '/images/products/mango-pickle.jpg',
-    color: '#8E1600',
-    pickle: 'Gongura Pickle',
-    desc: 'Use our tangy, spicy Pickle as an instant marinade for roasted chicken or paneer. The sour kick caramelizes beautifully.',
-    ingredients: ['500g Chicken or Paneer', '3 tbsp Avdaitha Pickle', '1 tbsp yogurt', '1 tbsp oil'],
-    method: 'Mix the pickle and yogurt. Coat the protein and let sit for 15 minutes. Pan roast or bake until cooked through and slightly charred.'
-  },
-  {
-    id: 'karampodi-idli',
-    name: 'Karampodi Ghee Idli',
-    category: 'Spices',
-    time: '5 min',
-    level: 'Easy',
-    serves: 2,
-    img: '/images/products/special-idli-karam.jpg',
-    color: '#D84315',
-    pickle: 'Karampodi',
-    desc: 'Transform leftover idlis into a crispy, spicy snack by pan-frying them in ghee and tossing them aggressively in our signature Karampodi.',
-    ingredients: ['4 leftover idlis (cubed)', '2 tbsp ghee', '2 tbsp Avdaitha Karampodi'],
-    method: 'Heat ghee in a pan. Toss the idli cubes until golden and crisp. Turn off heat, add Karampodi and toss to coat evenly. Serve hot.'
-  },
-  {
-    id: 'mango-pickle-rice',
-    name: 'Mango Pickle Fried Rice',
-    category: 'Prepared Foods',
-    time: '10 min',
-    level: 'Easy',
-    serves: 2,
-    img: '/images/products/bellam-avakaya.jpg',
-    color: '#F9A825',
-    pickle: 'Mango Pickle',
-    desc: 'A fusion delight! Toss cold leftover rice in a wok with our fiery Andhra Avakaya (Mango Pickle) for an instant, intensely flavorful fried rice.',
-    ingredients: ['2 cups cold cooked rice', '2 tbsp Avdaitha Mango Pickle', '1 tbsp oil', 'Chopped coriander'],
-    method: 'Heat oil in a wok. Add the rice and stir-fry for 2 minutes. Stir in the mango pickle and toss until the rice takes on a beautiful red-orange hue. Garnish with coriander.'
-  },
-  {
-    id: 'sambar-powder-veg',
-    name: 'Instant Veg Stir-fry',
-    category: 'Spices',
-    time: '15 min',
-    level: 'Easy',
-    serves: 4,
-    img: '/images/products/sambhar-masala.jpg',
-    color: '#E65100',
-    pickle: 'Sambar Powder',
-    desc: 'Who says Sambar powder is only for Sambar? Use it as a dry rub for stir-frying fresh vegetables to give them a deep, roasted lentil and spice flavor.',
-    ingredients: ['Mixed chopped vegetables', '2 tbsp Avdaitha Sambar Powder', '1 tbsp oil', 'Mustard seeds'],
-    method: 'Temper mustard seeds in oil. Add vegetables and sauté until tender. Add the Sambar powder and salt, toss well, and cook for 2 more minutes.'
-  },
-  {
-    id: 'bundhi-chaat',
-    name: 'Bundhi Yogurt Chaat',
-    category: 'Ready-to-eat Savouries',
-    time: '5 min',
-    level: 'Easy',
-    serves: 2,
-    img: '/images/products/bundhi.jpg',
-    color: '#F0CD4C',
-    pickle: 'Bundhi',
-    desc: 'An instant, cooling evening snack! Mix crispy bundhi into spiced yogurt for a refreshing and crunchy bite.',
-    ingredients: ['1 cup Avdaitha Bundhi', '1 cup whisked yogurt', 'Pinch of roasted cumin powder', 'Fresh coriander'],
-    method: 'Whisk yogurt with salt and cumin. Right before serving, fold in the crispy bundhi so it retains its crunch. Garnish with coriander.'
-  },
-  {
-    id: 'sweet-jamun-rabdi',
-    name: 'Kova Jamun Rabdi',
-    category: 'Indian Sweets',
-    time: '10 min',
-    level: 'Easy',
-    serves: 4,
-    img: '/images/products/kova-gulam-jamun.jpg',
-    color: '#D4A733',
-    pickle: 'Kova Gulam Jamun',
-    desc: 'Elevate our Kova Gulam Jamun by serving it submerged in thickened, saffron-infused milk (Rabdi) for a royal dessert experience.',
-    ingredients: ['4 Avdaitha Kova Gulam Jamuns', '2 cups Rabdi (thickened milk)', 'Pistachio slivers'],
-    method: 'Warm the Gulam Jamuns slightly. Pour hot or chilled Rabdi over them in a serving bowl. Garnish with pistachio slivers.'
-  },
-  {
-    id: 'janthukalu-bhel',
-    name: 'Janthukalu Bhel Puri',
-    category: 'Ready-to-eat Savouries',
-    time: '10 min',
-    level: 'Easy',
-    serves: 2,
-    img: '/images/products/karam-janthukalu.jpg',
-    color: '#FF1E1E',
-    pickle: 'Karam Janthukalu',
-    desc: 'A spicy, crunchy street-style bhel made by crushing our Karam Janthukalu with onions, tomatoes, and tamarind chutney.',
-    ingredients: ['2 cups crushed Avdaitha Karam Janthukalu', '1 chopped onion', '1 chopped tomato', '2 tbsp tamarind chutney'],
-    method: 'In a large bowl, toss the crushed Janthukalu with onions and tomatoes. Drizzle tamarind chutney over the top and serve immediately.'
-  },
-  {
-    id: 'usiri-dal',
-    name: 'Usiri Amla Dal',
-    category: 'Prepared Foods',
-    time: '20 min',
-    level: 'Easy',
-    serves: 4,
-    img: '/images/products/usiri-pickle.jpg',
-    color: '#4CAF50',
-    pickle: 'Usiri Pickle',
-    desc: 'Stir our tangy Usiri (Amla) Pickle into simple yellow dal for an instant burst of vitamin C, tartness, and deep spiced flavor.',
-    ingredients: ['1 cup cooked Toor Dal', '2 tbsp Avdaitha Usiri Pickle', '1 tsp ghee', 'Curry leaves'],
-    method: 'Heat the cooked dal. Stir in the Usiri pickle until well combined. Temper mustard and curry leaves in ghee and pour over the dal.'
-  }
-];
+// Megaphone Doodle with "Pickles!" in bold retro white script
+const MegaphoneDoodle = () => (
+  <div className="megaphone-box" aria-hidden="true">
+    <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="megaphone-svg">
+      {/* Sound radiating lines */}
+      <path d="M185 40 C 202 55, 202 85, 185 100" stroke="#1E6B3E" strokeWidth="6" strokeLinecap="round" />
+      <path d="M204 28 C 228 48, 228 92, 204 112" stroke="#1E6B3E" strokeWidth="6" strokeLinecap="round" />
+      <line x1="184" y1="18" x2="208" y2="8" stroke="#1E6B3E" strokeWidth="5.5" strokeLinecap="round" />
+      <line x1="186" y1="122" x2="212" y2="132" stroke="#1E6B3E" strokeWidth="5.5" strokeLinecap="round" />
 
-export default function RecipesPage() {
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(8);
-  const [pageData, setPageData] = useState(null);
+      {/* Megaphone body */}
+      <path
+        d="M65 52 L154 26 C 160 24, 164 28, 164 34 L164 104 C 164 110, 160 114, 154 112 L65 86 Z"
+        fill="#1E6B3E"
+      />
+      {/* Speaker bell rim */}
+      <ellipse cx="158" cy="69" rx="8" ry="43" fill="#175632" stroke="#1E6B3E" strokeWidth="2" />
 
-  useEffect(() => {
-    async function fetchPageData() {
-      try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-        const res = await fetch(`${baseUrl}/dashboard/website/api/get-recipes-page_web`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            setPageData(json.data);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching recipes page data:', error);
-      }
-    }
-    fetchPageData();
-  }, []);
+      {/* Mouthpiece */}
+      <path d="M46 58 L65 54 L65 84 L46 80 Z" fill="#1E6B3E" />
+      <rect x="32" y="63" width="16" height="13" rx="4" fill="#175632" />
 
-  useEffect(() => {
-    async function fetchRecipes() {
-      try {
-        const res = await fetch('/api/web-recipes');
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        
-        if (Array.isArray(data) && data.length > 0) {
-          const mappedRecipes = data.map((r, index) => {
-            const colors = ['#4CAF50', '#FF3B30', '#007AFF', '#FF9500'];
-            return {
-              ...r,
-              name: r.recipeName || r.name || 'Unnamed Recipe',
-              desc: r.recipeDescription || r.desc || '',
-              img: (r.images && r.images.length > 0) ? r.images[0] : (r.img || '/images/placeholder.jpg'),
-              time: (r.makingTime && r.makingTime.value) ? `${r.makingTime.value} ${r.makingTime.unit || 'min'}` : (r.time || '15 min'),
-              level: r.difficulty || r.level || 'Easy',
-              serves: r.serves || 4,
-              color: colors[index % colors.length],
-              pickle: r.pickle || 'Avdaitha Foods',
-              ingredients: r.ingredients || [],
-              method: r.makingProcess || r.method || ''
-            };
-          });
-          // Merge API recipes with fallback recipes to guarantee a beautiful populated UI
-          const merged = [...mappedRecipes, ...FALLBACK_RECIPES];
-          const uniqueRecipes = merged.filter((recipe, index, self) =>
-            index === self.findIndex((r) => r.id === recipe.id)
-          );
-          setRecipes(uniqueRecipes);
-        } else {
-          setRecipes(FALLBACK_RECIPES);
-        }
-      } catch (error) {
-        console.error('Error fetching recipes, falling back to local data:', error);
-        setRecipes(FALLBACK_RECIPES);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchRecipes();
-  }, []);
+      {/* Handle */}
+      <path
+        d="M72 84 L72 116 C 72 124, 82 128, 92 128 C 102 128, 104 122, 104 114 L104 88"
+        stroke="#1E6B3E"
+        strokeWidth="12"
+        strokeLinecap="round"
+        fill="none"
+      />
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const path = document.getElementById('journey-path');
-      if (path) {
-        // Multiplier controls how fast the dashes move relative to scroll speed
-        path.style.strokeDashoffset = -window.scrollY * 0.15;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      {/* "Pickles!" in bold retro white cursive */}
+      <text
+        x="115"
+        y="76"
+        textAnchor="middle"
+        fill="#FFFFFF"
+        fontFamily="'Caveat', cursive"
+        fontSize="32"
+        fontWeight="bold"
+        transform="rotate(-4 115 76)"
+      >
+        Pickles!
+      </text>
+    </svg>
+  </div>
+);
 
+// Retro Line-Art Pickle Jar Doodle
+const JarDoodle = () => (
+  <div className="jar-box" aria-hidden="true">
+    <svg viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg" className="jar-svg">
+      <g transform="rotate(-6 80 105)" stroke="#1E6B3E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+        {/* Lid */}
+        <rect x="36" y="16" width="88" height="17" rx="5" fill="#F6DA77" />
+        <line x1="46" y1="21" x2="46" y2="28" />
+        <line x1="56" y1="21" x2="56" y2="28" />
+        <line x1="66" y1="21" x2="66" y2="28" />
+        <line x1="76" y1="21" x2="76" y2="28" />
+        <line x1="86" y1="21" x2="86" y2="28" />
+        <line x1="96" y1="21" x2="96" y2="28" />
+        <line x1="106" y1="21" x2="106" y2="28" />
+        <line x1="114" y1="21" x2="114" y2="28" />
+
+        {/* Neck */}
+        <path d="M42 33 L42 43 L118 43 L118 33" />
+
+        {/* Jar Body */}
+        <path
+          d="M42 43 C 24 50, 18 64, 20 92 L 24 164 C 26 182, 40 192, 80 192 C 120 192, 134 182, 136 164 L 140 92 C 142 64, 136 50, 118 43 Z"
+          fill="#F6DA77"
+        />
+
+        {/* Label */}
+        <rect x="36" y="82" width="88" height="68" rx="4" fill="#FFFFFF" stroke="#1E6B3E" strokeWidth="2.8" />
+        <text
+          x="80"
+          y="112"
+          textAnchor="middle"
+          fill="#1E6B3E"
+          fontFamily="'Bebas Neue', sans-serif"
+          fontSize="18"
+          letterSpacing="0.08em"
+        >
+          ADHVAITHA
+        </text>
+        <line x1="44" y1="120" x2="116" y2="120" stroke="#1E6B3E" strokeWidth="1.6" />
+        <text
+          x="80"
+          y="136"
+          textAnchor="middle"
+          fill="#1E6B3E"
+          fontFamily="'Caveat', cursive"
+          fontSize="15"
+          fontWeight="bold"
+        >
+          Heirloom Recipe
+        </text>
+
+        {/* Shadow Hatching */}
+        <line x1="27" y1="125" x2="33" y2="120" strokeWidth="2.8" />
+        <line x1="28" y1="138" x2="34" y2="133" strokeWidth="2.8" />
+        <line x1="29" y1="151" x2="35" y2="146" strokeWidth="2.8" />
+        <line x1="31" y1="164" x2="37" y2="159" strokeWidth="2.8" />
+      </g>
+    </svg>
+  </div>
+);
+
+// Retro Line-Art Mango/Pickle Doodle
+const PickleDoodle = () => (
+  <div className="pickle-box" aria-hidden="true">
+    <svg viewBox="0 0 220 130" fill="none" xmlns="http://www.w3.org/2000/svg" className="pickle-svg">
+      <g transform="rotate(10 110 65)" stroke="#1E6B3E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+        {/* Pickle Outline */}
+        <path
+          d="M26 68 C 22 42, 48 20, 90 22 C 145 24, 190 36, 196 62 C 202 88, 162 104, 112 100 C 65 96, 30 89, 26 68 Z"
+          fill="#F6DA77"
+        />
+        {/* Pickle bumps */}
+        <circle cx="52" cy="46" r="2.2" fill="#1E6B3E" />
+        <circle cx="88" cy="41" r="2.2" fill="#1E6B3E" />
+        <circle cx="126" cy="49" r="2.2" fill="#1E6B3E" />
+        <circle cx="160" cy="56" r="2.2" fill="#1E6B3E" />
+        <circle cx="72" cy="68" r="2.2" fill="#1E6B3E" />
+        <circle cx="110" cy="74" r="2.2" fill="#1E6B3E" />
+        <circle cx="145" cy="78" r="2.2" fill="#1E6B3E" />
+
+        {/* Vintage texture streaks */}
+        <path d="M42 72 C 58 78, 80 80, 102 84" stroke="#1E6B3E" strokeWidth="2.5" strokeDasharray="3 4" />
+        <path d="M96 35 C 122 38, 150 44, 172 52" stroke="#1E6B3E" strokeWidth="2.5" strokeDasharray="3 4" />
+      </g>
+    </svg>
+  </div>
+);
+
+export default function AboutPage() {
   return (
-    <div style={{ backgroundColor: '#F0CD4C', overflowX: 'hidden' }}>
+    <div className="about-page-root">
       <Navbar />
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Modak&family=Mouse+Memoirs&family=Inter:wght@400;700&display=swap');
-        
-        .font-modak { font-family: 'Modak', cursive; }
-        .font-mouse { font-family: 'Mouse Memoirs', sans-serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        :root {
+          --sp-yellow: #F6DA77;
+          --sp-black: #141414;
+          --sp-green: #1E6B3E;
+          --sp-card-bg: #FFFFFF;
+          --font-head: 'Bebas Neue', 'Oswald', sans-serif;
+          --font-script: 'Caveat', cursive;
+          --font-body: 'Outfit', sans-serif;
+        }
+
+        .about-page-root {
+          background-color: var(--sp-yellow);
+          color: var(--sp-black);
+          font-family: var(--font-body);
+          min-height: 100vh;
+          overflow-x: hidden;
+        }
+
+        .story-wrapper {
+          max-width: 1320px;
+          margin: 0 auto;
+          padding: 3.5rem 2.5rem 6rem;
+        }
+
+        @media (max-width: 768px) {
+          .story-wrapper {
+            padding: 2rem 1.25rem 4rem;
+          }
+        }
+
+        /* ─── SECTION 1: HERO (TWO COLUMNS) ─── */
+        .hero-section {
+          padding-top: clamp(2rem, 4vw, 4rem);
+          padding-bottom: clamp(3rem, 5vw, 5rem);
+        }
+
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: clamp(2rem, 5vw, 5rem);
+          align-items: flex-start;
+        }
+
+        .hero-left-col {
+          display: flex;
+          flex-direction: column;
+          gap: clamp(1.8rem, 3vw, 3rem);
+        }
+
+        .main-headline {
+          font-family: var(--font-head);
+          font-size: clamp(3.4rem, 6.8vw, 7.2rem);
+          line-height: 0.95;
+          letter-spacing: 0.01em;
+          color: var(--sp-black);
+          margin: 0;
+          text-transform: uppercase;
+        }
+
+        .main-headline .headline-row {
+          display: block;
+        }
+
+        .brand-green-highlight {
+          position: relative;
+          display: inline-block;
+          color: var(--sp-green);
+          font-family: var(--font-script);
+          font-size: clamp(3.8rem, 7.5vw, 7.8rem);
+          font-weight: 700;
+          letter-spacing: 0;
+          margin-left: 0.2rem;
+          white-space: nowrap;
+          transform: rotate(-1.5deg);
+        }
+
+        .brand-green-highlight .tm {
+          font-size: 0.32em;
+          vertical-align: super;
+          font-family: var(--font-body);
+          font-weight: 800;
+          color: var(--sp-green);
+          margin-left: 2px;
+        }
+
+        .brush-underline {
+          position: absolute;
+          left: -3%;
+          bottom: -15px;
+          width: 106%;
+          height: 22px;
+          pointer-events: none;
+        }
+
+        .hero-intro-text {
+          font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+          line-height: 1.62;
+          color: #1A1A1A;
+          font-weight: 500;
+          max-width: 540px;
+          margin: 0;
+        }
+
+        .hero-right-col {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          position: relative;
+        }
+
+        .megaphone-box {
+          width: clamp(150px, 16vw, 220px);
+          transform: rotate(4deg);
+          margin-bottom: 1.5rem;
+          animation: floatSlight 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatSlight {
+          0% { transform: rotate(4deg) translateY(0); }
+          100% { transform: rotate(8deg) translateY(-6px); }
+        }
+
+        .megaphone-svg {
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 6px 14px rgba(0,0,0,0.08));
+        }
+
+        .strongman-img {
+          width: 100%;
+          max-width: clamp(280px, 28vw, 400px);
+          height: auto;
+          mix-blend-mode: multiply;
+          filter: contrast(1.06);
+          user-select: none;
+          display: block;
+        }
+
+        /* ─── SECTION 2: ADVENTURE & QUOTE ─── */
+        .adventure-section {
+          padding: clamp(3rem, 6vw, 5.5rem) 0;
+        }
+
+        .adventure-headline {
+          font-family: var(--font-head);
+          font-size: clamp(2.6rem, 5vw, 5rem);
+          line-height: 1.02;
+          color: var(--sp-black);
+          text-transform: uppercase;
+          margin: 0 0 clamp(2.5rem, 4vw, 3.8rem) 0;
+          max-width: 1100px;
+        }
+
+        .green-script {
+          font-family: var(--font-script);
+          color: var(--sp-green);
+          font-size: 1.16em;
+          font-weight: 700;
+          text-transform: none;
+          display: inline-block;
+          margin: 0 0.2rem;
+          transform: rotate(-1deg);
+        }
+
+        .adventure-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.05fr;
+          gap: clamp(2rem, 5vw, 5rem);
+          align-items: center;
+        }
+
+        .adventure-body {
+          font-size: clamp(1.1rem, 1.35vw, 1.28rem);
+          line-height: 1.65;
+          color: #1A1A1A;
+          font-weight: 500;
+          max-width: 500px;
+          margin: 0;
+        }
+
+        .white-quote-card {
+          background-color: var(--sp-card-bg);
+          border-radius: clamp(22px, 3vw, 30px);
+          padding: clamp(2.2rem, 3.8vw, 3.4rem);
+          box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
+          transition: transform 0.3s ease;
+        }
+
+        .white-quote-card:hover {
+          transform: translateY(-3px);
+        }
+
+        .quote-text {
+          font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+          line-height: 1.62;
+          color: #181818;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        .green-quote {
+          font-family: var(--font-script);
+          font-size: 1.34em;
+          color: var(--sp-green);
+          font-weight: 700;
+          display: inline;
+        }
+
+        /* ─── SECTION 3: CRUSADE & FRAMED PHOTO ─── */
+        .crusade-section {
+          padding: clamp(3rem, 6vw, 6rem) 0;
+        }
+
+        .crusade-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 1fr 0.95fr;
+          gap: clamp(2rem, 3.5vw, 4rem);
+          align-items: center;
+        }
+
+        .crusade-left {
+          display: flex;
+          flex-direction: column;
+          gap: 1.75rem;
+        }
+
+        .jar-box {
+          width: 95px;
+          margin-bottom: 0.5rem;
+          transform: rotate(-3deg);
+        }
+
+        .jar-svg {
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 4px 10px rgba(0,0,0,0.06));
+        }
+
+        .crusade-text {
+          font-size: clamp(1.05rem, 1.25vw, 1.22rem);
+          line-height: 1.65;
+          color: #1A1A1A;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        .crusade-text strong {
+          color: #000;
+          font-weight: 700;
+        }
+
+        .framed-photo-container {
+          display: flex;
+          justify-content: center;
+        }
+
+        .framed-photo {
+          width: 100%;
+          max-width: 420px;
+          aspect-ratio: 4 / 4.5;
+          object-fit: cover;
+          border-radius: clamp(22px, 3vw, 32px);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+          display: block;
+          transition: transform 0.3s ease;
+        }
+
+        .framed-photo:hover {
+          transform: scale(1.02);
+        }
+
+        .crusade-right {
+          display: flex;
+          align-items: center;
+        }
+
+        .punchline-title {
+          font-family: var(--font-head);
+          font-size: clamp(2.3rem, 3.6vw, 3.7rem);
+          line-height: 1.04;
+          color: var(--sp-black);
+          text-transform: uppercase;
+          margin: 0;
+        }
+
+        /* ─── SECTION 4: WELLNESS PROMISE & FARMER ALLIES ─── */
+        .wellness-section {
+          padding: clamp(3rem, 6vw, 6rem) 0 2rem;
+        }
+
+        .wellness-grid {
+          display: grid;
+          grid-template-columns: 1fr 1.15fr;
+          gap: clamp(2rem, 5vw, 5rem);
+          align-items: center;
+        }
+
+        .wellness-right {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .wellness-body {
+          font-size: clamp(1.1rem, 1.35vw, 1.28rem);
+          line-height: 1.65;
+          color: #1A1A1A;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        .pickle-box {
+          width: clamp(140px, 16vw, 210px);
+          align-self: flex-end;
+          transform: rotate(-2deg);
+        }
+
+        .pickle-svg {
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 4px 10px rgba(0,0,0,0.06));
+        }
+
+        /* ─── BOTTOM CTA STRIP ─── */
+        .bottom-cta {
+          margin-top: clamp(4rem, 6vw, 6rem);
+          text-align: center;
+          padding: clamp(2.5rem, 4vw, 3.5rem) 2rem;
+          background: rgba(30, 107, 62, 0.08);
+          border-radius: 28px;
+          border: 2px dashed var(--sp-green);
+        }
+
+        .cta-heading {
+          font-family: var(--font-head);
+          font-size: clamp(2.4rem, 4vw, 4rem);
+          letter-spacing: 0.02em;
+          color: var(--sp-green);
+          margin: 0 0 1rem;
+          text-transform: uppercase;
+        }
+
+        .cta-text {
+          font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+          color: #222;
+          max-width: 620px;
+          margin: 0 auto 2rem;
+          line-height: 1.6;
+        }
+
+        .cta-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background-color: var(--sp-green);
+          color: #FFFFFF;
+          font-family: var(--font-head);
+          font-size: clamp(1.4rem, 1.8vw, 1.8rem);
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          padding: 0.85rem 2.6rem;
+          border-radius: 999px;
+          text-decoration: none;
+          box-shadow: 0 10px 24px rgba(30, 107, 62, 0.35);
+          transition: all 0.25s ease;
+        }
+
+        .cta-btn:hover {
+          background-color: #175632;
+          transform: translateY(-2px);
+          box-shadow: 0 14px 30px rgba(30, 107, 62, 0.45);
+        }
+
+        /* ─── RESPONSIVE BREAKPOINTS ─── */
+        @media (max-width: 1024px) {
+          .crusade-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+          .crusade-right {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 1rem;
+          }
+          .punchline-title {
+            max-width: 100%;
+          }
+        }
+
+        @media (max-width: 860px) {
+          .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .hero-right-col {
+            align-items: center;
+          }
+          .adventure-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .crusade-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .wellness-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+        }
       `}</style>
 
-      <main style={{ minHeight: '100vh', paddingBottom: '0' }}>
+      <main className="story-wrapper">
+        {/* ═══════════ SECTION 1: HERO (TWO-COLUMN SUCKERPUNCH MATCH) ═══════════ */}
+        <section className="hero-section">
+          <div className="hero-grid">
+            {/* Left Column: Headline + Intro Story */}
+            <div className="hero-left-col">
+              <h1 className="main-headline">
+                <span className="headline-row">FLAVOR SO GOOD IT HITS</span>
+                <span className="headline-row">
+                  YOU LIKE{' '}
+                  <span className="brand-green-highlight">
+                    ADHVAITHA FOODS<span className="tm">™</span>
+                    {/* Brush underline flourish */}
+                    <svg className="brush-underline" viewBox="0 0 360 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M4 14 C 70 4, 180 3, 350 11 C 280 18, 140 18, 20 18"
+                        stroke="#1E6B3E"
+                        strokeWidth="5.5"
+                        strokeLinecap="round"
+                        fill="#1E6B3E"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </h1>
 
-        {/* CravBurgers Style Cinematic Hero */}
-        <section id="recipes-hero" style={{
-          position: 'relative', overflow: 'hidden',
-          minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          textAlign: 'center', padding: '12rem 2rem 8rem',
-          background: 'url(https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2000&auto=format&fit=crop) center/cover no-repeat fixed'
-        }}>
-          {/* Dark Overlay */}
-          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.25)' }} />
-
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', transform: 'translateY(-2rem)' }}>
-            <h2 className="font-modak" style={{
-              fontSize: 'clamp(2.5rem, 6vw, 4rem)',
-              color: '#F0CD4C',
-              WebkitTextStroke: '2px #FFF',
-              textTransform: 'uppercase',
-              marginBottom: '-2rem',
-              transform: 'rotate(-3deg)',
-              zIndex: 2
-            }}>
-              {pageData?.hero?.eyebrow || "WHAT'S INSIDE"}
-            </h2>
-            <h1 className="font-mouse" style={{
-              fontSize: 'clamp(6rem, 15vw, 14rem)',
-              color: '#FF1E1E',
-              WebkitTextStroke: '4px #FFF',
-              textTransform: 'uppercase',
-              lineHeight: 0.8,
-              filter: 'drop-shadow(0px 15px 10px rgba(0,0,0,0.4))',
-              whiteSpace: 'pre-line'
-            }}>
-              {pageData?.hero?.title || "SIMPLE THINGS\nDONE RIGHT"}
-            </h1>
-          </div>
-
-          {/* Wavy bottom border transition to Mustard Yellow */}
-          <svg viewBox="0 0 1440 120" style={{ position: 'absolute', bottom: -2, left: 0, width: '100%', height: 'auto', zIndex: 2 }}>
-            <path fill="#F0CD4C" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
-          </svg>
-        </section>
-
-        {/* CravBurgers Style Staggered Ingredients Layout */}
-        <section style={{ backgroundColor: '#F0CD4C', padding: '6rem 2rem 12rem', position: 'relative' }}>
-
-          <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', marginBottom: '8rem' }}>
-            <h2 className="font-mouse" style={{
-              fontSize: 'clamp(5rem, 12vw, 12rem)',
-              color: '#FFF',
-              lineHeight: 0.8,
-              textTransform: 'uppercase',
-              filter: 'drop-shadow(4px 4px 0px rgba(200,160,40,0.5))',
-              whiteSpace: 'pre-line'
-            }}>
-              {pageData?.middleSection?.title || "A STORY IN\nEVERY BITE."}
-            </h2>
-            <p className="font-mouse" style={{
-              fontSize: '2.5rem',
-              color: '#111',
-              marginTop: '2rem',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}>
-              {pageData?.middleSection?.subtitle || "FROM FRESH FARMS TO YOUR HANDS EVERY LAYER MATTERS."}
-            </p>
-          </div>
-
-          <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative' }}>
-
-            <div style={{ position: 'absolute', top: '200px', bottom: '200px', left: 0, right: 0, zIndex: 0 }}>
-              <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" style={{ display: 'block', overflow: 'visible' }}>
-                <path
-                  id="journey-path"
-                  d={recipes.slice(0, visibleCount).reduce((path, _, i, arr) => {
-                    const x = i % 2 === 0 ? 16 : 84;
-                    const maxIdx = Math.max(1, arr.length - 1);
-                    const y = (i / maxIdx) * 100;
-                    if (i === 0) return `M ${x} ${y}`;
-                    const prevX = (i - 1) % 2 === 0 ? 16 : 84;
-                    const prevY = ((i - 1) / maxIdx) * 100;
-                    // Proportional S-Curve down the page
-                    const step = (y - prevY) / 2;
-                    return `${path} C ${prevX} ${prevY + step}, ${x} ${y - step}, ${x} ${y}`;
-                  }, '')}
-                  fill="none" stroke="#D4A733" strokeWidth="4" strokeDasharray="12, 12"
-                  vectorEffect="non-scaling-stroke"
-                  style={{ transition: 'stroke-dashoffset 0.1s ease-out' }}
-                />
-              </svg>
+              <p className="hero-intro-text">
+                In 1970, Ammayya, the Founder & Master Blender of Adhvaitha Foods, said “see ya later” to everyday commercial compromises to don the heirloom kitchen apron for her family, handcrafting sun-cured pickles in traditional ceramic Bharanis with zero chemical preservatives and pure cold-pressed oils.
+              </p>
             </div>
 
-            <div className="recipes-list-container" style={{ display: 'flex', flexDirection: 'column', gap: '8rem', position: 'relative', zIndex: 1 }}>
-              {isLoading ? (
-                <div className="font-mouse" style={{ textAlign: 'center', fontSize: '3rem', color: '#111' }}>Loading...</div>
-              ) : recipes.slice(0, visibleCount).map((recipe, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <div key={recipe.id} className="recipe-card-wrapper" style={{
-                    display: 'flex',
-                    justifyContent: isEven ? 'flex-start' : 'flex-end',
-                    width: '100%'
-                  }}>
-                    <div className="recipe-card-inner" style={{
-                      width: '320px', position: 'relative'
-                    }}>
-
-                      {/* Bubbly Floating Label */}
-                      <div className="font-modak recipe-card-label" style={{
-                        position: 'absolute', top: '-1.5rem', [isEven ? 'right' : 'left']: '-1rem', zIndex: 10,
-                        fontSize: '1.6rem', color: recipe.color, WebkitTextStroke: '1px #FFF',
-                        textTransform: 'uppercase', transform: isEven ? 'rotate(5deg)' : 'rotate(-5deg)',
-                        filter: 'drop-shadow(2px 4px 0px rgba(0,0,0,0.15))'
-                      }}>
-                        {recipe.category}
-                      </div>
-
-                      {/* Floating Recipe Image Card */}
-                      <div className="recipe-card-img-container" style={{
-                        borderRadius: '24px', overflow: 'hidden',
-                        boxShadow: '0 30px 50px rgba(0,0,0,0.15)',
-                        position: 'relative', height: '300px',
-                        border: '8px solid #FFF',
-                        transform: 'translateY(0)',
-                        transition: 'transform 0.4s ease'
-                      }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-10px)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
-                        <img src={recipe.img} alt={recipe.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </div>
-
-                      {/* Title & Desc */}
-                      <div className="recipe-card-text" style={{ marginTop: '1.5rem', padding: '0 1rem' }}>
-                        <h3 className="font-mouse recipe-card-title" style={{ fontSize: '3rem', color: '#111', textTransform: 'uppercase', marginBottom: '0.2rem', lineHeight: 0.9 }}>
-                          {recipe.name}
-                        </h3>
-                        <p className="font-mouse recipe-card-desc" style={{ fontSize: '1.8rem', color: '#333', textTransform: 'uppercase', lineHeight: 1.1 }}>
-                          {recipe.desc}
-                        </p>
-                      </div>
-
-                      {/* Floating Decorative Emoji Cutout (Moved to inner edge of card) */}
-                      <div style={{
-                        position: 'absolute', top: '-2rem', [isEven ? 'left' : 'right']: '-1.5rem',
-                        width: '50px', height: '50px', background: '#FFF', borderRadius: '50%',
-                        boxShadow: '0 15px 30px rgba(0,0,0,0.15)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem',
-                        transform: 'rotate(-10deg)',
-                        zIndex: 12, border: '4px solid #F0CD4C'
-                      }}>
-                        {index % 4 === 0 ? '🌿' : index % 4 === 1 ? '🍅' : index % 4 === 2 ? '🧀' : '🥔'}
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-
-              {/* View More Button */}
-              {!isLoading && visibleCount < recipes.length && (
-                <div style={{ textAlign: 'center', marginTop: '4rem', position: 'relative', zIndex: 10 }}>
-                  <button
-                    onClick={() => setVisibleCount(prev => prev + 4)}
-                    className="font-mouse"
-                    style={{
-                      background: '#FFF', color: '#111',
-                      fontSize: '2.5rem', textTransform: 'uppercase',
-                      padding: '1rem 4rem', borderRadius: '50px', border: '4px solid #111',
-                      cursor: 'pointer', boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
-                      transition: 'transform 0.2s ease, background 0.2s ease'
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.background = '#FF1E1E'; e.currentTarget.style.color = '#FFF'; e.currentTarget.style.borderColor = '#FF1E1E'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = '#FFF'; e.currentTarget.style.color = '#111'; e.currentTarget.style.borderColor = '#111'; }}
-                  >
-                    VIEW MORE RECIPES
-                  </button>
-                </div>
-              )}
+            {/* Right Column: Megaphone + Vintage Strongman */}
+            <div className="hero-right-col">
+              <MegaphoneDoodle />
+              <img
+                src="/images/cutouts/strongman.png"
+                alt="Adhvaitha Flavor Strongman"
+                className="strongman-img"
+              />
             </div>
           </div>
         </section>
 
-        {/* CravBurgers Style Red Footer CTA */}
-        <section style={{ background: '#FF1E1E', padding: '8rem 2rem', textAlign: 'center', position: 'relative' }}>
-          {/* Wavy top border transitioning from Mustard Yellow */}
-          <svg viewBox="0 0 1440 120" style={{ position: 'absolute', top: -1, left: 0, width: '100%', height: 'auto', zIndex: 2, transform: 'rotate(180deg)' }}>
-            <path fill="#F0CD4C" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
-          </svg>
+        {/* ═══════════ SECTION 2: ADVENTURE & QUOTE CARD ═══════════ */}
+        <section className="adventure-section">
+          <h2 className="adventure-headline">
+            And what a ride it was—<span className="green-script">a heritage-packed adventure</span> of epic proportions!
+          </h2>
 
-          <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10, marginTop: '2rem' }}>
-            <h2 className="font-mouse" style={{ fontSize: 'clamp(5rem, 10vw, 8rem)', color: '#FFF', lineHeight: 0.9, textTransform: 'uppercase', marginBottom: '1rem', whiteSpace: 'pre-line' }}>
-              {pageData?.cta?.title || "FEEL THE CHANGE"}
-            </h2>
-            <p className="font-mouse" style={{ fontSize: '2rem', color: '#FFF', opacity: 0.9, textTransform: 'uppercase', marginBottom: '3rem', whiteSpace: 'pre-line' }}>
-              {pageData?.cta?.subtitle || "Bring these magical authentic flavors directly to your kitchen."}
+          <div className="adventure-grid">
+            <p className="adventure-body">
+              Juggling family dynamics like a seasoned pro, Ammayya spilled the beans on the authentic health perks of sun-curing and whipped up her own Signature Andhra 7-Spice Blend — balancing fiery Guntur chillies, stone-crushed mustard, and fragrant wood-pressed sesame oil.
             </p>
-            <Link href="/products" style={{
-              display: 'inline-block',
-              background: '#FFF', color: '#FF1E1E',
-              fontFamily: 'Mouse Memoirs, sans-serif', fontSize: '2.5rem',
-              textTransform: 'uppercase', padding: '1rem 4rem', borderRadius: '50px',
-              textDecoration: 'none', boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-              transition: 'transform 0.2s ease'
-            }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-              {pageData?.cta?.buttonText || "ORDER NOW"}
-            </Link>
+
+            <div className="white-quote-card">
+              <p className="quote-text">
+                Cue a tasting session with her best friends and village elders, who went wild after just one bite, proclaiming,{' '}
+                <span className="green-quote">“These pickles hit you with the true soul of Andhra!”</span>, and our company was born.
+              </p>
+            </div>
           </div>
         </section>
 
-        <style>{`
-          @media (max-width: 900px) {
-            .recipes-list-container {
-              gap: 2rem !important;
-            }
-            .recipe-card-wrapper {
-              /* Remove the center override so they alternate left/right again! */
-            }
-            .recipe-card-inner {
-              width: 180px !important; /* Tiny width to allow left/right staggering */
-            }
-            .recipe-card-img-container {
-              height: 150px !important;
-              border-width: 4px !important;
-              border-radius: 16px !important;
-            }
-            .recipe-card-label {
-              font-size: 0.9rem !important;
-              top: -0.8rem !important;
-              padding: 0.2rem 0.5rem !important;
-            }
-            .recipe-card-text {
-              padding: 0 0.5rem !important;
-              margin-top: 0.8rem !important;
-            }
-            .recipe-card-title {
-              font-size: 1.4rem !important;
-            }
-            .recipe-card-desc {
-              font-size: 0.8rem !important;
-            }
-          }
-        `}</style>
+        {/* ═══════════ SECTION 3: CRUSADE & FRAMED KITCHEN PHOTO ═══════════ */}
+        <section className="crusade-section">
+          <div className="crusade-grid">
+            {/* Left Column: Line Art Jar + Narrative */}
+            <div className="crusade-left">
+              <JarDoodle />
+              <p className="crusade-text">
+                Ammayya then set out on a tasty crusade to spread{' '}
+                <span className="green-script" style={{ fontSize: '1.25em' }}>the miraculous wonders of pickles</span>{' '}
+                far and wide. Introducing pure, chemical-free Andhra avakaya, tangy gongura, and aromatic masalas to households seeking true grandmother authenticity.
+              </p>
+              <p className="crusade-text">
+                As a salute to food lovers everywhere, we handcrafted our pickles with unyielding care. These pickles are the perfect way to elevate every meal.{' '}
+                <strong>100% natural, preservative-free, small-batch stone-ground pickles</strong> that bring warmth and unforgettable tang to any dining table.
+              </p>
+            </div>
+
+            {/* Middle Column: Framed Grandmother Kitchen Photo */}
+            <div className="framed-photo-container">
+              <img
+                src="/images/grandmother_kitchen.png"
+                alt="Ammayya in the traditional kitchen stone-grinding spices"
+                className="framed-photo"
+              />
+            </div>
+
+            {/* Right Column: Punchline Headline */}
+            <div className="crusade-right">
+              <h3 className="punchline-title">
+                AND THERE YOU HAVE IT, FOLKS—OUR FOUNDING HERITAGE OF FLAVOR & TRADITION!
+              </h3>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════ SECTION 4: WELLNESS PROMISE & ALLIES ═══════════ */}
+        <section className="wellness-section">
+          <div className="wellness-grid">
+            {/* Left Column: White Card on Health Perks */}
+            <div className="white-quote-card">
+              <p className="quote-text">
+                To top it all off— Ammayya’s knowledge of the{' '}
+                <span className="green-quote">power of slow sun-curing and wood-pressed oil</span>{' '}
+                for natural digestion, balancing gut wellness, and providing pure culinary immunity became a reality.
+              </p>
+            </div>
+
+            {/* Right Column: Allies Narrative + Pickle Doodle */}
+            <div className="wellness-right">
+              <p className="wellness-body">
+                Enter stage left: Our revered rural farming partners and family team, allies in Andhra authenticity, who helped bring our heritage Avakaya, stone-ground podis, and handcrafted delights to homes across the nation, ready to power up every single meal with pure homemade punch.
+              </p>
+              <PickleDoodle />
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════ BOTTOM CALL TO ACTION ═══════════ */}
+        <div className="bottom-cta">
+          <h4 className="cta-heading">Ready For That Unforgettable Flavor Hit?</h4>
+          <p className="cta-text">
+            Explore our heirloom Andhra pickles, stone-ground spice powders, and crunchy traditional savouries — delivered straight from grandmother’s kitchen to your doorstep.
+          </p>
+          <Link href="/products" className="cta-btn">
+            Taste The Tradition →
+          </Link>
+        </div>
       </main>
+
       <Footer />
     </div>
   );

@@ -65,6 +65,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/images/logo.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Caveat:wght@700&family=Fraunces:wght@800&family=Inter&family=Lato&family=Manrope:wght@500;700;800&family=Mr+Dafoe&family=Noto+Sans+Telugu:wght@800&family=Noto+Serif+Telugu:wght@700&family=Oswald:wght@600&display=swap" rel="stylesheet" />
       </head>
       <body className={`${playfair.variable} ${lato.variable} ${dancingScript.variable} ${crimsonText.variable} ${montserrat.variable} ${yellowtail.variable} ${lilitaOne.variable}`}>
         {children}
