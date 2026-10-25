@@ -35,7 +35,7 @@ const STEPS = [
     t: "SUN CURING", 
     te: "SUN CURED", 
     p1: "/images/process/sun-drying.jpg",
-    cut: "/images/cutouts/chilli.png",
+    cut: "/images/era2-cut.png",
     b: "Patience is our secret ingredient. Instead of using artificial dehydrators, we spread washed ingredients on spotless rooftop cotton sheets to dry naturally under the hot Andhra sun. Natural solar warmth evaporates moisture and concentrates deep tartness." 
   },
   { 
@@ -50,7 +50,7 @@ const STEPS = [
     te: "HAND PACKED", 
     isPresent: true,
     cut: "/images/cutouts/jar.png",
-    note: "pure!",
+    note: "yummy",
     b: "The sun-cured pieces meet pure wood-churned cold-pressed sesame oil in ceramic jaadis. Hand-poured into sterilized glass jars, crowned with golden til oil, and sealed tightly. No preservatives, no shortcuts — just like Ammayya did since 1970." 
   },
 ];
@@ -144,6 +144,17 @@ const Ticks = ({ style, flip }) => (
   </svg>
 );
 
+const Chopsticks = ({ style, className }) => (
+  <div style={{ position: "absolute", width: 140, height: 140, pointerEvents: "none", zIndex: 6, ...style }} className={className}>
+    <svg style={{ position: "absolute", left: -6, top: 0, width: 122, height: 150 }} viewBox="5890 5748 170.3 209">
+      <path fill="#C90505" d="M 6050.5 5751 C 5998.5 5816.8 5946.5 5882.7 5894.5 5948.5 C 5892.8 5951.3 5891 5954.1 5891 5954.5 C 5891 5954.9 5892 5955.7 5892.5 5956 C 5893.7 5954.7 5894.8 5953.3 5896 5952 C 5950.3 5886.5 6058 5756.5 6059 5754.5 C 6060.1 5752.3 6058 5751.5 6057 5750.5 C 6056 5749.8 6055 5749 6053.5 5749 C 6052.5 5749 6051.3 5750.3 6050.5 5751 Z"/>
+    </svg>
+    <svg style={{ position: "absolute", left: 10, top: 16, width: 140, height: 128 }} viewBox="0 0 164 150">
+      <path fill="#C90505" d="M156.8 1.3L3.6 144.1C1.9 146.2 0.1 148.3 0 148.6C-0.05 148.9 0.7 149.7 1 150L4.4 147.2C57.4 100.1 162.3 6.7 163.4 5.2C164.6 3.5 162.9 2.6 162.2 1.7C161.5 1 160.8 0.2 159.5 0C158.7 -0.1 157.6 0.8 156.8 1.3Z"/>
+    </svg>
+  </div>
+);
+
 /* free-standing dashed doodle */
 const Dash = ({ style, d, arrow }) => (
   <svg className={s.dash} style={style} viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
@@ -227,14 +238,14 @@ function useTrail(wrapRef, steps) {
         if (!t || !ph1) continue;
         const flip = i % 2 === 1, last = i === steps - 1;
         if (!flip && i > 0) {
-          const src = ph2 || ph1;
+          const src = i === 2 ? ph1 : (ph2 || ph1);
           const ex = t.l - 14;
           const ey = t.t + t.h * 0.5;
           out.push({ d: short(src.r - 6, Math.min(src.b - 30, Math.max(src.t + 30, ey - 70)), ex, ey) });
         }
         if (i > 0) {
           const prev = i - 1;
-          const pp = prev === 0 ? box("e0p2") : box(`e${prev}p1`);
+          const pp = prev === 0 ? box("e0p2") : (prev === 2 ? (box("e2p2") || box("e2p1")) : box(`e${prev}p1`));
           if (!pp) continue;
           const sx = pp.l + pp.w * (prev % 2 ? 0.45 : 0.62), sy = pp.b - 4;
           if (flip && !last) {
@@ -250,9 +261,10 @@ function useTrail(wrapRef, steps) {
             });
           } else if (last) {
             const ex = t.l - 22, ey = t.t + t.h * 0.5;
-            const startX = pp.r - 20, startY = pp.b + 12;
+            const startX = pp.l + pp.w * 0.35, startY = pp.b + 12;
+            const midX = Math.min(startX - 20, ex - 110);
             out.push({
-              d: `M${P(startX, startY)} C${P(startX - 25, startY + 70)} ${P(ex - 130, ey - 90)} ${P(ex - 95, ey - 20)} S${P(ex - 40, ey)} ${P(ex, ey)}`,
+              d: `M${P(startX, startY)} C${P(startX - 20, startY + (ey - startY) * 0.35)} ${P(midX, ey - 75)} ${P(midX + 20, ey - 20)} S${P(ex - 40, ey)} ${P(ex, ey)}`,
               head: `M${P(ex - 12, ey - 7)} L${P(ex, ey)} L${P(ex - 12, ey + 7)}`,
             });
           } else {
@@ -318,12 +330,11 @@ export default function HowWeMakeIt() {
         {/* 1 · HERO */}
         <section id="process" className={s.hero} data-rv>
           <img src="/images/sushi-curve.svg" alt="" className={s.sushiCurve} aria-hidden="true" />
-          <span className={`${s.script} ${s.hFrom} ${s.rv}`} data-a="hFrom">from the farm .</span>
-          <span className={`${s.script} ${s.hTo} ${s.rv} ${s.d2}`} data-a="hTo">to your jar</span>
+          <span className={`${s.script} ${s.hFrom} ${s.rv}`} data-a="hFrom">from origins</span>
+          <span className={`${s.script} ${s.hTo} ${s.rv} ${s.d2}`} data-a="hTo">to nowadays</span>
           <h1 className={`${s.cond} ${s.heroTitle} ${s.rv} ${s.d1}`}>HOW WE<br />MAKE IT</h1>
           <div className={`${s.h1Wrap} ${s.rp} ${s.d1}`} data-a="h1">
             <Pol src="/images/process/orchard-harvest.jpg" cls={s.h1Card} i={0} />
-            <img src="/images/cutouts/avakaya-piece.png" alt="Avakaya piece" className={s.h1Popout} />
           </div>
           <Pol src="/images/process/sun-drying.jpg" cls={s.h2} d={s.d2} i={1} a="h2" />
           <Pol src="/images/process/stone-grinding.jpg" cls={s.h3} d={s.d3} i={2} a="h3" />
@@ -348,11 +359,11 @@ export default function HowWeMakeIt() {
                   </div>
                   <div className={s.presentMedia}>
                     <div className={s.yummyWrap} data-a={`e${i}p1`}>
-                      <span className={s.yummyScript}>{st.note || "pure!"}</span>
-                      <StarSpark style={{ position: "absolute", left: "-42px", top: "12px" }} size={28} />
-                      <StarSpark style={{ position: "absolute", left: "-20px", top: "54px" }} size={16} />
-                      <StarSpark style={{ position: "absolute", right: "-32px", top: "-10px" }} size={24} />
-                      <StarSpark style={{ position: "absolute", right: "14px", bottom: "35px" }} size={20} />
+                      <span className={s.yummyScript}>{st.note || "yummy"}</span>
+                      <StarSpark style={{ position: "absolute", left: "-32px", top: "35px" }} size={26} />
+                      <StarSpark style={{ position: "absolute", left: "-14px", top: "105px" }} size={16} />
+                      <StarSpark style={{ position: "absolute", right: "-30px", top: "20px" }} size={22} />
+                      <StarSpark style={{ position: "absolute", right: "-16px", bottom: "35px" }} size={18} />
                       <img src={st.cut} alt="Adhvaitha Pickle Jar" className={s.presentRoll} />
                     </div>
                   </div>
@@ -360,13 +371,16 @@ export default function HowWeMakeIt() {
               );
             }
 
+            const isStep3 = i === 2;
+
             return (
-              <section key={st.t} className={`${s.era} ${flip ? s.eraFlip : ""} ${first ? s.eraFirst : ""}`} data-rv>
+              <section key={st.t} className={`${s.era} ${flip ? s.eraFlip : ""} ${first ? s.eraFirst : ""} ${isStep3 ? s.eraStep3 : ""}`} data-rv>
                 <div className={s.eraMedia}>
                   <Pol src={st.p1} cls={s.e1} i={i} a={`e${i}p1`} />
                   {!flip && st.p2 && <Pol src={st.p2} cls={s.e2} d={s.d2} i={i + 2} a={`e${i}p2`} />}
-                  {!first && st.cut && <img src={st.cut} alt="" className={s.eraCut} />}
-                  {flip && <Burst style={{ left: "26%", top: 40 }} flip />}
+                  {isStep3 && <Chopsticks className={s.chopsticks} />}
+                  {!first && !isStep3 && st.cut && <img src={st.cut} alt="" className={s.eraCut} />}
+                  {flip && <Ticks style={{ position: "absolute", right: "calc(clamp(340px, 30vw, 440px) - 2px)", top: "clamp(120px, 12vw, 170px)", zIndex: 7 }} />}
                   {first && (
                     <div className={`${s.nativeAbs} ${s.rv} ${s.d3}`} data-a="e0kanji">
                       <div className={s.kanjiBig}>{st.te}</div>
@@ -395,13 +409,14 @@ export default function HowWeMakeIt() {
       {/* ═════ 3 · 4 · 5 · pinned title + stacking cards ═════ */}
       <div id="pickles" className={s.stack} data-p>
         <section className={s.typesHero}>
-          <Pol src="/images/process/sun-drying.jpg" cls={s.t1} i={1} />
-          <Pol src="/images/ing_chili.png" cls={s.t2} i={3} />
-          <Pol src="/images/process/stone-grinding.jpg" cls={s.t3} i={5} />
+          <Pol src="/images/process/avakaya-2.jpg" cls={s.t1} i={1} />
+          <Pol src="/images/process/avakaya-jar.jpg" cls={s.t2} i={3} />
+          <Pol src="/images/process/avakaya-1.jpg" cls={s.t3} i={5} />
           <Dash style={{ left: "4vw", top: "4vh", width: "92vw", height: "90vh" }} d="M0 80 C 120 10, 220 160, 340 80 S 460 140, 520 40 M 60 360 C 160 260, 340 340, 480 240" />
           <h2 className={`${s.cond} ${s.typesTitle}`}><span>OUR</span><span>PICKLES</span></h2>
-          <img src="/images/real_coriander_cutout.png" alt="" className={s.typesBowl} />
-          <img src="/images/cutouts/chilli.png" alt="" className={s.typesOshi} />
+          <img src="/images/cutouts/mango-chillies-cutout.png" alt="Fresh Raw Mango and Guntur Chillies" className={s.typesFish} />
+          <img src="/images/cutouts/avakaya-bowl-cutout.png" alt="Traditional Avakaya Mango Pickle Bowl" className={s.typesBowl} />
+          <img src="/images/cutouts/avakaya-piece-real.png" alt="Spiced Avakaya Mango Piece" className={s.typesOshi} />
         </section>
 
         {/* Card A: AVAKAYA */}
@@ -421,7 +436,6 @@ export default function HowWeMakeIt() {
           <div className={s.cardMedia}>
             <Pol src="/images/process/avakaya-jar.jpg" cls={s.c1} i={0} />
             <Pol src="/images/process/sun-drying.jpg" cls={s.c2} i={6} />
-            <img src="/images/cutouts/avakaya-piece.png" alt="" className={s.nigiriPopout} />
           </div>
           <img src="/images/card1/flower-1.svg" alt="" className={s.flowerDoodle1} />
           <img src="/images/card1/flower-2.svg" alt="" className={s.flowerDoodle2} />
