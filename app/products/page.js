@@ -286,7 +286,7 @@ function ProductCard({ product, index }) {
             letterSpacing: '0.06em',
           }}
         >
-          ✓ {product.badge || 'AUTHENTIC'} • {DISPLAY_WEIGHT}
+          ✓ {product.badge || 'AUTHENTIC'} • {Array.isArray(product.variants) && product.variants.length ? product.variants.map((v) => v.label).join(' · ') : DISPLAY_WEIGHT}
         </span>
       </div>
 
@@ -610,7 +610,8 @@ function ProductsContent() {
                 });
               const fallbackImg = fallbackItem ? fallbackItem.img : '/images/products/mango-pickle-real.jpg';
               const remoteImg = (p.images && p.images.length > 0 && p.images[0]) ? p.images[0] : p.img;
-              const chosenImg = (fallbackItem && fallbackItem.img) ? fallbackItem.img : (remoteImg || fallbackImg);
+              // shared products (Admin → Products) bring their own website photo
+              const chosenImg = p.shared && remoteImg ? remoteImg : (fallbackItem && fallbackItem.img) ? fallbackItem.img : (remoteImg || fallbackImg);
               return {
                 ...p,
                 name: productName,

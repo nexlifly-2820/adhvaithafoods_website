@@ -25,8 +25,13 @@ export default function AddToCart({ product }) {
 
   useEffect(() => { loadCatalog(); }, []);
 
-  const shop = useMemo(() => (catalog?.shopEnabled === false ? null : findShopProduct(catalog, product?.name)), [catalog, product?.name]);
-  const variants = shop?.variants || [];
+  // shared products carry their sizes; older cards are matched to the shop list by name
+  const shop = useMemo(() => {
+    if (catalog?.shopEnabled === false) return null;
+    if (product?.shared && Array.isArray(product.variants)) return { name: product.name, category: product.shopCategory || '', image: '', variants: product.variants };
+    return findShopProduct(catalog, product?.name);
+  }, [catalog, product]);
+  const variants = (shop?.variants || []).filter((x) => x.price > 0);
   const firstInStock = variants.find((v) => v.inStock) || variants[0];
   const v = variants.find((x) => x.label === pick) || firstInStock;
 

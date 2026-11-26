@@ -53,7 +53,7 @@ export default function CartPage() {
   const stockProblem = cart.find((x) => {
     const p = findShopProduct(catalog, x.name);
     const v = p?.variants.find((v) => v.label.toLowerCase().replace(/\s/g, '') === String(x.weight).toLowerCase().replace(/\s/g, ''));
-    return catalog && (!p || (v && !v.inStock));
+    return catalog && (!p || !v || !v.inStock || !(v.price > 0));
   });
 
   if (!hydrated) return <ShopShell><p style={ui.muted}>Loading…</p></ShopShell>;
@@ -79,7 +79,7 @@ export default function CartPage() {
               const k = lineKey(x);
               const p = catalog ? findShopProduct(catalog, x.name) : null;
               const v = p?.variants.find((v) => v.label.toLowerCase().replace(/\s/g, '') === String(x.weight).toLowerCase().replace(/\s/g, ''));
-              const out = catalog && (!p || (v && !v.inStock));
+              const out = catalog && (!p || !v || !v.inStock || !(v.price > 0));
               return (
                 <div key={k} style={{ display: 'flex', gap: '0.9rem', alignItems: 'center', padding: '1rem 0', borderBottom: '1px solid rgba(139,94,60,0.12)' }}>
                   <img src={imgSrc(x.image)} alt="" style={{ width: 72, height: 72, objectFit: 'contain', borderRadius: 12, background: '#FBF4E6', flexShrink: 0 }} onError={(e) => { e.currentTarget.src = '/images/products/mango-pickle-real.jpg'; }} />

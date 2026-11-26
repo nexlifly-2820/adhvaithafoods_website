@@ -143,7 +143,7 @@ export function repriceCart(catalog) {
   const cart = state.cart.map((x) => {
     const p = findShopProduct(catalog, x.name);
     const v = p?.variants.find((v) => norm(v.label) === norm(x.weight));
-    if (v && v.price !== x.price) { changed = true; return { ...x, price: v.price }; }
+    if (v && v.price > 0 && v.price !== x.price) { changed = true; return { ...x, price: v.price }; }
     return x;
   });
   if (changed) saveCart(cart);
