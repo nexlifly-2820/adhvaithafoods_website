@@ -6,7 +6,7 @@ const ALLOW = [
   /^auth\/otp\/(send|verify)$/,
   /^shop\/catalog$/,
   /^checkout\/(coupons|cod|pay-init|pay-verify|pay-failed)$/,
-  /^me\/(cart|addresses|orders)$/,
+  /^me\/(cart|addresses|orders|wishlist)$/,
   /^orders\/[A-Za-z0-9_-]{3,60}\/(cancel|report-issue)$/,
 ];
 

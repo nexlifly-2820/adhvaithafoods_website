@@ -12,7 +12,8 @@ export default function Template({ children }) {
     '/shipping-policy',
     '/cart',
     '/checkout',
-    '/my-orders'
+    '/my-orders',
+    '/wishlist'
   ];
 
   const shouldHideLoader = hideLoaderRoutes.includes(pathname);

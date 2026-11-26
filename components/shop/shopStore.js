@@ -4,12 +4,14 @@ import { useSyncExternalStore } from 'react';
 
 const LS_CART = 'aj_web_cart';
 const LS_AUTH = 'aj_web_auth';
-const SERVER_STATE = { cart: [], token: '', user: null, catalog: null, hydrated: false };
+const LS_WISH = 'aj_web_wish';
+const SERVER_STATE = { cart: [], wish: [], token: '', user: null, catalog: null, hydrated: false };
 
 let state = SERVER_STATE;
 const listeners = new Set();
 let started = false;
 let syncTimer = null;
+let wishTimer = null;
 let catalogPromise = null;
 let catalogAt = 0;
 
@@ -24,18 +26,21 @@ function start() {
   started = true;
   const auth = read(LS_AUTH);
   const cart = read(LS_CART);
+  const wish = read(LS_WISH);
   state = {
     ...state,
     hydrated: true,
     cart: Array.isArray(cart) ? cart.filter((x) => x && x.name) : [],
+    wish: Array.isArray(wish) ? wish.filter((x) => x && x.name) : [],
     token: auth?.token || '',
     user: auth?.user || null,
   };
   window.addEventListener('storage', (e) => {
     if (e.key === LS_CART) set({ cart: read(LS_CART) || [] });
+    if (e.key === LS_WISH) set({ wish: read(LS_WISH) || [] });
     if (e.key === LS_AUTH) { const a = read(LS_AUTH); set({ token: a?.token || '', user: a?.user || null }); }
   });
-  if (state.token) pullCart();
+  if (state.token) { pullCart(); pullWish(); }
 }
 
 export function useShop() {
@@ -68,11 +73,12 @@ export function login(token, user) {
   write(LS_AUTH, { token, user });
   set({ token, user });
   pullCart(true);
+  pullWish(true);
 }
 
 export function logout(clearCart = true) {
   write(LS_AUTH, null);
-  if (clearCart) { write(LS_CART, []); set({ token: '', user: null, cart: [] }); }
+  if (clearCart) { write(LS_CART, []); write(LS_WISH, []); set({ token: '', user: null, cart: [], wish: [] }); }
   else set({ token: '', user: null });
 }
 
@@ -171,3 +177,40 @@ async function pullCart(merge = false) {
 export const rupees = (n) => `₹${Math.round(Number(n) || 0).toLocaleString('en-IN')}`;
 export const cartCount = (cart) => cart.reduce((s, x) => s + (Number(x.qty) || 0), 0);
 export const imgSrc = (src) => (/^(https?:)?\/\//.test(src || '') || String(src || '').startsWith('/') ? src : '/images/products/mango-pickle-real.jpg');
+
+// ---------- wishlist (same list as the app when logged in) ----------
+const wishKey = (x) => norm(x?.name);
+export const inWish = (wish, name) => wish.some((x) => wishKey(x) === norm(name));
+
+function saveWish(wish) {
+  write(LS_WISH, wish);
+  set({ wish });
+  if (!state.token) return;
+  clearTimeout(wishTimer);
+  wishTimer = setTimeout(() => {
+    api('me/wishlist', { method: 'PUT', body: { items: state.wish.map(({ name, image, price, category }) => ({ name, image, price, category })) } });
+  }, 600);
+}
+
+/** Adds or removes a product. Returns true when it is now in the wishlist. */
+export function toggleWish(item) {
+  const k = wishKey(item);
+  if (state.wish.some((x) => wishKey(x) === k)) { saveWish(state.wish.filter((x) => wishKey(x) !== k)); return false; }
+  saveWish([{ name: item.name, image: item.image || '', price: Number(item.price) || 0, category: item.category || '' }, ...state.wish].slice(0, 200));
+  return true;
+}
+
+async function pullWish(merge = false) {
+  const { ok, data } = await api('me/wishlist');
+  if (!ok || !Array.isArray(data?.items)) return;
+  const server = data.items.filter((x) => x && x.name);
+  let wish;
+  if (merge) {
+    const map = new Map(server.map((x) => [wishKey(x), x]));
+    for (const x of state.wish) if (!map.has(wishKey(x))) map.set(wishKey(x), x);
+    wish = [...map.values()];
+  } else {
+    wish = server.length || !state.wish.length ? server : state.wish;
+  }
+  saveWish(wish);
+}

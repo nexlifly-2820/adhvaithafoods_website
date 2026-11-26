@@ -13,6 +13,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FaqAccordion from '@/components/FaqAccordion';
 import AddToCart from '@/components/shop/AddToCart';
+import WishHeart from '@/components/shop/WishHeart';
 
 // Constants extracted to avoid magic strings and improve maintainability
 const FILTER_ALL = 'All';
@@ -190,6 +191,9 @@ function ProductCard({ product, index }) {
       >
         {/* Rolling Background Mandala Design */}
         <CardBackgroundDesign color={bgColor} isHovered={isHovered} />
+
+        {/* Wishlist heart (same wishlist as the app) */}
+        <WishHeart product={product} />
 
         {/* Floating Jar/Packaging Container with Zoom-out on Hover */}
         <div
