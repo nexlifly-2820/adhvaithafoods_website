@@ -61,7 +61,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allam-velluli-karam-real.jpg",
+    "img": "/images/bowls/sp_allam_velluli_podi.png",
     "desc": "Premium Allam Velluli Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -74,7 +74,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allam-velluli-pickle-real.jpg",
+    "img": "/images/bowls/pickle_allam_velluli.png",
     "desc": "Premium Allam Velluli Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
@@ -87,7 +87,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allam-velluli-karam-real.jpg",
+    "img": "/images/bowls/sp_allam_velluli_podi.png",
     "desc": "Premium Allam Velluli Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -100,7 +100,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allu-chips-real.jpg",
+    "img": "/images/bowls/cb_allu_chips.png",
     "desc": "Premium Allu Chips. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -113,7 +113,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/bellam-avakaya-real.jpg",
+    "img": "/images/bowls/pickle_bellam_avakaya.png",
     "desc": "Premium Bellam Avakaya. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
@@ -139,7 +139,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/bundhi-real.jpg",
+    "img": "/images/bowls/cb_bundhi.png",
     "desc": "Premium Bundhi. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -152,7 +152,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/chakinalu-real.jpg",
+    "img": "/images/bowls/best_chakinalu.png",
     "desc": "Premium Chakinalu. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -178,7 +178,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/chicken-masala-real.jpg",
+    "img": "/images/bowls/sp_chicken_masala.png",
     "desc": "Premium Chicken Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -191,7 +191,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/chicken-masala-real.jpg",
+    "img": "/images/bowls/sp_chicken_masala.png",
     "desc": "Premium Chicken Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -204,7 +204,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/daniya-powder-real.jpg",
+    "img": "/images/bowls/sp_daniya_powder.png",
     "desc": "Premium Daniya Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -217,7 +217,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/dry-fruits-laddu-real.jpg",
+    "img": "/images/bowls/sweet_dryfruit_laddu.png",
     "desc": "Premium Dry Fruits Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -230,7 +230,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/garam-masala-real.jpg",
+    "img": "/images/bowls/sp_garam_masala.png",
     "desc": "Premium Garam Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -243,7 +243,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/garam-masala-real.jpg",
+    "img": "/images/bowls/sp_garam_masala.png",
     "desc": "Premium Garam Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -256,7 +256,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/gondh-laddu-real.jpg",
+    "img": "/images/bowls/sweet_gondh_laddu.png",
     "desc": "Premium Gondh Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -269,7 +269,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/haldi-powder-real.jpg",
+    "img": "/images/bowls/sp_haldi_powder.png",
     "desc": "Premium Haldi Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -282,7 +282,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/karam-janthukalu-real.jpg",
+    "img": "/images/bowls/cb_karam_janthukalu.png",
     "desc": "Premium Karam Janthukalu. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -295,7 +295,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/karvepaku-karam-real.jpg",
+    "img": "/images/bowls/sp_karvepaku_podi.png",
     "desc": "Premium Karvepaku Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -308,7 +308,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/karvepaku-karam-real.jpg",
+    "img": "/images/bowls/sp_karvepaku_podi.png",
     "desc": "Premium Karvepaku Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -321,7 +321,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/khara-mixture-real.jpg",
+    "img": "/images/bowls/snack_khara_mixture.png",
     "desc": "Premium Khara Mixture. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -334,7 +334,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/kova-gulam-jamun-real.jpg",
+    "img": "/images/bowls/sweet_gulab_jamun.png",
     "desc": "Premium Kova Gulam Jamun. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -360,7 +360,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/mango-pickle-real.jpg",
+    "img": "/images/bowls/pickle_maagaya.png",
     "desc": "Premium Mango Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
@@ -386,7 +386,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/menthi-podi-real.jpg",
+    "img": "/images/bowls/sp_menthi_podi.png",
     "desc": "Premium Menthi Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -399,7 +399,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/millets-laddu-real.jpg",
+    "img": "/images/bowls/cb_millets_laddu.png",
     "desc": "Premium Millets Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -425,7 +425,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/munagaku-karam-real.jpg",
+    "img": "/images/bowls/sp_munagaku_podi.png",
     "desc": "Premium Munagaku Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -438,7 +438,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/munagaku-powder-real.jpg",
+    "img": "/images/bowls/sp_munagaku_podi.png",
     "desc": "Premium Munagaku Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -451,7 +451,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/munagaku-karam-podi-real.jpg",
+    "img": "/images/bowls/sp_munagaku_podi.png",
     "desc": "Premium Munagaku Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -477,7 +477,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/mutton-masala-real.jpg",
+    "img": "/images/bowls/sp_mutton_masala.png",
     "desc": "Premium Mutton Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -490,7 +490,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/mutton-masala-real.jpg",
+    "img": "/images/bowls/sp_mutton_masala.png",
     "desc": "Premium Mutton Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -503,7 +503,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/nuvvula-papad-real.jpg",
+    "img": "/images/bowls/cb_nuvvula_papad.png",
     "desc": "Premium Nuvvula Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -516,7 +516,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/onion-whills-real.jpg",
+    "img": "/images/bowls/cb_onion_whills.png",
     "desc": "Premium Onion Whills. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -529,7 +529,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/palli-patti-real.jpg",
+    "img": "/images/bowls/cb_palli_patti.png",
     "desc": "Premium Palli Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -542,7 +542,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/pandu-mirchi-real.jpg",
+    "img": "/images/bowls/pickle_pandu_mirapakaya.png",
     "desc": "Premium Pandu Mirchi. Premium quality traditional Andhra delicacy made with authentic ingredients and time-honored recipes."
   },
   {
@@ -555,7 +555,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/putnala-karam-real.jpg",
+    "img": "/images/bowls/sp_putnala_podi.png",
     "desc": "Premium Putnala Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -568,7 +568,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/putnala-karam-real.jpg",
+    "img": "/images/bowls/sp_putnala_podi.png",
     "desc": "Premium Putnala Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -581,7 +581,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/rice-papad-real.jpg",
+    "img": "/images/bowls/cb_rice_papad.png",
     "desc": "Premium Rice Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -594,7 +594,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/sambhar-masala-real.jpg",
+    "img": "/images/bowls/sp_sambhar_masala.png",
     "desc": "Premium Sambhar Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -607,7 +607,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/sambhar-masala-real.jpg",
+    "img": "/images/bowls/sp_sambhar_masala.png",
     "desc": "Premium Sambhar Masala Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -620,7 +620,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/special-idli-karam-real.jpg",
+    "img": "/images/bowls/sp_idli_karam_podi.png",
     "desc": "Premium Special Idli Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -633,7 +633,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/special-kura-karam-real.jpg",
+    "img": "/images/bowls/sp_kura_karam_podi.png",
     "desc": "Premium Special Kura Karam. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -646,7 +646,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/special-idli-karam-real.jpg",
+    "img": "/images/bowls/sp_idli_karam_podi.png",
     "desc": "Premium Special Idli Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -659,7 +659,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/special-kura-karam-real.jpg",
+    "img": "/images/bowls/sp_kura_karam_podi.png",
     "desc": "Premium Special Kura Karam Podi. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -672,7 +672,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/sunnunda-laddu-real.jpg",
+    "img": "/images/bowls/sweet_sunnunda_laddu.png",
     "desc": "Premium Sunnunda Laddu. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -685,7 +685,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/sweet-chekki-real.jpg",
+    "img": "/images/bowls/cb_sweet_chekki.png",
     "desc": "Premium Sweet Chekki. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -698,7 +698,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/thill-patti-real.jpg",
+    "img": "/images/bowls/cb_thill_patti.png",
     "desc": "Premium Thill Patti. Traditional, rich and wholesome sweet treat made with premium ingredients. A delightful experience for your sweet cravings."
   },
   {
@@ -711,7 +711,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/tomato-chilli-papad-real.jpg",
+    "img": "/images/bowls/cb_tomato_chilli_papad.png",
     "desc": "Premium Tomato Chilli Papad. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -724,7 +724,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/uppava-real.jpg",
+    "img": "/images/bowls/cb_uppava.png",
     "desc": "Premium Uppava. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
@@ -737,7 +737,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/usiri-pickle-real.jpg",
+    "img": "/images/bowls/pickle_usirikaya.png",
     "desc": "Premium Usiri Pickle. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   }
 ];

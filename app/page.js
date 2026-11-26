@@ -24,6 +24,25 @@ function useReveal() {
 
 import { ALL_PRODUCTS } from '@/components/productsData';
 
+
+// Old recipe photos were on Firebase Storage, which no longer serves them → show our bowl photo instead.
+const RECIPE_BOWLS = [
+  ['allu', '/images/bowls/cb_allu_chips.png'], ['chips', '/images/bowls/cb_allu_chips.png'],
+  ['daniya', '/images/bowls/sp_daniya_powder.png'], ['rasam', '/images/bowls/sp_daniya_powder.png'],
+  ['millet', '/images/bowls/cb_millets_laddu.png'], ['kheer', '/images/bowls/cb_millets_laddu.png'],
+  ['allam', '/images/bowls/pickle_allam_velluli.png'], ['garlic', '/images/bowls/pickle_allam_velluli.png'],
+  ['mango', '/images/bowls/pickle_maagaya.png'], ['avakaya', '/images/bowls/pickle_maagaya.png'],
+  ['gongura', '/images/bowls/pickle_gongura.png'], ['laddu', '/images/bowls/sweet_sunnunda_laddu.png'],
+  ['idli', '/images/bowls/sp_idli_karam_podi.png'], ['sambar', '/images/bowls/sp_sambhar_masala.png'], ['sambhar', '/images/bowls/sp_sambhar_masala.png'],
+];
+function recipeImage(r) {
+  const src = (r.images && r.images.length > 0) ? r.images[0] : (r.img || null);
+  if (src && !String(src).includes('firebasestorage.googleapis.com')) return src;
+  const text = `${r.recipeName || r.name || ''} ${src || ''}`.toLowerCase();
+  const hit = RECIPE_BOWLS.find(([k]) => text.includes(k));
+  return hit ? hit[1] : (src || null);
+}
+
 // Dynamic featured products will be fetched inside the component
 
 const DEFAULT_INGREDIENTS = [
@@ -840,7 +859,7 @@ export default function HomePage() {
               desc: r.recipeDescription || r.desc || '',
               time: (r.makingTime && r.makingTime.value) ? `${r.makingTime.value} ${r.makingTime.unit || 'min'}` : (r.time || '15 min'),
               color: r.color || '#C4603A',
-              img: (r.images && r.images.length > 0) ? r.images[0] : (r.img || null),
+              img: recipeImage(r),
               emoji: r.emoji || '🥘'
             }));
 
