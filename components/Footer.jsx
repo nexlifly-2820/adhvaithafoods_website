@@ -759,6 +759,7 @@ export default function Footer() {
                 <Link href="/refund-policy" className="sp-footer-link" style={{ fontSize: '0.95rem' }}>
                   Refund Policy
                 </Link>
+                <Link href="/delete-account" className="sp-footer-link" style={{ fontSize: '0.95rem' }}>Delete Account</Link>
                 <Link href="/shipping-policy" className="sp-footer-link" style={{ fontSize: '0.95rem' }}>
                   Shipping Policy
                 </Link>

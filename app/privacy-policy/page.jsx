@@ -33,7 +33,7 @@ export default async function PrivacyPolicy() {
           <h1 className="display-lg" style={{ color: 'var(--terracotta)', marginBottom: '0.5rem' }}>Privacy Policy</h1>
           <p className="body-md" style={{ color: 'var(--aged-wood)' }}>
             <strong>Avdaitha Foods — Homemade Pickles & Food</strong><br />
-            Effective Date: June 15, 2026 | Last Updated: June 15, 2026
+            Effective Date: June 15, 2026 | Last Updated: November 26, 2026
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default async function PrivacyPolicy() {
             <span>{contactData?.phone || '+91 93939 34200'} (Mon–Sun, 9 AM–6 PM)</span>
             
             <strong style={{ color: 'var(--rich-brown)' }}>Email</strong>
-            <span>{contactData?.email || 'info@avdaithafoods.in'} / orders@avdaithafoods.in</span>
+            <span>{contactData?.email || 'info@adhvaithafoods.in'} / orders@adhvaithafoods.in</span>
           </div>
         </section>
 
@@ -67,7 +67,7 @@ export default async function PrivacyPolicy() {
               <div>
                 <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>2.1 Information You Provide Directly</h3>
                 <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li><strong>Account information:</strong> Full name, email address, mobile number, password</li>
+                  <li><strong>Account information:</strong> Full name, email address, mobile number (we use a one-time login code sent to your email, so we do not store a password)</li>
                   <li><strong>Delivery information:</strong> Delivery address, landmark, pincode, city</li>
                   <li><strong>Payment information:</strong> UPI IDs, transaction IDs (we do not store card numbers)</li>
                   <li><strong>Order information:</strong> Products ordered, special instructions, order history</li>
@@ -231,7 +231,7 @@ export default async function PrivacyPolicy() {
               </table>
             </div>
 
-            <p className="body-md">To exercise any of these rights, contact us at <a href="mailto:{contactData?.email || 'info@avdaithafoods.in'}" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>{contactData?.email || 'info@avdaithafoods.in'}</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
+            <p className="body-md">To exercise any of these rights, contact us at <a href={`mailto:${contactData?.email || 'info@adhvaithafoods.in'}`} style={{ color: 'var(--terracotta)', fontWeight: 700 }}>{contactData?.email || 'info@adhvaithafoods.in'}</a> with the subject line "Data Privacy Request". We will respond within 30 days.</p>
           </section>
 
           <section>
@@ -314,6 +314,16 @@ export default async function PrivacyPolicy() {
           </section>
 
           <section>
+            <h2 className="display-sm" style={{ marginBottom: '1rem' }}>DELETING YOUR ACCOUNT</h2>
+            <p className="body-md" style={{ marginBottom: '0.75rem' }}>You can delete your Ambhujakshi app account and personal data at any time:</p>
+            <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <li><strong>In the app:</strong> Profile → scroll down → <em>Delete my account</em>.</li>
+              <li><strong>On the web:</strong> fill in the form at <a href="/delete-account" style={{ color: 'var(--terracotta)', fontWeight: 700 }}>adhvaithafoods.in/delete-account</a>.</li>
+            </ul>
+            <p className="body-md" style={{ marginTop: '0.75rem' }}>We remove your profile, saved addresses, wishlist and notification settings within 30 days. Order and invoice records are kept only as long as Indian tax and accounting laws require, and are not used for marketing.</p>
+          </section>
+
+          <section>
             <h2 className="display-sm" style={{ marginBottom: '1rem' }}>13. GRIEVANCE OFFICER</h2>
             <p className="body-md" style={{ marginBottom: '1rem' }}>In accordance with the Information Technology Act, 2000 and IT (Amendment) Act, 2008, and applicable rules, the details of our Grievance Officer are:</p>
             
@@ -322,7 +332,7 @@ export default async function PrivacyPolicy() {
                 <tbody>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Name</td><td style={{ padding: '0.5rem 0' }}>Avdaitha Foods Representative</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Designation</td><td style={{ padding: '0.5rem 0' }}>Grievance Officer</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>grievance@avdaithafoods.in</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Email</td><td style={{ padding: '0.5rem 0' }}>grievance@adhvaithafoods.in</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Address</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods, North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Response</td><td style={{ padding: '0.5rem 0' }}>Within 30 days of receiving the complaint</td></tr>
                 </tbody>
@@ -348,7 +358,7 @@ export default async function PrivacyPolicy() {
                 <tbody>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', width: '30%', color: 'var(--rich-brown)' }}>Legal Entity Name</td><td style={{ padding: '0.5rem 0' }}>Adhvaitha Foods</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Registered Office Address</td><td style={{ padding: '0.5rem 0' }}>North East Colony, Deshmukhi, Yadadri Bhuvanagiri, Telangana 508284, India</td></tr>
-                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>{contactData?.email || 'info@avdaithafoods.in'}</td></tr>
+                  <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Email</td><td style={{ padding: '0.5rem 0' }}>{contactData?.email || 'info@adhvaithafoods.in'}</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Support Phone Number</td><td style={{ padding: '0.5rem 0' }}>{contactData?.phone || '+91 93939 34200'}</td></tr>
                   <tr><td style={{ padding: '0.5rem 0', fontWeight: 'bold', color: 'var(--rich-brown)' }}>Hours</td><td style={{ padding: '0.5rem 0' }}>Monday – Sunday: 9:00 AM – 6:00 PM IST</td></tr>
                 </tbody>
