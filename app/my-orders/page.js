@@ -201,7 +201,11 @@ function OrdersContent() {
           <h1 style={ui.h1}>My Orders</h1>
           <p style={ui.muted}>{user?.email} · orders from the website and the app</p>
         </div>
-        <button style={ui.link} onClick={() => logout(true)}>Log out</button>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Link href="/addresses" style={{ ...ui.link, textDecoration: 'none' }}>📍 My addresses</Link>
+          <Link href="/wishlist" style={{ ...ui.link, textDecoration: 'none' }}>♡ Wishlist</Link>
+          <button style={ui.link} onClick={() => logout(true)}>Log out</button>
+        </div>
       </div>
       {placed && (
         <div style={{ ...ui.card, background: '#EEF6EA', border: '1px solid rgba(45,90,39,0.25)', marginBottom: '1rem' }}>

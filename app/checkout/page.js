@@ -194,7 +194,10 @@ export default function CheckoutPage() {
       <div className="aj-cart-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 1fr)', gap: '1.25rem', alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div style={ui.card}>
-            <h2 style={ui.h2}>Delivery address</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
+              <h2 style={ui.h2}>Delivery address</h2>
+              {addresses.length > 0 && <Link href="/addresses" style={{ ...ui.link, textDecoration: 'none' }}>Manage</Link>}
+            </div>
             {addresses.map((a, i) => {
               const id = a.id || String(i);
               return (
