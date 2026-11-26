@@ -33,7 +33,7 @@ export default async function RefundPolicy() {
           <h1 className="display-lg" style={{ color: 'var(--terracotta)', marginBottom: '0.5rem' }}>Refund & Cancellation Policy</h1>
           <p className="body-md" style={{ color: 'var(--aged-wood)' }}>
             <strong>Adhvaitha Foods — Homemade Pickles & Food</strong><br />
-            Effective Date: June 15, 2026 | Last Updated: June 15, 2026
+            Effective Date: June 15, 2026 | Last Updated: November 26, 2026
           </p>
         </div>
 
@@ -41,44 +41,43 @@ export default async function RefundPolicy() {
           
           <section>
             <div style={{ background: 'var(--terracotta)', color: 'var(--ivory)', padding: '1.5rem', borderRadius: '12px', marginBottom: '2rem' }}>
-              <h2 className="display-sm" style={{ marginBottom: '0.5rem', color: 'var(--ivory)' }}>STRICT REFUND & RETURN POLICY (ANTI-SCAM)</h2>
+              <h2 className="display-sm" style={{ marginBottom: '0.5rem', color: 'var(--ivory)' }}>CANCELLATION, REFUND & DAMAGE POLICY</h2>
               <p className="body-sm" style={{ fontWeight: 700, letterSpacing: '0.05em' }}>PLEASE READ THIS SECTION CAREFULLY BEFORE PLACING YOUR ORDER.</p>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>1. Mandatory Unboxing Video</h3>
-                <p className="body-md">To be eligible for any return, replacement, or refund for damaged or missing items, <strong>a continuous, unedited unboxing video is strictly mandatory</strong>. The video must clearly show the sealed package being opened from all sides. Without an unboxing video, no claims will be entertained.</p>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>1. Cancel Anytime Before Shipping</h3>
+                <p className="body-md">You can cancel your order from the app (<strong>My Orders → Cancel Order</strong>) or by contacting us, any time <strong>until the order is shipped</strong>. Once the parcel is handed to the courier, the order can no longer be cancelled.</p>
               </div>
-
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>2. Strict 24-Hour Window</h3>
-                <p className="body-md">Any claims for damaged, spoiled, or incorrect items must be reported within <strong>24 hours of delivery</strong>. Claims made after 24 hours will be automatically rejected.</p>
-              </div>
-
-              <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>3. No Returns on Food Items</h3>
-                <p className="body-md">Due to hygiene and safety reasons, we do not accept returns on any food items once the seal is broken or the package is opened. Taste preferences, dislike of flavor, or minor natural variations in handcrafted products are not considered a valid reason for a refund.</p>
-              </div>
-
-              <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>4. Replacement First Policy</h3>
-                <p className="body-md">If a valid claim is verified via the unboxing video, our policy is to provide a <strong>free replacement</strong> of the item. Cash refunds are only initiated if the replacement item is out of stock.</p>
-              </div>
-
-              <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>5. No Refunds</h3>
-                <p className="body-md">Refunds will NOT be issued for:</p>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>2. How Refunds Work</h3>
                 <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
-                  <li>Orders where the customer refused delivery or was unavailable</li>
-                  <li>Taste dissatisfaction or "ordered by mistake"</li>
-                  <li>Any reason other than the narrow exceptions listed above (and proven via unboxing video).</li>
+                  <li><strong>Paid online:</strong> the full amount is refunded automatically to your original payment method (UPI, card, net banking or wallet). It usually reaches your account in <strong>5–7 working days</strong>, depending on your bank.</li>
+                  <li><strong>Cash on Delivery:</strong> no money is taken, so nothing needs to be refunded.</li>
+                  <li>If we have to cancel your order (for example, an item is out of stock), you get a full refund the same way.</li>
+                  <li>You can see the refund status in the app under your order.</li>
                 </ul>
               </div>
-
               <div>
-                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>6. Cancellation Rule</h3>
-                <p className="body-md">Orders can only be cancelled within <strong>2 hours</strong> of placing the order, or before the order has been dispatched—whichever is earlier. Once dispatched, orders cannot be cancelled.</p>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>3. No Returns After Shipping</h3>
+                <p className="body-md">Our pickles, podis and snacks are homemade food. For hygiene and safety reasons, we <strong>do not accept returns</strong> once an order is shipped. Taste preference, &quot;ordered by mistake&quot; after shipping, or the small natural variations of handmade food are not reasons for a refund.</p>
+              </div>
+              <div>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>4. Damaged, Leaked or Wrong Items — Report Within 48 Hours</h3>
+                <p className="body-md">If your parcel arrives damaged, leaked, or with a wrong or missing item, report it <strong>within 48 hours of delivery</strong> from the app (<strong>My Orders → Report Damage</strong>) with a clear photo, or email us with photos. Keep the box and jars until we reply. We strongly recommend recording an unboxing video; it helps us settle your claim faster. Claims after 48 hours cannot be accepted.</p>
+              </div>
+              <div>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>5. Replacement or Refund</h3>
+                <p className="body-md">After checking your report, we will send a <strong>free replacement</strong> of the affected item, or refund the value of that item (a full or partial refund) to your original payment method. We usually reply within 24 hours.</p>
+              </div>
+              <div>
+                <h3 className="body-lg" style={{ fontWeight: 700, marginBottom: '0.5rem', color: 'var(--terracotta)' }}>6. No Refund In These Cases</h3>
+                <ul className="body-md" style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
+                  <li>The delivery was refused, or nobody was available at the address after the courier&apos;s attempts</li>
+                  <li>A wrong or incomplete address was given</li>
+                  <li>Damage was reported more than 48 hours after delivery, or without a photo</li>
+                </ul>
               </div>
             </div>
           </section>
