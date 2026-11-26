@@ -9,7 +9,7 @@ export const ALL_PRODUCTS = [
     "badge": "Bestseller",
     "badgeClass": "badge-bestseller",
     "emoji": "🏺",
-    "img": "/images/products/aamchur-powder-real.jpg",
+    "img": "/images/bowls/aamchur_powder.png",
     "desc": "Premium Aamchur Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -22,7 +22,7 @@ export const ALL_PRODUCTS = [
     "badge": "Bestseller",
     "badgeClass": "badge-bestseller",
     "emoji": "🏺",
-    "img": "/images/products/all-powder-real.jpg",
+    "img": "/images/bowls/all_powder.png",
     "desc": "Premium All Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -35,7 +35,7 @@ export const ALL_PRODUCTS = [
     "badge": "Bestseller",
     "badgeClass": "badge-bestseller",
     "emoji": "🏺",
-    "img": "/images/products/all-snacks-real.jpg",
+    "img": "/images/bowls/all_snacks.png",
     "desc": "Premium All Snacks. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -48,7 +48,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/allam-avakaya-real.jpg",
+    "img": "/images/bowls/allam_avakaya.png",
     "desc": "Premium Allam Avakaya. Authentic, traditional sun-dried pickle made with carefully selected ingredients and aromatic cold-pressed oils. Perfect companion for your meals."
   },
   {
@@ -126,7 +126,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/biryani-masala-real.jpg",
+    "img": "/images/bowls/biryani_masala.png",
     "desc": "Premium Biryani Masala. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -165,7 +165,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/chakodi-real.jpg",
+    "img": "/images/bowls/chakodi.png",
     "desc": "Premium Chakodi. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -347,7 +347,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/makha-chips-real.jpg",
+    "img": "/images/bowls/makha_chips.png",
     "desc": "Premium Makha Chips. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
@@ -373,7 +373,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/masala-murmura-real.jpg",
+    "img": "/images/bowls/masala_murmura.png",
     "desc": "Premium Masala Murmura. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -412,7 +412,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/mirchi-powder-real.jpg",
+    "img": "/images/bowls/mirchi_powder.png",
     "desc": "Premium Mirchi Powder. Freshly ground, aromatic spice blend prepared using traditional stone-grinding methods. Adds rich flavor and authentic taste to your dishes."
   },
   {
@@ -464,7 +464,7 @@ export const ALL_PRODUCTS = [
     "badge": null,
     "badgeClass": "",
     "emoji": "🏺",
-    "img": "/images/products/muthyala-chudwa-real.jpg",
+    "img": "/images/bowls/muthyala_chudwa.png",
     "desc": "Premium Muthyala Chudwa. Crispy, savory traditional snack perfectly seasoned for a delightful crunch. The ultimate tea-time companion."
   },
   {
