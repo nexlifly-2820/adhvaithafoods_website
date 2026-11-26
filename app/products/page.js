@@ -12,6 +12,7 @@ import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FaqAccordion from '@/components/FaqAccordion';
+import AddToCart from '@/components/shop/AddToCart';
 
 // Constants extracted to avoid magic strings and improve maintainability
 const FILTER_ALL = 'All';
@@ -306,6 +307,9 @@ function ProductCard({ product, index }) {
       >
         {product.desc}
       </p>
+
+      {/* Size, price and Add to cart (same prices as the app) */}
+      <AddToCart product={product} />
     </div>
   );
 }

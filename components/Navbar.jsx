@@ -12,6 +12,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import CartButton from '@/components/shop/CartButton';
 
 /**
  * List of navigation links used in both desktop and mobile menus.
@@ -439,8 +440,9 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Cart + Mobile Menu Toggle Button */}
             <div style={{ display: 'flex', alignItems: 'center' }}>
+              <CartButton color="var(--rich-brown)" />
               <button
                 id="mobile-menu-btn"
                 onClick={toggleMobileMenu}

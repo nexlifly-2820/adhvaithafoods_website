@@ -9,7 +9,10 @@ export default function Template({ children }) {
     '/terms-and-conditions',
     '/privacy-policy',
     '/refund-policy',
-    '/shipping-policy'
+    '/shipping-policy',
+    '/cart',
+    '/checkout',
+    '/my-orders'
   ];
 
   const shouldHideLoader = hideLoaderRoutes.includes(pathname);
