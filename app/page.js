@@ -1182,7 +1182,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '120vh', left: '10%' }}>
               This Month's Star! The absolute crowd favorite.
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/star.png" alt="Star" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/star-v2.png" alt="Star" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1190,7 +1190,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '180vh', right: '10%' }}>
               Made with the first catch of crunchy summer mangoes.
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/mango.png" alt="Mango" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/mango-v2.png" alt="Mango" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1198,7 +1198,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '240vh', left: '15%' }}>
               Blended with pure, fiery Guntur chillies for authentic kick.
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/chili.png" alt="Chili" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/chili-v2.png" alt="Chili" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1206,7 +1206,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '300vh', right: '15%' }}>
               A timeless explosion of Grandma's traditional spice!
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/jar.png" alt="Jar" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/jar-v2.png" alt="Jar" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1214,7 +1214,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '360vh', left: '12%' }}>
               Marinated in rich, cold-pressed groundnut oil.
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/oil.png" alt="Oil" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/oil-v2.png" alt="Oil" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1222,7 +1222,7 @@ export default function HomePage() {
             <div className="seasonal-card" style={{ top: '420vh', right: '12%' }}>
               The absolute perfect companion for hot rice and melted ghee!
               <div className="seasonal-card-circle" style={{ overflow: 'hidden' }}>
-                <Image src="/images/cards/rice.png" alt="Rice" width={90} height={90} style={{ objectFit: 'cover' }} />
+                <Image src="/images/cards/rice-v2.png" alt="Rice" width={90} height={90} style={{ objectFit: 'contain' }} />
               </div>
             </div>
 
@@ -1483,7 +1483,7 @@ export default function HomePage() {
                     const name = (item.name || '').toLowerCase();
                     const id = (item.id || '').toLowerCase();
                     if (id.includes('allam') || name.includes('allam') || name.includes('garlic')) return '/images/real_garlic_cutout.png';
-                    if (id.includes('allu') || id.includes('potato') || name.includes('allu') || name.includes('chips')) return '/images/real_chips_cutout.png';
+                    if (id.includes('allu') || id.includes('potato') || name.includes('allu') || name.includes('chips')) return '/images/real_chips_bowl.png';
                     if (id.includes('daniya') || id.includes('rasam') || name.includes('daniya') || name.includes('coriander') || name.includes('rasam')) return '/images/real_coriander_cutout.png';
                     if (id.includes('millet') || id.includes('laddu') || name.includes('millet') || name.includes('kheer') || name.includes('laddu')) return '/images/real_laddu_cutout.png';
                     if (id.includes('mango') || name.includes('mango') || name.includes('avakaya')) return '/images/product_mango.png';
@@ -1723,13 +1723,19 @@ export default function HomePage() {
               width: 100%;
               min-height: 480px;
               overflow: hidden;
-              background: #00B59B;
+              background: radial-gradient(circle at 50% 55%, #FFF4DF 0%, #F4E3C3 70%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 24px;
             }
 
             .cauldron-img-col img {
               width: 100%;
-              height: 100%;
-              object-fit: cover;
+              height: auto;
+              max-height: 100%;
+              object-fit: contain;
+              filter: drop-shadow(0 18px 24px rgba(60,30,10,0.25));
               display: block;
               transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
             }
@@ -1796,7 +1802,7 @@ export default function HomePage() {
             {/* Right: Rich Overhead Flatlay Photo of Adhvaitha Products & Greens */}
             <div className="cauldron-img-col">
               <img
-                src="/images/app_banner_flatlay.jpg"
+                src="/images/app_banner_bowls.png"
                 alt="Adhvaitha Foods Authentic Pickles and Traditional Snacks"
               />
             </div>
