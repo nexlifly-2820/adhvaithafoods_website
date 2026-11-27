@@ -111,7 +111,14 @@ export function findShopProduct(catalog, name) {
 }
 
 // ---------- cart ----------
-export const lineKey = (x) => `${norm(x.name)}|${norm(x.weight)}`;
+export const lineKey = (x) => `${norm(x.name)}|${norm(x.weight)}${isCombo(x) ? '|' + x.note : ''}`;
+
+// Amma's Combo Box lines come from the app: one line, jars in note "COMBO:{size, ids, jars}"
+export const isCombo = (x) => String(x?.note || '').startsWith('COMBO:');
+export function comboOf(x) {
+  if (!isCombo(x)) return null;
+  try { return JSON.parse(String(x.note).slice(6)); } catch { return null; }
+}
 
 function saveCart(cart) {
   write(LS_CART, cart);
@@ -119,7 +126,7 @@ function saveCart(cart) {
   if (!state.token) return;
   clearTimeout(syncTimer);
   syncTimer = setTimeout(() => {
-    api('me/cart', { method: 'PUT', body: { items: state.cart.map(({ name, image, weight, qty, price, category }) => ({ name, image, weight, qty, price, category })) } });
+    api('me/cart', { method: 'PUT', body: { items: state.cart.map(({ name, image, weight, qty, price, category, note, tempering }) => ({ name, image, weight, qty, price, category, note: note || '', tempering: tempering === true })) } });
   }, 700);
 }
 
@@ -147,6 +154,7 @@ export function repriceCart(catalog) {
   if (!catalog?.products) return;
   let changed = false;
   const cart = state.cart.map((x) => {
+    if (isCombo(x)) return x;
     const p = findShopProduct(catalog, x.name);
     const v = p?.variants.find((v) => norm(v.label) === norm(x.weight));
     if (v && v.price > 0 && v.price !== x.price) { changed = true; return { ...x, price: v.price }; }

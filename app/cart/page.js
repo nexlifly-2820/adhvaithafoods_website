@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ShopShell from '@/components/shop/ShopShell';
-import { useShop, api, loadCatalog, repriceCart, setQty, removeLine, lineKey, rupees, cartCount, imgSrc, findShopProduct } from '@/components/shop/shopStore';
+import { useShop, api, loadCatalog, repriceCart, setQty, removeLine, lineKey, rupees, cartCount, imgSrc, findShopProduct, comboOf } from '@/components/shop/shopStore';
 
 const COUPON_KEY = 'aj_web_coupon';
 const MAROON = '#7A1426', GOLD = '#D9A441', INK = '#2A1A14', CREAM = '#FFF8EC', MUTED = '#7A6656', GREEN = '#2D5A27';
@@ -31,7 +31,7 @@ export default function CartPage() {
   const refresh = useCallback(async (coupon) => {
     if (!cart.length) { setBill(null); return; }
     setBusy(true);
-    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart, coupon: coupon || '' } });
+    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart.map((x) => (comboOf(x) ? { ...x, combo: comboOf(x) } : x)), coupon: coupon || '' } });
     setBusy(false);
     if (!ok) { setErr(data?.error || 'Could not work out your bill.'); return; }
     setOffers(data.offers || []);
@@ -55,6 +55,8 @@ export default function CartPage() {
   };
 
   const lineInfo = (x) => {
+    const cb = comboOf(x);
+    if (cb) return { out: false, mrp: 0, combo: cb };
     const p = catalog ? findShopProduct(catalog, x.name) : null;
     const v = p?.variants.find((v) => sameSize(v.label, x.weight));
     return { out: !!catalog && (!p || !v || !v.inStock || !(v.price > 0)), mrp: v?.mrp || 0 };
@@ -106,7 +108,7 @@ export default function CartPage() {
               <div className="ajc-card" style={{ padding: '0.4rem 0' }}>
                 {cart.map((x) => {
                   const k = lineKey(x);
-                  const { out, mrp } = lineInfo(x);
+                  const { out, mrp, combo } = lineInfo(x);
                   return (
                     <div key={k} className={`ajc-line ${out ? 'is-out' : ''}`}>
                       <div className="ajc-thumb">
@@ -119,6 +121,7 @@ export default function CartPage() {
                           <span>{rupees(x.price)}</span>
                           {mrp > x.price && <span className="ajc-mrp">{rupees(mrp)}</span>}
                         </div>
+                        {combo && <div className="ajc-combo">🎁 {(combo.jars || []).join(' · ')}</div>}
                         {out && <div className="ajc-out">Not available right now — please remove</div>}
                         <div className="ajc-actions">
                           <div className="ajc-qty">
@@ -233,6 +236,7 @@ export default function CartPage() {
         .ajc-meta { display: flex; align-items: center; gap: .5rem; margin-top: .25rem; font-size: .88rem; color: ${MUTED}; flex-wrap: wrap; }
         .ajc-size { background: ${CREAM}; border: 1px solid rgba(217,164,65,.6); color: ${MAROON}; font-weight: 800; font-size: .72rem; padding: .15rem .55rem; border-radius: 999px; }
         .ajc-mrp { text-decoration: line-through; opacity: .7; }
+        .ajc-combo { font-size: .8rem; color: ${MAROON}; margin-top: .3rem; line-height: 1.35; }
         .ajc-out { color: #B3261E; font-size: .78rem; font-weight: 700; margin-top: .25rem; }
         .ajc-actions { display: flex; align-items: center; gap: .8rem; margin-top: .55rem; }
         .ajc-qty { display: inline-flex; align-items: center; background: ${INK}; border-radius: 999px; overflow: hidden; }

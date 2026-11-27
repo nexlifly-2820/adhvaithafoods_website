@@ -125,7 +125,10 @@ function OrderCard({ o, onChanged }) {
       {open && (
         <div style={{ marginTop: '1rem', padding: '1rem', background: '#FFFDF6', borderRadius: 12, border: '1px dashed rgba(139,94,60,0.3)', fontFamily: '"Courier New", monospace', fontSize: '0.88rem', color: '#2A1A12' }}>
           {o.items.map((it, i) => (
-            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}><span>{it.name} {it.weight}{it.qty > 1 ? ` ×${it.qty}` : ''}</span><span>{rupees(it.price * it.qty)}</span></div>
+            <div key={i}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}><span>{it.name} {it.weight}{it.qty > 1 ? ` ×${it.qty}` : ''}</span><span>{rupees(it.price * it.qty)}</span></div>
+              {it.combo?.jars?.length > 0 && <div style={{ fontSize: '0.78rem', paddingLeft: 10, opacity: 0.8 }}>🎁 {it.combo.jars.join(' · ')}</div>}
+            </div>
           ))}
           <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Delivery</span><span>{o.delivery > 0 ? rupees(o.delivery) : 'FREE'}</span></div>
           {o.packing > 0 && <div style={{ display: 'flex', justifyContent: 'space-between' }}><span>Packing</span><span>{rupees(o.packing)}</span></div>}

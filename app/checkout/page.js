@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import ShopShell, { ui } from '@/components/shop/ShopShell';
 import BillBox from '@/components/shop/BillBox';
 import LoginBox from '@/components/shop/LoginBox';
-import { useShop, api, loadCatalog, clearCart, cartCount, rupees } from '@/components/shop/shopStore';
+import { useShop, api, loadCatalog, clearCart, cartCount, rupees, comboOf } from '@/components/shop/shopStore';
 
 const COUPON_KEY = 'aj_web_coupon';
 const EMPTY = { name: '', phone: '', house: '', road: '', city: '', state: 'Telangana', pincode: '' };
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
 
   const priceIt = useCallback(async () => {
     if (!cart.length) return null;
-    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart, coupon, phone: address.phone } });
+    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart.map((x) => (comboOf(x) ? { ...x, combo: comboOf(x) } : x)), coupon, phone: address.phone } });
     if (!ok) { setErr(data?.error || 'Could not work out your bill.'); return null; }
     if (coupon && data.bill?.couponError) {
       setErr(`${data.bill.couponError}. The coupon was removed.`);
@@ -95,7 +95,7 @@ export default function CheckoutPage() {
         api('me/addresses', { method: 'PUT', body: { items: next } });
       }
       const body = {
-        items: cart.map(({ name, qty, price, weight, image }) => ({ name, qty, price, weight, image })),
+        items: cart.map((x) => ({ name: x.name, qty: x.qty, price: x.price, weight: x.weight, image: x.image, ...(comboOf(x) ? { combo: comboOf(x) } : {}) })),
         address: { ...address, phone: String(address.phone).replace(/\D/g, '').slice(-10) },
         email: user?.email || '',
         userId: user?.id || '',
