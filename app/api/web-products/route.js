@@ -45,7 +45,7 @@ async function sharedProducts() {
 /** Old list: Admin → Website product display (web_products.php), else the built-in list. */
 async function legacyProducts() {
   try {
-    const res = await fetch(`http://api.adhvaithafoods.in/web_products.php`, { cache: 'no-store' });
+    const res = await fetch(`https://api.adhvaithafoods.in/web_products.php`, { cache: 'no-store' });
     if (!res.ok) throw new Error(`BigRock API returned ${res.status}`);
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;

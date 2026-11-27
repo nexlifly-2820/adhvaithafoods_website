@@ -12,7 +12,7 @@ export async function GET(request) {
     }
 
     // Call the HTTP API from the server to bypass browser mixed content restrictions
-    const res = await fetch(`http://api.adhvaithafoods.in/web_settings.php?doc_id=${doc_id}`);
+    const res = await fetch(`https://api.adhvaithafoods.in/web_settings.php?doc_id=${doc_id}`);
     
     if (!res.ok) {
       throw new Error(`BigRock API returned ${res.status}`);

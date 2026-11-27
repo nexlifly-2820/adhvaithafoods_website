@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const res = await fetch(`http://api.adhvaithafoods.in/recipes.php`);
+    const res = await fetch(`https://api.adhvaithafoods.in/recipes.php`);
     if (!res.ok) throw new Error(`BigRock API returned ${res.status}`);
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
