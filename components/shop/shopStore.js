@@ -114,10 +114,21 @@ export function findShopProduct(catalog, name) {
 export const lineKey = (x) => `${norm(x.name)}|${norm(x.weight)}${isCombo(x) ? '|' + x.note : ''}`;
 
 // Amma's Combo Box lines come from the app: one line, jars in note "COMBO:{size, ids, jars}"
-export const isCombo = (x) => String(x?.note || '').startsWith('COMBO:');
+export const isCombo = (x) => /^(COMBO|PAIR):/.test(String(x?.note || ''));
+/** Combo box → { size, ids, jars }; pairing couple → { id, label, a, b, jars:[a,b], pair:true } */
 export function comboOf(x) {
-  if (!isCombo(x)) return null;
-  try { return JSON.parse(String(x.note).slice(6)); } catch { return null; }
+  const n = String(x?.note || '');
+  try {
+    if (n.startsWith('COMBO:')) return JSON.parse(n.slice(6));
+    if (n.startsWith('PAIR:')) { const p = JSON.parse(n.slice(5)); return { ...p, jars: [p.a, p.b], pair: true }; }
+  } catch {}
+  return null;
+}
+/** What the server needs to price a bundle line. */
+export function bundleFields(x) {
+  const c = comboOf(x);
+  if (!c) return {};
+  return c.pair ? { pair: { id: c.id, label: c.label } } : { combo: { size: c.size, ids: c.ids } };
 }
 
 function saveCart(cart) {

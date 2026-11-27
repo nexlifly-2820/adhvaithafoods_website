@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import ShopShell from '@/components/shop/ShopShell';
-import { useShop, api, loadCatalog, repriceCart, setQty, removeLine, lineKey, rupees, cartCount, imgSrc, findShopProduct, comboOf } from '@/components/shop/shopStore';
+import { useShop, api, loadCatalog, repriceCart, setQty, removeLine, lineKey, rupees, cartCount, imgSrc, findShopProduct, comboOf, bundleFields } from '@/components/shop/shopStore';
 
 const COUPON_KEY = 'aj_web_coupon';
 const MAROON = '#7A1426', GOLD = '#D9A441', INK = '#2A1A14', CREAM = '#FFF8EC', MUTED = '#7A6656', GREEN = '#2D5A27';
@@ -31,7 +31,7 @@ export default function CartPage() {
   const refresh = useCallback(async (coupon) => {
     if (!cart.length) { setBill(null); return; }
     setBusy(true);
-    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart.map((x) => (comboOf(x) ? { ...x, combo: comboOf(x) } : x)), coupon: coupon || '' } });
+    const { ok, data } = await api('checkout/coupons', { method: 'POST', body: { items: cart.map((x) => ({ ...x, ...bundleFields(x) })), coupon: coupon || '' } });
     setBusy(false);
     if (!ok) { setErr(data?.error || 'Could not work out your bill.'); return; }
     setOffers(data.offers || []);
